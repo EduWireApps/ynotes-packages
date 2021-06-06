@@ -1,3 +1,3 @@
-# ynotes_components
+# ynotes-components
 
 The yNotes' UI components

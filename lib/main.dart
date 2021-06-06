@@ -89,7 +89,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                             borderRadius: BorderRadius.all(
                                                 Radius.circular(120))),
                                         child: Icon(
-                                          Icons.warning,
+                                          Icons.error_outline,
                                           size: 30,
                                           color: colors["danger"][500],
                                         ),
@@ -118,9 +118,10 @@ class _MyHomePageState extends State<MyHomePage> {
                                           Expanded(
                                             child: YButton(
                                                 onPressed: () => Navigator.pop(
-                                                    context, true),
-                                                text: "Confirmer",
-                                                type: YStyleType.danger),
+                                                    context, false),
+                                                text: "Annuler",
+                                                type: YStyleType.neutral,
+                                                variant: YStyleVariant.reverse),
                                           ),
                                           SizedBox(
                                             width: 10,
@@ -128,11 +129,10 @@ class _MyHomePageState extends State<MyHomePage> {
                                           Expanded(
                                             child: YButton(
                                                 onPressed: () => Navigator.pop(
-                                                    context, false),
-                                                text: "Annuler",
-                                                type: YStyleType.danger,
-                                                variant: YStyleVariant.reverse),
-                                          )
+                                                    context, true),
+                                                text: "Confirmer",
+                                                type: YStyleType.danger),
+                                          ),
                                         ],
                                       ),
                                     ],
@@ -167,6 +167,10 @@ class _MyHomePageState extends State<MyHomePage> {
                       onPressed: () {},
                       text: "Warning",
                       type: YStyleType.warning),
+                  YButton(
+                      onPressed: () {},
+                      text: "Neutral",
+                      type: YStyleType.neutral),
                 ],
               )
             ],

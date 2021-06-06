@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-enum YStyleType { primary, secondary, success, warning, danger }
+enum YStyleType { primary, secondary, success, warning, danger, neutral }
 enum YStyleVariant { plain, reverse }
 
 class YUtils {
@@ -69,5 +69,17 @@ final Map colors = {
     700: Color(0xff7a0606),
     800: Color(0xff490404),
     900: Color(0xff180101),
+  },
+  "neutral": {
+    50: Color(0xfff2f2f2),
+    100: Color(0xffd9d9d9),
+    200: Color(0xffbfbfbf),
+    300: Color(0xffa6a6a6),
+    400: Color(0xff8c8c8c),
+    500: Color(0xff737373),
+    600: Color(0xff595959),
+    700: Color(0xff404040),
+    800: Color(0xff262626),
+    900: Color(0xff0d0d0d),
   }
 };

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ynotes_components/components/y_button.dart';
 import 'package:ynotes_components/components/y_confirmation_dialog.dart';
+import 'package:ynotes_components/constants.dart';
 import 'package:ynotes_components/mixins.dart';
 
 void main() {
@@ -59,7 +60,7 @@ class _MyHomePageState extends State<MyHomePage> with YDialogMixin {
             Text(widget.title, style: TextStyle(fontWeight: FontWeight.w700)),
       ),
       body: Container(
-        color: Colors.grey[50],
+        color: YUtils().getColor(YColor.primary)[300],
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,

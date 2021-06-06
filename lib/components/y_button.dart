@@ -1,16 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ynotes_components/constants.dart';
 
-class YButtonType2 {
-  final _value;
-  const YButtonType2._internal(this._value);
-  toString() => 'Enum.$_value';
-
-  static const primary = const YButtonType2._internal('primary');
-}
-
-final tmp = YButtonType2.primary;
-
 enum YButtonType { primary, secondary, success, warning, danger, neutral }
 enum YButtonVariant { plain, reverse }
 

@@ -1,8 +1,6 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:ynotes_components/constants.dart';
-
-enum YButtonType { primary, secondary, success, warning, danger, neutral }
-enum YButtonVariant { plain, reverse }
 
 class YButton extends StatefulWidget {
   final VoidCallback onPressed;
@@ -28,27 +26,22 @@ class YButton extends StatefulWidget {
   _YButtonState createState() => _YButtonState();
 }
 
+enum YButtonType { primary, secondary, success, warning, danger, neutral }
+
+enum YButtonVariant { plain, reverse }
+
 class _YButtonState extends State<YButton> with TickerProviderStateMixin {
   final YUtils utils = new YUtils();
   final double fontSize = 18;
 
   @override
   Widget build(BuildContext context) {
-    final String type =
-        widget.isDisabled ? "neutral" : utils.enumToString(widget.type);
+    final String type = widget.isDisabled ? "neutral" : utils.enumToString(widget.type);
     final String variant = utils.enumToString(widget.variant);
 
     final Map c = {
-      "plain": {
-        "highlightColor": colors[type][600],
-        "textColor": colors[type][50],
-        "fillColor": colors[type][500]
-      },
-      "reverse": {
-        "highlightColor": colors[type][200],
-        "textColor": colors[type][600],
-        "fillColor": colors[type][100]
-      }
+      "plain": {"highlightColor": colors[type][600], "textColor": colors[type][50], "fillColor": colors[type][500]},
+      "reverse": {"highlightColor": colors[type][200], "textColor": colors[type][600], "fillColor": colors[type][100]}
     };
 
     // Color highlightColor() => colors[type][600];
@@ -59,11 +52,8 @@ class _YButtonState extends State<YButton> with TickerProviderStateMixin {
         padding: EdgeInsets.symmetric(horizontal: 18, vertical: 8),
         elevation: 0,
         highlightElevation: 0,
-        highlightColor: widget.isLoading || widget.isDisabled
-            ? null
-            : c[variant]["highlightColor"],
-        onPressed:
-            widget.isLoading || widget.isDisabled ? null : widget.onPressed,
+        highlightColor: widget.isLoading || widget.isDisabled ? null : c[variant]["highlightColor"],
+        onPressed: widget.isLoading || widget.isDisabled ? null : widget.onPressed,
         child: AnimatedSize(
           vsync: this,
           duration: Duration(milliseconds: 250),
@@ -73,9 +63,7 @@ class _YButtonState extends State<YButton> with TickerProviderStateMixin {
                   width: this.fontSize + 4,
                   height: this.fontSize + 4,
                   child: CircularProgressIndicator(
-                      strokeWidth: 3,
-                      valueColor: AlwaysStoppedAnimation<Color>(
-                          c[variant]["textColor"])),
+                      strokeWidth: 3, valueColor: AlwaysStoppedAnimation<Color>(c[variant]["textColor"])),
                 )
               : Row(
                   mainAxisSize: MainAxisSize.min,
@@ -86,21 +74,17 @@ class _YButtonState extends State<YButton> with TickerProviderStateMixin {
                         color: c[variant]["textColor"],
                         size: this.fontSize + 4,
                       ),
-                    if (widget.icon != null)
-                      SizedBox(
-                        width: 5,
-                      ),
-                    Text(widget.text,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontSize: this.fontSize,
-                            color: c[variant]["textColor"],
-                            fontWeight: FontWeight.w700)),
+                    if (widget.icon != null) Flexible(child: SizedBox()),
+                    Flexible(
+                      child: AutoSizeText(widget.text,
+                          textAlign: TextAlign.center,
+                          maxLines: 1,
+                          style: TextStyle(color: c[variant]["textColor"], fontWeight: FontWeight.w700)),
+                    ),
                   ],
                 ),
         ),
         fillColor: c[variant]["fillColor"],
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(10))));
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10))));
   }
 }

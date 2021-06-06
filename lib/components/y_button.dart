@@ -11,7 +11,45 @@ class YButton extends StatefulWidget {
   final bool isLoading;
   final bool isDisabled;
 
-  const YButton(
+  factory YButton(
+      {Key? key,
+      required onPressed,
+      required text,
+      variant = YButtonVariant.plain,
+      icon,
+      type,
+      isLoading = false,
+      isDisabled = false}) {
+    return YButton._internal(
+      key: key,
+      text: text,
+      onPressed: onPressed,
+      icon: icon,
+      type: type,
+      isDisabled: isDisabled,
+      isLoading: isLoading,
+    );
+  }
+  factory YButton.danger(
+      {Key? key,
+      required onPressed,
+      required text,
+      variant = YButtonVariant.plain,
+      icon,
+      isLoading = false,
+      isDisabled = false}) {
+    return YButton._internal(
+      key: key,
+      text: text,
+      onPressed: onPressed,
+      icon: icon,
+      type: YButtonType.danger,
+      isDisabled: isDisabled,
+      isLoading: isLoading,
+    );
+  }
+
+  const YButton._internal(
       {Key? key,
       required this.onPressed,
       required this.text,
@@ -21,12 +59,19 @@ class YButton extends StatefulWidget {
       this.isLoading = false,
       this.isDisabled = false})
       : super(key: key);
-
   @override
   _YButtonState createState() => _YButtonState();
 }
 
 enum YButtonType { primary, secondary, success, warning, danger, neutral }
+
+class YButtonType2 {
+  static const primary = const YButtonType2._internal('primary');
+  final _value;
+  const YButtonType2._internal(this._value);
+
+  toString() => 'Enum.$_value';
+}
 
 enum YButtonVariant { plain, reverse }
 

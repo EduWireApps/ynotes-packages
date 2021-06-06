@@ -35,9 +35,9 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key? key, required this.title}) : super(key: key);
-
   final String title;
+
+  MyHomePage({Key? key, required this.title}) : super(key: key);
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -56,8 +56,7 @@ class _MyHomePageState extends State<MyHomePage> with YDialogMixin {
       ),
       appBar: AppBar(
         centerTitle: false,
-        title:
-            Text(widget.title, style: TextStyle(fontWeight: FontWeight.w700)),
+        title: Text(widget.title, style: TextStyle(fontWeight: FontWeight.w700)),
       ),
       body: Container(
         color: YUtils().getColor(YColor.primary)[300],
@@ -95,10 +94,10 @@ class _MyHomePageState extends State<MyHomePage> with YDialogMixin {
                     type: YButtonType.success,
                     icon: Icons.check_circle,
                   ),
-                  YButton(
-                      onPressed: () {},
-                      text: "Danger",
-                      type: YButtonType.danger),
+                  YButton.danger(
+                    onPressed: () {},
+                    text: "Danger",
+                  ),
                   YButton(
                     onPressed: () {},
                     text: "Danger",
@@ -112,10 +111,7 @@ class _MyHomePageState extends State<MyHomePage> with YDialogMixin {
                     type: YButtonType.warning,
                     isLoading: this.loading,
                   ),
-                  YButton(
-                      onPressed: () {},
-                      text: "Neutral",
-                      type: YButtonType.neutral),
+                  YButton(onPressed: () {}, text: "Neutral", type: YButtonType.neutral),
                 ],
               )
             ],

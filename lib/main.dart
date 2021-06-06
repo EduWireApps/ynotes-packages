@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ynotes_components/components/y_button.dart';
-import 'package:ynotes_components/constants.dart';
+import 'package:ynotes_components/components/y_confirmation_dialog.dart';
+import 'package:ynotes_components/mixins.dart';
 
 void main() {
   runApp(MyApp());
@@ -41,7 +42,9 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends State<MyHomePage> with YDialogMixin {
+  bool loading = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -68,109 +71,50 @@ class _MyHomePageState extends State<MyHomePage> {
                 children: [
                   YButton(
                     onPressed: () async {
-                      final test = await showDialog(
-                          barrierDismissible: false,
-                          context: context,
-                          builder: (_) => AlertDialog(
-                                contentPadding: EdgeInsets.zero,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(15))),
-                                content: Container(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: 24, vertical: 20),
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      Container(
-                                        padding: EdgeInsets.all(10),
-                                        decoration: BoxDecoration(
-                                            color: colors["danger"][50],
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(120))),
-                                        child: Icon(
-                                          Icons.error_outline,
-                                          size: 30,
-                                          color: colors["danger"][500],
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        height: 10,
-                                      ),
-                                      Text("Attention",
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.w700,
-                                              fontSize: 24)),
-                                      SizedBox(
-                                        height: 5,
-                                      ),
-                                      Text(
-                                          "Etes-vous sûr de vouloir faire ça ?",
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                              color: Colors.grey[700])),
-                                      SizedBox(
-                                        height: 20,
-                                      ),
-                                      Row(
-                                        children: [
-                                          Expanded(
-                                            child: YButton(
-                                                onPressed: () => Navigator.pop(
-                                                    context, false),
-                                                text: "Annuler",
-                                                type: YStyleType.neutral,
-                                                variant: YStyleVariant.reverse),
-                                          ),
-                                          SizedBox(
-                                            width: 10,
-                                          ),
-                                          Expanded(
-                                            child: YButton(
-                                                onPressed: () => Navigator.pop(
-                                                    context, true),
-                                                text: "Confirmer",
-                                                type: YStyleType.danger),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ));
-                      print(test);
+                      final res = await getChoice(YConfirmationDialog());
+                      print(res);
                     },
                     text: "Primary",
-                    variant: YStyleVariant.reverse,
+                    variant: YButtonVariant.reverse,
+                  ),
+                  YButton(
+                    onPressed: () async {
+                      final res = await getChoice(YConfirmationDialog());
+                      print(res);
+                    },
+                    text: "Secondary",
+                    type: YButtonType.secondary,
+                    variant: YButtonVariant.reverse,
+                  ),
+                  YButton(
+                    onPressed: () => setState(() {
+                      this.loading = !this.loading;
+                    }),
+                    text: "Update loading",
+                    type: YButtonType.success,
+                    icon: Icons.check_circle,
+                  ),
+                  YButton(
+                      onPressed: () {},
+                      text: "Danger",
+                      type: YButtonType.danger),
+                  YButton(
+                    onPressed: () {},
+                    text: "Danger",
+                    type: YButtonType.danger,
+                    variant: YButtonVariant.reverse,
+                    isDisabled: true,
                   ),
                   YButton(
                     onPressed: () {},
-                    text: "Secondary",
-                    type: YStyleType.secondary,
-                    variant: YStyleVariant.reverse,
+                    text: "A really long text",
+                    type: YButtonType.warning,
+                    isLoading: this.loading,
                   ),
                   YButton(
                       onPressed: () {},
-                      text: "Success",
-                      type: YStyleType.success),
-                  YButton(
-                      onPressed: () {},
-                      text: "Danger",
-                      type: YStyleType.danger),
-                  YButton(
-                      onPressed: () {},
-                      text: "Danger",
-                      type: YStyleType.danger,
-                      variant: YStyleVariant.reverse),
-                  YButton(
-                      onPressed: () {},
-                      text: "Warning",
-                      type: YStyleType.warning),
-                  YButton(
-                      onPressed: () {},
                       text: "Neutral",
-                      type: YStyleType.neutral),
+                      type: YButtonType.neutral),
                 ],
               )
             ],

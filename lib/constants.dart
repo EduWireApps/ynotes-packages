@@ -1,8 +1,5 @@
 import 'dart:ui';
 
-enum YStyleType { primary, secondary, success, warning, danger, neutral }
-enum YStyleVariant { plain, reverse }
-
 class YUtils {
   YUtils();
 

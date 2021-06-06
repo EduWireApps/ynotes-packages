@@ -74,7 +74,10 @@ class _YButtonState extends State<YButton> with TickerProviderStateMixin {
                         color: c[variant]["textColor"],
                         size: this.fontSize + 4,
                       ),
-                    if (widget.icon != null) Flexible(child: SizedBox()),
+                    if (widget.icon != null)
+                      SizedBox(
+                        width: 10,
+                      ),
                     Flexible(
                       child: AutoSizeText(widget.text,
                           textAlign: TextAlign.center,

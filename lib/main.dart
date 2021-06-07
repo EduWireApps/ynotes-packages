@@ -15,20 +15,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      theme: ThemeData(
-          primarySwatch: MaterialColor(0xff3f49a7, {
-            50: Color(0xffeceef8),
-            100: Color(0xffc7cbea),
-            200: Color(0xffa2a8dc),
-            300: Color(0xff7d85ce),
-            400: Color(0xff5863c0),
-            500: Color(0xff3f49a7),
-            600: Color(0xff313982),
-            700: Color(0xff23295d),
-            800: Color(0xff151838),
-            900: Color(0xff070813),
-          }),
-          fontFamily: "Asap"),
+      theme: ThemeData(primarySwatch: YColors.primary, fontFamily: "Asap"),
       home: MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
@@ -56,10 +43,11 @@ class _MyHomePageState extends State<MyHomePage> with YDialogMixin {
       ),
       appBar: AppBar(
         centerTitle: false,
-        title: Text(widget.title, style: TextStyle(fontWeight: FontWeight.w700)),
+        title:
+            Text(widget.title, style: TextStyle(fontWeight: FontWeight.w700)),
       ),
       body: Container(
-        color: YUtils().getColor(YColor.primary)[300],
+        color: Colors.white,
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -94,9 +82,10 @@ class _MyHomePageState extends State<MyHomePage> with YDialogMixin {
                     type: YButtonType.success,
                     icon: Icons.check_circle,
                   ),
-                  YButton.danger(
+                  YButton(
                     onPressed: () {},
                     text: "Danger",
+                    type: YButtonType.danger,
                   ),
                   YButton(
                     onPressed: () {},
@@ -111,7 +100,10 @@ class _MyHomePageState extends State<MyHomePage> with YDialogMixin {
                     type: YButtonType.warning,
                     isLoading: this.loading,
                   ),
-                  YButton(onPressed: () {}, text: "Neutral", type: YButtonType.neutral),
+                  YButton(
+                      onPressed: () {},
+                      text: "Neutral",
+                      type: YButtonType.neutral),
                 ],
               )
             ],

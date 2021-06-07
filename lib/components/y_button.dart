@@ -1,4 +1,3 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:ynotes_components/constants.dart';
 
@@ -11,45 +10,7 @@ class YButton extends StatefulWidget {
   final bool isLoading;
   final bool isDisabled;
 
-  factory YButton(
-      {Key? key,
-      required onPressed,
-      required text,
-      variant = YButtonVariant.plain,
-      icon,
-      type,
-      isLoading = false,
-      isDisabled = false}) {
-    return YButton._internal(
-      key: key,
-      text: text,
-      onPressed: onPressed,
-      icon: icon,
-      type: type,
-      isDisabled: isDisabled,
-      isLoading: isLoading,
-    );
-  }
-  factory YButton.danger(
-      {Key? key,
-      required onPressed,
-      required text,
-      variant = YButtonVariant.plain,
-      icon,
-      isLoading = false,
-      isDisabled = false}) {
-    return YButton._internal(
-      key: key,
-      text: text,
-      onPressed: onPressed,
-      icon: icon,
-      type: YButtonType.danger,
-      isDisabled: isDisabled,
-      isLoading: isLoading,
-    );
-  }
-
-  const YButton._internal(
+  const YButton(
       {Key? key,
       required this.onPressed,
       required this.text,
@@ -81,58 +42,81 @@ class _YButtonState extends State<YButton> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    final String type = widget.isDisabled ? "neutral" : utils.enumToString(widget.type);
+    final String type = utils.enumToString(widget.type);
     final String variant = utils.enumToString(widget.variant);
+    final Size screenSize = MediaQuery.of(context).size;
+
+    double relativeFontSize(double fontSize) =>
+        screenSize.width / (fontSize * 1.5);
 
     final Map c = {
-      "plain": {"highlightColor": colors[type][600], "textColor": colors[type][50], "fillColor": colors[type][500]},
-      "reverse": {"highlightColor": colors[type][200], "textColor": colors[type][600], "fillColor": colors[type][100]}
+      "plain": {
+        "highlightColor": colors[type][600],
+        "textColor": colors[type][50],
+        "fillColor": colors[type][500]
+      },
+      "reverse": {
+        "highlightColor": colors[type][200],
+        "textColor": colors[type][600],
+        "fillColor": colors[type][100]
+      }
     };
 
     // Color highlightColor() => colors[type][600];
     // Color textColor() => colors[type][50];
     // Color fillColor() => colors[type][100];
 
-    return RawMaterialButton(
-        padding: EdgeInsets.symmetric(horizontal: 18, vertical: 8),
-        elevation: 0,
-        highlightElevation: 0,
-        highlightColor: widget.isLoading || widget.isDisabled ? null : c[variant]["highlightColor"],
-        onPressed: widget.isLoading || widget.isDisabled ? null : widget.onPressed,
-        child: AnimatedSize(
-          vsync: this,
-          duration: Duration(milliseconds: 250),
-          curve: Curves.easeInOut,
-          child: widget.isLoading
-              ? SizedBox(
-                  width: this.fontSize + 4,
-                  height: this.fontSize + 4,
-                  child: CircularProgressIndicator(
-                      strokeWidth: 3, valueColor: AlwaysStoppedAnimation<Color>(c[variant]["textColor"])),
-                )
-              : Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    if (widget.icon != null)
-                      Icon(
-                        widget.icon,
-                        color: c[variant]["textColor"],
-                        size: this.fontSize + 4,
+    return Opacity(
+      opacity: widget.isDisabled ? 0.5 : 1,
+      child: RawMaterialButton(
+          padding: EdgeInsets.symmetric(horizontal: 18, vertical: 8),
+          elevation: 0,
+          highlightElevation: 0,
+          highlightColor: widget.isLoading || widget.isDisabled
+              ? null
+              : c[variant]["highlightColor"],
+          onPressed:
+              widget.isLoading || widget.isDisabled ? null : widget.onPressed,
+          child: AnimatedSize(
+            vsync: this,
+            duration: Duration(milliseconds: 250),
+            curve: Curves.easeInOut,
+            child: widget.isLoading
+                ? SizedBox(
+                    width: this.fontSize + 4,
+                    height: this.fontSize + 4,
+                    child: CircularProgressIndicator(
+                        strokeWidth: 3,
+                        valueColor: AlwaysStoppedAnimation<Color>(
+                            c[variant]["textColor"])),
+                  )
+                : Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      if (widget.icon != null)
+                        Icon(
+                          widget.icon,
+                          color: c[variant]["textColor"],
+                          size: relativeFontSize(this.fontSize - 2),
+                        ),
+                      if (widget.icon != null)
+                        SizedBox(
+                          width: 10,
+                        ),
+                      Flexible(
+                        child: Text(widget.text,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                color: c[variant]["textColor"],
+                                fontWeight: FontWeight.w700,
+                                fontSize: relativeFontSize(this.fontSize))),
                       ),
-                    if (widget.icon != null)
-                      SizedBox(
-                        width: 10,
-                      ),
-                    Flexible(
-                      child: AutoSizeText(widget.text,
-                          textAlign: TextAlign.center,
-                          maxLines: 1,
-                          style: TextStyle(color: c[variant]["textColor"], fontWeight: FontWeight.w700)),
-                    ),
-                  ],
-                ),
-        ),
-        fillColor: c[variant]["fillColor"],
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10))));
+                    ],
+                  ),
+          ),
+          fillColor: c[variant]["fillColor"],
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(10)))),
+    );
   }
 }

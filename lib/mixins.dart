@@ -13,5 +13,5 @@ mixin YTextMixin<T extends StatefulWidget> on State<T> {
   num get screenRatio => screenSize.width / 400;
 
   // Relative Font Size
-  double rfs(double fontSize) => fontSize * screenRatio;
+  double rs(double fontSize) => fontSize * screenRatio;
 }

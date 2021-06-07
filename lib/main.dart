@@ -57,6 +57,7 @@ class _MyHomePageState extends State<MyHomePage> with YDialogMixin {
               YH1("Heading 1"),
               YH2("Heading 2"),
               YH3("Heading 3"),
+              YTextBody("Text body"),
               Wrap(
                 alignment: WrapAlignment.center,
                 spacing: 4,
@@ -73,12 +74,12 @@ class _MyHomePageState extends State<MyHomePage> with YDialogMixin {
                   YButton(
                     onPressed: () async {
                       final res = await getChoice(YChoiceDialog(
-                        type: YButtonType.secondary,
+                        type: YColor.secondary,
                       ));
                       print(res);
                     },
                     text: "Secondary",
-                    type: YButtonType.secondary,
+                    type: YColor.secondary,
                     variant: YButtonVariant.reverse,
                   ),
                   YButton(
@@ -86,31 +87,29 @@ class _MyHomePageState extends State<MyHomePage> with YDialogMixin {
                       this.loading = !this.loading;
                     }),
                     text: "Update loading",
-                    type: YButtonType.success,
+                    type: YColor.success,
                     icon: Icons.check_circle,
                   ),
                   YButton(
                     onPressed: () {},
                     text: "Danger",
-                    type: YButtonType.danger,
+                    type: YColor.danger,
                   ),
                   YButton(
                     onPressed: () {},
                     text: "Danger",
-                    type: YButtonType.danger,
+                    type: YColor.danger,
                     variant: YButtonVariant.reverse,
                     isDisabled: true,
                   ),
                   YButton(
                     onPressed: () {},
                     text: "A really long text",
-                    type: YButtonType.warning,
+                    type: YColor.warning,
                     isLoading: this.loading,
                   ),
                   YButton(
-                      onPressed: () {},
-                      text: "Neutral",
-                      type: YButtonType.neutral),
+                      onPressed: () {}, text: "Neutral", type: YColor.neutral),
                 ],
               )
             ],

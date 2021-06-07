@@ -2,17 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:ynotes_components/components/texts.dart';
 import 'package:ynotes_components/components/y_button.dart';
 import 'package:ynotes_components/constants.dart';
-
-enum YChoiceDialogType { danger, success }
+import 'package:ynotes_components/mixins.dart';
 
 class YChoiceDialog extends StatefulWidget {
-  final YButtonType type;
+  final YColor type;
   final String title;
   final String description;
 
   const YChoiceDialog(
       {Key? key,
-      this.type = YButtonType.danger,
+      this.type = YColor.danger,
       this.title = "Attention",
       this.description = "Etes-vous sûr de vouloir faire ça ?"})
       : super(key: key);
@@ -21,7 +20,7 @@ class YChoiceDialog extends StatefulWidget {
   _YChoiceDialogState createState() => _YChoiceDialogState();
 }
 
-class _YChoiceDialogState extends State<YChoiceDialog> {
+class _YChoiceDialogState extends State<YChoiceDialog> with YTextMixin {
   final YUtils utils = new YUtils();
 
   @override
@@ -34,7 +33,7 @@ class _YChoiceDialogState extends State<YChoiceDialog> {
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(15))),
       content: Container(
-        padding: EdgeInsets.symmetric(horizontal: 24, vertical: 20),
+        padding: EdgeInsets.symmetric(horizontal: rs(24), vertical: rs(20)),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -56,8 +55,7 @@ class _YChoiceDialogState extends State<YChoiceDialog> {
             SizedBox(
               height: 5,
             ),
-            Text(widget.description,
-                style: TextStyle(color: colors["neutral"][700])),
+            YTextBody(widget.description),
             SizedBox(
               height: 20,
             ),
@@ -67,7 +65,7 @@ class _YChoiceDialogState extends State<YChoiceDialog> {
                   child: YButton(
                       onPressed: () => Navigator.pop(context, false),
                       text: "Annuler",
-                      type: YButtonType.neutral,
+                      type: YColor.neutral,
                       variant: YButtonVariant.reverse),
                 ),
                 SizedBox(

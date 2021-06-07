@@ -5,7 +5,7 @@ import 'package:ynotes_components/mixins.dart';
 class YButton extends StatefulWidget {
   final VoidCallback onPressed;
   final String text;
-  final YButtonType type;
+  final YColor type;
   final YButtonVariant variant;
   final IconData? icon;
   final bool isLoading;
@@ -15,7 +15,7 @@ class YButton extends StatefulWidget {
       {Key? key,
       required this.onPressed,
       required this.text,
-      this.type = YButtonType.primary,
+      this.type = YColor.primary,
       this.variant = YButtonVariant.plain,
       this.icon,
       this.isLoading = false,
@@ -24,8 +24,6 @@ class YButton extends StatefulWidget {
   @override
   _YButtonState createState() => _YButtonState();
 }
-
-enum YButtonType { primary, secondary, success, warning, danger, neutral }
 
 enum YButtonVariant { plain, reverse }
 
@@ -87,7 +85,7 @@ class _YButtonState extends State<YButton>
                         Icon(
                           widget.icon,
                           color: c[variant]["textColor"],
-                          size: rfs(fontSize + 4),
+                          size: rs(fontSize + 4),
                         ),
                       if (widget.icon != null)
                         SizedBox(
@@ -99,7 +97,7 @@ class _YButtonState extends State<YButton>
                             style: TextStyle(
                                 color: c[variant]["textColor"],
                                 fontWeight: FontWeight.w700,
-                                fontSize: rfs(fontSize))),
+                                fontSize: rs(fontSize))),
                       ),
                     ],
                   ),

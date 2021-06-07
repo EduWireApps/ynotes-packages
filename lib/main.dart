@@ -55,6 +55,8 @@ class _MyHomePageState extends State<MyHomePage> with YDialogMixin {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               YH1("Heading 1"),
+              YH2("Heading 2"),
+              YH3("Heading 3"),
               Wrap(
                 alignment: WrapAlignment.center,
                 spacing: 4,

@@ -34,7 +34,23 @@ class _YTextBaseState extends State<_YTextBase> with YTextMixin {
 // ignore: non_constant_identifier_names
 YH1(String text, {Color color = const Color(0xff000000)}) => _YTextBase(
       text,
-      fontSize: 24,
+      fontSize: 26,
       color: color,
       fontWeight: FontWeight.w700,
+    );
+
+// ignore: non_constant_identifier_names
+YH2(String text, {Color color = const Color(0xff000000)}) => _YTextBase(
+      text,
+      fontSize: 22,
+      color: color,
+      fontWeight: FontWeight.w700,
+    );
+
+// ignore: non_constant_identifier_names
+YH3(String text, {Color color = const Color(0xff000000)}) => _YTextBase(
+      text,
+      fontSize: 18,
+      color: color,
+      fontWeight: FontWeight.w600,
     );

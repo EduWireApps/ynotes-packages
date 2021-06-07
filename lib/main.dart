@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ynotes_components/components/y_button.dart';
-import 'package:ynotes_components/components/y_confirmation_dialog.dart';
+import 'package:ynotes_components/components/y_choice_dialog.dart';
 import 'package:ynotes_components/constants.dart';
 import 'package:ynotes_components/mixins.dart';
+
+import 'components/texts.dart';
 
 void main() {
   runApp(MyApp());
@@ -52,6 +54,7 @@ class _MyHomePageState extends State<MyHomePage> with YDialogMixin {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
+              YH1("Heading 1"),
               Wrap(
                 alignment: WrapAlignment.center,
                 spacing: 4,
@@ -59,7 +62,7 @@ class _MyHomePageState extends State<MyHomePage> with YDialogMixin {
                 children: [
                   YButton(
                     onPressed: () async {
-                      final res = await getChoice(YConfirmationDialog());
+                      final res = await getChoice(YChoiceDialog());
                       print(res);
                     },
                     text: "Primary",
@@ -67,7 +70,9 @@ class _MyHomePageState extends State<MyHomePage> with YDialogMixin {
                   ),
                   YButton(
                     onPressed: () async {
-                      final res = await getChoice(YConfirmationDialog());
+                      final res = await getChoice(YChoiceDialog(
+                        type: YButtonType.secondary,
+                      ));
                       print(res);
                     },
                     text: "Secondary",

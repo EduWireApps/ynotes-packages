@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:ynotes_components/components/texts.dart';
 import 'package:ynotes_components/components/y_button.dart';
 import 'package:ynotes_components/constants.dart';
 
-enum YConfirmationDialogType { danger, success }
+enum YChoiceDialogType { danger, success }
 
-class YConfirmationDialog extends StatefulWidget {
+class YChoiceDialog extends StatefulWidget {
   final YButtonType type;
   final String title;
   final String description;
 
-  const YConfirmationDialog(
+  const YChoiceDialog(
       {Key? key,
       this.type = YButtonType.danger,
       this.title = "Attention",
@@ -17,10 +18,10 @@ class YConfirmationDialog extends StatefulWidget {
       : super(key: key);
 
   @override
-  _YConfirmationDialogState createState() => _YConfirmationDialogState();
+  _YChoiceDialogState createState() => _YChoiceDialogState();
 }
 
-class _YConfirmationDialogState extends State<YConfirmationDialog> {
+class _YChoiceDialogState extends State<YChoiceDialog> {
   final YUtils utils = new YUtils();
 
   @override
@@ -51,14 +52,11 @@ class _YConfirmationDialogState extends State<YConfirmationDialog> {
             SizedBox(
               height: 10,
             ),
-            Text(widget.title,
-                textAlign: TextAlign.center,
-                style: TextStyle(fontWeight: FontWeight.w700, fontSize: 24)),
+            YH1(widget.title),
             SizedBox(
               height: 5,
             ),
             Text(widget.description,
-                textAlign: TextAlign.center,
                 style: TextStyle(color: colors["neutral"][700])),
             SizedBox(
               height: 20,

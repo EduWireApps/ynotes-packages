@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ynotes_components/constants.dart';
+import 'package:ynotes_components/mixins.dart';
 
 class YButton extends StatefulWidget {
   final VoidCallback onPressed;
@@ -26,28 +27,17 @@ class YButton extends StatefulWidget {
 
 enum YButtonType { primary, secondary, success, warning, danger, neutral }
 
-class YButtonType2 {
-  static const primary = const YButtonType2._internal('primary');
-  final _value;
-  const YButtonType2._internal(this._value);
-
-  toString() => 'Enum.$_value';
-}
-
 enum YButtonVariant { plain, reverse }
 
-class _YButtonState extends State<YButton> with TickerProviderStateMixin {
+class _YButtonState extends State<YButton>
+    with TickerProviderStateMixin, YTextMixin {
   final YUtils utils = new YUtils();
-  final double fontSize = 18;
 
   @override
   Widget build(BuildContext context) {
+    final double fontSize = 18;
     final String type = utils.enumToString(widget.type);
     final String variant = utils.enumToString(widget.variant);
-    final Size screenSize = MediaQuery.of(context).size;
-
-    double relativeFontSize(double fontSize) =>
-        screenSize.width / (fontSize * 1.5);
 
     final Map c = {
       "plain": {
@@ -83,8 +73,8 @@ class _YButtonState extends State<YButton> with TickerProviderStateMixin {
             curve: Curves.easeInOut,
             child: widget.isLoading
                 ? SizedBox(
-                    width: this.fontSize + 4,
-                    height: this.fontSize + 4,
+                    width: fontSize + 4,
+                    height: fontSize + 4,
                     child: CircularProgressIndicator(
                         strokeWidth: 3,
                         valueColor: AlwaysStoppedAnimation<Color>(
@@ -97,7 +87,7 @@ class _YButtonState extends State<YButton> with TickerProviderStateMixin {
                         Icon(
                           widget.icon,
                           color: c[variant]["textColor"],
-                          size: relativeFontSize(this.fontSize - 2),
+                          size: rfs(fontSize + 4),
                         ),
                       if (widget.icon != null)
                         SizedBox(
@@ -109,7 +99,7 @@ class _YButtonState extends State<YButton> with TickerProviderStateMixin {
                             style: TextStyle(
                                 color: c[variant]["textColor"],
                                 fontWeight: FontWeight.w700,
-                                fontSize: relativeFontSize(this.fontSize))),
+                                fontSize: rfs(fontSize))),
                       ),
                     ],
                   ),

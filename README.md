@@ -16,6 +16,8 @@ The yNotes' UI components
 - YTextBody (WIP)
 - YPage(soon)
 - YLocalPage(soon)
+- HorizontalSpacer (DONE)
+- VerticalSpacer (DONE)
 
 More to come
 

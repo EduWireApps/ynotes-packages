@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
+import 'package:ynotes_components/components/utils.dart';
 import 'package:ynotes_components/theme/theme.dart';
 
 class YButton extends StatefulWidget {
@@ -92,8 +93,8 @@ class _YButtonState extends State<YButton> with TickerProviderStateMixin {
                           size: (fontSize + 4).sp,
                         ),
                       if (widget.icon != null)
-                        SizedBox(
-                          width: 10,
+                        HorizontalSpacer(
+                          6,
                         ),
                       Flexible(
                         child: Text(widget.text,

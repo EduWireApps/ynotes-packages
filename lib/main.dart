@@ -1,15 +1,13 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:sizer/sizer.dart';
+
 import 'package:ynotes_components/components/y_button.dart';
 import 'package:ynotes_components/components/y_card.dart';
 import 'package:ynotes_components/components/y_choice_dialog.dart';
 import 'package:ynotes_components/components/y_confirmation_dialog.dart';
-import 'package:ynotes_components/constants.dart';
 import 'package:ynotes_components/mixins.dart';
-
-import 'package:sizer/sizer.dart';
-
-import 'components/texts.dart';
+import 'package:ynotes_components/components/texts.dart';
+import 'package:ynotes_components/theme/theme.dart';
 
 void main() {
   runApp(MyApp());
@@ -22,7 +20,8 @@ class MyApp extends StatelessWidget {
       builder: (context, orientation, deviceType) => MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
-        theme: ThemeData(primarySwatch: YColors.primary, fontFamily: "Asap"),
+        theme:
+            ThemeData(primarySwatch: currentTheme.primary, fontFamily: "Asap"),
         home: MyHomePage(title: 'Flutter Demo Home Page'),
       ),
     );

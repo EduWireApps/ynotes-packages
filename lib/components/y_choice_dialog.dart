@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+
 import 'package:ynotes_components/components/base.dart';
 import 'package:ynotes_components/components/texts.dart';
 import 'package:ynotes_components/components/utils.dart';
 import 'package:ynotes_components/components/y_button.dart';
-import 'package:ynotes_components/constants.dart';
+import 'package:ynotes_components/theme/theme.dart';
 
 class YChoiceDialog extends StatefulWidget {
   final YColor type;
@@ -24,22 +25,18 @@ class YChoiceDialog extends StatefulWidget {
 }
 
 class _YChoiceDialogState extends State<YChoiceDialog> {
-  final YUtils utils = new YUtils();
-
   @override
   Widget build(BuildContext context) {
-    final String type = utils.enumToString(widget.type);
-
     return YDialogBase(children: [
       Container(
         padding: EdgeInsets.all(10),
         decoration: BoxDecoration(
-            color: colors[type][100],
+            color: currentTheme.c(widget.type)[100],
             borderRadius: BorderRadius.all(Radius.circular(120))),
         child: Icon(
           widget.icon,
           size: 30,
-          color: colors[type][600],
+          color: currentTheme.c(widget.type)[600],
         ),
       ),
       VerticalSpacer(6),

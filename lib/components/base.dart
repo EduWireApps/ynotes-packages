@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
-import 'package:ynotes_components/constants.dart';
+
+import 'package:ynotes_components/theme/theme.dart';
 
 class YTextBase extends StatefulWidget {
   final String text;
@@ -49,7 +50,7 @@ class _YDialogBaseState extends State<YDialogBase> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      backgroundColor: colors["neutral"][50],
+      backgroundColor: currentTheme.c(YColor.neutral)[50],
       contentPadding: EdgeInsets.zero,
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(15))),

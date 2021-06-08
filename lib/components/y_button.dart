@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:ynotes_components/constants.dart';
-
 import 'package:sizer/sizer.dart';
+
+import 'package:ynotes_components/theme/theme.dart';
 
 class YButton extends StatefulWidget {
   final VoidCallback onPressed;
@@ -29,30 +29,36 @@ class YButton extends StatefulWidget {
 enum YButtonVariant { plain, reverse }
 
 class _YButtonState extends State<YButton> with TickerProviderStateMixin {
-  final YUtils utils = new YUtils();
+  get highlightColor {
+    switch (widget.variant) {
+      case YButtonVariant.plain:
+        return currentTheme.c(widget.type)[600];
+      case YButtonVariant.reverse:
+        return currentTheme.c(widget.type)[200];
+    }
+  }
+
+  get textColor {
+    switch (widget.variant) {
+      case YButtonVariant.plain:
+        return currentTheme.c(widget.type)[50];
+      case YButtonVariant.reverse:
+        return currentTheme.c(widget.type)[600];
+    }
+  }
+
+  get fillColor {
+    switch (widget.variant) {
+      case YButtonVariant.plain:
+        return currentTheme.c(widget.type)[500];
+      case YButtonVariant.reverse:
+        return currentTheme.c(widget.type)[100];
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     final double fontSize = 12;
-    final String type = utils.enumToString(widget.type);
-    final String variant = utils.enumToString(widget.variant);
-
-    final Map c = {
-      "plain": {
-        "highlightColor": colors[type][600],
-        "textColor": colors[type][50],
-        "fillColor": colors[type][500]
-      },
-      "reverse": {
-        "highlightColor": colors[type][200],
-        "textColor": colors[type][600],
-        "fillColor": colors[type][100]
-      }
-    };
-
-    // Color highlightColor() => colors[type][600];
-    // Color textColor() => colors[type][50];
-    // Color fillColor() => colors[type][100];
 
     return Opacity(
       opacity: widget.isDisabled ? 0.5 : 1,
@@ -60,9 +66,8 @@ class _YButtonState extends State<YButton> with TickerProviderStateMixin {
           padding: EdgeInsets.symmetric(horizontal: 13.sp, vertical: 4.sp),
           elevation: 0,
           highlightElevation: 0,
-          highlightColor: widget.isLoading || widget.isDisabled
-              ? null
-              : c[variant]["highlightColor"],
+          highlightColor:
+              widget.isLoading || widget.isDisabled ? null : highlightColor,
           onPressed:
               widget.isLoading || widget.isDisabled ? null : widget.onPressed,
           child: AnimatedSize(
@@ -75,8 +80,7 @@ class _YButtonState extends State<YButton> with TickerProviderStateMixin {
                     height: fontSize + 4,
                     child: CircularProgressIndicator(
                         strokeWidth: 3,
-                        valueColor: AlwaysStoppedAnimation<Color>(
-                            c[variant]["textColor"])),
+                        valueColor: AlwaysStoppedAnimation<Color>(textColor)),
                   )
                 : Row(
                     mainAxisSize: MainAxisSize.min,
@@ -84,7 +88,7 @@ class _YButtonState extends State<YButton> with TickerProviderStateMixin {
                       if (widget.icon != null)
                         Icon(
                           widget.icon,
-                          color: c[variant]["textColor"],
+                          color: textColor,
                           size: (fontSize + 4).sp,
                         ),
                       if (widget.icon != null)
@@ -95,14 +99,14 @@ class _YButtonState extends State<YButton> with TickerProviderStateMixin {
                         child: Text(widget.text,
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                                color: c[variant]["textColor"],
+                                color: textColor,
                                 fontWeight: FontWeight.w700,
                                 fontSize: fontSize.sp)),
                       ),
                     ],
                   ),
           ),
-          fillColor: c[variant]["fillColor"],
+          fillColor: fillColor,
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(10)))),
     );

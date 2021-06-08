@@ -37,24 +37,25 @@ class YCurrentTheme {
 
   set themeName(String tn) => this.themeName = tn;
 
-  MaterialColor c(String color) {
+  MaterialColor c(YColor color) {
     switch (color) {
-      case "primary":
+      case YColor.primary:
         return this._ct.primary;
-      case "secondary":
+      case YColor.secondary:
         return this._ct.secondary;
-      case "success":
+      case YColor.success:
         return this._ct.success;
-      case "warning":
+      case YColor.warning:
         return this._ct.warning;
-      case "danger":
+      case YColor.danger:
         return this._ct.danger;
-      case "neutral":
+      case YColor.neutral:
         return this._ct.neutral;
     }
-    throw "Invalid color!";
   }
 }
+
+enum YColor { primary, secondary, success, warning, danger, neutral }
 
 final YCurrentTheme currentTheme =
     YCurrentTheme(themeName: "light", themes: [lightTheme]);

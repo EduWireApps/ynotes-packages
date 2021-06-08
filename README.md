@@ -6,7 +6,7 @@ The yNotes' UI components
 
 - YButton (WIP)
 - YChoiceDialog (WIP)
-- YCard (soon)
+- YCard (WIP)
 - YConfirmationDialog (WIP)
 - YListDialog (soon)
 - YListMultipleDialog (soon)
@@ -14,5 +14,11 @@ The yNotes' UI components
 - YH2 (WIP)
 - YH3 (WIP)
 - YTextBody (WIP)
+- YPage(soon)
+- YLocalPage(soon)
 
 More to come
+
+## Mixins
+
+- YDialogMixin (WIP)

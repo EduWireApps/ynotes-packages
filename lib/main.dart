@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ynotes_components/components/y_button.dart';
+import 'package:ynotes_components/components/y_card.dart';
 import 'package:ynotes_components/components/y_choice_dialog.dart';
 import 'package:ynotes_components/components/y_confirmation_dialog.dart';
 import 'package:ynotes_components/constants.dart';
@@ -54,7 +55,7 @@ class _MyHomePageState extends State<MyHomePage> with YDialogMixin {
             Text(widget.title, style: TextStyle(fontWeight: FontWeight.w700)),
       ),
       body: Container(
-        color: Colors.white,
+        color: Colors.grey[100],
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -120,7 +121,8 @@ class _MyHomePageState extends State<MyHomePage> with YDialogMixin {
                   YButton(
                       onPressed: () {}, text: "Neutral", type: YColor.neutral),
                 ],
-              )
+              ),
+              YCard(child: YH3("Ok an awesome text"))
             ],
           ),
         ),

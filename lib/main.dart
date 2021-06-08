@@ -5,6 +5,8 @@ import 'package:ynotes_components/components/y_choice_dialog.dart';
 import 'package:ynotes_components/constants.dart';
 import 'package:ynotes_components/mixins.dart';
 
+import 'package:sizer/sizer.dart';
+
 import 'components/texts.dart';
 
 void main() {
@@ -14,11 +16,13 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      theme: ThemeData(primarySwatch: YColors.primary, fontFamily: "Asap"),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+    return Sizer(
+      builder: (context, orientation, deviceType) => MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Flutter Demo',
+        theme: ThemeData(primarySwatch: YColors.primary, fontFamily: "Asap"),
+        home: MyHomePage(title: 'Flutter Demo Home Page'),
+      ),
     );
   }
 }

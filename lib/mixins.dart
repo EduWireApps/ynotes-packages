@@ -7,11 +7,3 @@ mixin YDialogMixin<T extends StatefulWidget> on State<T> {
         barrierDismissible: false, context: context, builder: (_) => dialog);
   }
 }
-
-mixin YTextMixin<T extends StatefulWidget> on State<T> {
-  Size get screenSize => MediaQuery.of(context).size;
-  num get screenRatio => screenSize.width / 400;
-
-  // Relative Font Size
-  double rs(double fontSize) => fontSize * screenRatio;
-}

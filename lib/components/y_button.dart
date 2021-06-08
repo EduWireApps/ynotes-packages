@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ynotes_components/constants.dart';
-import 'package:ynotes_components/mixins.dart';
+
+import 'package:sizer/sizer.dart';
 
 class YButton extends StatefulWidget {
   final VoidCallback onPressed;
@@ -27,13 +28,12 @@ class YButton extends StatefulWidget {
 
 enum YButtonVariant { plain, reverse }
 
-class _YButtonState extends State<YButton>
-    with TickerProviderStateMixin, YTextMixin {
+class _YButtonState extends State<YButton> with TickerProviderStateMixin {
   final YUtils utils = new YUtils();
 
   @override
   Widget build(BuildContext context) {
-    final double fontSize = 18;
+    final double fontSize = 12;
     final String type = utils.enumToString(widget.type);
     final String variant = utils.enumToString(widget.variant);
 
@@ -57,7 +57,7 @@ class _YButtonState extends State<YButton>
     return Opacity(
       opacity: widget.isDisabled ? 0.5 : 1,
       child: RawMaterialButton(
-          padding: EdgeInsets.symmetric(horizontal: 18, vertical: 8),
+          padding: EdgeInsets.symmetric(horizontal: 13.sp, vertical: 4.sp),
           elevation: 0,
           highlightElevation: 0,
           highlightColor: widget.isLoading || widget.isDisabled
@@ -85,7 +85,7 @@ class _YButtonState extends State<YButton>
                         Icon(
                           widget.icon,
                           color: c[variant]["textColor"],
-                          size: rs(fontSize + 4),
+                          size: (fontSize + 4).sp,
                         ),
                       if (widget.icon != null)
                         SizedBox(
@@ -97,7 +97,7 @@ class _YButtonState extends State<YButton>
                             style: TextStyle(
                                 color: c[variant]["textColor"],
                                 fontWeight: FontWeight.w700,
-                                fontSize: rs(fontSize))),
+                                fontSize: fontSize.sp)),
                       ),
                     ],
                   ),

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:ynotes_components/components/texts.dart';
+import 'package:ynotes_components/components/utils.dart';
 import 'package:ynotes_components/components/y_button.dart';
 import 'package:ynotes_components/constants.dart';
-import 'package:ynotes_components/mixins.dart';
+
+import 'package:sizer/sizer.dart';
 
 class YChoiceDialog extends StatefulWidget {
   final YColor type;
@@ -20,7 +22,7 @@ class YChoiceDialog extends StatefulWidget {
   _YChoiceDialogState createState() => _YChoiceDialogState();
 }
 
-class _YChoiceDialogState extends State<YChoiceDialog> with YTextMixin {
+class _YChoiceDialogState extends State<YChoiceDialog> {
   final YUtils utils = new YUtils();
 
   @override
@@ -33,7 +35,7 @@ class _YChoiceDialogState extends State<YChoiceDialog> with YTextMixin {
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(15))),
       content: Container(
-        padding: EdgeInsets.symmetric(horizontal: rs(24), vertical: rs(20)),
+        padding: EdgeInsets.symmetric(horizontal: 20.sp, vertical: 16.sp),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -48,17 +50,11 @@ class _YChoiceDialogState extends State<YChoiceDialog> with YTextMixin {
                 color: colors[type][500],
               ),
             ),
-            SizedBox(
-              height: 10,
-            ),
+            VerticalSpacer(10),
             YH1(widget.title),
-            SizedBox(
-              height: 5,
-            ),
-            YTextBody(widget.description),
-            SizedBox(
-              height: 20,
-            ),
+            VerticalSpacer(5),
+            YTextBody(widget.description, align: TextAlign.center),
+            VerticalSpacer(20),
             Row(
               children: [
                 Expanded(

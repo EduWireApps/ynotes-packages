@@ -4,20 +4,28 @@ The yNotes' UI components
 
 ## Components
 
-- YButton (WIP)
-- YChoiceDialog (WIP)
-- YCard (WIP)
-- YConfirmationDialog (WIP)
-- YListDialog (soon)
-- YListMultipleDialog (soon)
-- YH1 (WIP)
-- YH2 (WIP)
-- YH3 (WIP)
-- YTextBody (WIP)
-- YPage(soon)
-- YLocalPage(soon)
-- HorizontalSpacer (DONE)
-- VerticalSpacer (DONE)
+### Done
+
+- HorizontalSpacer
+- VerticalSpacer
+### In progress
+
+- YButton
+- YChoiceDialog
+- YCard
+- YConfirmationDialog
+- YH1
+- YH2
+- YH3
+- YTextBody
+
+### Coming soon
+
+- YListDialog
+- YListMultipleDialog
+- YDropdown
+- YPage
+- YLocalPage
 
 More to come
 

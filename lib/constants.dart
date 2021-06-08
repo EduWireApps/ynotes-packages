@@ -75,8 +75,8 @@ final Map colors = {
     900: Color(0xff191300),
   },
   "danger": {
-    50: Color(0xfffee7e7),
-    100: Color(0xfffbb6b6),
+    50: Color(0xfffef3f3),
+    100: Color(0xfffcc2c2),
     200: Color(0xfff98585),
     300: Color(0xfff75555),
     400: Color(0xfff42424),
@@ -185,8 +185,8 @@ class YColors {
 
   static const MaterialColor danger =
       MaterialColor(_dangerPrimaryValue, <int, Color>{
-    50: Color(0xfffee7e7),
-    100: Color(0xfffbb6b6),
+    50: Color(0xfffef3f3),
+    100: Color(0xfffcc2c2),
     200: Color(0xfff98585),
     300: Color(0xfff75555),
     400: Color(0xfff42424),

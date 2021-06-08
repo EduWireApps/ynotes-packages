@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ynotes_components/components/y_button.dart';
 import 'package:ynotes_components/components/y_choice_dialog.dart';
+import 'package:ynotes_components/components/y_confirmation_dialog.dart';
 import 'package:ynotes_components/constants.dart';
 import 'package:ynotes_components/mixins.dart';
 
@@ -77,10 +78,14 @@ class _MyHomePageState extends State<MyHomePage> with YDialogMixin {
                   ),
                   YButton(
                     onPressed: () async {
-                      final res = await getChoice(YChoiceDialog(
-                        type: YColor.secondary,
+                      await getConfirmation(YConfirmationDialog(
+                        type: YColor.success,
+                        title: "Sauvegardé !",
+                        description:
+                            "Vos paramètres ont été sauvegardés avec succès",
+                        icon: Icons.check,
                       ));
-                      print(res);
+                      print("ok");
                     },
                     text: "Secondary",
                     type: YColor.secondary,

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
-import 'package:ynotes_components/components/y_button.dart';
-import 'package:ynotes_components/components/y_card.dart';
-import 'package:ynotes_components/components/y_choice_dialog.dart';
-import 'package:ynotes_components/components/y_confirmation_dialog.dart';
-import 'package:ynotes_components/src/mixins.dart';
-import 'package:ynotes_components/components/texts.dart';
-import 'package:ynotes_components/theme/theme.dart';
+// import 'package:ynotes_components/components/y_button.dart';
+// import 'package:ynotes_components/components/y_card.dart';
+// import 'package:ynotes_components/components/y_choice_dialog.dart';
+// import 'package:ynotes_components/components/y_confirmation_dialog.dart';
+// import 'package:ynotes_components/src/mixins.dart';
+// import 'package:ynotes_components/components/texts.dart';
+// import 'package:ynotes_components/theme/theme.dart';
 
 void main() {
   runApp(MyApp());
@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
       builder: (context, orientation, deviceType) => MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
-        theme: ThemeData(primarySwatch: currentTheme.primary, fontFamily: "Asap"),
+        theme: ThemeData(/*primarySwatch: currentTheme.primary, */ fontFamily: "Asap"),
         home: MyHomePage(title: 'Flutter Demo Home Page'),
       ),
     );
@@ -36,7 +36,7 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> with YDialogMixin {
+class _MyHomePageState extends State<MyHomePage> /*with YDialogMixin*/ {
   bool loading = false;
 
   @override
@@ -57,6 +57,7 @@ class _MyHomePageState extends State<MyHomePage> with YDialogMixin {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
+              /*
               YH1("Heading 1"),
               YH2("Heading 2"),
               YH3("Heading 3"),
@@ -118,6 +119,7 @@ class _MyHomePageState extends State<MyHomePage> with YDialogMixin {
                 ],
               ),
               YCard(child: YH3("Ok an awesome text"))
+            */
             ],
           ),
         ),

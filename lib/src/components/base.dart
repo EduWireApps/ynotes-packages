@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
-import 'package:ynotes_components/theme/theme.dart';
+import '../theme/theme.dart';
 
 class YTextBase extends StatefulWidget {
   final String text;
@@ -29,10 +29,7 @@ class _YTextBaseState extends State<YTextBase> {
   Widget build(BuildContext context) {
     return Text(widget.text,
         textAlign: widget.align,
-        style: TextStyle(
-                color: widget.color,
-                fontSize: widget.fontSize.sp,
-                fontWeight: widget.fontWeight)
+        style: TextStyle(color: widget.color, fontSize: widget.fontSize.sp, fontWeight: widget.fontWeight)
             .merge(widget.style));
   }
 }
@@ -52,8 +49,7 @@ class _YDialogBaseState extends State<YDialogBase> {
     return AlertDialog(
       backgroundColor: currentTheme.c(YColor.neutral)[50],
       contentPadding: EdgeInsets.zero,
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(15))),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15))),
       content: Container(
         padding: EdgeInsets.symmetric(horizontal: 18.sp, vertical: 14.sp),
         child: Column(

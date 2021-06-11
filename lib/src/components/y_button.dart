@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
-import 'package:ynotes_components/components/utils.dart';
-import 'package:ynotes_components/theme/theme.dart';
+import '../components/utils.dart';
+import '../theme/theme.dart';
 
 class YButton extends StatefulWidget {
   final VoidCallback onPressed;

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ynotes_components/theme/theme.dart';
+import '../../theme/theme.dart';
 
 final MaterialColor _primary = MaterialColor(_primaryPrimaryValue, <int, Color>{
   50: Color(0xffeceef8),
@@ -15,8 +15,7 @@ final MaterialColor _primary = MaterialColor(_primaryPrimaryValue, <int, Color>{
 });
 final int _primaryPrimaryValue = 0xff3f49a7;
 
-final MaterialColor _secondary =
-    MaterialColor(_secondaryPrimaryValue, <int, Color>{
+final MaterialColor _secondary = MaterialColor(_secondaryPrimaryValue, <int, Color>{
   50: Color(0xffecf8f6),
   100: Color(0xffc7eae4),
   200: Color(0xffa2dcd2),

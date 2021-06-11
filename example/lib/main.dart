@@ -5,7 +5,7 @@ import 'package:ynotes_components/components/y_button.dart';
 import 'package:ynotes_components/components/y_card.dart';
 import 'package:ynotes_components/components/y_choice_dialog.dart';
 import 'package:ynotes_components/components/y_confirmation_dialog.dart';
-import 'package:ynotes_components/mixins.dart';
+import 'package:ynotes_components/src/mixins.dart';
 import 'package:ynotes_components/components/texts.dart';
 import 'package:ynotes_components/theme/theme.dart';
 
@@ -20,8 +20,7 @@ class MyApp extends StatelessWidget {
       builder: (context, orientation, deviceType) => MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
-        theme:
-            ThemeData(primarySwatch: currentTheme.primary, fontFamily: "Asap"),
+        theme: ThemeData(primarySwatch: currentTheme.primary, fontFamily: "Asap"),
         home: MyHomePage(title: 'Flutter Demo Home Page'),
       ),
     );
@@ -50,8 +49,7 @@ class _MyHomePageState extends State<MyHomePage> with YDialogMixin {
       ),
       appBar: AppBar(
         centerTitle: false,
-        title:
-            Text(widget.title, style: TextStyle(fontWeight: FontWeight.w700)),
+        title: Text(widget.title, style: TextStyle(fontWeight: FontWeight.w700)),
       ),
       body: Container(
         color: Colors.grey[100],
@@ -81,8 +79,7 @@ class _MyHomePageState extends State<MyHomePage> with YDialogMixin {
                       await getConfirmation(YConfirmationDialog(
                         type: YColor.success,
                         title: "Sauvegardé !",
-                        description:
-                            "Vos paramètres ont été sauvegardés avec succès",
+                        description: "Vos paramètres ont été sauvegardés avec succès",
                         icon: Icons.check,
                       ));
                       print("ok");
@@ -117,8 +114,7 @@ class _MyHomePageState extends State<MyHomePage> with YDialogMixin {
                     type: YColor.warning,
                     isLoading: this.loading,
                   ),
-                  YButton(
-                      onPressed: () {}, text: "Neutral", type: YColor.neutral),
+                  YButton(onPressed: () {}, text: "Neutral", type: YColor.neutral),
                 ],
               ),
               YCard(child: YH3("Ok an awesome text"))

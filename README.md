@@ -6,8 +6,9 @@ The yNotes' UI components
 
 ### Done
 
-- HorizontalSpacer
-- VerticalSpacer
+- YHorizontalSpacer
+- YVerticalSpacer
+- YSHadowScrollContainer
 ### In progress
 
 - YButton

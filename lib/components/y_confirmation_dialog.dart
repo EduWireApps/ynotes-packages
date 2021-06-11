@@ -13,11 +13,7 @@ class YConfirmationDialog extends StatefulWidget {
   final IconData icon;
 
   const YConfirmationDialog(
-      {Key? key,
-      required this.type,
-      required this.title,
-      required this.description,
-      required this.icon})
+      {Key? key, required this.type, required this.title, required this.description, required this.icon})
       : super(key: key);
 
   @override
@@ -31,26 +27,22 @@ class _YConfirmationDialogState extends State<YConfirmationDialog> {
       Container(
         padding: EdgeInsets.all(10),
         decoration: BoxDecoration(
-            color: currentTheme.c(widget.type)[100],
-            borderRadius: BorderRadius.all(Radius.circular(120))),
+            color: currentTheme.c(widget.type)[100], borderRadius: BorderRadius.all(Radius.circular(120))),
         child: Icon(
           widget.icon,
           size: 30,
           color: currentTheme.c(widget.type)[600],
         ),
       ),
-      VerticalSpacer(6),
+      YVerticalSpacer(6),
       YH1(widget.title),
-      VerticalSpacer(1),
+      YVerticalSpacer(1),
       YTextBody(widget.description, align: TextAlign.center),
-      VerticalSpacer(16),
+      YVerticalSpacer(16),
       Row(
         children: [
           Expanded(
-            child: YButton(
-                onPressed: () => Navigator.pop(context),
-                text: "Confirmer",
-                type: widget.type),
+            child: YButton(onPressed: () => Navigator.pop(context), text: "Confirmer", type: widget.type),
           ),
         ],
       ),

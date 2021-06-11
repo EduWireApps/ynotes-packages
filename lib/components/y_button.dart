@@ -67,10 +67,8 @@ class _YButtonState extends State<YButton> with TickerProviderStateMixin {
           padding: EdgeInsets.symmetric(horizontal: 13.sp, vertical: 4.sp),
           elevation: 0,
           highlightElevation: 0,
-          highlightColor:
-              widget.isLoading || widget.isDisabled ? null : highlightColor,
-          onPressed:
-              widget.isLoading || widget.isDisabled ? null : widget.onPressed,
+          highlightColor: widget.isLoading || widget.isDisabled ? null : highlightColor,
+          onPressed: widget.isLoading || widget.isDisabled ? null : widget.onPressed,
           child: AnimatedSize(
             vsync: this,
             duration: Duration(milliseconds: 250),
@@ -79,9 +77,8 @@ class _YButtonState extends State<YButton> with TickerProviderStateMixin {
                 ? SizedBox(
                     width: fontSize + 4,
                     height: fontSize + 4,
-                    child: CircularProgressIndicator(
-                        strokeWidth: 3,
-                        valueColor: AlwaysStoppedAnimation<Color>(textColor)),
+                    child:
+                        CircularProgressIndicator(strokeWidth: 3, valueColor: AlwaysStoppedAnimation<Color>(textColor)),
                   )
                 : Row(
                     mainAxisSize: MainAxisSize.min,
@@ -93,23 +90,19 @@ class _YButtonState extends State<YButton> with TickerProviderStateMixin {
                           size: (fontSize + 4).sp,
                         ),
                       if (widget.icon != null)
-                        HorizontalSpacer(
+                        YHorizontalSpacer(
                           6,
                         ),
                       Flexible(
                         child: Text(widget.text,
                             textAlign: TextAlign.center,
-                            style: TextStyle(
-                                color: textColor,
-                                fontWeight: FontWeight.w700,
-                                fontSize: fontSize.sp)),
+                            style: TextStyle(color: textColor, fontWeight: FontWeight.w700, fontSize: fontSize.sp)),
                       ),
                     ],
                   ),
           ),
           fillColor: fillColor,
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(10)))),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10)))),
     );
   }
 }

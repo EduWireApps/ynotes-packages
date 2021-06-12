@@ -16,15 +16,14 @@ class _YShadowScrollContainerState extends State<YShadowScrollContainer> {
   late bool showBottomGradient = true;
   final double distance = 10;
   final double gradientHeight = 56;
-  final int duration = 100;
+  final Duration duration = Duration(milliseconds: 500);
+  final Curve curve = Curves.easeInOut;
 
   @override
   void initState() {
     super.initState();
     _scrollController
       ..addListener(() {
-        print("${_scrollController.offset * 100 / _scrollController.position.maxScrollExtent}%");
-        print(showTopGradient);
         setState(() {
           showTopGradient = _scrollController.offset > distance;
           showBottomGradient = _scrollController.offset < (_scrollController.position.maxScrollExtent - distance);
@@ -64,8 +63,9 @@ class _YShadowScrollContainerState extends State<YShadowScrollContainer> {
           child: IgnorePointer(
               ignoring: !showTopGradient,
               child: AnimatedOpacity(
+                  curve: curve,
                   opacity: showTopGradient ? 1 : 0,
-                  duration: Duration(milliseconds: duration),
+                  duration: duration,
                   child: _gradient(context, true)))),
       Positioned(
           bottom: 0,
@@ -74,8 +74,9 @@ class _YShadowScrollContainerState extends State<YShadowScrollContainer> {
           child: IgnorePointer(
               ignoring: !showBottomGradient,
               child: AnimatedOpacity(
+                  curve: curve,
                   opacity: showBottomGradient ? 1 : 0,
-                  duration: Duration(milliseconds: duration),
+                  duration: duration,
                   child: _gradient(context, false)))),
     ]);
   }

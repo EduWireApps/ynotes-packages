@@ -105,9 +105,4 @@ class _YButtonState extends State<YButton> with TickerProviderStateMixin {
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10)))),
     );
   }
-
-  @override
-  void initState() {
-    super.initState();
-  }
 }

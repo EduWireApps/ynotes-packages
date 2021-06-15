@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import '../../theme/theme.dart';
 
+// https://www.shadegenerator.com/
+
 final MaterialColor _primary = MaterialColor(_primaryPrimaryValue, <int, Color>{
   50: Color(0xffeceef8),
   100: Color(0xffc7cbea),
@@ -85,9 +87,9 @@ final MaterialColor _neutral = MaterialColor(_neutralPrimaryValue, <int, Color>{
 });
 final int _neutralPrimaryValue = 0xff737373;
 
-final YTheme lightTheme = YTheme(
-    name: "Clair",
-    theme: YAvailableTheme.light,
+final YTheme darkTheme = YTheme(
+    name: "Sombre",
+    theme: YAvailableTheme.dark,
     primary: _primary,
     secondary: _secondary,
     success: _success,

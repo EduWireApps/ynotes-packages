@@ -57,7 +57,7 @@ class _YShadowScrollContainerState extends State<YShadowScrollContainer> {
         children: widget.children,
       ),
       Positioned(
-          top: 0,
+          top: -1,
           left: 0,
           right: 0,
           child: IgnorePointer(

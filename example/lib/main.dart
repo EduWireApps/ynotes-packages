@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
-
 import 'package:ynotes_components/ynotes_components.dart';
 
 void main() {
@@ -45,6 +44,40 @@ class _MyHomePageState extends State<MyHomePage> /*with YDialogMixin*/ {
           centerTitle: false,
           title: Text(widget.title, style: TextStyle(fontWeight: FontWeight.w700)),
         ),
-        body: Container(color: Colors.grey[100], child: YButton(text: "Button", onPressed: () {})));
+        body: Center(
+          child: Wrap(
+            alignment: WrapAlignment.center,
+            spacing: 15,
+            children: [
+              YButton(
+                onPressed: () => setState(() {
+                  this.loading = !this.loading;
+                }),
+                text: "Update loading",
+                type: YColor.success,
+                icon: Icons.check_circle,
+              ),
+              YButton(
+                onPressed: () {},
+                text: "Danger",
+                type: YColor.danger,
+              ),
+              YButton(
+                onPressed: () {},
+                text: "Danger",
+                type: YColor.danger,
+                variant: YButtonVariant.reverse,
+                isDisabled: true,
+              ),
+              YButton(
+                onPressed: () {},
+                text: "A really long text",
+                type: YColor.warning,
+                isLoading: this.loading,
+              ),
+              YButton(onPressed: () {}, text: "Neutral", type: YColor.neutral),
+            ],
+          ),
+        ));
   }
 }

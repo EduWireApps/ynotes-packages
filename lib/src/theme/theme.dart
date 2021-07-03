@@ -7,7 +7,6 @@ class YTheme {
   final String name;
   final YAvailableTheme theme;
   final MaterialColor primary;
-  final MaterialColor secondary;
   final MaterialColor success;
   final MaterialColor warning;
   final MaterialColor danger;
@@ -17,7 +16,6 @@ class YTheme {
       {required this.name,
       required this.theme,
       required this.primary,
-      required this.secondary,
       required this.success,
       required this.warning,
       required this.danger,
@@ -32,7 +30,6 @@ class YCurrentTheme {
 
   YTheme get _ct => this.themes.firstWhere((t) => t.theme == this.theme);
   MaterialColor get primary => this._ct.primary;
-  MaterialColor get secondary => this._ct.secondary;
   MaterialColor get success => this._ct.success;
   MaterialColor get warning => this._ct.warning;
   MaterialColor get danger => this._ct.danger;
@@ -44,8 +41,6 @@ class YCurrentTheme {
     switch (color) {
       case YColor.primary:
         return this._ct.primary;
-      case YColor.secondary:
-        return this._ct.secondary;
       case YColor.success:
         return this._ct.success;
       case YColor.warning:
@@ -61,7 +56,7 @@ class YCurrentTheme {
   Color? get backgroundColor => neutral[800];
 }
 
-enum YColor { primary, secondary, success, warning, danger, neutral }
+enum YColor { primary, success, warning, danger, neutral }
 
 enum YAvailableTheme { light, dark }
 

@@ -15,20 +15,6 @@ final MaterialColor _primary = MaterialColor(_primaryPrimaryValue, <int, Color>{
 });
 final int _primaryPrimaryValue = 0xff3f49a7;
 
-final MaterialColor _secondary = MaterialColor(_secondaryPrimaryValue, <int, Color>{
-  50: Color(0xffecf8f6),
-  100: Color(0xffc7eae4),
-  200: Color(0xffa2dcd2),
-  300: Color(0xff7dcebf),
-  400: Color(0xff58c0ad),
-  500: Color(_secondaryPrimaryValue),
-  600: Color(0xff318273),
-  700: Color(0xff235d52),
-  800: Color(0xff153831),
-  900: Color(0xff071310),
-});
-final int _secondaryPrimaryValue = 0xff3fa794;
-
 final MaterialColor _success = MaterialColor(_successPrimaryValue, <int, Color>{
   50: Color(0xffecf8f0),
   100: Color(0xffc7ead1),
@@ -89,7 +75,6 @@ final YTheme lightTheme = YTheme(
     name: "Clair",
     theme: YAvailableTheme.light,
     primary: _primary,
-    secondary: _secondary,
     success: _success,
     warning: _warning,
     danger: _danger,

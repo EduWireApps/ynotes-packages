@@ -30,6 +30,15 @@ class YButton extends StatefulWidget {
 enum YButtonVariant { plain, reverse }
 
 class _YButtonState extends State<YButton> with TickerProviderStateMixin {
+  get fillColor {
+    switch (widget.variant) {
+      case YButtonVariant.plain:
+        return currentTheme.c(widget.type)[500];
+      case YButtonVariant.reverse:
+        return currentTheme.c(widget.type)[100];
+    }
+  }
+
   get highlightColor {
     switch (widget.variant) {
       case YButtonVariant.plain:
@@ -48,15 +57,6 @@ class _YButtonState extends State<YButton> with TickerProviderStateMixin {
     }
   }
 
-  get fillColor {
-    switch (widget.variant) {
-      case YButtonVariant.plain:
-        return currentTheme.c(widget.type)[500];
-      case YButtonVariant.reverse:
-        return currentTheme.c(widget.type)[100];
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     final double fontSize = 12;
@@ -64,7 +64,7 @@ class _YButtonState extends State<YButton> with TickerProviderStateMixin {
     return Opacity(
       opacity: widget.isDisabled ? 0.5 : 1,
       child: RawMaterialButton(
-          padding: EdgeInsets.symmetric(horizontal: 13.sp, vertical: 4.sp),
+          padding: EdgeInsets.symmetric(horizontal: 13.sp.clamp(0.0, 15), vertical: 4.sp.clamp(0.0, 10)),
           elevation: 0,
           highlightElevation: 0,
           highlightColor: widget.isLoading || widget.isDisabled ? null : highlightColor,
@@ -75,8 +75,8 @@ class _YButtonState extends State<YButton> with TickerProviderStateMixin {
             curve: Curves.easeInOut,
             child: widget.isLoading
                 ? SizedBox(
-                    width: fontSize + 4,
-                    height: fontSize + 4,
+                    width: (fontSize + 4).sp.clamp(0.0, 21),
+                    height: (fontSize + 4).sp.clamp(0.0, 21),
                     child:
                         CircularProgressIndicator(strokeWidth: 3, valueColor: AlwaysStoppedAnimation<Color>(textColor)),
                   )
@@ -87,7 +87,7 @@ class _YButtonState extends State<YButton> with TickerProviderStateMixin {
                         Icon(
                           widget.icon,
                           color: textColor,
-                          size: (fontSize + 4).sp,
+                          size: (fontSize + 4).sp.clamp(0.0, 21),
                         ),
                       if (widget.icon != null)
                         YHorizontalSpacer(
@@ -96,7 +96,8 @@ class _YButtonState extends State<YButton> with TickerProviderStateMixin {
                       Flexible(
                         child: Text(widget.text,
                             textAlign: TextAlign.center,
-                            style: TextStyle(color: textColor, fontWeight: FontWeight.w700, fontSize: fontSize.sp)),
+                            style: TextStyle(
+                                color: textColor, fontWeight: FontWeight.w700, fontSize: fontSize.sp.clamp(0.0, 21))),
                       ),
                     ],
                   ),

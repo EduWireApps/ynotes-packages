@@ -4,16 +4,11 @@ import '../../theme/theme.dart';
 // https://www.shadegenerator.com/
 
 final MaterialColor _primary = MaterialColor(_primaryPrimaryValue, <int, Color>{
-  50: Color(0xffeceef8),
-  100: Color(0xffc7cbea),
-  200: Color(0xffa2a8dc),
-  300: Color(0xff7d85ce),
-  400: Color(0xff5863c0),
-  500: Color(_primaryPrimaryValue),
-  600: Color(0xff313982),
-  700: Color(0xff23295d),
-  800: Color(0xff151838),
-  900: Color(0xff070813),
+  100: Color(0xffCDD4F3),
+  200: Color(0xffA4ABEB),
+  300: Color(_primaryPrimaryValue),
+  400: Color(0xff23295d),
+  500: Color(0xff151838),
 });
 final int _primaryPrimaryValue = 0xff3f49a7;
 
@@ -60,18 +55,13 @@ final MaterialColor _danger = MaterialColor(_dangerPrimaryValue, <int, Color>{
 final int _dangerPrimaryValue = 0xffdb0b0b;
 
 final MaterialColor _neutral = MaterialColor(_neutralPrimaryValue, <int, Color>{
-  50: Color(0xfff2f2f2),
-  100: Color(0xffd9d9d9),
-  200: Color(0xffbfbfbf),
-  300: Color(0xffa6a6a6),
-  400: Color(0xff8c8c8c),
-  500: Color(_neutralPrimaryValue),
-  600: Color(0xff595959),
-  700: Color(0xff404040),
-  800: Color(0xff262626),
-  900: Color(0xff0d0d0d),
+  100: Color(0xff202225),
+  200: Color(0xff2F3136),
+  300: Color(_neutralPrimaryValue),
+  400: Color(0xffDCDDDE),
+  500: Color(0xffFFFFFF),
 });
-final int _neutralPrimaryValue = 0xff737373;
+final int _neutralPrimaryValue = 0xff40444B;
 
 final YTheme darkTheme = YTheme(
     name: "Sombre",

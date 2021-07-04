@@ -45,6 +45,21 @@ class _MyHomePageState extends State<MyHomePage> /*with YDialogMixin*/ {
           centerTitle: false,
           title: Text(widget.title, style: TextStyle(fontWeight: FontWeight.w700)),
         ),
-        body: Container(color: Colors.grey[100], child: YButton(text: "Button", onPressed: () {})));
+        body: Container(
+            color: Colors.grey[100],
+            child: Row(
+              children: [
+                YButton(
+                  text: "Primary plain",
+                  onPressed: () {},
+                  variant: YButtonVariant.plain,
+                ),
+                YButton(
+                  text: "Primary reverse",
+                  onPressed: () {},
+                  variant: YButtonVariant.reverse,
+                ),
+              ],
+            )));
   }
 }

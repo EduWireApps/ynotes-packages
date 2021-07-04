@@ -33,7 +33,7 @@ class _YButtonState extends State<YButton> with TickerProviderStateMixin {
   get highlightColor {
     switch (widget.variant) {
       case YButtonVariant.plain:
-        return currentTheme.c(widget.type)[600];
+        return currentTheme.c(widget.type)[400];
       case YButtonVariant.reverse:
         return currentTheme.c(widget.type)[200];
     }
@@ -42,16 +42,16 @@ class _YButtonState extends State<YButton> with TickerProviderStateMixin {
   get textColor {
     switch (widget.variant) {
       case YButtonVariant.plain:
-        return currentTheme.c(widget.type)[50];
+        return currentTheme.c(widget.type)[100];
       case YButtonVariant.reverse:
-        return currentTheme.c(widget.type)[600];
+        return currentTheme.c(widget.type)[300];
     }
   }
 
   get fillColor {
     switch (widget.variant) {
       case YButtonVariant.plain:
-        return currentTheme.c(widget.type)[500];
+        return currentTheme.c(widget.type)[300];
       case YButtonVariant.reverse:
         return currentTheme.c(widget.type)[100];
     }

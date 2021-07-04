@@ -58,6 +58,15 @@ class _MyHomePageState extends State<MyHomePage> /*with YDialogMixin*/ {
                 icon: Icons.check_circle,
               ),
               YButton(
+                onPressed: () => setState(() {
+                  this.loading = !this.loading;
+                }),
+                reverseIconAndText: true,
+                text: "Update loading",
+                type: YColor.success,
+                icon: Icons.check_circle,
+              ),
+              YButton(
                 onPressed: () {},
                 text: "Danger",
                 type: YColor.danger,

@@ -12,6 +12,7 @@ class YButton extends StatefulWidget {
   final IconData? icon;
   final bool isLoading;
   final bool isDisabled;
+  final bool reverseIconAndText;
 
   const YButton(
       {Key? key,
@@ -21,7 +22,8 @@ class YButton extends StatefulWidget {
       this.variant = YButtonVariant.plain,
       this.icon,
       this.isLoading = false,
-      this.isDisabled = false})
+      this.isDisabled = false,
+      this.reverseIconAndText = false})
       : super(key: key);
   @override
   _YButtonState createState() => _YButtonState();
@@ -83,13 +85,13 @@ class _YButtonState extends State<YButton> with TickerProviderStateMixin {
                 : Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      if (widget.icon != null)
+                      if (widget.icon != null && !widget.reverseIconAndText)
                         Icon(
                           widget.icon,
                           color: textColor,
                           size: (fontSize + 4).sp.clamp(0.0, 21),
                         ),
-                      if (widget.icon != null)
+                      if (widget.icon != null && !widget.reverseIconAndText)
                         YHorizontalSpacer(
                           6,
                         ),
@@ -99,6 +101,16 @@ class _YButtonState extends State<YButton> with TickerProviderStateMixin {
                             style: TextStyle(
                                 color: textColor, fontWeight: FontWeight.w700, fontSize: fontSize.sp.clamp(0.0, 21))),
                       ),
+                      if (widget.icon != null && widget.reverseIconAndText)
+                        YHorizontalSpacer(
+                          6,
+                        ),
+                      if (widget.icon != null && widget.reverseIconAndText)
+                        Icon(
+                          widget.icon,
+                          color: textColor,
+                          size: (fontSize + 4).sp.clamp(0.0, 21),
+                        ),
                     ],
                   ),
           ),

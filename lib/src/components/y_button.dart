@@ -77,7 +77,7 @@ class _YButtonState extends State<YButton> with TickerProviderStateMixin {
                           color: textColor,
                           size: (fontSize + 4).sp.clamp(0.0, 21),
                         ),
-                      if (widget.icon != null)
+                      if (widget.icon != null && !widget.reverseIconAndText)
                         YHorizontalSpacer(
                           6,
                         ),

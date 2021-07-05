@@ -5,19 +5,16 @@ import '../components/texts.dart';
 import '../components/utils.dart';
 import '../components/y_button.dart';
 import '../theme/theme.dart';
+import '../theme/colors.dart';
 
 class YChoiceDialog extends StatefulWidget {
   final YColor type;
   final String title;
   final String description;
-  final IconData? icon;
+  final IconData icon;
 
   const YChoiceDialog(
-      {Key? key,
-      this.type = YColor.danger,
-      this.title = "Attention",
-      this.description = "Etes-vous sûr de vouloir faire ça ?",
-      this.icon = Icons.error_outline})
+      {Key? key, required this.type, required this.title, required this.description, required this.icon})
       : super(key: key);
 
   @override
@@ -25,17 +22,25 @@ class YChoiceDialog extends StatefulWidget {
 }
 
 class _YChoiceDialogState extends State<YChoiceDialog> {
+  Color get iconBackgroundColor {
+    switch (widget.type) {
+      case YColor.neutral:
+        return currentTheme.colors.get(widget.type).shade400;
+      default:
+        return currentTheme.colors.get(widget.type).shade100;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return YDialogBase(children: [
       Container(
         padding: EdgeInsets.all(10),
-        decoration: BoxDecoration(
-            color: currentTheme.c(widget.type)[100], borderRadius: BorderRadius.all(Radius.circular(120))),
+        decoration: BoxDecoration(color: iconBackgroundColor, borderRadius: BorderRadius.all(Radius.circular(120))),
         child: Icon(
           widget.icon,
           size: 30,
-          color: currentTheme.c(widget.type)[600],
+          color: currentTheme.colors.get(widget.type).shade300,
         ),
       ),
       YVerticalSpacer(6),

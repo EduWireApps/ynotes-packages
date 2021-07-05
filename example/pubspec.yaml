@@ -13,6 +13,7 @@ dependencies:
   sizer: ^2.0.13
   ynotes_components:
     path: ../
+  flutter_phoenix: ^1.0.0
 
 dev_dependencies:
   flutter_test:

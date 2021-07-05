@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:sizer/sizer.dart';
 import 'package:ynotes_components/ynotes_components.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(Phoenix(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -14,7 +15,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
         theme: ThemeData(/*primarySwatch: currentTheme.primary, */ fontFamily: "Asap"),
-        home: MyHomePage(title: 'Flutter Demo Home Page'),
+        home: MyHomePage(title: 'Demo'),
       ),
     );
   }
@@ -29,26 +30,52 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> /*with YDialogMixin*/ {
+class _MyHomePageState extends State<MyHomePage> with YDialogMixin {
   bool loading = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: currentTheme.colors.neutral.shade100,
         drawer: Drawer(
           child: Container(
-            color: Color(0xff3f49a7),
+            color: currentTheme.colors.neutral.shade200,
           ),
         ),
         appBar: AppBar(
+          brightness: currentTheme.isDark ? Brightness.dark : Brightness.light,
+          iconTheme: IconThemeData(color: currentTheme.colors.neutral.shade500),
           centerTitle: false,
-          title: Text(widget.title, style: TextStyle(fontWeight: FontWeight.w700)),
+          backgroundColor: currentTheme.colors.neutral.shade200,
+          title: Text(widget.title,
+              style: TextStyle(fontWeight: FontWeight.w700, color: currentTheme.colors.neutral.shade500)),
+          actions: [
+            IconButton(
+                onPressed: () {
+                  debugPrint("Restart app");
+                  Phoenix.rebirth(context);
+                },
+                icon: Icon(Icons.refresh))
+          ],
         ),
         body: Center(
           child: Wrap(
             alignment: WrapAlignment.center,
             spacing: 15,
             children: [
+              YButton(
+                  onPressed: () {
+                    switch (currentTheme.theme) {
+                      case YAvailableTheme.light:
+                        currentTheme.theme = YAvailableTheme.dark;
+                        break;
+                      case YAvailableTheme.dark:
+                        currentTheme.theme = YAvailableTheme.light;
+                        break;
+                    }
+                    setState(() {});
+                  },
+                  text: "Switch theme"),
               YButton(
                 onPressed: () => setState(() {
                   this.loading = !this.loading;
@@ -58,16 +85,33 @@ class _MyHomePageState extends State<MyHomePage> /*with YDialogMixin*/ {
                 icon: Icons.check_circle,
               ),
               YButton(
-                onPressed: () {},
-                text: "Danger",
-                type: YColor.danger,
-              ),
+                  onPressed: () {
+                    getChoice(YChoiceDialog(
+                      type: YColor.primary,
+                      title: "Hep !",
+                      description: "T'es sûr(e) de vouloir faire ça ?",
+                      icon: Icons.leaderboard_rounded,
+                    ));
+                  },
+                  text: "Toggle",
+                  type: YColor.danger,
+                  variant: YButtonVariant.reverse),
+              YButton(
+                  onPressed: () {
+                    getConfirmation(YConfirmationDialog(
+                      type: YColor.primary,
+                      title: "Hep !",
+                      description: "T'es sûr(e) de vouloir faire ça ?",
+                      icon: Icons.leaderboard_rounded,
+                    ));
+                  },
+                  text: "Toggle 2",
+                  type: YColor.danger,
+                  variant: YButtonVariant.reverse),
               YButton(
                 onPressed: () {},
                 text: "Danger",
                 type: YColor.danger,
-                variant: YButtonVariant.reverse,
-                isDisabled: true,
               ),
               YButton(
                 onPressed: () {},
@@ -75,7 +119,6 @@ class _MyHomePageState extends State<MyHomePage> /*with YDialogMixin*/ {
                 type: YColor.warning,
                 isLoading: this.loading,
               ),
-              YButton(onPressed: () {}, text: "Neutral", type: YColor.neutral),
             ],
           ),
         ));

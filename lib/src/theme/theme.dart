@@ -1,65 +1,34 @@
-import 'package:flutter/material.dart';
+import 'themes/light/theme.dart';
+import 'themes/dark/theme.dart';
 
-import 'themes/light.dart';
-import 'themes/dark.dart';
+import 'colors.dart';
+import 'button_styles.dart';
 
 class YTheme {
   final String name;
   final YAvailableTheme theme;
-  final MaterialColor primary;
-  final MaterialColor success;
-  final MaterialColor warning;
-  final MaterialColor danger;
-  final MaterialColor neutral;
+  final bool isDark;
+  final YTColors colors;
+  final YTButtonStyles buttonStyles;
 
-  YTheme(
-      {required this.name,
-      required this.theme,
-      required this.primary,
-      required this.success,
-      required this.warning,
-      required this.danger,
-      required this.neutral});
+  YTheme(this.name, {required this.theme, required this.isDark, required this.colors, required this.buttonStyles});
 }
 
 class YCurrentTheme {
-  final YAvailableTheme theme;
+  YAvailableTheme theme;
   final List<YTheme> themes;
 
   YCurrentTheme({required this.theme, required this.themes});
 
   YTheme get _ct => this.themes.firstWhere((t) => t.theme == this.theme);
-  MaterialColor get primary => this._ct.primary;
-  MaterialColor get success => this._ct.success;
-  MaterialColor get warning => this._ct.warning;
-  MaterialColor get danger => this._ct.danger;
-  MaterialColor get neutral => this._ct.neutral;
 
-  set theme(YAvailableTheme tn) => this.theme = tn;
-
-  MaterialColor c(YColor color) {
-    switch (color) {
-      case YColor.primary:
-        return this._ct.primary;
-      case YColor.success:
-        return this._ct.success;
-      case YColor.warning:
-        return this._ct.warning;
-      case YColor.danger:
-        return this._ct.danger;
-      case YColor.neutral:
-        return this._ct.neutral;
-    }
-  }
-
-  Color? get textColor => neutral[200];
-  Color? get backgroundColor => neutral[800];
+  String get name => this._ct.name;
+  bool get isDark => this._ct.isDark;
+  YTColors get colors => this._ct.colors;
+  YTButtonStyles get buttonStyles => this._ct.buttonStyles;
 }
 
-enum YColor { primary, success, warning, danger, neutral }
-
 enum YAvailableTheme { light, dark }
-
 final List<YTheme> themes = [lightTheme, darkTheme];
 
-final YCurrentTheme currentTheme = YCurrentTheme(theme: YAvailableTheme.light, themes: themes);
+final YCurrentTheme currentTheme = YCurrentTheme(theme: YAvailableTheme.dark, themes: themes);

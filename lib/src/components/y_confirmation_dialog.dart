@@ -5,6 +5,7 @@ import '../components/texts.dart';
 import '../components/utils.dart';
 import '../components/y_button.dart';
 import '../theme/theme.dart';
+import '../theme/colors.dart';
 
 class YConfirmationDialog extends StatefulWidget {
   final YColor type;
@@ -27,11 +28,11 @@ class _YConfirmationDialogState extends State<YConfirmationDialog> {
       Container(
         padding: EdgeInsets.all(10),
         decoration: BoxDecoration(
-            color: currentTheme.c(widget.type)[100], borderRadius: BorderRadius.all(Radius.circular(120))),
+            color: currentTheme.colors.get(widget.type).shade100, borderRadius: BorderRadius.all(Radius.circular(120))),
         child: Icon(
           widget.icon,
           size: 30,
-          color: currentTheme.c(widget.type)[600],
+          color: currentTheme.colors.get(widget.type).shade500,
         ),
       ),
       YVerticalSpacer(6),

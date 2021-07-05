@@ -47,7 +47,7 @@ class _YDialogBaseState extends State<YDialogBase> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      backgroundColor: currentTheme.c(YColor.neutral)[50],
+      backgroundColor: currentTheme.colors.neutral.shade100,
       contentPadding: EdgeInsets.zero,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15))),
       content: Container(

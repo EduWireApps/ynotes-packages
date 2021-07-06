@@ -45,13 +45,13 @@ final YTButtonStyle _danger = YTButtonStyle(
 
 final YTButtonStyle _neutral = YTButtonStyle(
     plain: YTButtonStyleColors(
-        background: colors.neutral.shade400,
+        background: YThemeUtils.lighten(colors.neutral.shade400, .3),
         text: colors.neutral.shade200,
-        highlight: YThemeUtils.lighten(colors.neutral.shade400)),
+        highlight: YThemeUtils.lighten(colors.neutral.shade400, .4)),
     reverse: YTButtonStyleColors(
-        background: colors.neutral.shade200,
+        background: YThemeUtils.darken(colors.neutral.shade200),
         text: colors.neutral.shade400,
-        highlight: YThemeUtils.darken(colors.neutral.shade200)));
+        highlight: colors.neutral.shade100));
 
 final List<YTButtonStyle> styles = [_primary];
 

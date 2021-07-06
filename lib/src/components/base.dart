@@ -47,14 +47,19 @@ class _YDialogBaseState extends State<YDialogBase> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      backgroundColor: currentTheme.colors.neutral.shade100,
+      backgroundColor: currentTheme.colors.neutral.shade200,
       contentPadding: EdgeInsets.zero,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15))),
-      content: Container(
-        padding: EdgeInsets.symmetric(horizontal: 18.sp, vertical: 14.sp),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: widget.children,
+      content: ConstrainedBox(
+        constraints: BoxConstraints(maxHeight: 80.h, maxWidth: 90.w),
+        child: Container(
+          padding: EdgeInsets.symmetric(horizontal: 18.sp, vertical: 14.sp),
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: widget.children,
+            ),
+          ),
         ),
       ),
     );

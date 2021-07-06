@@ -29,7 +29,7 @@ class _YChoiceDialogState extends State<YChoiceDialog> {
       Container(
         padding: EdgeInsets.all(10),
         decoration: BoxDecoration(
-            color: currentTheme.colors.get(widget.type).shade100, borderRadius: BorderRadius.all(Radius.circular(120))),
+            color: currentTheme.colors.get(widget.type).shade200, borderRadius: BorderRadius.all(Radius.circular(120))),
         child: Icon(
           widget.icon,
           size: 30,

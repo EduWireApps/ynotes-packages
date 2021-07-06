@@ -1,3 +1,4 @@
+import 'package:example/test_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:sizer/sizer.dart';
@@ -14,7 +15,7 @@ class MyApp extends StatelessWidget {
       builder: (context, orientation, deviceType) => MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
-        theme: ThemeData(/*primarySwatch: currentTheme.primary, */ fontFamily: "Asap"),
+        theme: ThemeData(fontFamily: "Asap", accentColor: currentTheme.colors.primary.shade300),
         home: MyHomePage(title: 'Demo'),
       ),
     );
@@ -36,17 +37,17 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: currentTheme.colors.neutral.shade100,
+        backgroundColor: currentTheme.colors.neutral.shade200,
         drawer: Drawer(
           child: Container(
-            color: currentTheme.colors.neutral.shade200,
+            color: currentTheme.colors.neutral.shade100,
           ),
         ),
         appBar: AppBar(
           brightness: currentTheme.isDark ? Brightness.dark : Brightness.light,
           iconTheme: IconThemeData(color: currentTheme.colors.neutral.shade500),
           centerTitle: false,
-          backgroundColor: currentTheme.colors.neutral.shade200,
+          backgroundColor: currentTheme.colors.neutral.shade100,
           title: Text(widget.title,
               style: TextStyle(fontWeight: FontWeight.w700, color: currentTheme.colors.neutral.shade500)),
           actions: [
@@ -55,7 +56,11 @@ class _MyHomePageState extends State<MyHomePage> {
                   debugPrint("Restart app");
                   Phoenix.rebirth(context);
                 },
-                icon: Icon(Icons.refresh))
+                icon: Icon(Icons.refresh)),
+            IconButton(
+              icon: Icon(Icons.arrow_forward),
+              onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => TestPage())),
+            )
           ],
         ),
         body: Center(
@@ -89,7 +94,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     final bool res = await YDialogs.getChoice(
                         context,
                         YChoiceDialog(
-                          type: YColor.primary,
+                          type: YColor.warning,
                           title: "Hep !",
                           description: "T'es sûr(e) de vouloir faire ça ?",
                           icon: Icons.error_outline,
@@ -106,7 +111,8 @@ class _MyHomePageState extends State<MyHomePage> {
                         YConfirmationDialog(
                           type: YColor.primary,
                           title: "Hep !",
-                          description: "T'es sûr(e) de vouloir faire ça ?",
+                          description:
+                              "T'es sûr(e) de vouloir faire ça ? Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
                           icon: Icons.leaderboard_rounded,
                         ));
                   },
@@ -123,6 +129,13 @@ class _MyHomePageState extends State<MyHomePage> {
                 text: "A really long text",
                 type: YColor.warning,
                 isLoading: this.loading,
+              ),
+              YButton(onPressed: () {}, text: "Neutral", type: YColor.neutral),
+              YButton(
+                onPressed: () {},
+                text: "Reverse",
+                type: YColor.neutral,
+                variant: YButtonVariant.reverse,
               ),
             ],
           ),

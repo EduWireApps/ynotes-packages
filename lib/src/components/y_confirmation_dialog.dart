@@ -15,7 +15,8 @@ class YConfirmationDialog extends StatefulWidget {
 
   const YConfirmationDialog(
       {Key? key, required this.type, required this.title, required this.description, required this.icon})
-      : super(key: key);
+      : assert(type != YColor.neutral, "Neutral color can't be used in dialogs."),
+        super(key: key);
 
   @override
   _YConfirmationDialogState createState() => _YConfirmationDialogState();
@@ -32,7 +33,7 @@ class _YConfirmationDialogState extends State<YConfirmationDialog> {
         child: Icon(
           widget.icon,
           size: 30,
-          color: currentTheme.colors.get(widget.type).shade500,
+          color: currentTheme.colors.get(widget.type).shade300,
         ),
       ),
       YVerticalSpacer(6),

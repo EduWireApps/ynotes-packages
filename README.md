@@ -2,6 +2,46 @@
 
 The yNotes' UI components library. It also contains the themes.
 
+## Theming
+
+Themes are located in `lib/src/theme/themes`.
+
+### Adding a theme
+
+#### STEP 1
+
+Create a folder: `lib/src/theme/themes/mytheme`
+
+#### STEP 2
+
+In `lib/src/theme/theme.dart`, add your theme to the the list and to the enum:
+
+```dart
+import 'themes/mytheme/theme.dart';
+
+// some code you don't care about
+
+enum YAvailableTheme { light, dark, mytheme }
+final List<YTheme> themes = [lightTheme, darkTheme, mythemeTheme];
+
+```
+#### STEP 3
+
+Create the file: `lib/src/theme/themes/mytheme/theme.dart`. Inside put:
+
+```dart
+import 'package:ynotes_components/src/theme/theme.dart';
+
+import 'colors.dart';
+import 'button_styles.dart';
+
+final YTheme mythemeTheme =
+    YTheme("mytheme", theme: YAvailableTheme.mytheme, isDark: <true or false>, colors: colors, buttonStyles: buttonStyles);
+```
+### STEP 4
+
+Copy `colors.dart` and `button_styles.dart` from the light theme and adapt them.
+
 ## Components
 
 ### YHorizontalSpacer `Done`
@@ -27,7 +67,7 @@ YVerticalSpacer(10)
 
 Vertical scroll area (`ListView`) that adds shadow to the top and the bottom when the concerning side hasn't been reached.
 
-#### Parameters:
+#### Parameters
 
 - `children` (required): `List<Widget>` **CAUTION When using a `ListView` widget**: It must have `shrinkWrap` set to `true` and `phyiscs` to `ClampingScrollPhysics()`.
 - `color` (required): `Color` It must be the same color than the background.
@@ -52,7 +92,7 @@ YShadowScrollContainer(
 
 A button obviously.
 
-#### Parameters:
+#### Parameters
 
 - `text` (required): `String` The text to display
 - `onPressed` (required): `VoidCallback` The event to trigger when clicking the button, can be null
@@ -90,17 +130,60 @@ YButton(
 )
 ```
 
-<hr />
+### YChoiceDialog `Done`
 
+A dialog to get the user choice as a boolean (`Future<bool>`).
+
+Must be called using `YDialogs.getChoice()` (See the example below).
+
+#### Parameters
+
+- `type` (required): `YColor` The color type of the dialog. **CAUTION:** The neutral color can't be used there, will throw an error.
+- `title` (required): `String`
+- `description` (required): `String`
+- `icon` (required): `IconData`
+
+#### Example
+
+```dart
+final bool choice = await YDialogs.getChoice(YChoiceDialog(
+    type: YColor.danger,
+    title: "Hep !",
+    description: "T'es sûr(e) de vouloir faire ça ?",
+    icon: Icons.error_outline,
+));
+```
+
+### YConfirmationDialog `Done`
+
+A dialog to let the user know something.
+
+Must be called using `YDialogs.getConfirmation()` (See the example below).
+
+#### Parameters
+
+- `type` (required): `YColor` The color type of the dialog. **CAUTION:** The neutral color can't be used there, will throw an error.
+- `title` (required): `String`
+- `description` (required): `String`
+- `icon` (required): `IconData`
+
+#### Example
+
+```dart
+await YDialogs.getConfirmation(YConfirmationDialog(
+    type: YColor.danger,
+    title: "Hep !",
+    description: "Ca a pas marché.",
+    icon: Icons.error_outline,
+));
+```
+
+<hr />
 
 **REMAINING COMPONENTS MUST BE DOCUMENTED**
 
 ### In progress
 
-- YButton
-- YChoiceDialog
-- YCard
-- YConfirmationDialog
 - YH1
 - YH2
 - YH3
@@ -115,7 +198,3 @@ YButton(
 - YLocalPage
 
 More to come
-
-## Mixins
-
-- YDialogMixin (WIP)

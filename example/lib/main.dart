@@ -30,7 +30,7 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> with YDialogMixin {
+class _MyHomePageState extends State<MyHomePage> {
   bool loading = false;
 
   @override
@@ -85,25 +85,30 @@ class _MyHomePageState extends State<MyHomePage> with YDialogMixin {
                 icon: Icons.check_circle,
               ),
               YButton(
-                  onPressed: () {
-                    getChoice(YChoiceDialog(
-                      type: YColor.primary,
-                      title: "Hep !",
-                      description: "T'es sûr(e) de vouloir faire ça ?",
-                      icon: Icons.leaderboard_rounded,
-                    ));
+                  onPressed: () async {
+                    final bool res = await YDialogs.getChoice(
+                        context,
+                        YChoiceDialog(
+                          type: YColor.primary,
+                          title: "Hep !",
+                          description: "T'es sûr(e) de vouloir faire ça ?",
+                          icon: Icons.error_outline,
+                        ));
+                    print(res);
                   },
                   text: "Toggle",
                   type: YColor.danger,
                   variant: YButtonVariant.reverse),
               YButton(
-                  onPressed: () {
-                    getConfirmation(YConfirmationDialog(
-                      type: YColor.primary,
-                      title: "Hep !",
-                      description: "T'es sûr(e) de vouloir faire ça ?",
-                      icon: Icons.leaderboard_rounded,
-                    ));
+                  onPressed: () async {
+                    await YDialogs.getConfirmation(
+                        context,
+                        YConfirmationDialog(
+                          type: YColor.primary,
+                          title: "Hep !",
+                          description: "T'es sûr(e) de vouloir faire ça ?",
+                          icon: Icons.leaderboard_rounded,
+                        ));
                   },
                   text: "Toggle 2",
                   type: YColor.danger,

@@ -15,28 +15,21 @@ class YChoiceDialog extends StatefulWidget {
 
   const YChoiceDialog(
       {Key? key, required this.type, required this.title, required this.description, required this.icon})
-      : super(key: key);
+      : assert(type != YColor.neutral, "Neutral color can't be used in dialogs."),
+        super(key: key);
 
   @override
   _YChoiceDialogState createState() => _YChoiceDialogState();
 }
 
 class _YChoiceDialogState extends State<YChoiceDialog> {
-  Color get iconBackgroundColor {
-    switch (widget.type) {
-      case YColor.neutral:
-        return currentTheme.colors.get(widget.type).shade400;
-      default:
-        return currentTheme.colors.get(widget.type).shade100;
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return YDialogBase(children: [
       Container(
         padding: EdgeInsets.all(10),
-        decoration: BoxDecoration(color: iconBackgroundColor, borderRadius: BorderRadius.all(Radius.circular(120))),
+        decoration: BoxDecoration(
+            color: currentTheme.colors.get(widget.type).shade100, borderRadius: BorderRadius.all(Radius.circular(120))),
         child: Icon(
           widget.icon,
           size: 30,

@@ -1,6 +1,6 @@
 name: ynotes_components
 description: yNotes' components library.
-publish_to: 'none'
+publish_to: "none"
 version: 0.2.4
 homepage: https://github.com/EduWireApps/ynotes-components
 

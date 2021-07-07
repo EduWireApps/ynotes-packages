@@ -1,5 +1,6 @@
 import 'themes/light/theme.dart';
 import 'themes/dark/theme.dart';
+import 'themes/system/theme.dart';
 
 import 'colors.dart';
 import 'button_styles.dart';
@@ -28,7 +29,7 @@ class YCurrentTheme {
   YTButtonStyles get buttonStyles => this._ct.buttonStyles;
 }
 
-enum YAvailableTheme { light, dark }
-final List<YTheme> themes = [lightTheme, darkTheme];
+enum YAvailableTheme { system, light, dark }
+final List<YTheme> themes = [systemTheme, lightTheme, darkTheme];
 
-final YCurrentTheme currentTheme = YCurrentTheme(theme: YAvailableTheme.dark, themes: themes);
+final YCurrentTheme currentTheme = YCurrentTheme(theme: YAvailableTheme.system, themes: themes);

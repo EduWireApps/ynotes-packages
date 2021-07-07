@@ -71,16 +71,19 @@ class _MyHomePageState extends State<MyHomePage> {
               YButton(
                   onPressed: () {
                     switch (currentTheme.theme) {
+                      case YAvailableTheme.system:
+                        currentTheme.theme = YAvailableTheme.light;
+                        break;
                       case YAvailableTheme.light:
                         currentTheme.theme = YAvailableTheme.dark;
                         break;
                       case YAvailableTheme.dark:
-                        currentTheme.theme = YAvailableTheme.light;
+                        currentTheme.theme = YAvailableTheme.system;
                         break;
                     }
                     setState(() {});
                   },
-                  text: "Switch theme"),
+                  text: "Switch theme: ${currentTheme.name}"),
               YButton(
                 onPressed: () => setState(() {
                   this.loading = !this.loading;

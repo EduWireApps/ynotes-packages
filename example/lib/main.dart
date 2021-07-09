@@ -104,7 +104,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         ));
                     print(res);
                   },
-                  text: "Toggle",
+                  text: "Choice",
                   type: YColor.danger,
                   variant: YButtonVariant.reverse),
               YButton(
@@ -119,12 +119,49 @@ class _MyHomePageState extends State<MyHomePage> {
                           icon: Icons.leaderboard_rounded,
                         ));
                   },
-                  text: "Toggle 2",
+                  text: "Confirmation",
                   type: YColor.danger,
                   variant: YButtonVariant.reverse),
               YButton(
-                onPressed: () {},
-                text: "Danger",
+                onPressed: () async {
+                  final e = await YDialogs.getListChoice<int>(
+                      context,
+                      YListDialog(elements: [
+                        YListDialogElement(
+                            title: "Element 0",
+                            description:
+                                "Awesome description really long yes i know such a shit text but hey i need to test so i keep writing great shit",
+                            icon: Icons.error,
+                            value: 0),
+                        YListDialogElement(title: "Element 1", description: "Awesome description", value: 1),
+                        YListDialogElement(title: "Element 2", icon: Icons.error, value: 2),
+                        YListDialogElement(title: "Element 3", value: 3),
+                        YListDialogElement(
+                            title: "Element 4",
+                            description:
+                                "Awesome description really long yes i know such a shit text but hey i need to test so i keep writing great shit",
+                            value: 4),
+                        YListDialogElement(
+                            title: "Element 5",
+                            description:
+                                "Awesome description really long yes i know such a shit text but hey i need to test so i keep writing great shit",
+                            value: 5),
+                        YListDialogElement(title: "Element 6", value: 6),
+                        YListDialogElement(
+                            title: "Element 7",
+                            description:
+                                "Awesome description really long yes i know such a shit text but hey i need to test so i keep writing great shit",
+                            value: 7),
+                        YListDialogElement(
+                            title: "Element 8",
+                            description:
+                                "Awesome description really long yes i know such a shit text but hey i need to test so i keep writing great shit",
+                            value: 8),
+                        YListDialogElement(title: "Element 9", value: 9),
+                      ]));
+                  print(e);
+                },
+                text: "List",
                 type: YColor.danger,
               ),
               YButton(

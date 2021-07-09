@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
+import 'package:ynotes_components/ynotes_components.dart';
 import 'y_choice_dialog.dart';
 import 'y_confirmation_dialog.dart';
 
@@ -22,5 +23,9 @@ class YDialogs {
 
   static Future<void> getConfirmation(BuildContext context, YConfirmationDialog dialog) async {
     return await showDialog(barrierDismissible: false, context: context, builder: (_) => dialog);
+  }
+
+  static Future<T?> getListChoice<T>(BuildContext context, YListDialog dialog) async {
+    return await showDialog(barrierDismissible: true, context: context, builder: (_) => dialog);
   }
 }

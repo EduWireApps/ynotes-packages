@@ -7,3 +7,4 @@ export 'package:ynotes_components/src/theme/colors.dart';
 export 'package:ynotes_components/src/components/y_button.dart';
 export 'package:ynotes_components/src/components/y_choice_dialog.dart';
 export 'package:ynotes_components/src/components/y_confirmation_dialog.dart';
+export 'package:ynotes_components/src/components/y_list_dialog.dart';

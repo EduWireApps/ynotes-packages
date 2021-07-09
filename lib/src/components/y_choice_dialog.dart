@@ -4,7 +4,6 @@ import '../components/base.dart';
 import '../components/texts.dart';
 import '../components/utils.dart';
 import '../components/y_button.dart';
-import '../theme/theme.dart';
 import '../theme/colors.dart';
 
 class YChoiceDialog extends StatefulWidget {
@@ -26,19 +25,7 @@ class _YChoiceDialogState extends State<YChoiceDialog> {
   @override
   Widget build(BuildContext context) {
     return YDialogBase(children: [
-      Container(
-        padding: EdgeInsets.all(10),
-        decoration: BoxDecoration(
-            color: currentTheme.colors.get(widget.type).shade200, borderRadius: BorderRadius.all(Radius.circular(120))),
-        child: Icon(
-          widget.icon,
-          size: 30,
-          color: currentTheme.colors.get(widget.type).shade300,
-        ),
-      ),
-      YVerticalSpacer(6),
-      YH1(widget.title),
-      YVerticalSpacer(1),
+      YDialogHeader(type: widget.type, title: widget.title, icon: widget.icon),
       YTextBody(widget.description, align: TextAlign.center),
       YVerticalSpacer(16),
       Row(

@@ -166,6 +166,32 @@ Must be called using `YDialogs.getConfirmation()` (See the example below).
 - `title` (required): `String`
 - `description` (required): `String`
 - `icon` (required): `IconData`
+- `buttonLabel`: `String` _"Confirmer"_ by default
+
+#### Example
+
+```dart
+await YDialogs.getConfirmation(YConfirmationDialog(
+    type: YColor.danger,
+    title: "Hep !",
+    description: "Ca a pas marché.",
+    icon: Icons.error_outline,
+));
+```
+
+### YConfirmationDialog `Done`
+
+A dialog to let the user know something.
+
+Must be called using `YDialogs.getConfirmation()` (See the example below).
+
+#### Parameters
+
+- `type` (required): `YColor` The color type of the dialog. **CAUTION:** The neutral color can't be used there, will throw an error.
+- `title` (required): `String`
+- `description` (required): `String`
+- `icon` (required): `IconData`
+- `buttonLabel`: `String` _"Confirmer"_ by default
 
 #### Example
 
@@ -195,6 +221,5 @@ await YDialogs.getConfirmation(YConfirmationDialog(
 - YListMultipleDialog
 - YDropdown
 - YPage
-- YLocalPage
 
 More to come

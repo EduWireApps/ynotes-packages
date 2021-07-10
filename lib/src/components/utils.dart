@@ -25,7 +25,7 @@ class YDialogs {
     return await showDialog(barrierDismissible: false, context: context, builder: (_) => dialog);
   }
 
-  static Future<T?> getListChoice<T>(BuildContext context, YListDialog dialog) async {
+  static Future<YListDialogElement?> getListChoice(BuildContext context, YListDialog dialog) async {
     return await showDialog(barrierDismissible: true, context: context, builder: (_) => dialog);
   }
 }

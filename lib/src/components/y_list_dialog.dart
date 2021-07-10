@@ -6,8 +6,10 @@ import '../theme/theme.dart';
 
 class YListDialog extends StatefulWidget {
   final List<YListDialogElement> elements;
+  final YDialogHeader? header;
+  final bool fixedHeader;
 
-  const YListDialog({Key? key, required this.elements}) : super(key: key);
+  const YListDialog({Key? key, required this.elements, this.header, this.fixedHeader = true}) : super(key: key);
 
   @override
   _YListDialogState createState() => _YListDialogState();
@@ -17,7 +19,9 @@ class _YListDialogState extends State<YListDialog> {
   @override
   Widget build(BuildContext context) {
     return YDialogBase(
+      topFixed: widget.fixedHeader ? widget.header : null,
       children: [
+        if (!widget.fixedHeader && widget.header != null) widget.header!,
         ListView.separated(
             shrinkWrap: true,
             physics: ClampingScrollPhysics(),
@@ -40,7 +44,7 @@ class _YListDialogState extends State<YListDialog> {
 
               return InkWell(
                   splashColor: currentTheme.colors.neutral.shade300,
-                  onTap: () => Navigator.pop(context, e.value),
+                  onTap: () => Navigator.pop(context, e),
                   child: ListTile(
                     minVerticalPadding: 5.sp,
                     dense: true,

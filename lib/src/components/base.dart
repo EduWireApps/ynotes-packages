@@ -40,9 +40,10 @@ class _YTextBaseState extends State<YTextBase> {
 
 class YDialogBase extends StatefulWidget {
   final List<Widget> children;
+  final Widget? topFixed;
   final Widget? bottomFixed;
 
-  const YDialogBase({Key? key, required this.children, this.bottomFixed}) : super(key: key);
+  const YDialogBase({Key? key, required this.children, this.topFixed, this.bottomFixed}) : super(key: key);
 
   @override
   _YDialogBaseState createState() => _YDialogBaseState();
@@ -65,6 +66,11 @@ class _YDialogBaseState extends State<YDialogBase> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
+              if (widget.topFixed != null)
+                Padding(
+                  padding: EdgeInsets.only(bottom: 16.sp),
+                  child: widget.topFixed!,
+                ),
               Flexible(
                 child: YShadowScrollContainer(
                   children: [

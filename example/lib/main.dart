@@ -124,7 +124,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   variant: YButtonVariant.reverse),
               YButton(
                 onPressed: () async {
-                  final e = await YDialogs.getListChoice<int>(
+                  final YListDialogElement? e = await YDialogs.getListChoice(
                       context,
                       YListDialog(elements: [
                         YListDialogElement(
@@ -159,7 +159,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             value: 8),
                         YListDialogElement(title: "Element 9", value: 9),
                       ]));
-                  print(e);
+                  print(e?.value);
                 },
                 text: "List",
                 type: YColor.danger,

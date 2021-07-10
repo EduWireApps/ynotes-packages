@@ -5,7 +5,7 @@ import '../theme/theme.dart';
 
 class YCheckbox extends StatefulWidget {
   final bool value;
-  final void Function(bool?) onChanged;
+  final ValueChanged<bool> onChanged;
   final YColor type;
 
   const YCheckbox({Key? key, required this.value, required this.onChanged, this.type = YColor.primary})
@@ -18,6 +18,8 @@ class YCheckbox extends StatefulWidget {
 class _YCheckboxState extends State<YCheckbox> {
   YTButtonStyleColors get style => currentTheme.buttonStyles.get(widget.type).plain;
 
+  void _onChanged(bool? value) => widget.onChanged(value!);
+
   @override
   Widget build(BuildContext context) {
     return Theme(
@@ -28,7 +30,7 @@ class _YCheckboxState extends State<YCheckbox> {
           activeColor: style.background,
           checkColor: style.text,
           value: widget.value,
-          onChanged: widget.onChanged,
+          onChanged: _onChanged,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
         ),
       ),

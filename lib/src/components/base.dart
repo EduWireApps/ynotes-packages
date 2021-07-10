@@ -59,7 +59,7 @@ class _YDialogBaseState extends State<YDialogBase> {
       contentPadding: EdgeInsets.zero,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15))),
       content: ConstrainedBox(
-        constraints: BoxConstraints(maxHeight: 75.h, maxWidth: 90.w),
+        constraints: BoxConstraints(maxHeight: 75.h, maxWidth: 90.w.clamp(0, 500)),
         child: Container(
           width: double.maxFinite,
           padding: EdgeInsets.symmetric(horizontal: 18.sp, vertical: 14.sp),

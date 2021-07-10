@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
+import 'package:ynotes_components/ynotes_components.dart';
 
 import '../components/base.dart';
 import '../theme/theme.dart';
@@ -37,7 +38,6 @@ class _YListMultipleDialogState extends State<YListMultipleDialog> {
   }
 
   void _onChanged(bool value) {
-    print("CHANGED");
     setState(() {});
   }
 
@@ -144,7 +144,7 @@ class _YListMultipleTileState extends State<YListMultipleTile> {
       description: widget.element.description,
       leading: YCheckbox(
         value: _value,
-        onChanged: (bool? value) => updateState(value: value!),
+        onChanged: (bool value) => updateState(value: value),
         type: widget.type,
       ),
     );

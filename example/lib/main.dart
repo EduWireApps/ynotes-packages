@@ -1,4 +1,5 @@
 import 'package:example/test_page.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:sizer/sizer.dart';
@@ -33,6 +34,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   bool loading = false;
+  bool _status = false;
 
   @override
   Widget build(BuildContext context) {
@@ -175,7 +177,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 onPressed: () async {
                   final List<YListMultipleDialogElement>? res = await YDialogs.getListSelected(
                       context,
-                      YListMultipleDialog(min: 1, max: 2, type: YColor.success, elements: [
+                      YListMultipleDialog(min: 1, max: 2, type: YColor.neutral, elements: [
                         YListMultipleDialogElement(
                             id: 0, title: "TEST 1", description: "awesome description", value: false),
                         YListMultipleDialogElement(
@@ -198,6 +200,17 @@ class _MyHomePageState extends State<MyHomePage> {
                 value: true,
                 onChanged: (bool? b) {},
                 type: YColor.warning,
+              ),
+              Switch(value: true, onChanged: (bool? v) {}),
+              YSwitch(value: true, onChanged: (bool value) => print(value)),
+              YSwitch(
+                value: _status,
+                onChanged: (bool value) {
+                  setState(() {
+                    _status = value;
+                  });
+                },
+                type: YColor.success,
               ),
             ],
           ),

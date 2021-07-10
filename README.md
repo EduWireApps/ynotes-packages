@@ -137,7 +137,7 @@ A checkbox. Value is a boolean.
 #### Parameters
 
 - `value` (required): `bool` The default value
-- `onChanged` (required): `void Function(bool?)` The event to trigger when the value is updated
+- `onChanged` (required): `void Function(bool)` The event to trigger when the value is updated
 - `type`: `YColor` The checkbox type. _YColor.primary_ by default
 
 #### Example
@@ -145,7 +145,27 @@ A checkbox. Value is a boolean.
 ```dart
 YCheckbox(
     value: false,
-    onChanged: (bool? value) => print("New value: ${value!}"),
+    onChanged: (bool value) => print("New value: ${value!}"),
+    type: YColor.success
+)
+```
+
+### YSwitch `Done`
+
+A switch. Value is a boolean.
+
+#### Parameters
+
+- `value` (required): `bool` The default value
+- `onChanged` (required): `void Function(bool)` The event to trigger when the value is updated
+- `type`: `YColor` The checkbox type. _YColor.primary_ by default
+
+#### Example
+
+```dart
+YSwitch(
+    value: false,
+    onChanged: (bool value) => print("New value: ${value!}"),
     type: YColor.success
 )
 ```

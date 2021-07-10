@@ -146,7 +146,7 @@ Must be called using `YDialogs.getChoice()` (See the example below).
 #### Example
 
 ```dart
-final bool choice = await YDialogs.getChoice(YChoiceDialog(
+final bool choice = await YDialogs.getChoice(context, YChoiceDialog(
     type: YColor.danger,
     title: "Hep !",
     description: "T'es sûr(e) de vouloir faire ça ?",
@@ -166,15 +166,48 @@ Must be called using `YDialogs.getConfirmation()` (See the example below).
 - `title` (required): `String`
 - `description` (required): `String`
 - `icon` (required): `IconData`
+- `buttonLabel`: `String` _"Confirmer"_ by default
 
 #### Example
 
 ```dart
-await YDialogs.getConfirmation(YConfirmationDialog(
+await YDialogs.getConfirmation(context, YConfirmationDialog(
     type: YColor.danger,
     title: "Hep !",
     description: "Ca a pas marché.",
     icon: Icons.error_outline,
+));
+```
+
+### YListDialog `Done`
+
+A dialog to let the user choose an element from a list.
+
+Must be called using `YDialogs.getListChoice()` (See the example below).
+
+#### Parameters
+
+- `elements` (required): `YListDialogElement` The list of elements
+- `header` : `YDialogHeader?` an optional header
+- `fixedHeader` : `bool` Define if the header is part of the scrollable area or not. _true_ by default
+
+#### Example
+
+```dart
+final YListDialogElement? res = await YDialogs.getListChoice(
+    context, YListDialog(
+        header: YDialogHeader(
+            type: YColor.success,
+            title: "Choose",
+            icon: Icons.list),
+        headerFixed: false,
+        elements: [
+            YListDialogElement(title: "Element 0", description: "This is element 0.", icon: Icons.error, value: 0),
+            YListDialogElement(title: "Element 1", icon: Icons.warning, value: 1),
+            YListDialogElement(title: "Element 2", description: "This is element 2.", value: 2),
+        ],
+    )
+);
 ));
 ```
 
@@ -191,10 +224,9 @@ await YDialogs.getConfirmation(YConfirmationDialog(
 
 ### Coming soon
 
-- YListDialog
 - YListMultipleDialog
 - YDropdown
+- YInput
 - YPage
-- YLocalPage
 
 More to come

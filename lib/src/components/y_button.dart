@@ -50,6 +50,7 @@ class _YButtonState extends State<YButton> with TickerProviderStateMixin {
       opacity: widget.isDisabled ? 0.5 : 1,
       child: RawMaterialButton(
           padding: EdgeInsets.symmetric(horizontal: 13.sp.clamp(0.0, 15), vertical: 4.sp.clamp(0.0, 10)),
+          materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
           elevation: 0,
           highlightElevation: 0,
           hoverElevation: 0,

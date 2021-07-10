@@ -59,7 +59,7 @@ class _YDialogBaseState extends State<YDialogBase> {
       contentPadding: EdgeInsets.zero,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15))),
       content: ConstrainedBox(
-        constraints: BoxConstraints(maxHeight: 80.h, maxWidth: 90.w),
+        constraints: BoxConstraints(maxHeight: 75.h, maxWidth: 90.w),
         child: Container(
           width: double.maxFinite,
           padding: EdgeInsets.symmetric(horizontal: 18.sp, vertical: 14.sp),
@@ -125,6 +125,57 @@ class _YDialogHeaderState extends State<YDialogHeader> {
         YH1(widget.title),
         YVerticalSpacer(1),
       ],
+    );
+  }
+}
+
+class YListDialogTile extends StatefulWidget {
+  final VoidCallback onTap;
+  final String title;
+  final String? description;
+  final Widget? leading;
+
+  const YListDialogTile({Key? key, required this.onTap, required this.title, this.description, this.leading})
+      : super(key: key);
+
+  @override
+  _YListDialogTileState createState() => _YListDialogTileState();
+}
+
+class _YListDialogTileState extends State<YListDialogTile> {
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+        splashColor: currentTheme.colors.neutral.shade300,
+        onTap: widget.onTap,
+        child: ListTile(
+          minVerticalPadding: 5.sp,
+          dense: true,
+          title: Text(widget.title,
+              style:
+                  TextStyle(color: currentTheme.colors.neutral.shade500, fontWeight: FontWeight.w600, fontSize: 12.sp)),
+          subtitle: widget.description == null
+              ? null
+              : Text(widget.description!,
+                  style: TextStyle(color: currentTheme.colors.neutral.shade400, fontSize: 9.sp)),
+          leading: widget.leading,
+        ));
+  }
+}
+
+class YListDialogTileDivider extends StatefulWidget {
+  const YListDialogTileDivider({Key? key}) : super(key: key);
+
+  @override
+  _YListDialogTileDividerState createState() => _YListDialogTileDividerState();
+}
+
+class _YListDialogTileDividerState extends State<YListDialogTileDivider> {
+  @override
+  Widget build(BuildContext context) {
+    return Divider(
+      height: 0.0,
+      color: currentTheme.colors.neutral.shade100,
     );
   }
 }

@@ -172,10 +172,32 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               YButton(onPressed: () {}, text: "Neutral", type: YColor.neutral),
               YButton(
-                onPressed: () {},
-                text: "Reverse",
+                onPressed: () async {
+                  final List<YListMultipleDialogElement>? res = await YDialogs.getListSelected(
+                      context,
+                      YListMultipleDialog(min: 1, max: 2, type: YColor.success, elements: [
+                        YListMultipleDialogElement(
+                            id: 0, title: "TEST 1", description: "awesome description", value: false),
+                        YListMultipleDialogElement(
+                            id: 1, title: "TEST 2", description: "awesome description", value: true),
+                      ]));
+                  print(res);
+                  if (res != null) {
+                    res.forEach((element) {
+                      print(element.id);
+                    });
+                  }
+                },
+                text: "List multiple",
                 type: YColor.neutral,
                 variant: YButtonVariant.reverse,
+              ),
+              YCheckbox(value: false, onChanged: (bool? b) {}),
+              YCheckbox(value: true, onChanged: (bool? b) {}),
+              YCheckbox(
+                value: true,
+                onChanged: (bool? b) {},
+                type: YColor.warning,
               ),
             ],
           ),

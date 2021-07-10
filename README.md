@@ -130,6 +130,26 @@ YButton(
 )
 ```
 
+### YCheckbox `Done`
+
+A checkbox. Value is a boolean.
+
+#### Parameters
+
+- `value` (required): `bool` The default value
+- `onChanged` (required): `void Function(bool?)` The event to trigger when the value is updated
+- `type`: `YColor` The checkbox type. _YColor.primary_ by default
+
+#### Example
+
+```dart
+YCheckbox(
+    value: false,
+    onChanged: (bool? value) => print("New value: ${value!}"),
+    type: YColor.success
+)
+```
+
 ### YChoiceDialog `Done`
 
 A dialog to get the user choice as a boolean (`Future<bool>`).
@@ -211,6 +231,52 @@ final YListDialogElement? res = await YDialogs.getListChoice(
 ));
 ```
 
+### YListMultipleDialog `Done`
+
+A dialog to let the user choose an element from a list.
+
+Must be called using `YDialogs.getListChoice()` (See the example below).
+
+#### Parameters
+
+- `elements` (required): `YListDialogElement` The list of elements
+- `header` : `YDialogHeader?` an optional header
+- `fixedHeader` : `bool` Define if the header is part of the scrollable area or not. _true_ by default
+- `type`: `YColor` The button type used for confirmation button and checkboxes. _YColor.primary_ by default
+- `min`: `int` The minimum required selected elements. Set to _0_ by default
+- `max`: `int?` The maximum required selected elements. If not set, it uses `elements.length`.
+
+Hints are displayed to help the user depending on `min` and `max` values.
+
+#### Example
+
+```dart
+final List<YListMultipleDialogElement>? res = await YDialogs.getListSelected(
+    context, YListDialog(
+        min: 1,
+        max: 2,
+        type: YColor.success,
+        header: YDialogHeader(
+            type: YColor.success,
+            title: "Choose",
+            icon: Icons.list),
+        headerFixed: false,
+        elements: [
+            YListMultipleDialogElement(
+                id: 0,
+                title: "Element 0",
+                description: "This is element 0",
+                value: false),
+            YListMultipleDialogElement(
+                id: 1,
+                title: "Element 1",
+                value: true),
+        ],
+    )
+);
+));
+```
+
 <hr />
 
 **REMAINING COMPONENTS MUST BE DOCUMENTED**
@@ -224,7 +290,6 @@ final YListDialogElement? res = await YDialogs.getListChoice(
 
 ### Coming soon
 
-- YListMultipleDialog
 - YDropdown
 - YInput
 - YPage

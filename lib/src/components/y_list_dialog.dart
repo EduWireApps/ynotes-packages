@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:sizer/sizer.dart';
 
 import '../components/base.dart';
 import '../theme/theme.dart';
@@ -26,10 +25,7 @@ class _YListDialogState extends State<YListDialog> {
             shrinkWrap: true,
             physics: ClampingScrollPhysics(),
             itemCount: widget.elements.length,
-            separatorBuilder: (context, index) => Divider(
-                  height: 0.0,
-                  color: currentTheme.colors.neutral.shade100,
-                ),
+            separatorBuilder: (context, index) => YListDialogTileDivider(),
             itemBuilder: (context, index) {
               bool _hasIcon() {
                 for (final YListDialogElement el in widget.elements) {
@@ -42,21 +38,12 @@ class _YListDialogState extends State<YListDialog> {
               final bool elementHasIcon = _hasIcon();
               final Icon icon = Icon(e.icon, color: currentTheme.colors.neutral.shade400);
 
-              return InkWell(
-                  splashColor: currentTheme.colors.neutral.shade300,
-                  onTap: () => Navigator.pop(context, e),
-                  child: ListTile(
-                    minVerticalPadding: 5.sp,
-                    dense: true,
-                    title: Text(e.title,
-                        style: TextStyle(
-                            color: currentTheme.colors.neutral.shade500, fontWeight: FontWeight.w600, fontSize: 12.sp)),
-                    subtitle: e.description == null
-                        ? null
-                        : Text(e.description!,
-                            style: TextStyle(color: currentTheme.colors.neutral.shade400, fontSize: 9.sp)),
-                    leading: elementHasIcon ? icon : (e.icon != null ? icon : null),
-                  ));
+              return YListDialogTile(
+                onTap: () => Navigator.pop(context, e),
+                title: e.title,
+                description: e.description,
+                leading: elementHasIcon ? icon : (e.icon != null ? icon : null),
+              );
             })
       ],
     );

@@ -1,13 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:sizer/sizer.dart';
-import 'package:ynotes_components/ynotes_components.dart';
-
-import '../components/base.dart';
-import '../theme/theme.dart';
-import '../theme/colors.dart';
-import 'y_button.dart';
-import 'utils.dart';
-import 'y_checkbox.dart';
+part of components;
 
 class YListMultipleDialog extends StatefulWidget {
   final List<YListMultipleDialogElement> elements;
@@ -100,8 +91,7 @@ class _YListMultipleDialogState extends State<YListMultipleDialog> {
           YVerticalSpacer(5),
           if (widget.min != 0 || widget.max != null)
             Text(_textValue(),
-                textAlign: TextAlign.center,
-                style: TextStyle(color: currentTheme.colors.neutral.shade400, fontSize: 9.sp))
+                textAlign: TextAlign.center, style: TextStyle(color: theme.colors.neutral.shade400, fontSize: 9.sp))
         ],
       ),
     );

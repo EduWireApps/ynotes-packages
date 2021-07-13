@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../components/y_button.dart';
+import 'package:ynotes_packages/components.dart';
 
 import 'colors.dart';
 

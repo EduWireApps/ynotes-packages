@@ -1,5 +1,5 @@
-import 'package:ynotes_components/src/theme/button_styles.dart';
-import 'package:ynotes_components/src/theme/utils.dart';
+import 'package:ynotes_packages/src/theme/button_styles.dart';
+import 'package:ynotes_packages/src/theme/utils.dart';
 
 import 'colors.dart';
 

@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.ynotes_components">
+    package="com.example.ynotes_packages">
    <application
-        android:label="ynotes_components"
+        android:label="ynotes_packages"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

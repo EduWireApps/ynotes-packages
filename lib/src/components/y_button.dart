@@ -1,10 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:sizer/sizer.dart';
-
-import '../theme/theme.dart';
-import '../theme/colors.dart';
-import '../theme/button_styles.dart';
-import '../components/utils.dart';
+part of components;
 
 class YButton extends StatefulWidget {
   final VoidCallback onPressed;
@@ -36,7 +30,7 @@ class YButton extends StatefulWidget {
 enum YButtonVariant { plain, reverse }
 
 class _YButtonState extends State<YButton> with TickerProviderStateMixin {
-  YTButtonStyleColors get style => currentTheme.buttonStyles.get(widget.type).get(widget.variant);
+  YTButtonStyleColors get style => theme.buttonStyles.get(widget.type).get(widget.variant);
 
   Color get highlightColor => style.highlight;
   Color get backgroundColor => style.background;

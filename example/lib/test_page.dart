@@ -1,27 +1,24 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
-import 'package:ynotes_components/ynotes_components.dart';
 import 'package:sizer/sizer.dart';
 
-class TestPage extends StatelessWidget {
-  final List<Color> colors = [currentTheme.colors.primary.shade100];
+import 'package:ynotes_packages/components.dart';
+import 'package:ynotes_packages/theme.dart';
 
-  Widget temp(BuildContext context) => Padding(
-      padding: EdgeInsets.all(20), child: Container(height: 200, color: colors[Random().nextInt(colors.length)]));
+class TestPage extends StatelessWidget {
+  Widget temp(BuildContext context) =>
+      Padding(padding: EdgeInsets.all(20), child: Container(height: 200, color: theme.colors.primary.shade100));
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          brightness: currentTheme.isDark ? Brightness.dark : Brightness.light,
-          iconTheme: IconThemeData(color: currentTheme.colors.neutral.shade500),
+          brightness: theme.isDark ? Brightness.dark : Brightness.light,
+          iconTheme: IconThemeData(color: theme.colors.neutral.shade500),
           centerTitle: false,
-          backgroundColor: currentTheme.colors.neutral.shade100,
-          title: Text("Test page",
-              style: TextStyle(fontWeight: FontWeight.w700, color: currentTheme.colors.neutral.shade500)),
+          backgroundColor: theme.colors.neutral.shade100,
+          title: Text("Test page", style: TextStyle(fontWeight: FontWeight.w700, color: theme.colors.neutral.shade500)),
         ),
-        backgroundColor: currentTheme.colors.neutral.shade200,
+        backgroundColor: theme.colors.neutral.shade200,
         body: CustomScrollView(
           slivers: <Widget>[
             SliverList(
@@ -36,7 +33,7 @@ class TestPage extends StatelessWidget {
                         children: [
                           Text("Période",
                               style: TextStyle(
-                                color: currentTheme.colors.neutral.shade400,
+                                color: theme.colors.neutral.shade400,
                                 fontSize: 10.sp,
                                 fontWeight: FontWeight.w400,
                               )),
@@ -44,7 +41,7 @@ class TestPage extends StatelessWidget {
                               style: TextStyle(
                                   fontSize: 25.sp,
                                   fontWeight: FontWeight.w700,
-                                  color: currentTheme.colors.neutral.shade500,
+                                  color: theme.colors.neutral.shade500,
                                   height: .9)),
                         ],
                       ),
@@ -78,17 +75,17 @@ class TestPage extends StatelessWidget {
               delegate: SliverChildListDelegate([
                 Container(
                     padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                    color: currentTheme.colors.neutral.shade100,
+                    color: theme.colors.neutral.shade100,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         Text(
                           "Filtres",
-                          style: TextStyle(color: currentTheme.colors.neutral.shade400),
+                          style: TextStyle(color: theme.colors.neutral.shade400),
                         ),
                         Text(
                           "Simulateur",
-                          style: TextStyle(color: currentTheme.colors.neutral.shade400),
+                          style: TextStyle(color: theme.colors.neutral.shade400),
                         ),
                       ],
                     )),
@@ -123,16 +120,13 @@ class _CustomHeaderState extends State<CustomHeader> {
         children: [
           Text(label,
               style: TextStyle(
-                color: currentTheme.colors.neutral.shade400,
+                color: theme.colors.neutral.shade400,
                 fontSize: 10.sp,
                 fontWeight: FontWeight.w400,
               )),
           Text(data,
               style: TextStyle(
-                  fontSize: 15.sp,
-                  fontWeight: FontWeight.w600,
-                  color: currentTheme.colors.neutral.shade500,
-                  height: .9))
+                  fontSize: 15.sp, fontWeight: FontWeight.w600, color: theme.colors.neutral.shade500, height: .9))
         ],
       );
 
@@ -140,7 +134,7 @@ class _CustomHeaderState extends State<CustomHeader> {
   Widget build(BuildContext context) {
     return Container(
         decoration: BoxDecoration(
-          color: currentTheme.colors.neutral.shade300,
+          color: theme.colors.neutral.shade300,
           boxShadow: [
             BoxShadow(color: Colors.black38.withOpacity(.3), blurRadius: 5, offset: Offset(0, 5), spreadRadius: 0)
           ],
@@ -153,8 +147,7 @@ class _CustomHeaderState extends State<CustomHeader> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text("17,01",
-                  style: TextStyle(
-                      fontSize: 25.sp, fontWeight: FontWeight.w600, color: currentTheme.colors.neutral.shade500)),
+                  style: TextStyle(fontSize: 25.sp, fontWeight: FontWeight.w600, color: theme.colors.neutral.shade500)),
               Row(
                 children: [
                   YHorizontalSpacer(25),

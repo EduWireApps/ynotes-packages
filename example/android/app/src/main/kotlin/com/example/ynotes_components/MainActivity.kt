@@ -1,4 +1,4 @@
-package com.example.ynotes_components
+package com.example.ynotes_packages
 
 import io.flutter.embedding.android.FlutterActivity
 

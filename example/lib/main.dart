@@ -1,9 +1,9 @@
 import 'package:example/test_page.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:sizer/sizer.dart';
-import 'package:ynotes_components/ynotes_components.dart';
+import 'package:ynotes_packages/components.dart';
+import 'package:ynotes_packages/theme.dart';
 
 void main() {
   runApp(Phoenix(child: MyApp()));
@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
       builder: (context, orientation, deviceType) => MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
-        theme: ThemeData(fontFamily: "Asap", accentColor: currentTheme.colors.primary.shade300),
+        theme: ThemeData(fontFamily: "Asap", accentColor: theme.colors.primary.shade300),
         home: MyHomePage(title: 'Demo'),
       ),
     );
@@ -39,19 +39,19 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: currentTheme.colors.neutral.shade200,
+        backgroundColor: theme.colors.neutral.shade200,
         drawer: Drawer(
           child: Container(
-            color: currentTheme.colors.neutral.shade100,
+            color: theme.colors.neutral.shade100,
           ),
         ),
         appBar: AppBar(
-          brightness: currentTheme.isDark ? Brightness.dark : Brightness.light,
-          iconTheme: IconThemeData(color: currentTheme.colors.neutral.shade500),
+          brightness: theme.isDark ? Brightness.dark : Brightness.light,
+          iconTheme: IconThemeData(color: theme.colors.neutral.shade500),
           centerTitle: false,
-          backgroundColor: currentTheme.colors.neutral.shade100,
-          title: Text(widget.title,
-              style: TextStyle(fontWeight: FontWeight.w700, color: currentTheme.colors.neutral.shade500)),
+          backgroundColor: theme.colors.neutral.shade100,
+          title:
+              Text(widget.title, style: TextStyle(fontWeight: FontWeight.w700, color: theme.colors.neutral.shade500)),
           actions: [
             IconButton(
                 onPressed: () {
@@ -72,20 +72,20 @@ class _MyHomePageState extends State<MyHomePage> {
             children: [
               YButton(
                   onPressed: () {
-                    switch (currentTheme.theme) {
+                    switch (theme.theme) {
                       case YAvailableTheme.system:
-                        currentTheme.theme = YAvailableTheme.light;
+                        theme.theme = YAvailableTheme.light;
                         break;
                       case YAvailableTheme.light:
-                        currentTheme.theme = YAvailableTheme.dark;
+                        theme.theme = YAvailableTheme.dark;
                         break;
                       case YAvailableTheme.dark:
-                        currentTheme.theme = YAvailableTheme.system;
+                        theme.theme = YAvailableTheme.system;
                         break;
                     }
                     setState(() {});
                   },
-                  text: "Switch theme: ${currentTheme.name}"),
+                  text: "Switch theme: ${theme.name}"),
               YButton(
                 onPressed: () => setState(() {
                   this.loading = !this.loading;
@@ -201,7 +201,6 @@ class _MyHomePageState extends State<MyHomePage> {
                 onChanged: (bool? b) {},
                 type: YColor.warning,
               ),
-              Switch(value: true, onChanged: (bool? v) {}),
               YSwitch(value: true, onChanged: (bool value) => print(value)),
               YSwitch(
                 value: _status,

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:ynotes_components/src/theme/button_styles.dart';
-import 'package:ynotes_components/src/theme/colors.dart';
-import 'package:ynotes_components/src/theme/theme.dart';
+import 'package:ynotes_packages/src/theme/button_styles.dart';
+import 'package:ynotes_packages/src/theme/colors.dart';
+import 'package:ynotes_packages/src/theme/theme.dart';
 
 import '../light/colors.dart' as lightColors;
 import '../light/button_styles.dart' as lightButtonStyles;

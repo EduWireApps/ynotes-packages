@@ -1,9 +1,4 @@
-import 'package:flutter/material.dart';
-
-import '../components/base.dart';
-import '../components/texts.dart';
-import '../components/y_button.dart';
-import '../theme/colors.dart';
+part of components;
 
 class YConfirmationDialog extends StatefulWidget {
   final YColor type;

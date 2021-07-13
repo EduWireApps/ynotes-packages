@@ -1,4 +1,4 @@
-import 'package:ynotes_components/src/theme/theme.dart';
+import 'package:ynotes_packages/src/theme/theme.dart';
 
 import 'colors.dart';
 import 'button_styles.dart';

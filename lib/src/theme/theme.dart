@@ -15,11 +15,11 @@ class YTheme {
   YTheme(this.name, {required this.theme, required this.isDark, required this.colors, required this.buttonStyles});
 }
 
-class YCurrentTheme {
+class _Ytheme {
   YAvailableTheme theme;
   final List<YTheme> themes;
 
-  YCurrentTheme({required this.theme, required this.themes});
+  _Ytheme({required this.theme, required this.themes});
 
   YTheme get _ct => this.themes.firstWhere((t) => t.theme == this.theme);
 
@@ -30,6 +30,6 @@ class YCurrentTheme {
 }
 
 enum YAvailableTheme { system, light, dark }
-final List<YTheme> themes = [systemTheme, lightTheme, darkTheme];
+final List<YTheme> _themes = [systemTheme, lightTheme, darkTheme];
 
-final YCurrentTheme currentTheme = YCurrentTheme(theme: YAvailableTheme.system, themes: themes);
+final _Ytheme theme = _Ytheme(theme: YAvailableTheme.system, themes: _themes);

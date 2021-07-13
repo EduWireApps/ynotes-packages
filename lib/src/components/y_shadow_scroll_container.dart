@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+part of components;
 
 class YShadowScrollContainer extends StatefulWidget {
   final List<Widget> children;

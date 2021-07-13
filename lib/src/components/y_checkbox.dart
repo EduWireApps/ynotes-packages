@@ -1,7 +1,4 @@
-import 'package:flutter/material.dart';
-import '../theme/colors.dart';
-import '../theme/button_styles.dart';
-import '../theme/theme.dart';
+part of components;
 
 class YCheckbox extends StatefulWidget {
   final bool value;
@@ -16,14 +13,14 @@ class YCheckbox extends StatefulWidget {
 }
 
 class _YCheckboxState extends State<YCheckbox> {
-  YTButtonStyleColors get style => currentTheme.buttonStyles.get(widget.type).plain;
+  YTButtonStyleColors get style => theme.buttonStyles.get(widget.type).plain;
 
   void _onChanged(bool? value) => widget.onChanged(value!);
 
   @override
   Widget build(BuildContext context) {
     return Theme(
-      data: ThemeData(unselectedWidgetColor: currentTheme.colors.neutral.shade100),
+      data: ThemeData(unselectedWidgetColor: theme.colors.neutral.shade100),
       child: Transform.scale(
         scale: 1.2,
         child: Checkbox(

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ynotes_components/src/theme/colors.dart';
+import 'package:ynotes_packages/src/theme/colors.dart';
 
 final YTColor _primary = YTColor(
     shade100: Color(0xffECEEF8),

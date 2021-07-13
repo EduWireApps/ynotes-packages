@@ -1,7 +1,4 @@
-import 'package:flutter/material.dart';
-
-import '../components/base.dart';
-import '../theme/theme.dart';
+part of components;
 
 class YListDialog extends StatefulWidget {
   final List<YListDialogElement> elements;
@@ -36,7 +33,7 @@ class _YListDialogState extends State<YListDialog> {
 
               final YListDialogElement e = widget.elements[index];
               final bool elementHasIcon = _hasIcon();
-              final Icon icon = Icon(e.icon, color: currentTheme.colors.neutral.shade400);
+              final Icon icon = Icon(e.icon, color: theme.colors.neutral.shade400);
 
               return YListDialogTile(
                 onTap: () => Navigator.pop(context, e),

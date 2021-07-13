@@ -1,11 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:sizer/sizer.dart';
-
-import '../theme/theme.dart';
-import '../theme/colors.dart';
-import 'texts.dart';
-import 'utils.dart';
-import 'y_shadow_scroll_container.dart';
+part of components;
 
 class YTextBase extends StatefulWidget {
   final String text;
@@ -50,7 +43,7 @@ class YDialogBase extends StatefulWidget {
 }
 
 class _YDialogBaseState extends State<YDialogBase> {
-  final Color backgroundColor = currentTheme.colors.neutral.shade200;
+  final Color backgroundColor = theme.colors.neutral.shade200;
 
   @override
   Widget build(BuildContext context) {
@@ -91,91 +84,6 @@ class _YDialogBaseState extends State<YDialogBase> {
           ),
         ),
       ),
-    );
-  }
-}
-
-class YDialogHeader extends StatefulWidget {
-  final YColor type;
-  final String title;
-  final IconData icon;
-  const YDialogHeader({Key? key, required this.type, required this.title, required this.icon}) : super(key: key);
-
-  @override
-  _YDialogHeaderState createState() => _YDialogHeaderState();
-}
-
-class _YDialogHeaderState extends State<YDialogHeader> {
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          padding: EdgeInsets.all(10),
-          decoration: BoxDecoration(
-              color: currentTheme.colors.get(widget.type).shade200,
-              borderRadius: BorderRadius.all(Radius.circular(120))),
-          child: Icon(
-            widget.icon,
-            size: 30,
-            color: currentTheme.colors.get(widget.type).shade300,
-          ),
-        ),
-        YVerticalSpacer(6),
-        YH1(widget.title),
-        YVerticalSpacer(1),
-      ],
-    );
-  }
-}
-
-class YListDialogTile extends StatefulWidget {
-  final VoidCallback onTap;
-  final String title;
-  final String? description;
-  final Widget? leading;
-
-  const YListDialogTile({Key? key, required this.onTap, required this.title, this.description, this.leading})
-      : super(key: key);
-
-  @override
-  _YListDialogTileState createState() => _YListDialogTileState();
-}
-
-class _YListDialogTileState extends State<YListDialogTile> {
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-        splashColor: currentTheme.colors.neutral.shade300,
-        onTap: widget.onTap,
-        child: ListTile(
-          minVerticalPadding: 5.sp,
-          dense: true,
-          title: Text(widget.title,
-              style:
-                  TextStyle(color: currentTheme.colors.neutral.shade500, fontWeight: FontWeight.w600, fontSize: 12.sp)),
-          subtitle: widget.description == null
-              ? null
-              : Text(widget.description!,
-                  style: TextStyle(color: currentTheme.colors.neutral.shade400, fontSize: 9.sp)),
-          leading: widget.leading,
-        ));
-  }
-}
-
-class YListDialogTileDivider extends StatefulWidget {
-  const YListDialogTileDivider({Key? key}) : super(key: key);
-
-  @override
-  _YListDialogTileDividerState createState() => _YListDialogTileDividerState();
-}
-
-class _YListDialogTileDividerState extends State<YListDialogTileDivider> {
-  @override
-  Widget build(BuildContext context) {
-    return Divider(
-      height: 0.0,
-      color: currentTheme.colors.neutral.shade100,
     );
   }
 }

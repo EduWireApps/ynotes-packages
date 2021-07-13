@@ -1,6 +1,6 @@
 {
-    "name": "ynotes_components",
-    "short_name": "ynotes_components",
+    "name": "ynotes_packages",
+    "short_name": "ynotes_packages",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

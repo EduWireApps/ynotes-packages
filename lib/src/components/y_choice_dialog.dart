@@ -1,10 +1,4 @@
-import 'package:flutter/material.dart';
-
-import '../components/base.dart';
-import '../components/texts.dart';
-import '../components/utils.dart';
-import '../components/y_button.dart';
-import '../theme/colors.dart';
+part of components;
 
 class YChoiceDialog extends StatefulWidget {
   final YColor type;

@@ -1,9 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:sizer/sizer.dart';
-import 'y_choice_dialog.dart';
-import 'y_confirmation_dialog.dart';
-import 'y_list_dialog.dart';
-import 'y_list_multiple_dialog.dart';
+part of components;
 
 // ignore: non_constant_identifier_names
 Widget YVerticalSpacer(double h) => SizedBox(

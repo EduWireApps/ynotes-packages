@@ -30,7 +30,7 @@ final List<YTheme> themes = [lightTheme, darkTheme, mythemeTheme];
 Create the file: `lib/src/theme/themes/mytheme/theme.dart`. Inside put:
 
 ```dart
-import 'package:ynotes_components/src/theme/theme.dart';
+import 'package:ynotes_packages/src/theme/theme.dart';
 
 import 'colors.dart';
 import 'button_styles.dart';
@@ -307,6 +307,9 @@ final List<YListMultipleDialogElement>? res = await YDialogs.getListSelected(
 - YH2
 - YH3
 - YTextBody
+- YDialogHeader
+- YListDialogTile
+- YListDialogTileDivider
 
 ### Coming soon
 

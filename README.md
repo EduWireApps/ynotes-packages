@@ -1,4 +1,6 @@
-# ynotes-components
+# ynotes-packages
+
+**1rem = 6.sp**
 
 The yNotes' UI components library. It also contains the themes.
 

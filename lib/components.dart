@@ -3,7 +3,6 @@ library components;
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:sizer/sizer.dart';
-import 'package:flutter_responsive_breakpoints/flutter_responsive_breakpoints.dart';
 import 'package:ynotes_packages/theme.dart';
 
 part 'package:ynotes_packages/src/components/y_shadow_scroll_container.dart';

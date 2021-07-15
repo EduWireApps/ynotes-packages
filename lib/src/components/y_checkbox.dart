@@ -21,15 +21,12 @@ class _YCheckboxState extends State<YCheckbox> {
   Widget build(BuildContext context) {
     return Theme(
       data: ThemeData(unselectedWidgetColor: theme.colors.neutral.shade100),
-      child: Transform.scale(
-        scale: 1.2,
-        child: Checkbox(
-          activeColor: style.background,
-          checkColor: style.text,
-          value: widget.value,
-          onChanged: _onChanged,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-        ),
+      child: Checkbox(
+        activeColor: style.background,
+        checkColor: style.text,
+        value: widget.value,
+        onChanged: _onChanged,
+        shape: RoundedRectangleBorder(borderRadius: YBorderRadius.normal),
       ),
     );
   }

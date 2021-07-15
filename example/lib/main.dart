@@ -8,6 +8,7 @@ import 'package:ynotes_packages/utilities.dart';
 import 'package:flutter_responsive_breakpoints/flutter_responsive_breakpoints.dart';
 
 void main() {
+  theme.theme = YAvailableTheme.light;
   runApp(Phoenix(child: MyApp()));
 }
 

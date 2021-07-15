@@ -9,7 +9,7 @@ class YButton extends StatefulWidget {
   final IconData? icon;
   final bool isLoading;
   final bool isDisabled;
-  final bool reverseIconAndText;
+  final bool isIconReversed;
 
   const YButton(
       {Key? key,
@@ -21,7 +21,7 @@ class YButton extends StatefulWidget {
       this.icon,
       this.isLoading = false,
       this.isDisabled = false,
-      this.reverseIconAndText = false})
+      this.isIconReversed = false})
       : super(key: key);
   @override
   _YButtonState createState() => _YButtonState();
@@ -38,12 +38,10 @@ class _YButtonState extends State<YButton> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    final double fontSize = 12;
-
     return Opacity(
-      opacity: widget.isDisabled ? 0.5 : 1,
+      opacity: widget.isDisabled ? 0.75 : 1,
       child: RawMaterialButton(
-          padding: EdgeInsets.symmetric(horizontal: 13.sp.clamp(0.0, 15), vertical: 4.sp.clamp(0.0, 10)),
+          padding: EdgeInsets.symmetric(horizontal: YScale.s4, vertical: YScale.s2),
           materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
           elevation: 0,
           highlightElevation: 0,
@@ -54,49 +52,41 @@ class _YButtonState extends State<YButton> with TickerProviderStateMixin {
           onLongPress: widget.isLoading || widget.isDisabled ? null : widget.onLongPressed,
           child: AnimatedSize(
             vsync: this,
-            duration: Duration(milliseconds: 250),
-            curve: Curves.easeInOut,
+            duration: Duration(milliseconds: 200),
+            curve: Curves.easeOut,
             child: widget.isLoading
                 ? SizedBox(
-                    width: (fontSize + 4).sp.clamp(0.0, 21),
-                    height: (fontSize + 4).sp.clamp(0.0, 21),
-                    child:
-                        CircularProgressIndicator(strokeWidth: 3, valueColor: AlwaysStoppedAnimation<Color>(textColor)),
+                    width: YScale.s4,
+                    height: YScale.s4,
+                    child: CircularProgressIndicator(
+                        strokeWidth: YScale.s0p5, valueColor: AlwaysStoppedAnimation<Color>(textColor)),
                   )
                 : Row(
                     mainAxisSize: MainAxisSize.min,
+                    textDirection: widget.isIconReversed ? TextDirection.rtl : TextDirection.ltr,
                     children: [
-                      if (widget.icon != null && !widget.reverseIconAndText)
+                      if (widget.icon != null)
                         Icon(
                           widget.icon,
                           color: textColor,
-                          size: (fontSize + 4).sp.clamp(0.0, 21),
+                          size: YScale.s4,
                         ),
-                      if (widget.icon != null && !widget.reverseIconAndText)
-                        YHorizontalSpacer(
-                          6,
+                      if (widget.icon != null)
+                        SizedBox(
+                          width: YScale.s2,
                         ),
                       Flexible(
                         child: Text(widget.text,
                             textAlign: TextAlign.center,
-                            style: TextStyle(
-                                color: textColor, fontWeight: FontWeight.w700, fontSize: fontSize.sp.clamp(0.0, 21))),
+                            style: TextStyle(color: textColor, fontWeight: YFontWeight.medium, fontSize: YFontSize.lg)),
                       ),
-                      if (widget.icon != null && widget.reverseIconAndText)
-                        YHorizontalSpacer(
-                          6,
-                        ),
-                      if (widget.icon != null && widget.reverseIconAndText)
-                        Icon(
-                          widget.icon,
-                          color: textColor,
-                          size: (fontSize + 4).sp.clamp(0.0, 21),
-                        ),
                     ],
                   ),
           ),
           fillColor: backgroundColor,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10)))),
+          shape: RoundedRectangleBorder(
+            borderRadius: YBorderRadius.lg,
+          )),
     );
   }
 }

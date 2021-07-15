@@ -72,8 +72,8 @@ class _YButtonState extends State<YButton> with TickerProviderStateMixin {
                           size: YScale.s4,
                         ),
                       if (widget.icon != null)
-                        SizedBox(
-                          width: YScale.s2,
+                        YHorizontalSpacer(
+                          YScale.s2,
                         ),
                       Flexible(
                         child: Text(widget.text,

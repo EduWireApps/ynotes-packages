@@ -20,8 +20,8 @@ class _YChoiceDialogState extends State<YChoiceDialog> {
   Widget build(BuildContext context) {
     return YDialogBase(children: [
       YDialogHeader(type: widget.type, title: widget.title, icon: widget.icon),
-      YTextBody(widget.description, align: TextAlign.center),
-      YVerticalSpacer(16),
+      YDialogTextBody(widget.description),
+      YVerticalSpacer(YScale.s4),
       Row(
         children: [
           Expanded(
@@ -31,7 +31,7 @@ class _YChoiceDialogState extends State<YChoiceDialog> {
                 type: YColor.neutral,
                 variant: YButtonVariant.reverse),
           ),
-          YHorizontalSpacer(6),
+          YHorizontalSpacer(YScale.s2),
           Expanded(
             child: YButton(onPressed: () => Navigator.pop(context, true), text: "Confirmer", type: widget.type),
           ),

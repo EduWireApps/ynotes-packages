@@ -1,7 +1,6 @@
 import 'package:example/test_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
-import 'package:sizer/sizer.dart';
 import 'package:ynotes_packages/components.dart';
 import 'package:ynotes_packages/theme.dart';
 import 'package:ynotes_packages/utilities.dart';
@@ -15,14 +14,13 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Responsive(
-      builder: (context) => Sizer(
-            builder: (context, orientation, deviceType) => MaterialApp(
-              debugShowCheckedModeBanner: false,
-              title: 'Flutter Demo',
-              theme: ThemeData(fontFamily: "Asap", accentColor: theme.colors.primary.shade300),
-              home: MyHomePage(title: 'Demo'),
-            ),
-          ));
+        builder: (context) => MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'Flutter Demo',
+          theme: ThemeData(fontFamily: "Asap", accentColor: theme.colors.primary.shade300),
+          home: MyHomePage(title: 'Demo'),
+        ),
+      );
 }
 
 class MyHomePage extends StatefulWidget {
@@ -216,12 +214,33 @@ class _MyHomePageState extends State<MyHomePage> {
                       onPressed: () async {
                         final List<YListMultipleDialogElement>? res = await YDialogs.getListSelected(
                             context,
-                            YListMultipleDialog(min: 1, max: 2, type: YColor.neutral, elements: [
-                              YListMultipleDialogElement(
-                                  id: 0, title: "TEST 1", description: "awesome description", value: false),
-                              YListMultipleDialogElement(
-                                  id: 1, title: "TEST 2", description: "awesome description", value: true),
-                            ]));
+                            YListMultipleDialog(
+                                header: YDialogHeader(icon: Icons.error, title: "Title", type: YColor.success),
+                                min: 1,
+                                max: 2,
+                                type: YColor.success,
+                                elements: [
+                                  YListMultipleDialogElement(
+                                      id: 0, title: "TEST 1", description: "awesome description", value: false),
+                                  YListMultipleDialogElement(
+                                      id: 1, title: "TEST 2", description: "awesome description", value: true),
+                                  YListMultipleDialogElement(
+                                      id: 1, title: "TEST 2", description: "awesome description", value: true),
+                                  YListMultipleDialogElement(
+                                      id: 1, title: "TEST 2", description: "awesome description", value: true),
+                                  YListMultipleDialogElement(
+                                      id: 1, title: "TEST 2", description: "awesome description", value: true),
+                                  YListMultipleDialogElement(
+                                      id: 1, title: "TEST 2", description: "awesome description", value: true),
+                                  YListMultipleDialogElement(
+                                      id: 1, title: "TEST 2", description: "awesome description", value: true),
+                                  YListMultipleDialogElement(
+                                      id: 1, title: "TEST 2", description: "awesome description", value: true),
+                                  YListMultipleDialogElement(
+                                      id: 1, title: "TEST 2", description: "awesome description", value: true),
+                                  YListMultipleDialogElement(
+                                      id: 1, title: "TEST 2", description: "awesome description", value: true),
+                                ]));
                         print(res);
                         if (res != null) {
                           res.forEach((element) {

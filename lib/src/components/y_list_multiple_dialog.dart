@@ -91,7 +91,8 @@ class _YListMultipleDialogState extends State<YListMultipleDialog> {
           YVerticalSpacer(5),
           if (widget.min != 0 || widget.max != null)
             Text(_textValue(),
-                textAlign: TextAlign.center, style: TextStyle(color: theme.colors.neutral.shade400, fontSize: 9.sp))
+                textAlign: TextAlign.center,
+                style: TextStyle(color: theme.colors.neutral.shade400, fontSize: YFontSize.base))
         ],
       ),
     );

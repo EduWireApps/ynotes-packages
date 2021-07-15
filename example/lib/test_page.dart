@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:sizer/sizer.dart';
 
 import 'package:ynotes_packages/components.dart';
 import 'package:ynotes_packages/theme.dart';
@@ -34,12 +33,12 @@ class TestPage extends StatelessWidget {
                           Text("Période",
                               style: TextStyle(
                                 color: theme.colors.neutral.shade400,
-                                fontSize: 10.sp,
+                                fontSize: 14,
                                 fontWeight: FontWeight.w400,
                               )),
                           Text("Trimestre 3",
                               style: TextStyle(
-                                  fontSize: 25.sp,
+                                  fontSize: 29,
                                   fontWeight: FontWeight.w700,
                                   color: theme.colors.neutral.shade500,
                                   height: .9)),
@@ -121,12 +120,12 @@ class _CustomHeaderState extends State<CustomHeader> {
           Text(label,
               style: TextStyle(
                 color: theme.colors.neutral.shade400,
-                fontSize: 10.sp,
+                fontSize: 14,
                 fontWeight: FontWeight.w400,
               )),
           Text(data,
               style: TextStyle(
-                  fontSize: 15.sp, fontWeight: FontWeight.w600, color: theme.colors.neutral.shade500, height: .9))
+                  fontSize: 19, fontWeight: FontWeight.w600, color: theme.colors.neutral.shade500, height: .9))
         ],
       );
 
@@ -147,7 +146,7 @@ class _CustomHeaderState extends State<CustomHeader> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text("17,01",
-                  style: TextStyle(fontSize: 25.sp, fontWeight: FontWeight.w600, color: theme.colors.neutral.shade500)),
+                  style: TextStyle(fontSize: 29, fontWeight: FontWeight.w600, color: theme.colors.neutral.shade500)),
               Row(
                 children: [
                   YHorizontalSpacer(25),

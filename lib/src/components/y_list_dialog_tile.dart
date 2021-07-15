@@ -20,13 +20,15 @@ class _YListDialogTileState extends State<YListDialogTile> {
         splashColor: theme.colors.neutral.shade300,
         onTap: widget.onTap,
         child: ListTile(
-          minVerticalPadding: 5.sp,
+          minVerticalPadding: YScale.s1p5,
           dense: true,
           title: Text(widget.title,
-              style: TextStyle(color: theme.colors.neutral.shade500, fontWeight: FontWeight.w600, fontSize: 12.sp)),
+              style: TextStyle(
+                  color: theme.colors.neutral.shade500, fontWeight: YFontWeight.semibold, fontSize: YFontSize.xl2)),
           subtitle: widget.description == null
               ? null
-              : Text(widget.description!, style: TextStyle(color: theme.colors.neutral.shade400, fontSize: 9.sp)),
+              : Text(widget.description!,
+                  style: TextStyle(color: theme.colors.neutral.shade400, fontSize: YFontSize.lg)),
           leading: widget.leading,
         ));
   }

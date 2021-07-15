@@ -16,17 +16,23 @@ class _YDialogHeaderState extends State<YDialogHeader> {
     return Column(
       children: [
         Container(
-          padding: EdgeInsets.all(10),
+          padding: YPadding.p(YScale.s3),
           decoration: BoxDecoration(
-              color: theme.colors.get(widget.type).shade200, borderRadius: BorderRadius.all(Radius.circular(120))),
+              color: theme.colors.get(widget.type).shade300.withOpacity(0.2),
+              borderRadius: BorderRadius.all(Radius.circular(120))),
           child: Icon(
             widget.icon,
-            size: 30,
+            size: YScale.s10,
             color: theme.colors.get(widget.type).shade300,
           ),
         ),
-        YVerticalSpacer(6),
-        YH1(widget.title),
+        YVerticalSpacer(YScale.s3),
+        Text(
+          widget.title,
+          style: TextStyle(
+              color: theme.colors.neutral.shade500, fontWeight: YFontWeight.semibold, fontSize: YFontSize.xl3),
+        ),
+        // YH1(widget.title),
         YVerticalSpacer(1),
       ],
     );

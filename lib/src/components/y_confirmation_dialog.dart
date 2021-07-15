@@ -25,9 +25,9 @@ class _YConfirmationDialogState extends State<YConfirmationDialog> {
   @override
   Widget build(BuildContext context) {
     return YDialogBase(
+      topFixed: YDialogHeader(type: widget.type, title: widget.title, icon: widget.icon),
       children: [
-        YDialogHeader(type: widget.type, title: widget.title, icon: widget.icon),
-        YTextBody(widget.description, align: TextAlign.center),
+        YDialogTextBody(widget.description),
       ],
       bottomFixed: Row(
         children: [

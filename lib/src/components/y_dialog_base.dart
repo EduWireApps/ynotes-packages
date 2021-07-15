@@ -1,36 +1,5 @@
 part of components;
 
-class YTextBase extends StatefulWidget {
-  final String text;
-  final double fontSize;
-  final Color? color;
-  final FontWeight fontWeight;
-  final TextStyle? style;
-  final TextAlign? align;
-
-  const YTextBase(this.text,
-      {Key? key,
-      required this.fontSize,
-      required this.color,
-      required this.fontWeight,
-      this.style = const TextStyle(),
-      this.align = TextAlign.left})
-      : super(key: key);
-
-  @override
-  _YTextBaseState createState() => _YTextBaseState();
-}
-
-class _YTextBaseState extends State<YTextBase> {
-  @override
-  Widget build(BuildContext context) {
-    return Text(widget.text,
-        textAlign: widget.align,
-        style: TextStyle(color: widget.color, fontSize: widget.fontSize.sp, fontWeight: widget.fontWeight)
-            .merge(widget.style));
-  }
-}
-
 class YDialogBase extends StatefulWidget {
   final List<Widget> children;
   final Widget? topFixed;
@@ -44,24 +13,26 @@ class YDialogBase extends StatefulWidget {
 
 class _YDialogBaseState extends State<YDialogBase> {
   final Color backgroundColor = theme.colors.neutral.shade200;
+  final double padding = YScale.s6;
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
       backgroundColor: backgroundColor,
       contentPadding: EdgeInsets.zero,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15))),
+      shape: RoundedRectangleBorder(borderRadius: YBorderRadius.xl2),
       content: ConstrainedBox(
-        constraints: BoxConstraints(maxHeight: 75.h.clamp(0, 500), maxWidth: 90.w.clamp(0, 500)),
+        constraints:
+            BoxConstraints(maxHeight: r<double>(def: 75.vh, sm: 40.rem), maxWidth: r<double>(def: 95.vw, sm: 30.rem)),
         child: Container(
           width: double.maxFinite,
-          padding: EdgeInsets.symmetric(horizontal: 18.sp, vertical: 14.sp),
+          padding: YPadding.p(padding),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               if (widget.topFixed != null)
                 Padding(
-                  padding: EdgeInsets.only(bottom: 16.sp),
+                  padding: YPadding.pb(padding),
                   child: widget.topFixed!,
                 ),
               Flexible(
@@ -77,7 +48,7 @@ class _YDialogBaseState extends State<YDialogBase> {
               ),
               if (widget.bottomFixed != null)
                 Padding(
-                  padding: EdgeInsets.only(top: 16.sp),
+                  padding: YPadding.pt(padding),
                   child: widget.bottomFixed!,
                 )
             ],

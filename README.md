@@ -305,10 +305,6 @@ final List<YListMultipleDialogElement>? res = await YDialogs.getListSelected(
 
 ### In progress
 
-- YH1
-- YH2
-- YH3
-- YTextBody
 - YDialogHeader
 - YListDialogTile
 - YListDialogTileDivider

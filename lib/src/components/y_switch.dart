@@ -26,6 +26,8 @@ class _YSwitchState extends State<YSwitch> with SingleTickerProviderStateMixin {
         width: width,
         height: height,
         padding: YScale.s0p5,
+        toggleColor: theme.colors.neutral.shade200,
+        activeToggleColor: theme.colors.get(widget.type).shade100,
         activeColor: theme.colors.get(widget.type).shade300,
         inactiveColor: theme.colors.neutral.shade100,
         duration: Duration(milliseconds: 100),

@@ -10,10 +10,10 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.2
-  sizer: ^2.0.13
   ynotes_packages:
     path: ../
   flutter_phoenix: ^1.0.0
+  flutter_responsive_breakpoints: ^0.0.3
 
 dev_dependencies:
   flutter_test:

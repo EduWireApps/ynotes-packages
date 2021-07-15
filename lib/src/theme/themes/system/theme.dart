@@ -9,7 +9,7 @@ import '../light/button_styles.dart' as lightButtonStyles;
 import '../dark/colors.dart' as darkColors;
 import '../dark/button_styles.dart' as darkButtonStyles;
 
-var brightness = SchedulerBinding.instance!.window.platformBrightness;
+var brightness = SchedulerBinding.instance?.window.platformBrightness ?? Brightness.light;
 bool darkModeOn = brightness == Brightness.dark;
 
 final YTColors colors = darkModeOn ? darkColors.colors : lightColors.colors;

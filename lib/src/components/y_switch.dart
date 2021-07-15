@@ -14,8 +14,8 @@ class YSwitch extends StatefulWidget {
 class _YSwitchState extends State<YSwitch> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
-    final double width = 60.0;
-    final double height = 30.0;
+    final double width = YScale.s14;
+    final double height = YScale.s7;
 
     return Container(
       width: width,
@@ -25,7 +25,7 @@ class _YSwitchState extends State<YSwitch> with SingleTickerProviderStateMixin {
         onToggle: widget.onChanged,
         width: width,
         height: height,
-        padding: 2.0,
+        padding: YScale.s0p5,
         activeColor: theme.colors.get(widget.type).shade300,
         inactiveColor: theme.colors.neutral.shade100,
         duration: Duration(milliseconds: 100),

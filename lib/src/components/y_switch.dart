@@ -14,7 +14,7 @@ class YSwitch extends StatefulWidget {
 class _YSwitchState extends State<YSwitch> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
-    final double width = YScale.s14;
+    final double width = YScale.s12;
     final double height = YScale.s7;
 
     return Container(

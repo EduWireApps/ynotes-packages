@@ -30,6 +30,6 @@ class _YCurrentTheme {
 }
 
 enum YAvailableTheme { system, light, dark }
-final List<YTheme> _themes = [systemTheme, lightTheme, darkTheme];
+final List<YTheme> themes = [systemTheme, lightTheme, darkTheme];
 
-final _YCurrentTheme theme = _YCurrentTheme(currentTheme: YAvailableTheme.system, themes: _themes);
+final _YCurrentTheme theme = _YCurrentTheme(currentTheme: YAvailableTheme.system, themes: themes);

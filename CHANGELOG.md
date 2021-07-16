@@ -1,3 +1,7 @@
+## 0.3.2 (16/07/2021)
+
+- Update YSwitch width
+- Make themes list a public variable
 ## 0.3.1 (16/07/2021)
 
 - remove default AlertDialog padding

@@ -17,7 +17,7 @@ class _YShadowScrollContainerState extends State<YShadowScrollContainer> {
   late bool showTopGradient = false;
   late bool showBottomGradient = false;
   final double distance = 5;
-  final double gradientHeight = 56;
+  final double gradientHeight = YScale.s8;
   final Duration duration = Duration(milliseconds: 250);
   final Curve curve = Curves.easeInOut;
 

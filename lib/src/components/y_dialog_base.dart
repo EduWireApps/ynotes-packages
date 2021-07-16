@@ -20,10 +20,11 @@ class _YDialogBaseState extends State<YDialogBase> {
     return AlertDialog(
       backgroundColor: backgroundColor,
       contentPadding: EdgeInsets.zero,
+      insetPadding: EdgeInsets.zero,
       shape: RoundedRectangleBorder(borderRadius: YBorderRadius.xl2),
       content: ConstrainedBox(
         constraints:
-            BoxConstraints(maxHeight: r<double>(def: 75.vh, sm: 40.rem), maxWidth: r<double>(def: 95.vw, sm: 30.rem)),
+            BoxConstraints(maxHeight: r<double>(def: 60.vh, sm: 40.rem), maxWidth: r<double>(def: 95.vw, sm: 30.rem)),
         child: Container(
           width: double.maxFinite,
           padding: YPadding.p(padding),

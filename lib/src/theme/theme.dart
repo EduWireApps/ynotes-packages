@@ -15,13 +15,13 @@ class YTheme {
   YTheme(this.name, {required this.theme, required this.isDark, required this.colors, required this.buttonStyles});
 }
 
-class _Ytheme {
-  YAvailableTheme theme;
+class _YCurrentTheme {
+  YAvailableTheme currentTheme;
   final List<YTheme> themes;
 
-  _Ytheme({required this.theme, required this.themes});
+  _YCurrentTheme({required this.currentTheme, required this.themes});
 
-  YTheme get _ct => this.themes.firstWhere((t) => t.theme == this.theme);
+  YTheme get _ct => this.themes.firstWhere((t) => t.theme == this.currentTheme);
 
   String get name => this._ct.name;
   bool get isDark => this._ct.isDark;
@@ -32,4 +32,4 @@ class _Ytheme {
 enum YAvailableTheme { system, light, dark }
 final List<YTheme> _themes = [systemTheme, lightTheme, darkTheme];
 
-final _Ytheme theme = _Ytheme(theme: YAvailableTheme.system, themes: _themes);
+final _YCurrentTheme theme = _YCurrentTheme(currentTheme: YAvailableTheme.system, themes: _themes);

@@ -7,7 +7,7 @@ import 'package:ynotes_packages/utilities.dart';
 import 'package:flutter_responsive_breakpoints/flutter_responsive_breakpoints.dart';
 
 void main() {
-  theme.theme = YAvailableTheme.light;
+  theme.currentTheme = YAvailableTheme.light;
   runApp(Phoenix(child: MyApp()));
 }
 
@@ -124,15 +124,15 @@ class _MyHomePageState extends State<MyHomePage> {
                   children: [
                     YButton(
                         onPressed: () {
-                          switch (theme.theme) {
+                          switch (theme.currentTheme) {
                             case YAvailableTheme.system:
-                              theme.theme = YAvailableTheme.light;
+                              theme.currentTheme = YAvailableTheme.light;
                               break;
                             case YAvailableTheme.light:
-                              theme.theme = YAvailableTheme.dark;
+                              theme.currentTheme = YAvailableTheme.dark;
                               break;
                             case YAvailableTheme.dark:
-                              theme.theme = YAvailableTheme.system;
+                              theme.currentTheme = YAvailableTheme.system;
                               break;
                           }
                           setState(() {});
@@ -143,7 +143,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           final bool res = await YDialogs.getChoice(
                               context,
                               YChoiceDialog(
-                                type: YColor.warning,
+                                type: YColor.neutral,
                                 title: "Hep !",
                                 description: "T'es sûr(e) de vouloir faire ça ?",
                                 icon: Icons.error_outline,

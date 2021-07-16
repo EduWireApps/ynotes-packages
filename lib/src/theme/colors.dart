@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+part of theme;
 
 enum YColor { primary, success, warning, danger, neutral }
 

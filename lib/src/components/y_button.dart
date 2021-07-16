@@ -5,7 +5,7 @@ class YButton extends StatefulWidget {
   final VoidCallback? onLongPressed;
   final String text;
   final YColor type;
-  final YButtonVariant variant;
+  final YVariant variant;
   final IconData? icon;
   final bool isLoading;
   final bool isDisabled;
@@ -17,7 +17,7 @@ class YButton extends StatefulWidget {
       required this.text,
       this.onLongPressed,
       this.type = YColor.primary,
-      this.variant = YButtonVariant.plain,
+      this.variant = YVariant.plain,
       this.icon,
       this.isLoading = false,
       this.isDisabled = false,
@@ -27,10 +27,8 @@ class YButton extends StatefulWidget {
   _YButtonState createState() => _YButtonState();
 }
 
-enum YButtonVariant { plain, reverse }
-
 class _YButtonState extends State<YButton> with TickerProviderStateMixin {
-  YTButtonStyleColors get style => theme.buttonStyles.get(widget.type).get(widget.variant);
+  YTVariableStyleColors get style => theme.buttonStyles.get(widget.type).get(widget.variant);
 
   Color get highlightColor => style.highlight;
   Color get backgroundColor => style.background;

@@ -29,7 +29,7 @@ class _YChoiceDialogState extends State<YChoiceDialog> {
                 onPressed: () => Navigator.pop(context, false),
                 text: "Annuler",
                 type: YColor.neutral,
-                variant: YButtonVariant.reverse),
+                variant: YVariant.reverse),
           ),
           YHorizontalSpacer(YScale.s2),
           Expanded(

@@ -1,4 +1,5 @@
 import 'package:example/test_page.dart';
+import 'package:example/themes/themes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:ynotes_packages/components.dart';
@@ -7,7 +8,7 @@ import 'package:ynotes_packages/utilities.dart';
 import 'package:flutter_responsive_breakpoints/flutter_responsive_breakpoints.dart';
 
 void main() {
-  theme.currentTheme = YAvailableTheme.light;
+  theme = YCurrentTheme(currentTheme: 1, themes: themes);
   runApp(Phoenix(child: MyApp()));
 }
 
@@ -125,14 +126,14 @@ class _MyHomePageState extends State<MyHomePage> {
                     YButton(
                         onPressed: () {
                           switch (theme.currentTheme) {
-                            case YAvailableTheme.system:
-                              theme.currentTheme = YAvailableTheme.light;
+                            case 0:
+                              theme.currentTheme = 1;
                               break;
-                            case YAvailableTheme.light:
-                              theme.currentTheme = YAvailableTheme.dark;
+                            case 1:
+                              theme.currentTheme = 2;
                               break;
-                            case YAvailableTheme.dark:
-                              theme.currentTheme = YAvailableTheme.system;
+                            case 2:
+                              theme.currentTheme = 0;
                               break;
                           }
                           setState(() {});
@@ -152,7 +153,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         },
                         text: "Choice",
                         type: YColor.danger,
-                        variant: YButtonVariant.reverse),
+                        variant: YVariant.reverse),
                     YButton(
                         onPressed: () async {
                           await YDialogs.getConfirmation(
@@ -167,7 +168,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         },
                         text: "Confirmation",
                         type: YColor.danger,
-                        variant: YButtonVariant.reverse),
+                        variant: YVariant.reverse),
                     YButton(
                       onPressed: () async {
                         final YListDialogElement? e = await YDialogs.getListChoice(
@@ -250,7 +251,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       },
                       text: "List multiple",
                       type: YColor.neutral,
-                      variant: YButtonVariant.reverse,
+                      variant: YVariant.reverse,
                     ),
                     YSwitch(
                       value: _status,

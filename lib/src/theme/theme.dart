@@ -1,35 +1,27 @@
-import 'themes/light/theme.dart';
-import 'themes/dark/theme.dart';
-import 'themes/system/theme.dart';
-
-import 'colors.dart';
-import 'button_styles.dart';
+part of theme;
 
 class YTheme {
+  final int id;
   final String name;
-  final YAvailableTheme theme;
   final bool isDark;
   final YTColors colors;
-  final YTButtonStyles buttonStyles;
+  final YTVariableStyles variableStyles;
 
-  YTheme(this.name, {required this.theme, required this.isDark, required this.colors, required this.buttonStyles});
+  YTheme(this.name, {required this.id, required this.isDark, required this.colors, required this.variableStyles});
 }
 
-class _YCurrentTheme {
-  YAvailableTheme currentTheme;
+class YCurrentTheme {
+  int currentTheme;
   final List<YTheme> themes;
 
-  _YCurrentTheme({required this.currentTheme, required this.themes});
+  YCurrentTheme({required this.currentTheme, required this.themes});
 
-  YTheme get _ct => this.themes.firstWhere((t) => t.theme == this.currentTheme);
+  YTheme get _ct => this.themes.firstWhere((t) => t.id == this.currentTheme);
 
   String get name => this._ct.name;
   bool get isDark => this._ct.isDark;
   YTColors get colors => this._ct.colors;
-  YTButtonStyles get buttonStyles => this._ct.buttonStyles;
+  YTVariableStyles get buttonStyles => this._ct.variableStyles;
 }
 
-enum YAvailableTheme { system, light, dark }
-final List<YTheme> themes = [systemTheme, lightTheme, darkTheme];
-
-final _YCurrentTheme theme = _YCurrentTheme(currentTheme: YAvailableTheme.system, themes: themes);
+late YCurrentTheme theme;

@@ -2,11 +2,30 @@
 
 ## Usage
 
-Import the library:
+1 - Import the library:
 
 ```dart
 import 'package:ynotes_packages/components.dart';
 ```
+
+2 - Install `flutter_responsive_breakpoints`.
+
+3 - Wrap your `MaterialApp` with `Responsive`:
+
+```dart
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) => Responsive(
+        builder: (context) => MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'Flutter Demo',
+          home: MyHomePage(),
+        ),
+      );
+}
+```
+
+4 - Initialise the theme ([see the documentation](/lib/src/theme/README.md)).
 
 Check out the example provided with each component.
 

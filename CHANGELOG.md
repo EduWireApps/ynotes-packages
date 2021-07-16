@@ -1,3 +1,8 @@
+## 0.4.0 (16/07/2021)
+
+**Breaking changes!**
+
+- Modifications applied to the themes: they now must be setup in the application (there were set in the package itself until this release)
 ## 0.3.2 (16/07/2021)
 
 - Update YSwitch width

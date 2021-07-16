@@ -20,7 +20,7 @@ import 'package:ynotes_packages/components.dart';
 
 ### [Theme](lib/src/theme)
 
-Contains all the themes and color palettes. Feel free to add one! (instructions in the README). Check out the [README](lib/src/theme/README.md).
+Provides tools to setup themes that must be stored in the app. (instructions in the README). Check out the [README](lib/src/theme/README.md).
 
 Import it:
 

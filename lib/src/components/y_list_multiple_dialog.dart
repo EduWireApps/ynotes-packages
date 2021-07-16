@@ -76,7 +76,7 @@ class _YListMultipleDialogState extends State<YListMultipleDialog> {
                     onPressed: () => Navigator.pop(context, null),
                     text: "Annuler",
                     type: YColor.neutral,
-                    variant: YButtonVariant.reverse),
+                    variant: YVariant.reverse),
               ),
               YHorizontalSpacer(6),
               Expanded(

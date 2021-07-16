@@ -143,7 +143,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           final bool res = await YDialogs.getChoice(
                               context,
                               YChoiceDialog(
-                                type: YColor.neutral,
+                                type: YColor.danger,
                                 title: "Hep !",
                                 description: "T'es sûr(e) de vouloir faire ça ?",
                                 icon: Icons.error_outline,

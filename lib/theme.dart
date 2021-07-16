@@ -1,5 +1,8 @@
-library theming;
+library theme;
 
-export 'package:ynotes_packages/src/theme/theme.dart';
-export 'package:ynotes_packages/src/theme/colors.dart';
-export 'package:ynotes_packages/src/theme/button_styles.dart';
+import 'package:flutter/material.dart';
+
+part 'package:ynotes_packages/src/theme/theme.dart';
+part 'package:ynotes_packages/src/theme/colors.dart';
+part 'package:ynotes_packages/src/theme/variable_styles.dart';
+part 'package:ynotes_packages/src/theme/utils.dart';

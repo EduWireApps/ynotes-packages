@@ -2,7 +2,7 @@
 
 > Sorry French users, this repo is only in english.
 
-This repo contains 1 package splitted in 3 libraries:
+This repo contains 1 package splitted in 4 libraries:
 
 ## Libraries
 
@@ -37,6 +37,10 @@ Import it:
 ```dart
 import 'package:ynotes_packages/utilities.dart';
 ```
+
+### Settings `Soon`
+
+TBD
 
 ## Packages used
 

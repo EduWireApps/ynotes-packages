@@ -63,7 +63,7 @@ Copy `colors.dart` and `button_styles.dart` from the light theme of the example 
 
 #### STEP 4
 
-In `/themes/themes.dart`, add your theme to the the list and to the enum:
+In `/themes/themes.dart`, add your theme to the the list:
 
 ```dart
 import 'package:ynotes_packages/theme.dart';
@@ -71,3 +71,5 @@ import 'mytheme/theme.dart';
 
 final List<YTheme> themes = [mythemeTheme];
 ```
+
+You can now import it to initialize the theme system in the main function.

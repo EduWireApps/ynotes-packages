@@ -28,7 +28,7 @@ class YButton extends StatefulWidget {
 }
 
 class _YButtonState extends State<YButton> with TickerProviderStateMixin {
-  YTVariableStyleColors get style => theme.buttonStyles.get(widget.type).get(widget.variant);
+  YTVariableStyleColors get style => theme.variableStyles.get(widget.type).get(widget.variant);
 
   Color get highlightColor => style.highlight;
   Color get backgroundColor => style.background;

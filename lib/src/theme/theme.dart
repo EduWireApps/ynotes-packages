@@ -25,7 +25,7 @@ class YCurrentTheme {
   String get name => this._ct.name;
   bool get isDark => this._ct.isDark;
   YTColors get colors => this._ct.colors;
-  YTVariableStyles get buttonStyles => this._ct.variableStyles;
+  YTVariableStyles get variableStyles => this._ct.variableStyles;
   ThemeData get themeData => this._ct.themeData(this.fontFamily);
 }
 

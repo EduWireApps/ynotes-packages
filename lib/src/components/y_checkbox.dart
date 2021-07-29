@@ -13,7 +13,7 @@ class YCheckbox extends StatefulWidget {
 }
 
 class _YCheckboxState extends State<YCheckbox> {
-  YTVariableStyleColors get style => theme.buttonStyles.get(widget.type).plain;
+  YTVariableStyleColors get style => theme.variableStyles.get(widget.type).plain;
 
   void _onChanged(bool? value) => widget.onChanged(value!);
 

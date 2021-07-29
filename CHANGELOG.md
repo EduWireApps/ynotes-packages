@@ -1,3 +1,6 @@
+## 0.4.3 (29/07/2021)
+
+- Fix wrong variable name in `YCurrentTheme`: `buttonStyles` to `variableStyles`
 ## 0.4.2 (29/07/2021)
 
 - Theme now generates a themeData that can be provided to `MaterialApp` for example

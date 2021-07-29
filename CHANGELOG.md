@@ -1,4 +1,8 @@
-## 0.4.1 (16/07/2021)
+## 0.4.2 (29/07/2021)
+
+- Theme now generates a themeData that can be provided to `MaterialApp` for example
+
+## 0.4.1 (28/07/2021)
 
 - Fix documentation
 

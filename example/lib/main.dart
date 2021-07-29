@@ -8,7 +8,7 @@ import 'package:ynotes_packages/utilities.dart';
 import 'package:flutter_responsive_breakpoints/flutter_responsive_breakpoints.dart';
 
 void main() {
-  theme = YCurrentTheme(currentTheme: 1, themes: themes);
+  theme = YCurrentTheme(currentTheme: 1, themes: themes, fontFamily: "Asap");
   runApp(Phoenix(child: MyApp()));
 }
 
@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
         builder: (context) => MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Flutter Demo',
-          theme: ThemeData(fontFamily: "Asap", accentColor: theme.colors.primary.shade300),
+          theme: theme.themeData,
           home: MyHomePage(title: 'Demo'),
         ),
       );

@@ -14,9 +14,13 @@ In your app main function:
 
 ```dart
 void main() {
-    theme = YCurrentTheme(currentTheme: 0, themes: themes);
+    theme = YCurrentTheme(currentTheme: 0, themes: themes, fontFamily: "<font name>");
     // ...
 }
+// ...
+MaterialApp(
+    theme: theme.themeData
+)
 ```
 
 ### Use the theme

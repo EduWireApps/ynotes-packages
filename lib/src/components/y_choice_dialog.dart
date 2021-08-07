@@ -8,8 +8,7 @@ class YChoiceDialog extends StatefulWidget {
 
   const YChoiceDialog(
       {Key? key, required this.type, required this.title, required this.description, required this.icon})
-      : assert(type != YColor.neutral, "Neutral color can't be used in dialogs."),
-        super(key: key);
+      : super(key: key);
 
   @override
   _YChoiceDialogState createState() => _YChoiceDialogState();
@@ -28,12 +27,12 @@ class _YChoiceDialogState extends State<YChoiceDialog> {
             child: YButton(
                 onPressed: () => Navigator.pop(context, false),
                 text: "Annuler",
-                type: YColor.neutral,
-                variant: YVariant.reverse),
+                color: YColor.primary,
+                variant: YButtonVariant.text),
           ),
           YHorizontalSpacer(YScale.s2),
           Expanded(
-            child: YButton(onPressed: () => Navigator.pop(context, true), text: "Confirmer", type: widget.type),
+            child: YButton(onPressed: () => Navigator.pop(context, true), text: "Confirmer", color: widget.type),
           ),
         ],
       ),

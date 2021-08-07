@@ -75,8 +75,8 @@ class _YListMultipleDialogState extends State<YListMultipleDialog> {
                 child: YButton(
                     onPressed: () => Navigator.pop(context, null),
                     text: "Annuler",
-                    type: YColor.neutral,
-                    variant: YVariant.reverse),
+                    color: YColor.primary,
+                    variant: YButtonVariant.text),
               ),
               YHorizontalSpacer(6),
               Expanded(
@@ -84,7 +84,7 @@ class _YListMultipleDialogState extends State<YListMultipleDialog> {
                     onPressed: () => Navigator.pop(context, selectedElements),
                     text: "Confirmer",
                     isDisabled: selectedElements.length < widget.min || selectedElements.length > _max,
-                    type: widget.type),
+                    color: widget.type),
               ),
             ],
           ),
@@ -92,7 +92,7 @@ class _YListMultipleDialogState extends State<YListMultipleDialog> {
           if (widget.min != 0 || widget.max != null)
             Text(_textValue(),
                 textAlign: TextAlign.center,
-                style: TextStyle(color: theme.colors.neutral.shade400, fontSize: YFontSize.base))
+                style: TextStyle(color: theme.colors.foregroundLightColor, fontSize: YFontSize.base))
         ],
       ),
     );

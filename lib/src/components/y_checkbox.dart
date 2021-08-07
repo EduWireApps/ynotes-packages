@@ -13,17 +13,17 @@ class YCheckbox extends StatefulWidget {
 }
 
 class _YCheckboxState extends State<YCheckbox> {
-  YTVariableStyleColors get style => theme.variableStyles.get(widget.type).plain;
+  YTColor get style => theme.colors.get(widget.type);
 
   void _onChanged(bool? value) => widget.onChanged(value!);
 
   @override
   Widget build(BuildContext context) {
     return Theme(
-      data: ThemeData(unselectedWidgetColor: theme.colors.neutral.shade100),
+      data: ThemeData(unselectedWidgetColor: theme.colors.foregroundLightColor),
       child: Checkbox(
-        activeColor: style.background,
-        checkColor: style.text,
+        activeColor: style.backgroundColor,
+        checkColor: style.foregroundColor,
         value: widget.value,
         onChanged: _onChanged,
         shape: RoundedRectangleBorder(borderRadius: YBorderRadius.normal),

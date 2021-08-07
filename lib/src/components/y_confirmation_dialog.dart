@@ -14,8 +14,7 @@ class YConfirmationDialog extends StatefulWidget {
       required this.description,
       required this.icon,
       this.buttonLabel = "Confirmer"})
-      : assert(type != YColor.neutral, "Neutral color can't be used in dialogs."),
-        super(key: key);
+      : super(key: key);
 
   @override
   _YConfirmationDialogState createState() => _YConfirmationDialogState();
@@ -32,7 +31,7 @@ class _YConfirmationDialogState extends State<YConfirmationDialog> {
       bottomFixed: Row(
         children: [
           Expanded(
-            child: YButton(onPressed: () => Navigator.pop(context), text: widget.buttonLabel, type: widget.type),
+            child: YButton(onPressed: () => Navigator.pop(context), text: widget.buttonLabel, color: widget.type),
           ),
         ],
       ),

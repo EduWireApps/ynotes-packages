@@ -1,11 +1,15 @@
 part of components;
 
+enum YButtonVariant { contained, outlined, text }
+enum YButtonSize { medium, large }
+
 class YButton extends StatefulWidget {
   final VoidCallback onPressed;
-  final VoidCallback? onLongPressed;
+  final VoidCallback? onLongPress;
   final String text;
-  final YColor type;
-  final YVariant variant;
+  final YColor color;
+  final YButtonVariant variant;
+  final YButtonSize size;
   final IconData? icon;
   final bool isLoading;
   final bool isDisabled;
@@ -15,9 +19,10 @@ class YButton extends StatefulWidget {
       {Key? key,
       required this.onPressed,
       required this.text,
-      this.onLongPressed,
-      this.type = YColor.primary,
-      this.variant = YVariant.plain,
+      this.onLongPress,
+      this.color = YColor.primary,
+      this.variant = YButtonVariant.contained,
+      this.size = YButtonSize.medium,
       this.icon,
       this.isLoading = false,
       this.isDisabled = false,
@@ -28,63 +33,261 @@ class YButton extends StatefulWidget {
 }
 
 class _YButtonState extends State<YButton> with TickerProviderStateMixin {
-  YTVariableStyleColors get style => theme.variableStyles.get(widget.type).get(widget.variant);
+  YTColor get style => theme.colors.get(widget.color);
 
-  Color get highlightColor => style.highlight;
-  Color get backgroundColor => style.background;
-  Color get textColor => style.text;
+  EdgeInsets get padding {
+    late double h;
+    late double v;
+    switch (widget.size) {
+      case YButtonSize.medium:
+        h = YScale.s6;
+        v = YScale.s3;
+        break;
+      case YButtonSize.large:
+        h = YScale.s8;
+        v = YScale.s4;
+        break;
+    }
+
+    return EdgeInsets.symmetric(horizontal: h, vertical: v);
+  }
+
+  double get fontSize {
+    late double fs;
+    switch (widget.size) {
+      case YButtonSize.medium:
+        fs = YFontSize.sm;
+        break;
+      case YButtonSize.large:
+        fs = YFontSize.lg;
+        break;
+    }
+    return fs;
+  }
+
+  double get iconSize {
+    late double s;
+    switch (widget.size) {
+      case YButtonSize.medium:
+        s = YScale.s4;
+        break;
+      case YButtonSize.large:
+        s = YScale.s6;
+        break;
+    }
+    return s;
+  }
+
+  Size get minimumSize {
+    late double w;
+    late double h;
+    switch (widget.size) {
+      case YButtonSize.medium:
+        w = YScale.s20;
+        h = YScale.s12;
+        break;
+      case YButtonSize.large:
+        w = YScale.s24;
+        h = YScale.s16;
+        break;
+    }
+    return Size(w, h);
+  }
+
+  double get loaderSize {
+    late double s;
+    switch (widget.size) {
+      case YButtonSize.medium:
+        s = YScale.s4;
+        break;
+      case YButtonSize.large:
+        s = YScale.s6;
+        break;
+    }
+    return s;
+  }
+
+  bool get isDisabled => widget.isDisabled || widget.isLoading;
+
+  Color get foregroundColor => style.foregroundColor.withOpacity(isDisabled ? .75 : 1);
+  Color get backgroundColor => style.backgroundColor.withOpacity(isDisabled ? .5 : 1);
+
+  Widget containedButton(BuildContext context) => ElevatedButton(
+        style: ButtonStyle(
+            minimumSize: MaterialStateProperty.all(minimumSize),
+            foregroundColor: MaterialStateProperty.all(foregroundColor),
+            backgroundColor: MaterialStateProperty.all(backgroundColor),
+            padding: MaterialStateProperty.all(padding),
+            shape: MaterialStateProperty.all(RoundedRectangleBorder(
+              borderRadius: YBorderRadius.lg,
+            )),
+            textStyle: MaterialStateProperty.all(TextStyle(
+                fontSize: fontSize,
+                fontWeight: FontWeight.w600,
+                letterSpacing: YLetterSpacing.wider,
+                fontFamily: theme.fonts.secondary))),
+        onPressed: isDisabled ? null : widget.onPressed,
+        onLongPress: isDisabled ? null : widget.onLongPress,
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          textDirection: widget.isIconReversed ? TextDirection.rtl : TextDirection.ltr,
+          children: [
+            if (widget.icon != null)
+              Icon(
+                widget.icon,
+                size: iconSize,
+              ),
+            if (widget.icon != null)
+              YHorizontalSpacer(
+                YScale.s2,
+              ),
+            Flexible(
+              child: widget.isLoading
+                  ? SizedBox(
+                      width: loaderSize,
+                      height: loaderSize,
+                      child: CircularProgressIndicator(
+                          strokeWidth: YScale.s0p5, valueColor: AlwaysStoppedAnimation<Color>(foregroundColor)),
+                    )
+                  : Text(
+                      widget.text,
+                    ),
+            ),
+          ],
+        ),
+      );
+
+  Widget outlinedButton(BuildContext context) => OutlinedButton(
+        style: ButtonStyle(
+            minimumSize: MaterialStateProperty.all(minimumSize),
+            foregroundColor: MaterialStateProperty.all(backgroundColor),
+            overlayColor: MaterialStateProperty.resolveWith((Set<MaterialState> states) {
+              const Set<MaterialState> interactiveStates = <MaterialState>{
+                MaterialState.pressed,
+                MaterialState.hovered,
+                MaterialState.focused,
+              };
+              if (states.any(interactiveStates.contains)) {
+                return backgroundColor.withOpacity(.1);
+              }
+              return null;
+            }),
+            padding: MaterialStateProperty.all(padding),
+            side: MaterialStateProperty.resolveWith((Set<MaterialState> states) {
+              const Set<MaterialState> interactiveStates = <MaterialState>{
+                MaterialState.pressed,
+                MaterialState.hovered,
+                MaterialState.focused,
+              };
+              double opacity = .7;
+              if (states.any(interactiveStates.contains)) {
+                opacity = 1;
+              }
+              return BorderSide(color: backgroundColor.withOpacity(opacity), width: YScale.s0p5);
+            }),
+            shape: MaterialStateProperty.all(RoundedRectangleBorder(
+              borderRadius: YBorderRadius.lg,
+            )),
+            textStyle: MaterialStateProperty.all(TextStyle(
+                fontSize: fontSize,
+                fontWeight: FontWeight.w600,
+                letterSpacing: YLetterSpacing.wider,
+                fontFamily: theme.fonts.secondary))),
+        onPressed: isDisabled ? null : widget.onPressed,
+        onLongPress: isDisabled ? null : widget.onLongPress,
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          textDirection: widget.isIconReversed ? TextDirection.rtl : TextDirection.ltr,
+          children: [
+            if (!isDisabled && widget.icon != null)
+              Icon(
+                widget.icon,
+                size: iconSize,
+              ),
+            if (!isDisabled && widget.icon != null)
+              YHorizontalSpacer(
+                YScale.s2,
+              ),
+            Flexible(
+              child: widget.isLoading
+                  ? SizedBox(
+                      width: loaderSize,
+                      height: loaderSize,
+                      child: CircularProgressIndicator(
+                          strokeWidth: YScale.s0p5, valueColor: AlwaysStoppedAnimation<Color>(backgroundColor)),
+                    )
+                  : Text(
+                      widget.text,
+                    ),
+            ),
+          ],
+        ),
+      );
+
+  Widget textButton(BuildContext context) => TextButton(
+        style: ButtonStyle(
+            minimumSize: MaterialStateProperty.all(minimumSize),
+            foregroundColor: MaterialStateProperty.all(backgroundColor),
+            overlayColor: MaterialStateProperty.resolveWith((Set<MaterialState> states) {
+              const Set<MaterialState> interactiveStates = <MaterialState>{
+                MaterialState.pressed,
+                MaterialState.hovered,
+                MaterialState.focused,
+              };
+              if (states.any(interactiveStates.contains)) {
+                return backgroundColor.withOpacity(.1);
+              }
+              return null;
+            }),
+            padding: MaterialStateProperty.all(padding),
+            shape: MaterialStateProperty.all(RoundedRectangleBorder(
+              borderRadius: YBorderRadius.lg,
+            )),
+            textStyle: MaterialStateProperty.all(TextStyle(
+                fontSize: fontSize,
+                fontWeight: FontWeight.w600,
+                letterSpacing: YLetterSpacing.wider,
+                fontFamily: theme.fonts.secondary))),
+        onPressed: isDisabled ? null : widget.onPressed,
+        onLongPress: isDisabled ? null : widget.onLongPress,
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          textDirection: widget.isIconReversed ? TextDirection.rtl : TextDirection.ltr,
+          children: [
+            if (widget.icon != null)
+              Icon(
+                widget.icon,
+                size: iconSize,
+              ),
+            if (widget.icon != null)
+              YHorizontalSpacer(
+                YScale.s2,
+              ),
+            Flexible(
+              child: widget.isLoading
+                  ? SizedBox(
+                      width: loaderSize,
+                      height: loaderSize,
+                      child: CircularProgressIndicator(
+                          strokeWidth: YScale.s0p5, valueColor: AlwaysStoppedAnimation<Color>(backgroundColor)),
+                    )
+                  : Text(
+                      widget.text,
+                    ),
+            ),
+          ],
+        ),
+      );
 
   @override
   Widget build(BuildContext context) {
-    return Opacity(
-      opacity: widget.isDisabled ? 0.75 : 1,
-      child: RawMaterialButton(
-          padding: EdgeInsets.symmetric(horizontal: YScale.s4, vertical: YScale.s2),
-          materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-          elevation: 0,
-          highlightElevation: 0,
-          hoverElevation: 0,
-          focusElevation: 0,
-          highlightColor: widget.isLoading || widget.isDisabled ? null : highlightColor,
-          onPressed: widget.isLoading || widget.isDisabled ? null : widget.onPressed,
-          onLongPress: widget.isLoading || widget.isDisabled ? null : widget.onLongPressed,
-          child: AnimatedSize(
-            vsync: this,
-            duration: Duration(milliseconds: 200),
-            curve: Curves.easeOut,
-            child: widget.isLoading
-                ? SizedBox(
-                    width: YScale.s4,
-                    height: YScale.s4,
-                    child: CircularProgressIndicator(
-                        strokeWidth: YScale.s0p5, valueColor: AlwaysStoppedAnimation<Color>(textColor)),
-                  )
-                : Row(
-                    mainAxisSize: MainAxisSize.min,
-                    textDirection: widget.isIconReversed ? TextDirection.rtl : TextDirection.ltr,
-                    children: [
-                      if (widget.icon != null)
-                        Icon(
-                          widget.icon,
-                          color: textColor,
-                          size: YScale.s4,
-                        ),
-                      if (widget.icon != null)
-                        YHorizontalSpacer(
-                          YScale.s2,
-                        ),
-                      Flexible(
-                        child: Text(widget.text,
-                            textAlign: TextAlign.center,
-                            style: TextStyle(color: textColor, fontWeight: YFontWeight.medium, fontSize: YFontSize.lg)),
-                      ),
-                    ],
-                  ),
-          ),
-          fillColor: backgroundColor,
-          shape: RoundedRectangleBorder(
-            borderRadius: YBorderRadius.lg,
-          )),
-    );
+    switch (widget.variant) {
+      case YButtonVariant.contained:
+        return containedButton(context);
+      case YButtonVariant.outlined:
+        return outlinedButton(context);
+      case YButtonVariant.text:
+        return textButton(context);
+    }
   }
 }

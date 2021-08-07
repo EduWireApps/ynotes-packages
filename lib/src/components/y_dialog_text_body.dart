@@ -13,7 +13,8 @@ class _YDialogTextBodyState extends State<YDialogTextBody> {
   @override
   Widget build(BuildContext context) => Text(
         widget.text,
-        style: TextStyle(color: theme.colors.neutral.shade400, fontWeight: YFontWeight.normal, fontSize: YFontSize.xl),
+        style:
+            TextStyle(color: theme.colors.foregroundLightColor, fontWeight: YFontWeight.normal, fontSize: YFontSize.xl),
         textAlign: TextAlign.center,
       );
 }

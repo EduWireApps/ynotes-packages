@@ -18,19 +18,19 @@ class _YDialogHeaderState extends State<YDialogHeader> {
         Container(
           padding: YPadding.p(YScale.s3),
           decoration: BoxDecoration(
-              color: theme.colors.get(widget.type).shade300.withOpacity(0.2),
+              color: theme.colors.get(widget.type).backgroundColor.withOpacity(0.2),
               borderRadius: BorderRadius.all(Radius.circular(120))),
           child: Icon(
             widget.icon,
             size: YScale.s10,
-            color: theme.colors.get(widget.type).shade300,
+            color: theme.colors.get(widget.type).backgroundColor,
           ),
         ),
         YVerticalSpacer(YScale.s3),
         Text(
           widget.title,
-          style: TextStyle(
-              color: theme.colors.neutral.shade500, fontWeight: YFontWeight.semibold, fontSize: YFontSize.xl3),
+          style:
+              TextStyle(color: theme.colors.foregroundColor, fontWeight: YFontWeight.semibold, fontSize: YFontSize.xl3),
         ),
         // YH1(widget.title),
         YVerticalSpacer(1),

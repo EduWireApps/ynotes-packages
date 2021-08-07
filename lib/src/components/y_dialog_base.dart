@@ -12,7 +12,7 @@ class YDialogBase extends StatefulWidget {
 }
 
 class _YDialogBaseState extends State<YDialogBase> {
-  final Color backgroundColor = theme.colors.neutral.shade200;
+  final Color backgroundColor = theme.colors.backgroundColor;
   final double padding = YScale.s6;
 
   @override

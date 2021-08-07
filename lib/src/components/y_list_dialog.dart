@@ -33,7 +33,7 @@ class _YListDialogState extends State<YListDialog> {
 
               final YListDialogElement e = widget.elements[index];
               final bool elementHasIcon = _hasIcon();
-              final Icon icon = Icon(e.icon, color: theme.colors.neutral.shade400);
+              final Icon icon = Icon(e.icon, color: theme.colors.foregroundLightColor);
 
               return YListDialogTile(
                 onTap: () => Navigator.pop(context, e),

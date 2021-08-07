@@ -17,18 +17,17 @@ class _YListDialogTileState extends State<YListDialogTile> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-        splashColor: theme.colors.neutral.shade300,
         onTap: widget.onTap,
         child: ListTile(
           minVerticalPadding: YScale.s1p5,
           dense: true,
           title: Text(widget.title,
               style: TextStyle(
-                  color: theme.colors.neutral.shade500, fontWeight: YFontWeight.semibold, fontSize: YFontSize.xl2)),
+                  color: theme.colors.foregroundColor, fontWeight: YFontWeight.semibold, fontSize: YFontSize.xl2)),
           subtitle: widget.description == null
               ? null
               : Text(widget.description!,
-                  style: TextStyle(color: theme.colors.neutral.shade400, fontSize: YFontSize.lg)),
+                  style: TextStyle(color: theme.colors.foregroundLightColor, fontSize: YFontSize.lg)),
           leading: widget.leading,
         ));
   }
@@ -46,7 +45,7 @@ class _YListDialogTileDividerState extends State<YListDialogTileDivider> {
   Widget build(BuildContext context) {
     return Divider(
       height: 0.0,
-      color: theme.colors.neutral.shade100,
+      color: theme.colors.foregroundLightColor,
     );
   }
 }

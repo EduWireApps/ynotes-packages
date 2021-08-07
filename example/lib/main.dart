@@ -1,6 +1,7 @@
 import 'package:example/test_page.dart';
 import 'package:example/themes/themes.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:ynotes_packages/components.dart';
 import 'package:ynotes_packages/theme.dart';
@@ -8,7 +9,9 @@ import 'package:ynotes_packages/utilities.dart';
 import 'package:flutter_responsive_breakpoints/flutter_responsive_breakpoints.dart';
 
 void main() {
-  theme = YCurrentTheme(currentTheme: 1, themes: themes, fontFamily: "Asap");
+  theme = YCurrentTheme(currentTheme: 2, themes: themes);
+  SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(statusBarColor: Colors.transparent, systemNavigationBarColor: Colors.transparent));
   runApp(Phoenix(child: MyApp()));
 }
 
@@ -39,19 +42,21 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: theme.colors.neutral.shade200,
+        backgroundColor: theme.colors.backgroundColor,
         drawer: Drawer(
           child: Container(
-            color: theme.colors.neutral.shade100,
+            color: theme.colors.backgroundColor,
           ),
         ),
         appBar: AppBar(
           brightness: theme.isDark ? Brightness.dark : Brightness.light,
-          iconTheme: IconThemeData(color: theme.colors.neutral.shade500),
+          iconTheme: IconThemeData(color: theme.colors.foregroundColor),
           centerTitle: false,
-          backgroundColor: theme.colors.neutral.shade100,
-          title:
-              Text(widget.title, style: TextStyle(fontWeight: FontWeight.w700, color: theme.colors.neutral.shade500)),
+          backgroundColor: theme.colors.backgroundLightColor,
+          // elevation: 0,
+          title: Text(widget.title,
+              style: TextStyle(
+                  fontWeight: FontWeight.w700, color: theme.colors.foregroundColor, fontFamily: theme.fonts.primary)),
           actions: [
             IconButton(
                 onPressed: () {
@@ -70,7 +75,84 @@ class _MyHomePageState extends State<MyHomePage> {
             width: double.infinity,
             child: Column(
               children: [
-                YButton(onPressed: () {}, text: "Button", icon: Icons.check_circle),
+                YVerticalSpacer(30),
+                Row(
+                  children: [
+                    YButton(
+                      onPressed: () {},
+                      text: "CONTAINED",
+                      variant: YButtonVariant.contained,
+                      color: YColor.danger,
+                      // isLoading: true,
+                    ),
+                    YHorizontalSpacer(10),
+                    YButton(
+                      onPressed: () {},
+                      text: "OUTLINED",
+                      variant: YButtonVariant.outlined,
+                      // isLoading: true,
+                    ),
+                    YHorizontalSpacer(10),
+                    YButton(
+                      onPressed: () {},
+                      text: "TEXT",
+                      variant: YButtonVariant.text,
+                      // isLoading: true,
+                    ),
+                    YHorizontalSpacer(10),
+                  ],
+                ),
+                YVerticalSpacer(30),
+                Row(
+                  children: [
+                    YButton(
+                      onPressed: () async {
+                        final bool? res = await showDialog(
+                            barrierDismissible: true,
+                            context: context,
+                            builder: (_) => AlertDialog(
+                                  backgroundColor: theme.colors.backgroundColor,
+                                  title: Text("Confirmation",
+                                      style:
+                                          TextStyle(color: theme.colors.foregroundColor, fontWeight: FontWeight.w700)),
+                                  content: Text("Cette action est irréversible. T'es sûr(e) de vouloir faire ça ?",
+                                      style: TextStyle(color: theme.colors.foregroundLightColor)),
+                                  actions: [
+                                    YButton(
+                                      onPressed: () {
+                                        Navigator.of(context).pop(false);
+                                      },
+                                      text: "ANNULER",
+                                      variant: YButtonVariant.text,
+                                      // isLoading: true,
+                                    ),
+                                    YButton(
+                                      onPressed: () {
+                                        Navigator.of(context).pop(true);
+                                      },
+                                      text: "CONFIRMER",
+                                      variant: YButtonVariant.contained,
+                                      // isLoading: true,
+                                    ),
+                                  ],
+                                ));
+                        print(res);
+                      },
+                      text: "ANNULER",
+                      variant: YButtonVariant.text,
+                      // isLoading: true,
+                    ),
+                    YButton(
+                      onPressed: () {
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Yay! A SnackBar!')));
+                      },
+                      text: "CONFIRMER",
+                      variant: YButtonVariant.contained,
+                      // isLoading: true,
+                    ),
+                  ],
+                ),
+                YVerticalSpacer(30),
                 Container(
                   constraints: BoxConstraints(maxWidth: MediaQuery.of(context).size.width),
                   width: double.infinity,
@@ -92,7 +174,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           Text(
                             "Ynotes",
                             style: TextStyle(
-                                color: theme.colors.neutral.shade500,
+                                color: theme.colors.foregroundColor,
                                 fontSize: 20,
                                 height: 1.3,
                                 fontWeight: FontWeight.w400),
@@ -101,21 +183,22 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                       Text("Rapidly build modern websites without ever leaving your HTML.",
                           style: TextStyle(
-                            color: theme.colors.neutral.shade500,
+                            color: theme.colors.foregroundColor,
                             fontSize: responsive<double>(def: YFontSize.xl4, sm: YFontSize.xl6, lg: YFontSize.xl7),
                             fontWeight: FontWeight.w700,
+                            fontFamily: theme.fonts.primary,
                             letterSpacing: YLetterSpacing.tight,
                           )),
-                      Text("Ynotes", style: TextStyle(color: theme.colors.neutral.shade500, fontSize: YFontSize.xs)),
-                      Text("Ynotes", style: TextStyle(color: theme.colors.neutral.shade500, fontSize: YFontSize.sm)),
-                      Text("Ynotes", style: TextStyle(color: theme.colors.neutral.shade500, fontSize: YFontSize.base)),
-                      Text("Ynotes", style: TextStyle(color: theme.colors.neutral.shade500, fontSize: YFontSize.lg)),
-                      Text("Ynotes", style: TextStyle(color: theme.colors.neutral.shade500, fontSize: YFontSize.xl2)),
-                      Text("Ynotes", style: TextStyle(color: theme.colors.neutral.shade500, fontSize: YFontSize.xl3)),
-                      Text("Ynotes", style: TextStyle(color: theme.colors.neutral.shade500, fontSize: YFontSize.xl4)),
-                      Text("Ynotes", style: TextStyle(color: theme.colors.neutral.shade500, fontSize: YFontSize.xl5)),
-                      Text("Ynotes", style: TextStyle(color: theme.colors.neutral.shade500, fontSize: YFontSize.xl6)),
-                      Text("Ynotes", style: TextStyle(color: theme.colors.neutral.shade500, fontSize: YFontSize.xl7)),
+                      Text("Ynotes", style: TextStyle(color: theme.colors.foregroundColor, fontSize: YFontSize.xs)),
+                      Text("Ynotes", style: TextStyle(color: theme.colors.foregroundColor, fontSize: YFontSize.sm)),
+                      Text("Ynotes", style: TextStyle(color: theme.colors.foregroundColor, fontSize: YFontSize.base)),
+                      Text("Ynotes", style: TextStyle(color: theme.colors.foregroundColor, fontSize: YFontSize.lg)),
+                      Text("Ynotes", style: TextStyle(color: theme.colors.foregroundColor, fontSize: YFontSize.xl2)),
+                      Text("Ynotes", style: TextStyle(color: theme.colors.foregroundColor, fontSize: YFontSize.xl3)),
+                      Text("Ynotes", style: TextStyle(color: theme.colors.foregroundColor, fontSize: YFontSize.xl4)),
+                      Text("Ynotes", style: TextStyle(color: theme.colors.foregroundColor, fontSize: YFontSize.xl5)),
+                      Text("Ynotes", style: TextStyle(color: theme.colors.foregroundColor, fontSize: YFontSize.xl6)),
+                      Text("Ynotes", style: TextStyle(color: theme.colors.foregroundColor, fontSize: YFontSize.xl7)),
                     ],
                   ),
                 ),
@@ -123,52 +206,52 @@ class _MyHomePageState extends State<MyHomePage> {
                   alignment: WrapAlignment.center,
                   spacing: 15,
                   children: [
+                    // YButton(
+                    //     onPressed: () {
+                    //       switch (theme.currentTheme) {
+                    //         case 0:
+                    //           theme.currentTheme = 1;
+                    //           break;
+                    //         case 1:
+                    //           theme.currentTheme = 2;
+                    //           break;
+                    //         case 2:
+                    //           theme.currentTheme = 0;
+                    //           break;
+                    //       }
+                    //       setState(() {});
+                    //     },
+                    //     text: "Switch theme: ${theme.name}"),
                     YButton(
-                        onPressed: () {
-                          switch (theme.currentTheme) {
-                            case 0:
-                              theme.currentTheme = 1;
-                              break;
-                            case 1:
-                              theme.currentTheme = 2;
-                              break;
-                            case 2:
-                              theme.currentTheme = 0;
-                              break;
-                          }
-                          setState(() {});
-                        },
-                        text: "Switch theme: ${theme.name}"),
+                      onPressed: () async {
+                        final bool res = await YDialogs.getChoice(
+                            context,
+                            YChoiceDialog(
+                              type: YColor.danger,
+                              title: "Hep !",
+                              description: "T'es sûr(e) de vouloir faire ça ?",
+                              icon: Icons.error_outline,
+                            ));
+                        print(res);
+                      },
+                      text: "Choice",
+                      color: YColor.danger,
+                    ),
                     YButton(
-                        onPressed: () async {
-                          final bool res = await YDialogs.getChoice(
-                              context,
-                              YChoiceDialog(
-                                type: YColor.danger,
-                                title: "Hep !",
-                                description: "T'es sûr(e) de vouloir faire ça ?",
-                                icon: Icons.error_outline,
-                              ));
-                          print(res);
-                        },
-                        text: "Choice",
-                        type: YColor.danger,
-                        variant: YVariant.reverse),
-                    YButton(
-                        onPressed: () async {
-                          await YDialogs.getConfirmation(
-                              context,
-                              YConfirmationDialog(
-                                type: YColor.primary,
-                                title: "Hep !",
-                                description:
-                                    "T'es sûr(e) de vouloir faire ça ? Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-                                icon: Icons.leaderboard_rounded,
-                              ));
-                        },
-                        text: "Confirmation",
-                        type: YColor.danger,
-                        variant: YVariant.reverse),
+                      onPressed: () async {
+                        await YDialogs.getConfirmation(
+                            context,
+                            YConfirmationDialog(
+                              type: YColor.primary,
+                              title: "Hep !",
+                              description:
+                                  "T'es sûr(e) de vouloir faire ça ? Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+                              icon: Icons.leaderboard_rounded,
+                            ));
+                      },
+                      text: "Confirmation",
+                      color: YColor.danger,
+                    ),
                     YButton(
                       onPressed: () async {
                         final YListDialogElement? e = await YDialogs.getListChoice(
@@ -209,7 +292,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         print(e?.value);
                       },
                       text: "List",
-                      type: YColor.warning,
+                      color: YColor.warning,
                     ),
                     YButton(
                       onPressed: () async {
@@ -250,8 +333,6 @@ class _MyHomePageState extends State<MyHomePage> {
                         }
                       },
                       text: "List multiple",
-                      type: YColor.neutral,
-                      variant: YVariant.reverse,
                     ),
                     YSwitch(
                       value: _status,

@@ -1,11 +1,18 @@
+import 'package:example/themes/utils/colors.dart';
 import 'package:example/themes/utils/fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:ynotes_packages/theme.dart';
 
 final YTColor _primary = YTColor(
-  foregroundColor: Colors.indigo[900]!,
-  lightColor: Colors.indigo[600]!,
-  backgroundColor: Colors.indigo[200]!,
+  foregroundColor: CustomColors.spaceDark[900]!,
+  lightColor: CustomColors.spaceDark[200]!.withOpacity(.2),
+  backgroundColor: CustomColors.spaceDark[200]!,
+);
+
+final YTColor _secondary = YTColor(
+  foregroundColor: Colors.grey[50]!,
+  lightColor: Colors.grey[500]!,
+  backgroundColor: Colors.grey[800]!,
 );
 
 final YTColor _success = YTColor(
@@ -28,10 +35,11 @@ final YTColor _danger = YTColor(
 
 final YTColors _colors = YTColors(
     backgroundColor: Colors.grey[900]!,
-    backgroundLightColor: Colors.grey[800]!,
+    backgroundLightColor: Colors.grey[850]!,
     foregroundColor: Colors.grey[50]!,
     foregroundLightColor: Colors.grey[500]!,
     primary: _primary,
+    secondary: _secondary,
     success: _success,
     warning: _warning,
     danger: _danger);

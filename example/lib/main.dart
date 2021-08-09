@@ -1,35 +1,60 @@
-import 'package:example/test_page.dart';
 import 'package:example/themes/themes.dart';
+import 'package:example/themes/utils/fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:ynotes_packages/components.dart';
 import 'package:ynotes_packages/theme.dart';
 import 'package:ynotes_packages/utilities.dart';
-import 'package:flutter_responsive_breakpoints/flutter_responsive_breakpoints.dart';
+import 'package:ynotes_packages/config.dart';
 
 void main() {
-  theme = YCurrentTheme(currentTheme: 1, themes: themes);
-  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(statusBarColor: Colors.transparent));
-  _setNavigationBarColor();
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(Phoenix(child: MyApp()));
 }
 
-void _setNavigationBarColor() {
-  SystemChrome.setSystemUIOverlayStyle(
-      SystemUiOverlayStyle(systemNavigationBarColor: theme.colors.backgroundLightColor));
+void _setSystemUIOverlayStyle() {
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent, systemNavigationBarColor: theme.colors.backgroundLightColor));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
-  Widget build(BuildContext context) => Responsive(
-        builder: (context) => MaterialApp(
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  late Brightness _brightness;
+
+  void setBrightness(Brightness brightness) {
+    setState(() {
+      _brightness = brightness;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    final window = WidgetsBinding.instance!.window;
+    window.onPlatformBrightnessChanged = () => setBrightness(window.platformBrightness);
+    setBrightness(window.platformBrightness);
+  }
+
+  @override
+  Widget build(BuildContext context) => YApp(
+      initialTheme: 0,
+      themes: themes(_brightness),
+      builder: (context) {
+        _setSystemUIOverlayStyle();
+        return MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Flutter Demo',
           theme: theme.themeData,
-          home: MyHomePage(title: 'Demo'),
-        ),
-      );
+          home: MyHomePage(title: 'Paramètres'),
+        );
+      });
 }
 
 class MyHomePage extends StatefulWidget {
@@ -44,6 +69,23 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   bool _status = false;
   bool _isLightMode = true;
+  List<Widget> _tabs = [
+    Tab(
+      child: Text("COMPTE"),
+    ),
+    Tab(
+      child: Text("NOTIFICATIONS"),
+    ),
+    Tab(
+      child: Text("DONNÉES"),
+    ),
+    Tab(
+      child: Text("RESUME"),
+    ),
+    Tab(
+      child: Text("TRIMESTRE 3"),
+    ),
+  ];
   final ScrollController _scrollController = ScrollController();
   late Color _appBarColor = theme.colors.backgroundLightColor;
   late double? _appBarElevation = 0;
@@ -72,7 +114,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 2,
+      length: _tabs.length,
       initialIndex: 0,
       child: Scaffold(
           backgroundColor: theme.colors.backgroundColor,
@@ -83,46 +125,51 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           appBar: AppBar(
             brightness: theme.isDark ? Brightness.dark : Brightness.light,
-            iconTheme: IconThemeData(color: theme.colors.foregroundColor),
+            iconTheme: IconThemeData(color: theme.colors.primary.backgroundColor),
             centerTitle: false,
             backgroundColor: _appBarColor,
             elevation: _appBarElevation,
             bottom: TabBar(
                 indicatorColor: theme.colors.primary.backgroundColor,
+                indicatorWeight: 3.0,
                 labelColor: theme.colors.primary.backgroundColor,
                 unselectedLabelColor: theme.colors.foregroundLightColor,
-                tabs: [
-                  Tab(
-                    child: Text("TAB 1"),
-                  ),
-                  Tab(
-                    child: Text("TAB 2"),
-                  ),
-                ]),
+                isScrollable: _tabs.length > 2,
+                labelStyle: YTextStyle(TextStyle(fontWeight: FontWeight.w600, letterSpacing: .5)),
+                tabs: _tabs),
             title: Text(widget.title,
-                style: TextStyle(
-                    fontWeight: FontWeight.w700, color: theme.colors.foregroundColor, fontFamily: theme.fonts.primary)),
+                style: YTextStyle(
+                    TextStyle(
+                        fontWeight: FontWeight.w800, color: theme.colors.foregroundColor, fontSize: YFontSize.xl2),
+                    primaryfontFamily: true)),
+            leading: Builder(
+                builder: (context) => IconButton(
+                    splashRadius: 20,
+                    splashColor: theme.colors.primary.lightColor,
+                    icon: Icon(Icons.menu),
+                    onPressed: () => Scaffold.of(context).openDrawer())),
             actions: [
               IconButton(
+                  splashRadius: 20,
+                  splashColor: theme.colors.primary.lightColor,
                   icon: Icon(_isLightMode ? Icons.light_mode_outlined : Icons.dark_mode_outlined),
                   onPressed: () {
-                    theme.currentTheme = _isLightMode ? 2 : 1;
+                    updateCurrentTheme(_isLightMode ? 2 : 1);
                     setState(() {
                       _isLightMode = !_isLightMode;
                     });
                     updateAppBar();
-                    _setNavigationBarColor();
+                    _setSystemUIOverlayStyle();
                   }),
               IconButton(
+                  splashRadius: 20,
+                  splashColor: theme.colors.primary.lightColor,
                   onPressed: () {
                     debugPrint("Restart app");
                     Phoenix.rebirth(context);
                   },
                   icon: Icon(Icons.refresh)),
-              IconButton(
-                icon: Icon(Icons.arrow_forward),
-                onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => TestPage())),
-              )
+              YHorizontalSpacer(7.5)
             ],
           ),
           body: SafeArea(
@@ -136,58 +183,69 @@ class _MyHomePageState extends State<MyHomePage> {
                       child: Column(
                         children: [
                           YVerticalSpacer(30),
-                          Row(
-                            children: [
-                              YButton(
-                                onPressed: () async {
-                                  final bool? res = await showDialog(
-                                      barrierDismissible: true,
-                                      context: context,
-                                      builder: (_) => AlertDialog(
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius: YBorderRadius.lg,
-                                            ),
-                                            backgroundColor: theme.colors.backgroundColor,
-                                            title: Text("Confirmation",
-                                                style: TextStyle(
-                                                    color: theme.colors.foregroundColor, fontWeight: FontWeight.w700)),
-                                            content: Text(
-                                                "Cette action est irréversible. T'es sûr(e) de vouloir faire ça ?",
-                                                style: TextStyle(color: theme.colors.foregroundLightColor)),
-                                            actions: [
-                                              YButton(
-                                                onPressed: () {
-                                                  Navigator.of(context).pop(false);
-                                                },
-                                                text: "ANNULER",
-                                                variant: YButtonVariant.text,
-                                                // isLoading: true,
-                                              ),
-                                              YButton(
-                                                onPressed: () {
-                                                  Navigator.of(context).pop(true);
-                                                },
-                                                text: "CONFIRMER",
-                                                variant: YButtonVariant.contained,
-                                                // isLoading: true,
-                                              ),
-                                            ],
-                                          ));
-                                  print(res);
-                                },
-                                text: "SHOW TEST DIALOG",
-                                variant: YButtonVariant.contained,
-                                // isLoading: true,
+                          Padding(
+                            padding: YPadding.px(YScale.s4),
+                            child: SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              child: Row(
+                                children: [
+                                  YButton(
+                                    onPressed: () async {
+                                      final bool? res = await showDialog(
+                                          barrierDismissible: true,
+                                          context: context,
+                                          builder: (_) => AlertDialog(
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius: YBorderRadius.lg,
+                                                ),
+                                                backgroundColor: theme.colors.backgroundColor,
+                                                title: Text("Confirmation",
+                                                    style: TextStyle(
+                                                        color: theme.colors.foregroundColor,
+                                                        fontWeight: FontWeight.w700)),
+                                                content: Text(
+                                                    "Cette action est irréversible. T'es sûr(e) de vouloir faire ça ?",
+                                                    style: TextStyle(color: theme.colors.foregroundLightColor)),
+                                                actions: [
+                                                  YButton(
+                                                    onPressed: () {
+                                                      Navigator.of(context).pop(false);
+                                                    },
+                                                    text: "ANNULER",
+                                                    variant: YButtonVariant.text,
+                                                    // isLoading: true,
+                                                  ),
+                                                  YButton(
+                                                    onPressed: () {
+                                                      Navigator.of(context).pop(true);
+                                                    },
+                                                    text: "CONFIRMER",
+                                                    variant: YButtonVariant.contained,
+                                                    // isLoading: true,
+                                                  ),
+                                                ],
+                                              ));
+                                      print(res);
+                                    },
+                                    text: "SHOW TEST DIALOG",
+                                    variant: YButtonVariant.contained,
+                                    // isLoading: true,
+                                  ),
+                                  YHorizontalSpacer(10),
+                                  YButton(
+                                      onPressed: () {
+                                        print(Theme.of(context).splashColor);
+                                      },
+                                      text: "PRINT THEME DATA")
+                                ],
                               ),
-                            ],
+                            ),
                           ),
                           YVerticalSpacer(30),
                           Padding(
-                            padding: YPadding.px(YScale.s6),
+                            padding: YPadding.px(YScale.s4),
                             child: InkWell(
                               borderRadius: YBorderRadius.lg,
-                              highlightColor: Colors.transparent,
-                              splashColor: theme.isDark ? Colors.white12 : Colors.black12,
                               onTap: () {
                                 print("TAPPED");
                               },
@@ -227,12 +285,10 @@ class _MyHomePageState extends State<MyHomePage> {
                           ),
                           YVerticalSpacer(30),
                           Padding(
-                            padding: YPadding.px(YScale.s6),
+                            padding: YPadding.px(YScale.s4),
                             child: InkWell(
                               borderRadius: YBorderRadius.lg,
-                              highlightColor: Colors.transparent,
-                              splashColor: theme.isDark ? Colors.white12 : Colors.black12,
-                              onTap: null,
+                              // onTap: () {},
                               child: Ink(
                                 width: double.infinity,
                                 decoration: BoxDecoration(
@@ -249,24 +305,71 @@ class _MyHomePageState extends State<MyHomePage> {
                                   borderRadius: YBorderRadius.lg,
                                   child: Column(
                                     children: [
+                                      Container(
+                                        height: 30,
+                                      ),
+                                      Text("France",
+                                          style: YTextStyle(TextStyle(color: theme.colors.foregroundLightColor))),
+                                      Container(
+                                        height: 30,
+                                      ),
+                                      Divider(
+                                        height: 0,
+                                        thickness: 0.2,
+                                        color: theme.colors.foregroundLightColor,
+                                      ),
                                       InkWell(
                                         onTap: () => print("link tapped"),
-                                        child: ListTileTheme(
-                                          iconColor: theme.colors.primary.backgroundColor,
-                                          textColor: theme.colors.primary.backgroundColor,
-                                          child: ListTile(
-                                            leading: Icon(Icons.settings),
-                                            title: Row(
-                                              crossAxisAlignment: CrossAxisAlignment.center,
-                                              children: [
-                                                Text("Useful links", style: TextStyle(fontWeight: FontWeight.w600)),
-                                                Icon(
-                                                  Icons.arrow_forward,
-                                                  size: 15,
-                                                  color: theme.colors.primary.backgroundColor,
-                                                )
-                                              ],
-                                            ),
+                                        child: Ink(
+                                          padding: YPadding.p(YScale.s4),
+                                          child: Row(
+                                            crossAxisAlignment: CrossAxisAlignment.center,
+                                            children: [
+                                              Icon(Icons.settings, color: theme.colors.primary.backgroundColor),
+                                              YHorizontalSpacer(YScale.s4),
+                                              Text("Useful links",
+                                                  style: TextStyle(
+                                                      fontWeight: FontWeight.w600,
+                                                      color: theme.colors.primary.backgroundColor)),
+                                              YHorizontalSpacer(YScale.s0p5),
+                                              Icon(
+                                                Icons.arrow_forward,
+                                                size: 15,
+                                                color: theme.colors.primary.backgroundColor,
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      Divider(
+                                        height: 0,
+                                        thickness: 0.2,
+                                        color: theme.colors.foregroundLightColor,
+                                      ),
+                                      InkWell(
+                                        borderRadius: BorderRadius.vertical(bottom: Radius.circular(YScale.s2)),
+                                        onTap: () => print("link tapped"),
+                                        child: Ink(
+                                          padding: YPadding.p(YScale.s4),
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.vertical(bottom: Radius.circular(YScale.s2)),
+                                          ),
+                                          child: Row(
+                                            crossAxisAlignment: CrossAxisAlignment.center,
+                                            children: [
+                                              Icon(Icons.settings, color: theme.colors.primary.backgroundColor),
+                                              YHorizontalSpacer(YScale.s4),
+                                              Text("Useful links",
+                                                  style: TextStyle(
+                                                      fontWeight: FontWeight.w600,
+                                                      color: theme.colors.primary.backgroundColor)),
+                                              YHorizontalSpacer(YScale.s0p5),
+                                              Icon(
+                                                Icons.arrow_forward,
+                                                size: 15,
+                                                color: theme.colors.primary.backgroundColor,
+                                              )
+                                            ],
                                           ),
                                         ),
                                       )
@@ -435,16 +538,16 @@ class _MyHomePageState extends State<MyHomePage> {
                           ),
                           YVerticalSpacer(50),
                           Padding(
-                              padding: EdgeInsets.all(20),
+                              padding: YPadding.p(YScale.s4),
                               child: Container(height: 400, color: theme.colors.primary.backgroundColor)),
                           Padding(
-                              padding: EdgeInsets.all(20),
+                              padding: YPadding.p(YScale.s4),
                               child: Container(height: 400, color: theme.colors.primary.backgroundColor)),
                           Padding(
-                              padding: EdgeInsets.all(20),
+                              padding: YPadding.p(YScale.s4),
                               child: Container(height: 400, color: theme.colors.primary.backgroundColor)),
                           Padding(
-                              padding: EdgeInsets.all(20),
+                              padding: YPadding.p(YScale.s4),
                               child: Container(height: 400, color: theme.colors.primary.backgroundColor)),
                         ],
                       ),

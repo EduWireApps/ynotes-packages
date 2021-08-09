@@ -38,7 +38,10 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     final window = WidgetsBinding.instance!.window;
-    window.onPlatformBrightnessChanged = () => setBrightness(window.platformBrightness);
+    window.onPlatformBrightnessChanged = () {
+      setBrightness(window.platformBrightness);
+      Phoenix.rebirth(context);
+    };
     setBrightness(window.platformBrightness);
   }
 
@@ -68,7 +71,6 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   bool _status = false;
-  bool _isLightMode = true;
   List<Widget> _tabs = [
     Tab(
       child: Text("COMPTE"),
@@ -152,12 +154,29 @@ class _MyHomePageState extends State<MyHomePage> {
               IconButton(
                   splashRadius: 20,
                   splashColor: theme.colors.primary.lightColor,
-                  icon: Icon(_isLightMode ? Icons.light_mode_outlined : Icons.dark_mode_outlined),
-                  onPressed: () {
-                    updateCurrentTheme(_isLightMode ? 2 : 1);
-                    setState(() {
-                      _isLightMode = !_isLightMode;
-                    });
+                  icon: Icon(Icons.palette),
+                  onPressed: () async {
+                    final int? res = await showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return SimpleDialog(
+                              backgroundColor: theme.colors.backgroundColor,
+                              title: Text("Choose a theme",
+                                  style: YTextStyle(TextStyle(color: theme.colors.foregroundColor),
+                                      primaryfontFamily: true)),
+                              children: theme.themes
+                                  .map((e) => SimpleDialogOption(
+                                        child: Text(e.name,
+                                            style: YTextStyle(
+                                              TextStyle(color: theme.colors.foregroundLightColor),
+                                            )),
+                                        onPressed: () => Navigator.of(context).pop(e.id),
+                                      ))
+                                  .toList());
+                        });
+                    if (res != null) {
+                      updateCurrentTheme(res);
+                    }
                     updateAppBar();
                     _setSystemUIOverlayStyle();
                   }),

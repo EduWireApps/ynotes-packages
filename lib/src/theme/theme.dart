@@ -6,10 +6,17 @@ class YTheme {
   final bool isDark;
   final YTColors colors;
   final YTFonts fonts;
+  final Color? splashColor;
 
-  YTheme(this.name, {required this.id, required this.isDark, required this.colors, required this.fonts});
+  YTheme(this.name,
+      {required this.id, required this.isDark, required this.colors, required this.fonts, this.splashColor});
 
-  ThemeData get themeData => ThemeData(accentColor: this.colors.primary.backgroundColor);
+  ThemeData get themeData => ThemeData(
+      accentColor: this.colors.primary.backgroundColor,
+      splashColor: this.splashColor ?? (this.isDark ? Colors.white12 : Colors.black12),
+      highlightColor: Colors.transparent,
+      splashFactory: InkRipple.splashFactory,
+      fontFamily: this.fonts.secondary);
 }
 
 class YCurrentTheme {

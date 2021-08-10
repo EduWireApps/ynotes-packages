@@ -7,9 +7,15 @@ class YTheme {
   final YTColors colors;
   final YTFonts fonts;
   final Color? splashColor;
+  final YTTexts texts;
 
   YTheme(this.name,
-      {required this.id, required this.isDark, required this.colors, required this.fonts, this.splashColor});
+      {required this.id,
+      required this.isDark,
+      required this.colors,
+      required this.fonts,
+      this.splashColor,
+      required this.texts});
 
   ThemeData get themeData => ThemeData(
       accentColor: this.colors.primary.backgroundColor,
@@ -32,6 +38,7 @@ class YCurrentTheme {
   YTColors get colors => this._ct.colors;
   ThemeData get themeData => this._ct.themeData;
   YTFonts get fonts => this._ct.fonts;
+  YTTexts get texts => this._ct.texts;
 }
 
 late YCurrentTheme theme;

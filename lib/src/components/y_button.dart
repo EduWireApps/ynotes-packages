@@ -112,6 +112,35 @@ class _YButtonState extends State<YButton> with TickerProviderStateMixin {
   Color get foregroundColor => style.foregroundColor.withOpacity(isDisabled ? .75 : 1);
   Color get backgroundColor => style.backgroundColor.withOpacity(isDisabled ? .5 : 1);
 
+  Widget buttonContent(BuildContext context, Color loaderColor) => Row(
+        mainAxisSize: MainAxisSize.min,
+        textDirection: widget.isIconReversed ? TextDirection.rtl : TextDirection.ltr,
+        children: [
+          if (!isDisabled && widget.icon != null)
+            Icon(
+              widget.icon,
+              size: iconSize,
+            ),
+          if (!isDisabled && widget.icon != null)
+            YHorizontalSpacer(
+              YScale.s2,
+            ),
+          Flexible(
+            child: widget.isLoading
+                ? SizedBox(
+                    width: loaderSize,
+                    height: loaderSize,
+                    child: CircularProgressIndicator(
+                        strokeWidth: YScale.s0p5, valueColor: AlwaysStoppedAnimation<Color>(loaderColor)),
+                  )
+                : Text(
+                    widget.text,
+                    style: theme.texts.button,
+                  ),
+          ),
+        ],
+      );
+
   Widget containedButton(BuildContext context) => ElevatedButton(
         style: ButtonStyle(
             minimumSize: MaterialStateProperty.all(minimumSize),
@@ -128,33 +157,7 @@ class _YButtonState extends State<YButton> with TickerProviderStateMixin {
                 fontFamily: theme.fonts.secondary))),
         onPressed: isDisabled ? null : widget.onPressed,
         onLongPress: isDisabled ? null : widget.onLongPress,
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          textDirection: widget.isIconReversed ? TextDirection.rtl : TextDirection.ltr,
-          children: [
-            if (widget.icon != null)
-              Icon(
-                widget.icon,
-                size: iconSize,
-              ),
-            if (widget.icon != null)
-              YHorizontalSpacer(
-                YScale.s2,
-              ),
-            Flexible(
-              child: widget.isLoading
-                  ? SizedBox(
-                      width: loaderSize,
-                      height: loaderSize,
-                      child: CircularProgressIndicator(
-                          strokeWidth: YScale.s0p5, valueColor: AlwaysStoppedAnimation<Color>(foregroundColor)),
-                    )
-                  : Text(
-                      widget.text,
-                    ),
-            ),
-          ],
-        ),
+        child: buttonContent(context, foregroundColor),
       );
 
   Widget outlinedButton(BuildContext context) => OutlinedButton(
@@ -195,33 +198,7 @@ class _YButtonState extends State<YButton> with TickerProviderStateMixin {
                 fontFamily: theme.fonts.secondary))),
         onPressed: isDisabled ? null : widget.onPressed,
         onLongPress: isDisabled ? null : widget.onLongPress,
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          textDirection: widget.isIconReversed ? TextDirection.rtl : TextDirection.ltr,
-          children: [
-            if (!isDisabled && widget.icon != null)
-              Icon(
-                widget.icon,
-                size: iconSize,
-              ),
-            if (!isDisabled && widget.icon != null)
-              YHorizontalSpacer(
-                YScale.s2,
-              ),
-            Flexible(
-              child: widget.isLoading
-                  ? SizedBox(
-                      width: loaderSize,
-                      height: loaderSize,
-                      child: CircularProgressIndicator(
-                          strokeWidth: YScale.s0p5, valueColor: AlwaysStoppedAnimation<Color>(backgroundColor)),
-                    )
-                  : Text(
-                      widget.text,
-                    ),
-            ),
-          ],
-        ),
+        child: buttonContent(context, backgroundColor),
       );
 
   Widget textButton(BuildContext context) => TextButton(
@@ -250,33 +227,7 @@ class _YButtonState extends State<YButton> with TickerProviderStateMixin {
                 fontFamily: theme.fonts.secondary))),
         onPressed: isDisabled ? null : widget.onPressed,
         onLongPress: isDisabled ? null : widget.onLongPress,
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          textDirection: widget.isIconReversed ? TextDirection.rtl : TextDirection.ltr,
-          children: [
-            if (widget.icon != null)
-              Icon(
-                widget.icon,
-                size: iconSize,
-              ),
-            if (widget.icon != null)
-              YHorizontalSpacer(
-                YScale.s2,
-              ),
-            Flexible(
-              child: widget.isLoading
-                  ? SizedBox(
-                      width: loaderSize,
-                      height: loaderSize,
-                      child: CircularProgressIndicator(
-                          strokeWidth: YScale.s0p5, valueColor: AlwaysStoppedAnimation<Color>(backgroundColor)),
-                    )
-                  : Text(
-                      widget.text,
-                    ),
-            ),
-          ],
-        ),
+        child: buttonContent(context, backgroundColor),
       );
 
   @override

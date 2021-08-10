@@ -1,5 +1,6 @@
 import 'package:example/themes/utils/colors.dart';
 import 'package:example/themes/utils/fonts.dart';
+import 'package:example/themes/utils/texts.dart';
 import 'package:flutter/material.dart';
 import 'package:ynotes_packages/theme.dart';
 
@@ -44,4 +45,5 @@ final YTColors _colors = YTColors(
     warning: _warning,
     danger: _danger);
 
-final YTheme darkTheme = YTheme("Sombre", id: 2, isDark: true, colors: _colors, fonts: themeFonts);
+final YTheme darkTheme =
+    YTheme("Sombre", id: 2, isDark: true, colors: _colors, fonts: themeFonts, texts: texts(_colors, themeFonts));

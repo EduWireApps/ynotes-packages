@@ -1,5 +1,6 @@
 import 'package:example/themes/utils/colors.dart';
 import 'package:example/themes/utils/fonts.dart';
+import 'package:example/themes/utils/texts.dart';
 import 'package:flutter/material.dart';
 import 'package:ynotes_packages/theme.dart';
 
@@ -34,7 +35,7 @@ final YTColor _danger = YTColor(
 );
 
 final YTColors _colors = YTColors(
-    backgroundColor: Colors.white,
+    backgroundColor: Colors.grey[50]!,
     backgroundLightColor: Colors.white,
     foregroundColor: Colors.grey[900]!,
     foregroundLightColor: Colors.grey[700]!,
@@ -44,4 +45,5 @@ final YTColors _colors = YTColors(
     warning: _warning,
     danger: _danger);
 
-final YTheme lightTheme = YTheme("Clair", id: 1, isDark: false, colors: _colors, fonts: themeFonts);
+final YTheme lightTheme =
+    YTheme("Clair", id: 1, isDark: false, colors: _colors, fonts: themeFonts, texts: texts(_colors, themeFonts));

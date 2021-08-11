@@ -24,8 +24,8 @@ final YTColor _success = YTColor(
 
 final YTColor _warning = YTColor(
   foregroundColor: Colors.white,
-  lightColor: Colors.amber[500]!.withOpacity(.2),
-  backgroundColor: Colors.amber[500]!,
+  lightColor: Colors.amber[600]!.withOpacity(.2),
+  backgroundColor: Colors.amber[600]!,
 );
 
 final YTColor _danger = YTColor(

@@ -1,19 +1,12 @@
 part of components;
 
-class YCardHeader extends StatefulWidget {
+class YCardHeader extends StatelessWidget {
   final IconData? icon;
   final Widget title;
   final Color? color;
   final List<IconButton>? actions;
 
   const YCardHeader({Key? key, this.icon, required this.title, this.color, this.actions}) : super(key: key);
-
-  @override
-  _YCardHeaderState createState() => _YCardHeaderState();
-}
-
-class _YCardHeaderState extends State<YCardHeader> {
-  Color get color => widget.color ?? theme.colors.foregroundColor;
 
   @override
   Widget build(BuildContext context) {
@@ -23,18 +16,18 @@ class _YCardHeaderState extends State<YCardHeader> {
           child: Row(
             mainAxisSize: MainAxisSize.max,
             children: [
-              if (widget.icon != null)
+              if (this.icon != null)
                 Icon(
-                  widget.icon,
-                  color: color,
+                  this.icon,
+                  color: this.color ?? theme.colors.foregroundColor,
                   size: theme.texts.title.fontSize,
                 ),
-              if (widget.icon != null) YHorizontalSpacer(YScale.s2),
-              widget.title,
+              if (this.icon != null) YHorizontalSpacer(YScale.s2),
+              this.title,
               Expanded(
                 child: Container(),
               ),
-              if (widget.actions != null) ...widget.actions!
+              if (this.actions != null) ...this.actions!
             ],
           ),
         ),

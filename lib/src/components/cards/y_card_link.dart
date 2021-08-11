@@ -1,6 +1,6 @@
 part of components;
 
-class YCardLink extends StatefulWidget {
+class YCardLink extends StatelessWidget {
   final BorderRadius? borderRadius;
   final VoidCallback onTap;
   final IconData? icon;
@@ -8,21 +8,15 @@ class YCardLink extends StatefulWidget {
   const YCardLink({Key? key, this.borderRadius, required this.onTap, this.icon}) : super(key: key);
 
   @override
-  _YCardLinkState createState() => _YCardLinkState();
-}
-
-class _YCardLinkState extends State<YCardLink> {
-  final double horizontalPadding = YScale.s4;
-
-  @override
   Widget build(BuildContext context) {
+    final double horizontalPadding = YScale.s4;
     return InkWell(
-      borderRadius: widget.borderRadius,
-      onTap: widget.onTap,
+      borderRadius: this.borderRadius,
+      onTap: this.onTap,
       child: Ink(
         padding: YPadding.p(horizontalPadding),
         decoration: BoxDecoration(
-          borderRadius: widget.borderRadius,
+          borderRadius: this.borderRadius,
         ),
         child: Container(
           height: YScale.s6,
@@ -32,8 +26,8 @@ class _YCardLinkState extends State<YCardLink> {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  if (widget.icon != null) Icon(widget.icon, color: theme.colors.primary.backgroundColor),
-                  if (widget.icon != null) YHorizontalSpacer(horizontalPadding),
+                  if (this.icon != null) Icon(this.icon, color: theme.colors.primary.backgroundColor),
+                  if (this.icon != null) YHorizontalSpacer(horizontalPadding),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [

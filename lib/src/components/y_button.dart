@@ -3,6 +3,7 @@ part of components;
 enum YButtonVariant { contained, outlined, text }
 enum YButtonSize { medium, large }
 
+// Stateful to use TickerProviderStateMixin
 class YButton extends StatefulWidget {
   final VoidCallback onPressed;
   final VoidCallback? onLongPress;

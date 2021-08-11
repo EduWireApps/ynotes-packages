@@ -1,6 +1,6 @@
 part of components;
 
-class YCheckbox extends StatefulWidget {
+class YCheckbox extends StatelessWidget {
   final bool value;
   final ValueChanged<bool> onChanged;
   final YColor type;
@@ -8,14 +8,9 @@ class YCheckbox extends StatefulWidget {
   const YCheckbox({Key? key, required this.value, required this.onChanged, this.type = YColor.primary})
       : super(key: key);
 
-  @override
-  _YCheckboxState createState() => _YCheckboxState();
-}
+  YTColor get style => theme.colors.get(this.type);
 
-class _YCheckboxState extends State<YCheckbox> {
-  YTColor get style => theme.colors.get(widget.type);
-
-  void _onChanged(bool? value) => widget.onChanged(value!);
+  void _onChanged(bool? value) => this.onChanged(value!);
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +19,7 @@ class _YCheckboxState extends State<YCheckbox> {
       child: Checkbox(
         activeColor: style.backgroundColor,
         checkColor: style.foregroundColor,
-        value: widget.value,
+        value: this.value,
         onChanged: _onChanged,
         shape: RoundedRectangleBorder(borderRadius: YBorderRadius.normal),
       ),

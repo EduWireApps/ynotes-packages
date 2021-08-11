@@ -497,14 +497,20 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                                                 _status = value;
                                               });
                                             },
-                                            type: YColor.primary,
+                                            color: YColor.warning,
                                           ),
                                           YRadio<int>(
-                                              color: YColor.warning,
+                                              color: YColor.success,
                                               value: 0,
                                               groupValue: 0,
                                               onChanged: (dynamic v) {
                                                 final int value = v;
+                                                print(value);
+                                              }),
+                                          YCheckbox(
+                                              value: true,
+                                              type: YColor.danger,
+                                              onChanged: (bool value) {
                                                 print(value);
                                               })
                                         ],
@@ -513,7 +519,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                                           body: Column(
                                         children: [0, 1, 2, 3, 4, 5]
                                             .map((e) => YRadioListTile(
-                                                color: YColor.primary,
+                                                color: YColor.warning,
                                                 title: e.toString(),
                                                 value: e,
                                                 groupValue: _radioListValue,

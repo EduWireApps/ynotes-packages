@@ -1,5 +1,5 @@
 part of components;
-
+/*
 class YListDialogTile extends StatefulWidget {
   final VoidCallback onTap;
   final String title;
@@ -49,3 +49,4 @@ class _YListDialogTileDividerState extends State<YListDialogTileDivider> {
     );
   }
 }
+*/

@@ -16,8 +16,6 @@ part 'package:ynotes_packages/src/components/cards/y_links_card.dart';
 part 'package:ynotes_packages/src/components/dialogs/y_choice_dialog.dart';
 part 'package:ynotes_packages/src/components/dialogs/y_confirmation_dialog.dart';
 part 'package:ynotes_packages/src/components/dialogs/y_dialog_base.dart';
-part 'package:ynotes_packages/src/components/dialogs/y_dialog_header.dart';
-part 'package:ynotes_packages/src/components/dialogs/y_dialog_text_body.dart';
 part 'package:ynotes_packages/src/components/dialogs/y_list_dialog_tile.dart';
 part 'package:ynotes_packages/src/components/dialogs/y_list_dialog.dart';
 part 'package:ynotes_packages/src/components/dialogs/y_list_multiple_dialog.dart';

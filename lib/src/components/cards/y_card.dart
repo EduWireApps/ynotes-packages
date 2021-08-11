@@ -1,6 +1,6 @@
 part of components;
 
-class YCard extends StatefulWidget {
+class YCard extends StatelessWidget {
   final YCardHeader? header;
   final List<YCardLink>? bottomLinks;
   final String? bottomCta;
@@ -22,17 +22,12 @@ class YCard extends StatefulWidget {
         super(key: key);
 
   @override
-  _YCardState createState() => _YCardState();
-}
-
-class _YCardState extends State<YCard> {
-  @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: widget.margin ?? EdgeInsets.zero,
+      padding: this.margin ?? EdgeInsets.zero,
       child: InkWell(
         borderRadius: YBorderRadius.lg,
-        onTap: widget.onTap,
+        onTap: this.onTap,
         child: Ink(
           width: double.infinity,
           decoration: BoxDecoration(
@@ -46,23 +41,23 @@ class _YCardState extends State<YCard> {
             child: Column(
               children: [
                 Padding(
-                    padding: widget.padding ?? YPadding.p(YScale.s4),
+                    padding: this.padding ?? YPadding.p(YScale.s4),
                     child: Column(children: [
-                      if (widget.header != null) widget.header!,
-                      Container(width: double.infinity, child: widget.body),
+                      if (this.header != null) this.header!,
+                      Container(width: double.infinity, child: this.body),
                     ])),
-                if (widget.bottomCta != null)
+                if (this.bottomCta != null)
                   Container(
                     height: YScale.s14,
                     color: theme.colors.primary.lightColor,
                     child: Center(
-                      child: Text(widget.bottomCta!, style: theme.texts.link),
+                      child: Text(this.bottomCta!, style: theme.texts.link),
                     ),
                   ),
-                if (widget.bottomLinks != null)
-                  ...List.generate(widget.bottomLinks!.length, (index) {
-                    final int length = widget.bottomLinks!.length;
-                    final YCardLink link = widget.bottomLinks![index];
+                if (this.bottomLinks != null)
+                  ...List.generate(this.bottomLinks!.length, (index) {
+                    final int length = this.bottomLinks!.length;
+                    final YCardLink link = this.bottomLinks![index];
                     return Column(
                       children: [
                         YDivider(),

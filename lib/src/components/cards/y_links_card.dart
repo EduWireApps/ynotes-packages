@@ -1,19 +1,13 @@
 part of components;
 
-class YLinksCard extends StatefulWidget {
+class YLinksCard extends StatelessWidget {
   final List<YCardLink> links;
   final EdgeInsets? margin;
 
   const YLinksCard({Key? key, required this.links, this.margin}) : super(key: key);
 
-  @override
-  _YLinksCardState createState() => _YLinksCardState();
-}
-
-class _YLinksCardState extends State<YLinksCard> {
-  @override
   Widget build(BuildContext context) {
-    final int length = widget.links.length;
+    final int length = this.links.length;
     final Radius radius = Radius.circular(YScale.s2);
     BorderRadius? borderRadius(int i) {
       if (i == 0) return BorderRadius.vertical(top: radius);
@@ -22,11 +16,11 @@ class _YLinksCardState extends State<YLinksCard> {
     }
 
     return YCard(
-      margin: widget.margin,
+      margin: this.margin,
       padding: EdgeInsets.zero,
       body: Column(children: [
         ...List.generate(length, (index) {
-          final YCardLink link = widget.links[index];
+          final YCardLink link = this.links[index];
 
           return Column(
             children: [

@@ -104,6 +104,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   double _drawerWidth = 300;
   late final AnimationController _animationController =
       AnimationController(duration: Duration(milliseconds: 150), vsync: this);
+  int _radioListValue = 0;
 
   void updateAppBar() {
     final bool _condition = _scrollController.offset > 10;
@@ -282,57 +283,6 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       YVerticalSpacer(30),
-                                      Padding(
-                                        padding: YPadding.px(YScale.s4),
-                                        child: SingleChildScrollView(
-                                          scrollDirection: Axis.horizontal,
-                                          child: Row(
-                                            children: [
-                                              YButton(
-                                                onPressed: () async {
-                                                  final bool? res = await showDialog(
-                                                      barrierDismissible: true,
-                                                      context: context,
-                                                      builder: (_) => AlertDialog(
-                                                            shape: RoundedRectangleBorder(
-                                                              borderRadius: YBorderRadius.lg,
-                                                            ),
-                                                            backgroundColor: theme.colors.backgroundLightColor,
-                                                            title: Text("Confirmation", style: theme.texts.title),
-                                                            content: ConstrainedBox(
-                                                              constraints: BoxConstraints(maxWidth: 600),
-                                                              child: SingleChildScrollView(
-                                                                  child: Text(
-                                                                      "Cette action est irréversible. T'es sûr(e) de vouloir faire ça ?",
-                                                                      style: theme.texts.body1)),
-                                                            ),
-                                                            actions: [
-                                                              YButton(
-                                                                onPressed: () {
-                                                                  Navigator.of(context).pop(false);
-                                                                },
-                                                                text: "ANNULER",
-                                                                variant: YButtonVariant.text,
-                                                              ),
-                                                              YButton(
-                                                                onPressed: () {
-                                                                  Navigator.of(context).pop(true);
-                                                                },
-                                                                text: "CONFIRMER",
-                                                                variant: YButtonVariant.contained,
-                                                              ),
-                                                            ],
-                                                          ));
-                                                  print(res);
-                                                },
-                                                text: "SHOW TEST DIALOG",
-                                                variant: YButtonVariant.contained,
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                      YVerticalSpacer(30),
                                       YCard(
                                         margin: YPadding.p(YScale.s4),
                                         header: YCardHeader(title: Text("Vaccinations", style: theme.texts.title)),
@@ -403,10 +353,9 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                                               final bool res = await YDialogs.getChoice(
                                                   context,
                                                   YChoiceDialog(
-                                                    type: YColor.danger,
                                                     title: "Hep !",
-                                                    description: "T'es sûr(e) de vouloir faire ça ?",
-                                                    icon: Icons.error_outline,
+                                                    body: Text("T'es sûr(e) de vouloir faire ça ?",
+                                                        style: theme.texts.body1),
                                                   ));
                                               print(res);
                                             },
@@ -417,15 +366,14 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                                               await YDialogs.getConfirmation(
                                                   context,
                                                   YConfirmationDialog(
-                                                    type: YColor.primary,
                                                     title: "Hep !",
-                                                    description:
-                                                        "T'es sûr(e) de vouloir faire ça ? Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-                                                    icon: Icons.leaderboard_rounded,
+                                                    body: Text("C'est bon, tu es à jour !", style: theme.texts.body1),
+                                                    confirmLabel: "COOL !",
                                                   ));
                                             },
                                             text: "Confirmation",
                                           ),
+                                          /*
                                           YButton(
                                             onPressed: () async {
                                               final YListDialogElement? e = await YDialogs.getListChoice(
@@ -541,7 +489,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                                               }
                                             },
                                             text: "List multiple",
-                                          ),
+                                          ),*/
                                           YSwitch(
                                             value: _status,
                                             onChanged: (bool value) {
@@ -551,8 +499,32 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                                             },
                                             type: YColor.primary,
                                           ),
+                                          YRadio<int>(
+                                              color: YColor.warning,
+                                              value: 0,
+                                              groupValue: 0,
+                                              onChanged: (dynamic v) {
+                                                final int value = v;
+                                                print(value);
+                                              })
                                         ],
                                       ),
+                                      YCard(
+                                          body: Column(
+                                        children: [0, 1, 2, 3, 4, 5]
+                                            .map((e) => YRadioListTile(
+                                                color: YColor.primary,
+                                                title: e.toString(),
+                                                value: e,
+                                                groupValue: _radioListValue,
+                                                onChanged: (dynamic v) {
+                                                  final int value = v;
+                                                  setState(() {
+                                                    _radioListValue = value;
+                                                  });
+                                                }))
+                                            .toList(),
+                                      )),
                                       YVerticalSpacer(50),
                                       Padding(
                                           padding: YPadding.p(YScale.s4),

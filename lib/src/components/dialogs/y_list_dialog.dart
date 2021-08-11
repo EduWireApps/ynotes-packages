@@ -1,5 +1,5 @@
 part of components;
-
+/*
 class YListDialog extends StatefulWidget {
   final List<YListDialogElement> elements;
   final YDialogHeader? header;
@@ -55,3 +55,4 @@ class YListDialogElement {
 
   YListDialogElement({required this.title, this.description, required this.value, this.icon});
 }
+*/

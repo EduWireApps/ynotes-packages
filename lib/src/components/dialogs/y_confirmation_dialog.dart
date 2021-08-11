@@ -1,40 +1,23 @@
 part of components;
 
-class YConfirmationDialog extends StatefulWidget {
-  final YColor type;
+class YConfirmationDialog extends StatelessWidget {
   final String title;
-  final String description;
-  final IconData icon;
-  final String buttonLabel;
+  final Widget body;
+  final String confirmLabel;
 
-  const YConfirmationDialog(
-      {Key? key,
-      required this.type,
-      required this.title,
-      required this.description,
-      required this.icon,
-      this.buttonLabel = "Confirmer"})
+  const YConfirmationDialog({Key? key, required this.title, required this.body, this.confirmLabel = "CONFIRMER"})
       : super(key: key);
 
   @override
-  _YConfirmationDialogState createState() => _YConfirmationDialogState();
-}
-
-class _YConfirmationDialogState extends State<YConfirmationDialog> {
-  @override
   Widget build(BuildContext context) {
-    return YDialogBase(
-      topFixed: YDialogHeader(type: widget.type, title: widget.title, icon: widget.icon),
-      children: [
-        YDialogTextBody(widget.description),
-      ],
-      bottomFixed: Row(
-        children: [
-          Expanded(
-            child: YButton(onPressed: () => Navigator.pop(context), text: widget.buttonLabel, color: widget.type),
-          ),
-        ],
+    return YDialogBase(title: this.title, body: this.body, actions: [
+      YButton(
+        onPressed: () {
+          Navigator.of(context).pop(true);
+        },
+        text: this.confirmLabel,
+        variant: YButtonVariant.contained,
       ),
-    );
+    ]);
   }
 }

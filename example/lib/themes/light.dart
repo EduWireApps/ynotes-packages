@@ -18,19 +18,19 @@ final YTColor _secondary = YTColor(
 
 final YTColor _success = YTColor(
   foregroundColor: Colors.white,
-  lightColor: Colors.green[200]!,
+  lightColor: Colors.green[500]!.withOpacity(.2),
   backgroundColor: Colors.green[500]!,
 );
 
 final YTColor _warning = YTColor(
   foregroundColor: Colors.white,
-  lightColor: Colors.amber[200]!,
+  lightColor: Colors.amber[500]!.withOpacity(.2),
   backgroundColor: Colors.amber[500]!,
 );
 
 final YTColor _danger = YTColor(
   foregroundColor: Colors.white,
-  lightColor: Colors.red[200]!,
+  lightColor: Colors.red[500]!.withOpacity(.2),
   backgroundColor: Colors.red[500]!,
 );
 

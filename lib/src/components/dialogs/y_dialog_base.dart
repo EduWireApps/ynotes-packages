@@ -1,61 +1,24 @@
 part of components;
 
-class YDialogBase extends StatefulWidget {
-  final List<Widget> children;
-  final Widget? topFixed;
-  final Widget? bottomFixed;
+class YDialogBase extends StatelessWidget {
+  final String title;
+  final Widget body;
+  final List<YButton> actions;
 
-  const YDialogBase({Key? key, required this.children, this.topFixed, this.bottomFixed}) : super(key: key);
-
-  @override
-  _YDialogBaseState createState() => _YDialogBaseState();
-}
-
-class _YDialogBaseState extends State<YDialogBase> {
-  final Color backgroundColor = theme.colors.backgroundColor;
-  final double padding = YScale.s6;
+  const YDialogBase({Key? key, required this.title, required this.body, required this.actions}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      backgroundColor: backgroundColor,
-      contentPadding: EdgeInsets.zero,
-      insetPadding: EdgeInsets.zero,
-      shape: RoundedRectangleBorder(borderRadius: YBorderRadius.xl2),
-      content: ConstrainedBox(
-        constraints:
-            BoxConstraints(maxHeight: r<double>(def: 60.vh, sm: 40.rem), maxWidth: r<double>(def: 95.vw, sm: 30.rem)),
-        child: Container(
-          width: double.maxFinite,
-          padding: YPadding.p(padding),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              if (widget.topFixed != null)
-                Padding(
-                  padding: YPadding.pb(padding),
-                  child: widget.topFixed!,
-                ),
-              Flexible(
-                child: YShadowScrollContainer(
-                  children: [
-                    Column(
-                      children: widget.children,
-                    )
-                  ],
-                  color: backgroundColor,
-                  shrinkWrap: true,
-                ),
-              ),
-              if (widget.bottomFixed != null)
-                Padding(
-                  padding: YPadding.pt(padding),
-                  child: widget.bottomFixed!,
-                )
-            ],
-          ),
+        shape: RoundedRectangleBorder(
+          borderRadius: YBorderRadius.lg,
         ),
-      ),
-    );
+        backgroundColor: theme.colors.backgroundLightColor,
+        title: Text(this.title, style: theme.texts.title),
+        content: ConstrainedBox(
+          constraints: BoxConstraints(maxWidth: 600),
+          child: SingleChildScrollView(child: this.body),
+        ),
+        actions: this.actions);
   }
 }

@@ -1,5 +1,5 @@
 part of components;
-
+/*
 class YListMultipleDialog extends StatefulWidget {
   final List<YListMultipleDialogElement> elements;
   final YColor type;
@@ -150,3 +150,4 @@ class YListMultipleDialogElement {
 
   YListMultipleDialogElement({required this.id, required this.title, this.description, this.value = false});
 }
+*/

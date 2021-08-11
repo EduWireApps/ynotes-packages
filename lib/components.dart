@@ -25,5 +25,7 @@ part 'package:ynotes_packages/src/components/dialogs/y_list_multiple_dialog.dart
 part 'package:ynotes_packages/src/components/y_button.dart';
 part 'package:ynotes_packages/src/components/y_checkbox.dart';
 part 'package:ynotes_packages/src/components/y_divider.dart';
+part 'package:ynotes_packages/src/components/y_radio_list_tile.dart';
+part 'package:ynotes_packages/src/components/y_radio.dart';
 part 'package:ynotes_packages/src/components/y_shadow_scroll_container.dart';
 part 'package:ynotes_packages/src/components/y_switch.dart';

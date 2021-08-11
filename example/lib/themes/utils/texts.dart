@@ -31,5 +31,11 @@ YTTexts texts(YTColors colors, YTFonts fonts) => YTTexts(
           TextStyle(fontWeight: YFontWeight.medium, fontSize: YFontSize.sm, letterSpacing: YLetterSpacing.wide),
           primaryfontFamily: true,
           fonts: fonts),
-      link: TextStyle(),
+      link: YTextStyle(
+          TextStyle(
+              color: colors.primary.backgroundColor,
+              fontWeight: FontWeight.w600,
+              fontSize: YFontSize.sm,
+              letterSpacing: .5),
+          fonts: fonts),
     );

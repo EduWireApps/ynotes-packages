@@ -103,7 +103,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   late double? _appBarElevation = 0;
   double _drawerWidth = 300;
   late final AnimationController _animationController =
-      AnimationController(duration: Duration(milliseconds: 250), vsync: this);
+      AnimationController(duration: Duration(milliseconds: 150), vsync: this);
 
   void updateAppBar() {
     final bool _condition = _scrollController.offset > 10;
@@ -148,7 +148,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                             right: BorderSide(color: theme.colors.foregroundLightColor.withOpacity(.5), width: .5))),
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
-                      children: [Text("This is a long text", style: theme.texts.title)],
+                      children: [],
                     ),
                   ),
                 ),
@@ -246,7 +246,8 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                                                                     ? theme.colors.primary.backgroundColor
                                                                     : theme.colors.foregroundLightColor),
                                                           )),
-                                                      onPressed: () => Navigator.of(context).pop(e.id),
+                                                      onPressed: () => Navigator.of(context)
+                                                          .pop(e.id == theme.currentTheme ? null : e.id),
                                                     ),
                                                   ))
                                               .toList());
@@ -298,9 +299,13 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                                                             ),
                                                             backgroundColor: theme.colors.backgroundLightColor,
                                                             title: Text("Confirmation", style: theme.texts.title),
-                                                            content: Text(
-                                                                "Cette action est irréversible. T'es sûr(e) de vouloir faire ça ?",
-                                                                style: theme.texts.body1),
+                                                            content: ConstrainedBox(
+                                                              constraints: BoxConstraints(maxWidth: 600),
+                                                              child: SingleChildScrollView(
+                                                                  child: Text(
+                                                                      "Cette action est irréversible. T'es sûr(e) de vouloir faire ça ?",
+                                                                      style: theme.texts.body1)),
+                                                            ),
                                                             actions: [
                                                               YButton(
                                                                 onPressed: () {
@@ -323,30 +328,37 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                                                 text: "SHOW TEST DIALOG",
                                                 variant: YButtonVariant.contained,
                                               ),
-                                              YHorizontalSpacer(10),
-                                              YButton(
-                                                  onPressed: () {
-                                                    print(Theme.of(context).splashColor);
-                                                  },
-                                                  text: "PRINT THEME DATA")
                                             ],
                                           ),
                                         ),
                                       ),
                                       YVerticalSpacer(30),
                                       YCard(
-                                        padding: YPadding.p(YScale.s4),
+                                        margin: YPadding.p(YScale.s4),
                                         header: YCardHeader(title: Text("Vaccinations", style: theme.texts.title)),
                                         body: Text(
                                             "Lorem ipsum dolor sit amet, consect. In ut sem magna. Donec eget justo felis. Aliquam in ullamcorper libero. ",
                                             style: theme.texts.body1,
                                             textAlign: TextAlign.left),
                                         onTap: () {},
-                                        bottomLink: YCardLink(),
+                                        bottomLinks: [
+                                          YCardLink(
+                                            onTap: () {},
+                                          ),
+                                          YCardLink(onTap: () {}, icon: Icons.settings),
+                                        ],
                                       ),
                                       YVerticalSpacer(30),
+                                      YLinksCard(margin: YPadding.p(YScale.s4), links: [
+                                        YCardLink(
+                                          onTap: () {},
+                                        ),
+                                        // YCardLink(onTap: () {}, icon: Icons.settings),
+                                        YCardLink(onTap: () {}, icon: Icons.settings),
+                                      ]),
+                                      YVerticalSpacer(30),
                                       YCard(
-                                        padding: YPadding.p(YScale.s4),
+                                        margin: YPadding.p(YScale.s4),
                                         bottomCta: "Display full screen",
                                         header: YCardHeader(
                                             title: Text("Vaccinations",
@@ -382,202 +394,6 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                                             textAlign: TextAlign.left),
                                         onTap: () {},
                                       ),
-                                      Padding(
-                                        padding: YPadding.px(YScale.s4),
-                                        child: InkWell(
-                                          borderRadius: YBorderRadius.lg,
-                                          onTap: () {
-                                            print("TAPPED");
-                                          },
-                                          child: Ink(
-                                            width: double.infinity,
-                                            decoration: BoxDecoration(
-                                                color: theme.colors.backgroundLightColor,
-                                                borderRadius: YBorderRadius.lg,
-                                                boxShadow: [
-                                                  BoxShadow(
-                                                      offset: Offset(0, 2),
-                                                      blurRadius: 6,
-                                                      spreadRadius: 0,
-                                                      color: Colors.black.withOpacity(.2))
-                                                ]),
-                                            child: ClipRRect(
-                                              borderRadius: YBorderRadius.lg,
-                                              child: Column(
-                                                children: [
-                                                  Container(height: 150),
-                                                  Container(
-                                                    height: 56,
-                                                    color: theme.colors.primary.lightColor,
-                                                    child: Center(
-                                                      child: Text("Display full screen",
-                                                          style: TextStyle(
-                                                              color: theme.colors.primary.backgroundColor,
-                                                              fontWeight: FontWeight.w600,
-                                                              letterSpacing: .5)),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      YVerticalSpacer(30),
-                                      Padding(
-                                        padding: YPadding.px(YScale.s4),
-                                        child: InkWell(
-                                          borderRadius: YBorderRadius.lg,
-                                          onTap: () {
-                                            print("TAPPED");
-                                          },
-                                          child: Ink(
-                                            width: double.infinity,
-                                            decoration: BoxDecoration(
-                                                color: theme.colors.backgroundLightColor,
-                                                borderRadius: YBorderRadius.lg,
-                                                boxShadow: [
-                                                  BoxShadow(
-                                                      offset: Offset(0, 2),
-                                                      blurRadius: 6,
-                                                      spreadRadius: 0,
-                                                      color: Colors.black.withOpacity(.2))
-                                                ]),
-                                            child: ClipRRect(
-                                              borderRadius: YBorderRadius.lg,
-                                              child: Column(
-                                                children: [
-                                                  Container(
-                                                    padding: EdgeInsets.symmetric(
-                                                        horizontal: YScale.s4, vertical: YScale.s6),
-                                                    child: Container(
-                                                      width: double.infinity,
-                                                      child: Column(
-                                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                                        children: [
-                                                          Text("Open my wallet", style: theme.texts.title),
-                                                          YVerticalSpacer(8),
-                                                          ConstrainedBox(
-                                                            constraints: BoxConstraints(maxWidth: 230),
-                                                            child: Text("Your test and vaccination certificates",
-                                                                style: theme.texts.body1),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      YVerticalSpacer(30),
-                                      Padding(
-                                        padding: YPadding.p(YScale.s4),
-                                        child: Text("Informations", style: theme.texts.headline),
-                                      ),
-                                      Padding(
-                                        padding: YPadding.px(YScale.s4),
-                                        child: InkWell(
-                                          borderRadius: YBorderRadius.lg,
-                                          // onTap: () {},
-                                          child: Ink(
-                                            width: double.infinity,
-                                            decoration: BoxDecoration(
-                                                color: theme.colors.backgroundLightColor,
-                                                borderRadius: YBorderRadius.lg,
-                                                boxShadow: [
-                                                  BoxShadow(
-                                                      offset: Offset(0, 2),
-                                                      blurRadius: 6,
-                                                      spreadRadius: 0,
-                                                      color: Colors.black.withOpacity(.2))
-                                                ]),
-                                            child: ClipRRect(
-                                              borderRadius: YBorderRadius.lg,
-                                              child: Column(
-                                                children: [
-                                                  Container(
-                                                    height: 30,
-                                                  ),
-                                                  Text("France",
-                                                      style: YTextStyle(
-                                                          TextStyle(color: theme.colors.foregroundLightColor))),
-                                                  Container(
-                                                    height: 30,
-                                                  ),
-                                                  Divider(
-                                                    height: 0,
-                                                    thickness: 0.2,
-                                                    color: theme.colors.foregroundLightColor,
-                                                  ),
-                                                  InkWell(
-                                                    onTap: () => print("link tapped"),
-                                                    child: Ink(
-                                                      padding: YPadding.p(YScale.s4),
-                                                      child: Row(
-                                                        crossAxisAlignment: CrossAxisAlignment.center,
-                                                        children: [
-                                                          Icon(Icons.settings,
-                                                              color: theme.colors.primary.backgroundColor),
-                                                          YHorizontalSpacer(YScale.s4),
-                                                          Text("Useful links",
-                                                              style: TextStyle(
-                                                                  fontWeight: FontWeight.w600,
-                                                                  color: theme.colors.primary.backgroundColor)),
-                                                          YHorizontalSpacer(YScale.s0p5),
-                                                          Icon(
-                                                            Icons.arrow_forward,
-                                                            size: 15,
-                                                            color: theme.colors.primary.backgroundColor,
-                                                          )
-                                                        ],
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  Divider(
-                                                    height: 0,
-                                                    thickness: 0.2,
-                                                    color: theme.colors.foregroundLightColor,
-                                                  ),
-                                                  InkWell(
-                                                    borderRadius:
-                                                        BorderRadius.vertical(bottom: Radius.circular(YScale.s2)),
-                                                    onTap: () => print("link tapped"),
-                                                    child: Ink(
-                                                      padding: YPadding.p(YScale.s4),
-                                                      decoration: BoxDecoration(
-                                                        borderRadius:
-                                                            BorderRadius.vertical(bottom: Radius.circular(YScale.s2)),
-                                                      ),
-                                                      child: Row(
-                                                        crossAxisAlignment: CrossAxisAlignment.center,
-                                                        children: [
-                                                          Icon(Icons.settings,
-                                                              color: theme.colors.primary.backgroundColor),
-                                                          YHorizontalSpacer(YScale.s4),
-                                                          Text("Useful links",
-                                                              style: TextStyle(
-                                                                  fontWeight: FontWeight.w600,
-                                                                  color: theme.colors.primary.backgroundColor)),
-                                                          YHorizontalSpacer(YScale.s0p5),
-                                                          Icon(
-                                                            Icons.arrow_forward,
-                                                            size: 15,
-                                                            color: theme.colors.primary.backgroundColor,
-                                                          )
-                                                        ],
-                                                      ),
-                                                    ),
-                                                  )
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      YVerticalSpacer(30),
                                       Wrap(
                                         alignment: WrapAlignment.center,
                                         spacing: 15,

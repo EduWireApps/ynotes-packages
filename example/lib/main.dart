@@ -300,7 +300,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                                                   )),
                                             ),
                                             Expanded(
-                                              flex: 2,
+                                              flex: r<int>(def: 0, md: 1, lg: 2),
                                               child: Container(),
                                             )
                                           ],

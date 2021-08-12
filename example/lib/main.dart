@@ -509,28 +509,88 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                                               }),
                                           YCheckbox(
                                               value: true,
-                                              type: YColor.danger,
+                                              color: YColor.danger,
                                               onChanged: (bool value) {
                                                 print(value);
                                               })
                                         ],
                                       ),
                                       YCard(
+                                          margin: YPadding.p(YScale.s4),
+                                          padding: YPadding.py(YScale.s2),
                                           body: Column(
-                                        children: [0, 1, 2, 3, 4, 5]
-                                            .map((e) => YRadioListTile(
+                                            children: [0, 1, 2, 3, 4, 5]
+                                                .map((e) => Column(children: [
+                                                      if (e != 0) YDivider(),
+                                                      YRadioListTile(
+                                                          color: YColor.success,
+                                                          title: e.toString(),
+                                                          value: e,
+                                                          groupValue: _radioListValue,
+                                                          end: e == 0 ? true : false,
+                                                          onChanged: (dynamic v) {
+                                                            final int value = v;
+                                                            setState(() {
+                                                              _radioListValue = value;
+                                                            });
+                                                          })
+                                                    ]))
+                                                .toList(),
+                                          )),
+                                      YCard(
+                                          margin: YPadding.p(YScale.s4),
+                                          padding: YPadding.py(YScale.s2),
+                                          body: Column(children: [
+                                            YCheckboxListTile(
+                                                title: "Option 1",
+                                                value: _status,
                                                 color: YColor.warning,
-                                                title: e.toString(),
-                                                value: e,
-                                                groupValue: _radioListValue,
-                                                onChanged: (dynamic v) {
-                                                  final int value = v;
+                                                end: true,
+                                                onChanged: (bool v) {
                                                   setState(() {
-                                                    _radioListValue = value;
+                                                    _status = v;
                                                   });
-                                                }))
-                                            .toList(),
-                                      )),
+                                                }),
+                                            YDivider(),
+                                            YCheckboxListTile(
+                                                title: "Option 2",
+                                                value: false,
+                                                color: YColor.warning,
+                                                onChanged: (bool v) {}),
+                                            YDivider(),
+                                            YCheckboxListTile(
+                                                title: "Option 3",
+                                                value: false,
+                                                color: YColor.warning,
+                                                onChanged: (bool v) {}),
+                                          ])),
+                                      YCard(
+                                          margin: YPadding.p(YScale.s4),
+                                          padding: YPadding.py(YScale.s2),
+                                          body: Column(children: [
+                                            YSwitchListTile(
+                                                title: "Option 1",
+                                                value: _status,
+                                                color: YColor.danger,
+                                                end: true,
+                                                onChanged: (bool v) {
+                                                  setState(() {
+                                                    _status = v;
+                                                  });
+                                                }),
+                                            YDivider(),
+                                            YSwitchListTile(
+                                                title: "Option 2",
+                                                value: false,
+                                                color: YColor.danger,
+                                                onChanged: (bool v) {}),
+                                            YDivider(),
+                                            YSwitchListTile(
+                                                title: "Option 3",
+                                                value: false,
+                                                color: YColor.danger,
+                                                onChanged: (bool v) {}),
+                                          ])),
                                       YVerticalSpacer(50),
                                       Padding(
                                           padding: YPadding.p(YScale.s4),

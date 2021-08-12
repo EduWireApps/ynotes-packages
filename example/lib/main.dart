@@ -332,6 +332,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                                                 final bool res = await YDialogs.getChoice(
                                                     context,
                                                     YChoiceDialog(
+                                                      color: YColor.success,
                                                       title: "Hep !",
                                                       body: Text("T'es sûr(e) de vouloir faire ça ?",
                                                           style: theme.texts.body1),
@@ -362,11 +363,29 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                                                   final int? res = await YDialogs.getConfirmation(
                                                       context,
                                                       YConfirmationDialog(
-                                                          title: "Select an option", items: items, initialValue: 0));
+                                                        title: "Select an option",
+                                                        items: items,
+                                                      ));
                                                   print(res);
                                                 },
                                                 text: "CONFIRMATION"),
-                                            YButton(onPressed: () {}, text: "LIST"),
+                                            YButton(
+                                                onPressed: () async {
+                                                  final List<YListDialogItem> items = [0, 1, 2, 3, 4, 5]
+                                                      .map(
+                                                          (e) => YListDialogItem(value: e % 2 == 0, label: "Option $e"))
+                                                      .toList();
+                                                  final List<YListDialogItem>? res = await YDialogs.getList(
+                                                      context,
+                                                      YListDialog(
+                                                        title: "Select options",
+                                                        items: items,
+                                                        minItemsAmount: 1,
+                                                        maxItemsAmount: 5,
+                                                      ));
+                                                  print(res?.map((e) => e.value).toList());
+                                                },
+                                                text: "LIST"),
                                             YSwitch(
                                               value: _status,
                                               onChanged: (bool value) {

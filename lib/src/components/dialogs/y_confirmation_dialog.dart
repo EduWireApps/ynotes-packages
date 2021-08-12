@@ -3,27 +3,29 @@ part of components;
 class YConfirmationDialog<T> extends StatefulWidget {
   final String title;
   final List<YConfirmationDialogItem<T>> items;
-  final T initialValue;
+  final T? initialValue;
   final String cancelLabel;
   final String confirmLabel;
   final bool mustConfirm;
+  final YColor color;
 
-  const YConfirmationDialog({
-    Key? key,
-    required this.title,
-    required this.items,
-    required this.initialValue,
-    this.cancelLabel = "ANNULER",
-    this.confirmLabel = "CONFIRMER",
-    this.mustConfirm = true,
-  }) : super(key: key);
+  const YConfirmationDialog(
+      {Key? key,
+      required this.title,
+      required this.items,
+      this.initialValue,
+      this.cancelLabel = "ANNULER",
+      this.confirmLabel = "CONFIRMER",
+      this.mustConfirm = true,
+      this.color = YColor.primary})
+      : super(key: key);
 
   @override
   _YConfirmationDialogState createState() => _YConfirmationDialogState();
 }
 
 class _YConfirmationDialogState<T> extends State<YConfirmationDialog> {
-  late T groupValue = widget.initialValue;
+  late T? groupValue = widget.initialValue;
   late int length = widget.items.length;
 
   Widget mustConfirmBody(BuildContext context) => Column(
@@ -35,6 +37,7 @@ class _YConfirmationDialogState<T> extends State<YConfirmationDialog> {
                 title: item.label,
                 value: item.value,
                 groupValue: groupValue,
+                color: widget.color,
                 onChanged: (dynamic v) {
                   final T value = v;
                   setState(() {
@@ -48,15 +51,16 @@ class _YConfirmationDialogState<T> extends State<YConfirmationDialog> {
   Widget mustntConfirmBody(BuildContext context) => Column(
         children: List.generate(length, (index) {
           final YConfirmationDialogItem<T> item = widget.items[index] as YConfirmationDialogItem<T>;
-          final bool selected = widget.initialValue == item.value;
+          final bool selected = widget.initialValue == null ? false : widget.initialValue == item.value;
+          final YTColor style = theme.colors.get(widget.color);
           return Column(children: [
             if (index != 0) YDivider(),
             ListTile(
-              tileColor: selected ? theme.colors.primary.lightColor : null,
+              tileColor: selected ? style.lightColor : null,
               onTap: () => Navigator.of(context).pop(item.value),
               title: Text(
                 item.label,
-                style: theme.texts.body1.copyWith(color: selected ? theme.colors.primary.backgroundColor : null),
+                style: theme.texts.body1.copyWith(color: selected ? style.backgroundColor : null),
               ),
             ),
           ]);
@@ -72,15 +76,16 @@ class _YConfirmationDialogState<T> extends State<YConfirmationDialog> {
         actions: widget.mustConfirm
             ? [
                 YButton(
-                  onPressed: () => Navigator.of(context).pop(),
-                  text: widget.cancelLabel,
-                  variant: YButtonVariant.text,
-                ),
+                    onPressed: () => Navigator.of(context).pop(),
+                    text: widget.cancelLabel,
+                    variant: YButtonVariant.text,
+                    color: widget.color),
                 YButton(
-                  onPressed: () => Navigator.of(context).pop(groupValue),
-                  text: widget.confirmLabel,
-                  variant: YButtonVariant.contained,
-                ),
+                    onPressed: () => Navigator.of(context).pop(groupValue),
+                    text: widget.confirmLabel,
+                    variant: YButtonVariant.contained,
+                    color: widget.color,
+                    isDisabled: groupValue == null),
               ]
             : null);
   }

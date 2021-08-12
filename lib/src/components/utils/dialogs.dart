@@ -14,9 +14,8 @@ class YDialogs {
   static Future<T?> getConfirmation<T>(BuildContext context, YConfirmationDialog<T> dialog) async {
     return await showDialog(barrierDismissible: true, context: context, builder: (_) => dialog);
   }
-/*
-  static Future<List<YListMultipleDialogElement>?> getListSelected(
-      BuildContext context, YListMultipleDialog dialog) async {
-    return await showDialog(barrierDismissible: false, context: context, builder: (_) => dialog);
-  }*/
+
+  static Future<List<YListDialogItem>?> getList(BuildContext context, YListDialog dialog) async {
+    return await showDialog(barrierDismissible: true, context: context, builder: (_) => dialog);
+  }
 }

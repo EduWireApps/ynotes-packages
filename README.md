@@ -1,7 +1,6 @@
 **OUTDATED**
 
 next:
-- checkbox dialog
 - input
 - page
 - bottomsheet

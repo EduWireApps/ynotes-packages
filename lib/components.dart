@@ -15,8 +15,9 @@ part 'src/components/cards/y_links_card.dart';
 
 part 'src/components/dialogs/y_choice_dialog.dart';
 part 'src/components/dialogs/y_confirmation_dialog.dart';
-part 'src/components/dialogs/y_info_dialog.dart';
 part 'src/components/dialogs/y_dialog_base.dart';
+part 'src/components/dialogs/y_info_dialog.dart';
+part 'src/components/dialogs/y_list_dialog.dart';
 
 part 'src/components/radio/y_radio_list_tile.dart';
 part 'src/components/radio/y_radio.dart';

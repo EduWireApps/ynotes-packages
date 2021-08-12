@@ -24,7 +24,14 @@ YTTexts texts(YTColors colors, YTFonts fonts) => YTTexts(
               height: 1.2,
               color: colors.foregroundLightColor),
           fonts: fonts),
-      body2: TextStyle(),
+      body2: YTextStyle(
+          TextStyle(
+              fontWeight: YFontWeight.normal,
+              fontSize: YFontSize.xs,
+              letterSpacing: YLetterSpacing.wide,
+              height: 1.2,
+              color: colors.foregroundLightColor),
+          fonts: fonts),
       data1: TextStyle(),
       data2: TextStyle(),
       button: YTextStyle(

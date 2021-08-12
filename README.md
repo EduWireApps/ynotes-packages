@@ -1,3 +1,11 @@
+**OUTDATED**
+
+next:
+- checkbox dialog
+- input
+- page
+- bottomsheet
+
 # ynotes-packages
 
 > Sorry French users, this repo is only in english.

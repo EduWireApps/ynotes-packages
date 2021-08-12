@@ -1,5 +1,4 @@
 import 'package:example/themes/themes.dart';
-import 'package:example/themes/utils/fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
@@ -221,38 +220,15 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                               splashColor: theme.colors.primary.lightColor,
                               icon: Icon(Icons.palette),
                               onPressed: () async {
-                                final int? res = await showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return SimpleDialog(
-                                          backgroundColor: theme.colors.backgroundLightColor,
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius: YBorderRadius.lg,
-                                          ),
-                                          title: Text("Choisis un thème",
-                                              style: YTextStyle(
-                                                  TextStyle(
-                                                      color: theme.colors.foregroundColor, fontWeight: FontWeight.w700),
-                                                  primaryfontFamily: true)),
-                                          children: theme.themes
-                                              .map((e) => Container(
-                                                    color: e.id == theme.currentTheme
-                                                        ? theme.colors.primary.lightColor
-                                                        : null,
-                                                    child: SimpleDialogOption(
-                                                      child: Text(e.name,
-                                                          style: YTextStyle(
-                                                            TextStyle(
-                                                                color: e.id == theme.currentTheme
-                                                                    ? theme.colors.primary.backgroundColor
-                                                                    : theme.colors.foregroundLightColor),
-                                                          )),
-                                                      onPressed: () => Navigator.of(context)
-                                                          .pop(e.id == theme.currentTheme ? null : e.id),
-                                                    ),
-                                                  ))
-                                              .toList());
-                                    });
+                                final int? res = await YDialogs.getConfirmation<int>(
+                                    context,
+                                    YConfirmationDialog(
+                                        title: "Choisis un thème",
+                                        mustConfirm: false,
+                                        items: theme.themes
+                                            .map((e) => YConfirmationDialogItem(value: e.id, label: e.name))
+                                            .toList(),
+                                        initialValue: theme.currentTheme));
                                 if (res != null) {
                                   updateCurrentTheme(res);
                                   prefs.setInt("themeId", res);
@@ -344,176 +320,78 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                                             textAlign: TextAlign.left),
                                         onTap: () {},
                                       ),
-                                      Wrap(
-                                        alignment: WrapAlignment.center,
-                                        spacing: 15,
-                                        children: [
-                                          YButton(
-                                            onPressed: () async {
-                                              final bool res = await YDialogs.getChoice(
-                                                  context,
-                                                  YChoiceDialog(
-                                                    title: "Hep !",
-                                                    body: Text("T'es sûr(e) de vouloir faire ça ?",
-                                                        style: theme.texts.body1),
-                                                  ));
-                                              print(res);
-                                            },
-                                            text: "Choice",
-                                          ),
-                                          YButton(
-                                            onPressed: () async {
-                                              await YDialogs.getConfirmation(
-                                                  context,
-                                                  YConfirmationDialog(
-                                                    title: "Hep !",
-                                                    body: Text("C'est bon, tu es à jour !", style: theme.texts.body1),
-                                                    confirmLabel: "COOL !",
-                                                  ));
-                                            },
-                                            text: "Confirmation",
-                                          ),
-                                          /*
-                                          YButton(
-                                            onPressed: () async {
-                                              final YListDialogElement? e = await YDialogs.getListChoice(
-                                                  context,
-                                                  YListDialog(elements: [
-                                                    YListDialogElement(
-                                                        title: "Element 0",
-                                                        description:
-                                                            "Awesome description really long yes i know such a shit text but hey i need to test so i keep writing great shit",
-                                                        icon: Icons.error,
-                                                        value: 0),
-                                                    YListDialogElement(
-                                                        title: "Element 1",
-                                                        description: "Awesome description",
-                                                        value: 1),
-                                                    YListDialogElement(title: "Element 2", icon: Icons.error, value: 2),
-                                                    YListDialogElement(title: "Element 3", value: 3),
-                                                    YListDialogElement(
-                                                        title: "Element 4",
-                                                        description:
-                                                            "Awesome description really long yes i know such a shit text but hey i need to test so i keep writing great shit",
-                                                        value: 4),
-                                                    YListDialogElement(
-                                                        title: "Element 5",
-                                                        description:
-                                                            "Awesome description really long yes i know such a shit text but hey i need to test so i keep writing great shit",
-                                                        value: 5),
-                                                    YListDialogElement(title: "Element 6", value: 6),
-                                                    YListDialogElement(
-                                                        title: "Element 7",
-                                                        description:
-                                                            "Awesome description really long yes i know such a shit text but hey i need to test so i keep writing great shit",
-                                                        value: 7),
-                                                    YListDialogElement(
-                                                        title: "Element 8",
-                                                        description:
-                                                            "Awesome description really long yes i know such a shit text but hey i need to test so i keep writing great shit",
-                                                        value: 8),
-                                                    YListDialogElement(title: "Element 9", value: 9),
-                                                  ]));
-                                              print(e?.value);
-                                            },
-                                            text: "List",
-                                          ),
-                                          YButton(
-                                            onPressed: () async {
-                                              final List<YListMultipleDialogElement>? res =
-                                                  await YDialogs.getListSelected(
+                                      Padding(
+                                        padding: YPadding.px(YScale.s4),
+                                        child: Wrap(
+                                          alignment: WrapAlignment.start,
+                                          crossAxisAlignment: WrapCrossAlignment.center,
+                                          spacing: 15,
+                                          children: [
+                                            YButton(
+                                              onPressed: () async {
+                                                final bool res = await YDialogs.getChoice(
+                                                    context,
+                                                    YChoiceDialog(
+                                                      title: "Hep !",
+                                                      body: Text("T'es sûr(e) de vouloir faire ça ?",
+                                                          style: theme.texts.body1),
+                                                    ));
+                                                print(res);
+                                              },
+                                              text: "CHOICE",
+                                            ),
+                                            YButton(
+                                              onPressed: () async {
+                                                await YDialogs.showInfo(
+                                                    context,
+                                                    YInfoDialog(
+                                                      title: "Hep !",
+                                                      body: Text("C'est bon, tu es à jour !", style: theme.texts.body1),
+                                                      confirmLabel: "COOL !",
+                                                    ));
+                                              },
+                                              text: "INFO",
+                                            ),
+                                            YButton(
+                                                onPressed: () async {
+                                                  final List<YConfirmationDialogItem<int>> items = [0, 1, 2, 3, 4, 5]
+                                                      .map((e) =>
+                                                          YConfirmationDialogItem<int>(value: e, label: "Option $e"))
+                                                      .toList();
+
+                                                  final int? res = await YDialogs.getConfirmation(
                                                       context,
-                                                      YListMultipleDialog(
-                                                          header: YDialogHeader(
-                                                              icon: Icons.error, title: "Title", type: YColor.success),
-                                                          min: 1,
-                                                          max: 2,
-                                                          type: YColor.success,
-                                                          elements: [
-                                                            YListMultipleDialogElement(
-                                                                id: 0,
-                                                                title: "TEST 1",
-                                                                description: "awesome description",
-                                                                value: false),
-                                                            YListMultipleDialogElement(
-                                                                id: 1,
-                                                                title: "TEST 2",
-                                                                description: "awesome description",
-                                                                value: true),
-                                                            YListMultipleDialogElement(
-                                                                id: 1,
-                                                                title: "TEST 2",
-                                                                description: "awesome description",
-                                                                value: true),
-                                                            YListMultipleDialogElement(
-                                                                id: 1,
-                                                                title: "TEST 2",
-                                                                description: "awesome description",
-                                                                value: true),
-                                                            YListMultipleDialogElement(
-                                                                id: 1,
-                                                                title: "TEST 2",
-                                                                description: "awesome description",
-                                                                value: true),
-                                                            YListMultipleDialogElement(
-                                                                id: 1,
-                                                                title: "TEST 2",
-                                                                description: "awesome description",
-                                                                value: true),
-                                                            YListMultipleDialogElement(
-                                                                id: 1,
-                                                                title: "TEST 2",
-                                                                description: "awesome description",
-                                                                value: true),
-                                                            YListMultipleDialogElement(
-                                                                id: 1,
-                                                                title: "TEST 2",
-                                                                description: "awesome description",
-                                                                value: true),
-                                                            YListMultipleDialogElement(
-                                                                id: 1,
-                                                                title: "TEST 2",
-                                                                description: "awesome description",
-                                                                value: true),
-                                                            YListMultipleDialogElement(
-                                                                id: 1,
-                                                                title: "TEST 2",
-                                                                description: "awesome description",
-                                                                value: true),
-                                                          ]));
-                                              print(res);
-                                              if (res != null) {
-                                                res.forEach((element) {
-                                                  print(element.id);
-                                                });
-                                              }
-                                            },
-                                            text: "List multiple",
-                                          ),*/
-                                          YSwitch(
-                                            value: _status,
-                                            onChanged: (bool value) {
-                                              setState(() {
-                                                _status = value;
-                                              });
-                                            },
-                                            color: YColor.warning,
-                                          ),
-                                          YRadio<int>(
-                                              color: YColor.success,
-                                              value: 0,
-                                              groupValue: 0,
-                                              onChanged: (dynamic v) {
-                                                final int value = v;
-                                                print(value);
-                                              }),
-                                          YCheckbox(
-                                              value: true,
-                                              color: YColor.danger,
+                                                      YConfirmationDialog(
+                                                          title: "Select an option", items: items, initialValue: 0));
+                                                  print(res);
+                                                },
+                                                text: "CONFIRMATION"),
+                                            YButton(onPressed: () {}, text: "LIST"),
+                                            YSwitch(
+                                              value: _status,
                                               onChanged: (bool value) {
-                                                print(value);
-                                              })
-                                        ],
+                                                setState(() {
+                                                  _status = value;
+                                                });
+                                              },
+                                              color: YColor.warning,
+                                            ),
+                                            YRadio<int>(
+                                                color: YColor.success,
+                                                value: 0,
+                                                groupValue: 0,
+                                                onChanged: (dynamic v) {
+                                                  final int value = v;
+                                                  print(value);
+                                                }),
+                                            YCheckbox(
+                                                value: true,
+                                                color: YColor.danger,
+                                                onChanged: (bool value) {
+                                                  print(value);
+                                                })
+                                          ],
+                                        ),
                                       ),
                                       YCard(
                                           margin: YPadding.p(YScale.s4),
@@ -591,10 +469,6 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                                                 color: YColor.danger,
                                                 onChanged: (bool v) {}),
                                           ])),
-                                      YVerticalSpacer(50),
-                                      Padding(
-                                          padding: YPadding.p(YScale.s4),
-                                          child: Container(height: 400, color: theme.colors.primary.backgroundColor)),
                                     ],
                                   ),
                                 ),

@@ -18,18 +18,17 @@ class YLinksCard extends StatelessWidget {
     return YCard(
       margin: this.margin,
       padding: EdgeInsets.zero,
-      body: Column(children: [
-        ...List.generate(length, (index) {
-          final YCardLink link = this.links[index];
+      body: Column(
+          children: List.generate(length, (index) {
+        final YCardLink link = this.links[index];
 
-          return Column(
-            children: [
-              if (index != 0) YDivider(),
-              YCardLink(borderRadius: borderRadius(index), onTap: link.onTap, icon: link.icon),
-            ],
-          );
-        })
-      ]),
+        return Column(
+          children: [
+            if (index != 0) YDivider(),
+            YCardLink(borderRadius: borderRadius(index), onTap: link.onTap, icon: link.icon),
+          ],
+        );
+      })),
     );
   }
 }

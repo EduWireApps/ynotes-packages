@@ -104,6 +104,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   late final AnimationController _animationController =
       AnimationController(duration: Duration(milliseconds: 150), vsync: this);
   int _radioListValue = 0;
+  double _sliderValue = 20;
 
   void updateAppBar() {
     final bool _condition = _scrollController.offset > 10;
@@ -320,6 +321,20 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                                             textAlign: TextAlign.left),
                                         onTap: () {},
                                       ),
+                                      YCard(
+                                          margin: YPadding.p(YScale.s4),
+                                          body: YSlider(
+                                            value: _sliderValue,
+                                            max: 100,
+                                            min: 0,
+                                            onChanged: (double v) {
+                                              setState(() {
+                                                _sliderValue = v;
+                                              });
+                                            },
+                                            divisions: 5,
+                                            color: YColor.danger,
+                                          )),
                                       Padding(
                                         padding: YPadding.px(YScale.s4),
                                         child: Wrap(

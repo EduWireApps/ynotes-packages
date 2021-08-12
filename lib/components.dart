@@ -30,5 +30,6 @@ part 'src/components/switch/y_switch.dart';
 
 part 'src/components/y_button.dart';
 part 'src/components/y_divider.dart';
-part 'src/components/y_shadow_scroll_container.dart';
 part 'src/components/y_option_tile.dart';
+part 'src/components/y_shadow_scroll_container.dart';
+part 'src/components/y_slider.dart';

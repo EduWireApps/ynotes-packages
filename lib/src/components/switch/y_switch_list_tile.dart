@@ -13,7 +13,7 @@ class YSwitchListTile extends StatelessWidget {
       required this.value,
       required this.onChanged,
       this.color = YColor.primary,
-      this.end = false})
+      this.end = true})
       : super(key: key);
 
   @override

@@ -1,5 +1,7 @@
 part of components;
 
+enum YFormFieldInputType { text, password, email, number, phone, url, datetetime }
+
 class YFormField extends StatefulWidget {
   final TextInputType type;
   final String? defaultValue;
@@ -9,6 +11,7 @@ class YFormField extends StatefulWidget {
   final int? maxLength;
   final bool expandable;
   final String? Function(String?)? validator;
+  final FocusNode? focusNode;
 
   const YFormField(
       {Key? key,
@@ -19,7 +22,8 @@ class YFormField extends StatefulWidget {
       this.textCapitalization = TextCapitalization.sentences,
       this.maxLength,
       this.expandable = false,
-      this.validator})
+      this.validator,
+      this.focusNode})
       : super(key: key);
 
   @override
@@ -27,7 +31,7 @@ class YFormField extends StatefulWidget {
 }
 
 class _YFormFieldState extends State<YFormField> {
-  final FocusNode focusNode = FocusNode();
+  late FocusNode focusNode = widget.focusNode ?? FocusNode();
   bool obscured = true;
   bool error = false;
 
@@ -69,6 +73,10 @@ class _YFormFieldState extends State<YFormField> {
       obscureText: this.isPassword ? this.obscured : false,
       style: theme.texts.body1.copyWith(color: theme.colors.foregroundColor),
       validator: widget.validator != null ? this.validate : null,
+      // IS IT THE RIGHT EVENT ? or onFieldSubmitted ?
+      // onEditingComplete: () {
+      //   print("complete");
+      // },
       decoration: InputDecoration(
           border: OutlineInputBorder(),
           enabledBorder: OutlineInputBorder(

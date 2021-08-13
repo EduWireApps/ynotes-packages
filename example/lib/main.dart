@@ -106,6 +106,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   int _radioListValue = 0;
   double _sliderValue = 20;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  bool _formHasError = false;
 
   void updateAppBar() {
     final bool _condition = _scrollController.offset > 10;
@@ -272,13 +273,21 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                                                     key: _formKey,
                                                     child: Column(
                                                       children: [
+                                                        YSwitchListTile(
+                                                            title: "Has error",
+                                                            value: _formHasError,
+                                                            onChanged: (bool v) {
+                                                              setState(() {
+                                                                _formHasError = v;
+                                                              });
+                                                            }),
+                                                        YVerticalSpacer(10),
                                                         YFormField(
                                                             type: TextInputType.visiblePassword,
                                                             defaultValue: "TEST",
                                                             expandable: true,
                                                             validator: (String? v) {
-                                                              // return null;
-                                                              return "error";
+                                                              return _formHasError ? "error" : null;
                                                             },
                                                             onChanged: (String v) {
                                                               print(v);
@@ -289,7 +298,23 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                                                             Expanded(
                                                               child: YButton(
                                                                   onPressed: () {
-                                                                    print(_formKey.currentState!.validate());
+                                                                    final bool validated =
+                                                                        _formKey.currentState!.validate();
+                                                                    if (validated)
+                                                                      ScaffoldMessenger.of(context)
+                                                                          .showSnackBar(SnackBar(
+                                                                        content: Text("Validated!",
+                                                                            style: theme.texts.body1.copyWith(
+                                                                                color: theme
+                                                                                    .colors.success.foregroundColor)),
+                                                                        backgroundColor:
+                                                                            theme.colors.success.backgroundColor,
+                                                                        action: SnackBarAction(
+                                                                            textColor:
+                                                                                theme.colors.success.foregroundColor,
+                                                                            label: "Hide",
+                                                                            onPressed: () {}),
+                                                                      ));
                                                                   },
                                                                   text: "SUBMIT"),
                                                             )

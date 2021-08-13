@@ -52,7 +52,7 @@ class _YListDialogState extends State<YListDialog> {
 
   Widget tile(BuildContext context, {required YListDialogItem item, required ValueChanged<bool> onChanged}) {
     return widget.useSwitches
-        ? YSwitchListTile(title: item.label, value: item.value, onChanged: onChanged, end: true)
+        ? YSwitchListTile(title: item.label, value: item.value, onChanged: onChanged)
         : YCheckboxListTile(title: item.label, value: item.value, onChanged: onChanged);
   }
 

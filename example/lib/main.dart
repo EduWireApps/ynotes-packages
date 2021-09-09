@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:example/pages/home.dart';
 import 'package:example/themes/themes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -22,9 +25,9 @@ void main() async {
   runApp(Phoenix(child: MyApp()));
 }
 
-void _setSystemUIOverlayStyle() {
-  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent, systemNavigationBarColor: theme.colors.backgroundLightColor));
+void setSystemUIOverlayStyle() {
+  SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(statusBarColor: Colors.transparent, systemNavigationBarColor: theme.colors.backgroundColor));
 }
 
 class MyApp extends StatefulWidget {
@@ -59,14 +62,57 @@ class _MyAppState extends State<MyApp> {
       initialTheme: initialThemeId!,
       themes: themes(_brightness),
       builder: (context) {
-        _setSystemUIOverlayStyle();
+        setSystemUIOverlayStyle();
         return MaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: 'Flutter Demo',
-          theme: theme.themeData,
-          home: MyHomePage(title: 'Paramètres'),
-        );
+            debugShowCheckedModeBanner: false,
+            title: 'Flutter Demo',
+            theme: theme.themeData,
+            // home: MySplashScreen(),
+            home: HomePage());
       });
+}
+
+class MySplashScreen extends StatelessWidget {
+  const MySplashScreen({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    Timer(Duration(seconds: 2), () {
+      Navigator.of(context).push(MaterialPageRoute(builder: (context) => MyHomePage(title: "Paramètres")));
+    });
+
+    return Scaffold(
+      backgroundColor: theme.colors.backgroundLightColor,
+      body: Row(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            // mainAxisSize: MainAxisSize.max,
+            children: [
+              Container(
+                  width: 150,
+                  height: 150,
+                  decoration:
+                      BoxDecoration(color: theme.colors.primary.backgroundColor, borderRadius: YBorderRadius.full)),
+              YVerticalSpacer(20),
+              Text("yNotes", style: theme.texts.headline),
+              YVerticalSpacer(60),
+              SizedBox(
+                width: 250,
+                child: LinearProgressIndicator(
+                  backgroundColor: theme.colors.primary.lightColor,
+                  color: theme.colors.primary.backgroundColor,
+                  minHeight: 5,
+                ),
+              )
+            ],
+          )
+        ],
+      ),
+    );
+  }
 }
 
 class MyHomePage extends StatefulWidget {
@@ -239,7 +285,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                                     prefs.setInt("themeId", res);
                                   }
                                   updateAppBar();
-                                  _setSystemUIOverlayStyle();
+                                  setSystemUIOverlayStyle();
                                 }),
                             IconButton(
                                 splashRadius: 20,
@@ -301,20 +347,24 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                                                                     final bool validated =
                                                                         _formKey.currentState!.validate();
                                                                     if (validated)
-                                                                      ScaffoldMessenger.of(context)
-                                                                          .showSnackBar(SnackBar(
-                                                                        content: Text("Validated!",
-                                                                            style: theme.texts.body1.copyWith(
-                                                                                color: theme
-                                                                                    .colors.success.foregroundColor)),
-                                                                        backgroundColor:
-                                                                            theme.colors.success.backgroundColor,
-                                                                        action: SnackBarAction(
-                                                                            textColor:
-                                                                                theme.colors.success.foregroundColor,
-                                                                            label: "Hide",
-                                                                            onPressed: () {}),
-                                                                      ));
+                                                                      ScaffoldMessenger.of(context).showSnackBar(
+                                                                        SnackBar(
+                                                                          behavior: SnackBarBehavior.floating,
+                                                                          shape: RoundedRectangleBorder(
+                                                                              borderRadius: YBorderRadius.lg),
+                                                                          content: Text("Validated!",
+                                                                              style: theme.texts.body1.copyWith(
+                                                                                  color: theme
+                                                                                      .colors.success.foregroundColor)),
+                                                                          backgroundColor:
+                                                                              theme.colors.success.backgroundColor,
+                                                                          action: SnackBarAction(
+                                                                              textColor:
+                                                                                  theme.colors.success.foregroundColor,
+                                                                              label: "Hide",
+                                                                              onPressed: () {}),
+                                                                        ),
+                                                                      );
                                                                   },
                                                                   text: "SUBMIT"),
                                                             )

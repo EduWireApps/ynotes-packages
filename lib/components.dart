@@ -1,6 +1,7 @@
 library components;
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'theme.dart';
 import 'utilities.dart';
@@ -31,8 +32,12 @@ part 'src/components/switch/y_switch.dart';
 part 'src/components/form/y_form_field.dart';
 part 'src/components/form/y_form.dart';
 
+part 'src/components/y_app_bar.dart';
+part 'src/components/y_bottom_navigation_bar.dart';
 part 'src/components/y_button.dart';
 part 'src/components/y_divider.dart';
+part 'src/components/y_floating_button.dart';
+part 'src/components/y_linear_progress_bar.dart';
 part 'src/components/y_option_tile.dart';
-part 'src/components/y_shadow_scroll_container.dart';
+part 'src/components/y_page.dart';
 part 'src/components/y_slider.dart';

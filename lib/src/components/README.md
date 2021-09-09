@@ -78,6 +78,11 @@ Check out the example provided with each component.
     - [YBottomSheet `Soon`](#ybottomsheet-soon)
     - [YInput `Soon`](#yinput-soon)
     - [YPage `Soon`](#ypage-soon)
+    - [YAppBar `Soon`](#yappbar-soon)
+    - [YBottomNavigationBar `Soon`](#ybottomnavigationbar-soon)
+    - [YIconButton `Soon`](#yiconbutton-soon)
+    - [YFloatingActionButton `Soon`](#yfloatingactionbutton-soon)
+    - [YLinearProgressBar `Soon`](#ylinearprogressbar-soon)
   - [Miscellaneous](#miscellaneous)
     - [YDialogs](#ydialogs)
       - [Example](#example-13)
@@ -432,6 +437,26 @@ Will be available in the near future.
 Will be available in the near future.
 
 ### YPage `Soon`
+
+Will be available in the near future.
+
+### YAppBar `Soon`
+
+Will be available in the near future.
+
+### YBottomNavigationBar `Soon`
+
+Will be available in the near future.
+
+### YIconButton `Soon`
+
+Will be available in the near future.
+
+### YFloatingActionButton `Soon`
+
+Will be available in the near future.
+
+### YLinearProgressBar `Soon`
 
 Will be available in the near future.
 

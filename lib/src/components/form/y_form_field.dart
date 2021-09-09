@@ -12,6 +12,8 @@ class YFormField extends StatefulWidget {
   final bool expandable;
   final String? Function(String?)? validator;
   final FocusNode? focusNode;
+  final bool optional;
+  final bool disabled;
 
   const YFormField(
       {Key? key,
@@ -23,7 +25,9 @@ class YFormField extends StatefulWidget {
       this.maxLength,
       this.expandable = false,
       this.validator,
-      this.focusNode})
+      this.focusNode,
+      this.optional = false,
+      this.disabled = false})
       : super(key: key);
 
   @override

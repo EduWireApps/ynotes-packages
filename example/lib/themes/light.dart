@@ -6,14 +6,14 @@ import 'package:ynotes_packages/theme.dart';
 
 final YTColor _primary = YTColor(
   foregroundColor: Colors.white,
-  lightColor: CustomColors.spaceLight[500]!.withOpacity(.2),
-  backgroundColor: CustomColors.spaceLight[500]!,
+  lightColor: Colors.indigo[600]!.withOpacity(.2),
+  backgroundColor: Colors.indigo[600]!,
 );
 
 final YTColor _secondary = YTColor(
-  foregroundColor: Colors.grey[900]!,
-  lightColor: Colors.grey[300]!,
-  backgroundColor: Colors.grey[100]!,
+  foregroundColor: Colors.grey[700]!,
+  lightColor: Colors.grey[300]!.withOpacity(.2),
+  backgroundColor: Colors.grey[300]!,
 );
 
 final YTColor _success = YTColor(
@@ -35,9 +35,9 @@ final YTColor _danger = YTColor(
 );
 
 final YTColors _colors = YTColors(
-    backgroundColor: Colors.grey[50]!,
-    backgroundLightColor: Colors.white,
-    foregroundColor: Colors.grey[900]!,
+    backgroundColor: Colors.white,
+    backgroundLightColor: Colors.grey[200]!,
+    foregroundColor: Colors.grey[800]!,
     foregroundLightColor: Colors.grey[700]!,
     primary: _primary,
     secondary: _secondary,

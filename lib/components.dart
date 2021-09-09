@@ -40,4 +40,5 @@ part 'src/components/y_floating_button.dart';
 part 'src/components/y_linear_progress_bar.dart';
 part 'src/components/y_option_tile.dart';
 part 'src/components/y_page.dart';
+part 'src/components/y_shadow_scroll_container.dart';
 part 'src/components/y_slider.dart';

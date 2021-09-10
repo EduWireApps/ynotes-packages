@@ -53,7 +53,7 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
         floatingButtons: [
-          YFloatingButton(icon: Icons.photo_camera_rounded, onPressed: () {}, color: YColor.secondary),
+          YFloatingButton(icon: Icons.photo_camera_rounded, onPressed: () {}, color: YColor.secondaryDark),
           YFloatingButton(icon: Icons.edit_rounded, onPressed: () {}),
         ],
         bottomNavigationElements: [

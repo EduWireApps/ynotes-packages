@@ -1,6 +1,6 @@
 part of theme;
 
-enum YColor { primary, secondary, success, warning, danger }
+enum YColor { primary, secondaryDark, secondaryLight, success, warning, danger }
 
 class YTColor {
   final Color backgroundColor;
@@ -21,7 +21,8 @@ class YTColors {
   final Color foregroundLightColor;
 
   final YTColor primary;
-  final YTColor secondary;
+  final YTColor secondaryDark;
+  final YTColor secondaryLight;
   final YTColor success;
   final YTColor warning;
   final YTColor danger;
@@ -32,7 +33,8 @@ class YTColors {
     required this.foregroundColor,
     required this.foregroundLightColor,
     required this.primary,
-    required this.secondary,
+    required this.secondaryDark,
+    required this.secondaryLight,
     required this.success,
     required this.warning,
     required this.danger,
@@ -42,8 +44,10 @@ class YTColors {
     switch (color) {
       case YColor.primary:
         return this.primary;
-      case YColor.secondary:
-        return this.secondary;
+      case YColor.secondaryDark:
+        return this.secondaryDark;
+      case YColor.secondaryLight:
+        return this.secondaryLight;
       case YColor.success:
         return this.success;
       case YColor.warning:

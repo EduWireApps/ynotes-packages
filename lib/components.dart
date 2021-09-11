@@ -33,6 +33,7 @@ part 'src/components/form/y_form_field.dart';
 part 'src/components/form/y_form.dart';
 
 part 'src/components/y_app_bar.dart';
+part 'src/components/y_badge.dart';
 part 'src/components/y_bottom_navigation_bar.dart';
 part 'src/components/y_button.dart';
 part 'src/components/y_divider.dart';

@@ -6,6 +6,8 @@ enum YButtonSize { medium, large }
 // Stateful to use TickerProviderStateMixin
 class YButton extends StatefulWidget {
   final VoidCallback onPressed;
+  final VoidCallback? onPressedDisabled;
+  final VoidCallback? onPressedLoading;
   final VoidCallback? onLongPress;
   final String text;
   final YColor color;
@@ -21,6 +23,8 @@ class YButton extends StatefulWidget {
   const YButton(
       {Key? key,
       required this.onPressed,
+      this.onPressedDisabled,
+      this.onPressedLoading,
       required this.text,
       this.onLongPress,
       this.color = YColor.primary,
@@ -121,6 +125,16 @@ class _YButtonState extends State<YButton> with TickerProviderStateMixin {
         borderRadius: widget.rounded ? YBorderRadius.full : YBorderRadius.lg,
       ));
 
+  VoidCallback? get onPressed {
+    if (widget.isLoading) {
+      return widget.onPressedLoading;
+    } else if (widget.isDisabled) {
+      return widget.onPressedDisabled;
+    } else {
+      return widget.onPressed;
+    }
+  }
+
   Widget buttonContent(BuildContext context, Color loaderColor) => Row(
         mainAxisSize: MainAxisSize.min,
         textDirection: widget.isIconReversed ? TextDirection.rtl : TextDirection.ltr,
@@ -162,7 +176,7 @@ class _YButtonState extends State<YButton> with TickerProviderStateMixin {
                 fontWeight: FontWeight.w600,
                 letterSpacing: YLetterSpacing.wider,
                 fontFamily: theme.fonts.secondary))),
-        onPressed: isDisabled ? null : widget.onPressed,
+        onPressed: onPressed,
         onLongPress: isDisabled ? null : widget.onLongPress,
         child: buttonContent(context, foregroundColor),
       );
@@ -201,7 +215,7 @@ class _YButtonState extends State<YButton> with TickerProviderStateMixin {
                 fontWeight: FontWeight.w600,
                 letterSpacing: YLetterSpacing.wider,
                 fontFamily: theme.fonts.secondary))),
-        onPressed: isDisabled ? null : widget.onPressed,
+        onPressed: onPressed,
         onLongPress: isDisabled ? null : widget.onLongPress,
         child: buttonContent(context, backgroundColor),
       );
@@ -228,7 +242,7 @@ class _YButtonState extends State<YButton> with TickerProviderStateMixin {
                 fontWeight: FontWeight.w600,
                 letterSpacing: YLetterSpacing.wider,
                 fontFamily: theme.fonts.secondary))),
-        onPressed: isDisabled ? null : widget.onPressed,
+        onPressed: onPressed,
         onLongPress: isDisabled ? null : widget.onLongPress,
         child: buttonContent(context, backgroundColor),
       );

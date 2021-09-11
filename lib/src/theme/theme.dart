@@ -22,7 +22,12 @@ class YTheme {
       splashColor: this.splashColor ?? (this.isDark ? Colors.white12 : Colors.black12),
       highlightColor: Colors.transparent,
       splashFactory: InkRipple.splashFactory,
-      fontFamily: this.fonts.secondary);
+      fontFamily: this.fonts.secondary,
+      textSelectionTheme: TextSelectionThemeData(
+        selectionColor: this.colors.primary.lightColor,
+        cursorColor: this.colors.primary.lightColor,
+        selectionHandleColor: this.colors.primary.lightColor,
+      ));
 }
 
 class YCurrentTheme {

@@ -11,9 +11,11 @@ class YFormField extends StatefulWidget {
   final int? maxLength;
   final bool expandable;
   final String? Function(String?)? validator;
-  final FocusNode? focusNode;
-  final bool optional;
   final bool disabled;
+  final String label;
+  final String? placeholder;
+  final String? helper;
+  final YFormFieldProperties properties;
 
   const YFormField(
       {Key? key,
@@ -25,17 +27,22 @@ class YFormField extends StatefulWidget {
       this.maxLength,
       this.expandable = false,
       this.validator,
-      this.focusNode,
-      this.optional = false,
-      this.disabled = false})
+      this.disabled = false,
+      required this.label,
+      this.placeholder,
+      this.helper,
+      required this.properties})
       : super(key: key);
+
+  set focusNode(FocusNode? f) => focusNode = f;
+  set textInputAction(TextInputAction? t) => textInputAction = t;
 
   @override
   _YFormFieldState createState() => _YFormFieldState();
 }
 
 class _YFormFieldState extends State<YFormField> {
-  late FocusNode focusNode = widget.focusNode ?? FocusNode();
+  late FocusNode focusNode = widget.properties.focusNode ?? FocusNode();
   bool obscured = true;
   bool error = false;
 
@@ -64,71 +71,62 @@ class _YFormFieldState extends State<YFormField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      initialValue: widget.defaultValue,
-      autocorrect: widget.autocorrect,
-      onChanged: widget.onChanged,
-      keyboardType: this.type,
-      textCapitalization: widget.textCapitalization,
-      textInputAction: TextInputAction.next,
-      focusNode: focusNode,
-      maxLength: widget.maxLength,
-      maxLines: widget.expandable && !this.isPassword ? null : 1,
-      cursorColor: theme.colors.primary.backgroundColor,
-      obscureText: this.isPassword ? this.obscured : false,
-      style: theme.texts.body1.copyWith(color: theme.colors.foregroundColor),
-      validator: widget.validator != null ? this.validate : null,
-      // IS IT THE RIGHT EVENT ? or onFieldSubmitted ?
-      // onEditingComplete: () {
-      //   print("complete");
-      // },
-      decoration: InputDecoration(
-          border: OutlineInputBorder(),
-          enabledBorder: OutlineInputBorder(
-              borderRadius: YBorderRadius.lg,
-              borderSide: BorderSide(
-                color: theme.colors.foregroundLightColor,
-              )),
-          focusedBorder: OutlineInputBorder(
-              borderRadius: YBorderRadius.lg,
-              borderSide: BorderSide(color: theme.colors.primary.backgroundColor, width: 2)),
-          focusColor: theme.colors.primary.backgroundColor,
-          labelText: "First name",
-          labelStyle: theme.texts.body1.copyWith(
-              color: this.error
-                  ? theme.colors.danger.backgroundColor
-                  : focusNode.hasFocus
-                      ? theme.colors.primary.backgroundColor
-                      : null),
-          helperStyle: theme.texts.body2,
-          errorBorder: OutlineInputBorder(
-              borderRadius: YBorderRadius.lg, borderSide: BorderSide(color: theme.colors.danger.backgroundColor)),
-          focusedErrorBorder: OutlineInputBorder(
-              borderRadius: YBorderRadius.lg,
-              borderSide: BorderSide(color: theme.colors.danger.backgroundColor, width: 2)),
-          errorStyle: theme.texts.body2.copyWith(color: theme.colors.danger.backgroundColor, fontSize: YFontSize.sm),
-          errorMaxLines: 3,
-          hintText: "John",
-          hintStyle: theme.texts.body1,
-          suffixIcon: this.isPassword
-              ? Padding(
-                  padding: YPadding.pr(YScale.s3),
-                  child: IconButton(
-                    onPressed: () {
-                      setState(() {
-                        this.obscured = !this.obscured;
-                      });
-                    },
-                    icon: Icon(
-                      this.obscured ? Icons.visibility : Icons.visibility_off,
-                      color: this.error
-                          ? theme.colors.danger.backgroundColor
-                          : focusNode.hasFocus
-                              ? theme.colors.primary.backgroundColor
-                              : theme.colors.foregroundLightColor,
+        initialValue: widget.defaultValue,
+        autocorrect: widget.autocorrect,
+        onChanged: widget.onChanged,
+        keyboardType: this.type,
+        textCapitalization: widget.textCapitalization,
+        textInputAction: widget.properties.textInputAction,
+        focusNode: focusNode,
+        maxLength: widget.maxLength,
+        maxLines: widget.expandable && !this.isPassword ? null : 1,
+        cursorColor: theme.colors.primary.lightColor,
+        obscureText: this.isPassword ? this.obscured : false,
+        style: theme.texts.body1.copyWith(color: theme.colors.foregroundColor, height: 1.5),
+        validator: widget.validator != null ? this.validate : null,
+        // IS IT THE RIGHT EVENT ? or onFieldSubmitted ?
+        onEditingComplete: widget.properties.onEditingComplete,
+        decoration: InputDecoration(
+            filled: true,
+            fillColor: theme.colors.backgroundLightColor,
+            contentPadding: YPadding.p(YScale.s3),
+            border: UnderlineInputBorder(borderSide: BorderSide.none, borderRadius: YBorderRadius.lg),
+            labelText: widget.label,
+            labelStyle: theme.texts.body1.copyWith(
+                color: this.error
+                    ? theme.colors.danger.lightColor
+                    : focusNode.hasFocus
+                        ? theme.colors.primary.lightColor
+                        : null),
+            suffixIcon: this.isPassword
+                ? Padding(
+                    padding: YPadding.pr(YScale.s3),
+                    child: IconButton(
+                      onPressed: () {
+                        setState(() {
+                          this.obscured = !this.obscured;
+                        });
+                      },
+                      icon: Icon(
+                        this.obscured ? Icons.visibility : Icons.visibility_off,
+                        color: theme.colors.foregroundLightColor,
+                      ),
                     ),
-                  ),
-                )
-              : null),
-    );
+                  )
+                : null,
+            hintText: widget.placeholder,
+            hintStyle: theme.texts.body1,
+            helperStyle: theme.texts.body2,
+            helperText: widget.helper,
+            errorStyle: theme.texts.body2.copyWith(color: theme.colors.danger.lightColor, fontSize: YFontSize.sm),
+            errorMaxLines: 3));
   }
+}
+
+class YFormFieldProperties {
+  FocusNode? focusNode;
+  TextInputAction? textInputAction;
+  VoidCallback? onEditingComplete;
+
+  YFormFieldProperties({this.focusNode, this.textInputAction, this.onEditingComplete});
 }

@@ -64,34 +64,37 @@ class _YPageState extends State<YPage> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: theme.colors.backgroundColor,
-      appBar: PreferredSize(preferredSize: Size.fromHeight(kToolbarHeight), child: widget.appBar),
-      drawer: widget.drawer,
-      body: widget.bottomNavigationElements != null
-          ? TabBarView(
-              controller: _controller,
-              children: widget.bottomNavigationElements!.map((e) => pageContainer(e.widget)).toList())
-          : pageContainer(widget.body!),
-      bottomNavigationBar: widget.bottomNavigationElements != null
-          ? YBottomNavigationBar(
-              currentIndex: _index,
-              items: widget.bottomNavigationElements!
-                  .map((e) => BottomNavigationBarItem(
-                        icon: Icon(e.icon),
-                        label: e.label,
-                      ))
-                  .toList(),
-              onTap: (int i) {
-                setState(() {
-                  _controller.index = i;
-                });
-              },
-            )
-          : null,
-      floatingActionButton:
-          widget.floatingButtons != null ? Column(mainAxisSize: MainAxisSize.min, children: floatingButtons) : null,
-      floatingActionButtonLocation: FloatingActionButtonLocation.miniEndFloat,
+    return GestureDetector(
+      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+      child: Scaffold(
+        backgroundColor: theme.colors.backgroundColor,
+        appBar: PreferredSize(preferredSize: Size.fromHeight(kToolbarHeight), child: widget.appBar),
+        drawer: widget.drawer,
+        body: widget.bottomNavigationElements != null
+            ? TabBarView(
+                controller: _controller,
+                children: widget.bottomNavigationElements!.map((e) => pageContainer(e.widget)).toList())
+            : pageContainer(widget.body!),
+        bottomNavigationBar: widget.bottomNavigationElements != null
+            ? YBottomNavigationBar(
+                currentIndex: _index,
+                items: widget.bottomNavigationElements!
+                    .map((e) => BottomNavigationBarItem(
+                          icon: Icon(e.icon),
+                          label: e.label,
+                        ))
+                    .toList(),
+                onTap: (int i) {
+                  setState(() {
+                    _controller.index = i;
+                  });
+                },
+              )
+            : null,
+        floatingActionButton:
+            widget.floatingButtons != null ? Column(mainAxisSize: MainAxisSize.min, children: floatingButtons) : null,
+        floatingActionButtonLocation: FloatingActionButtonLocation.miniEndFloat,
+      ),
     );
   }
 }

@@ -15,6 +15,8 @@ class YButton extends StatefulWidget {
   final bool isLoading;
   final bool isDisabled;
   final bool isIconReversed;
+  final bool block;
+  final bool rounded;
 
   const YButton(
       {Key? key,
@@ -27,7 +29,9 @@ class YButton extends StatefulWidget {
       this.icon,
       this.isLoading = false,
       this.isDisabled = false,
-      this.isIconReversed = false})
+      this.isIconReversed = false,
+      this.block = false,
+      this.rounded = false})
       : super(key: key);
   @override
   _YButtonState createState() => _YButtonState();
@@ -60,7 +64,7 @@ class _YButtonState extends State<YButton> with TickerProviderStateMixin {
         fs = YFontSize.sm;
         break;
       case YButtonSize.large:
-        fs = YFontSize.lg;
+        fs = YFontSize.xl;
         break;
     }
     return fs;
@@ -113,6 +117,10 @@ class _YButtonState extends State<YButton> with TickerProviderStateMixin {
   Color get foregroundColor => style.foregroundColor.withOpacity(isDisabled ? .75 : 1);
   Color get backgroundColor => style.backgroundColor.withOpacity(isDisabled ? .5 : 1);
 
+  MaterialStateProperty<OutlinedBorder> get shape => MaterialStateProperty.all(RoundedRectangleBorder(
+        borderRadius: widget.rounded ? YBorderRadius.full : YBorderRadius.lg,
+      ));
+
   Widget buttonContent(BuildContext context, Color loaderColor) => Row(
         mainAxisSize: MainAxisSize.min,
         textDirection: widget.isIconReversed ? TextDirection.rtl : TextDirection.ltr,
@@ -148,9 +156,7 @@ class _YButtonState extends State<YButton> with TickerProviderStateMixin {
             foregroundColor: MaterialStateProperty.all(foregroundColor),
             backgroundColor: MaterialStateProperty.all(backgroundColor),
             padding: MaterialStateProperty.all(padding),
-            shape: MaterialStateProperty.all(RoundedRectangleBorder(
-              borderRadius: YBorderRadius.lg,
-            )),
+            shape: shape,
             textStyle: MaterialStateProperty.all(TextStyle(
                 fontSize: fontSize,
                 fontWeight: FontWeight.w600,
@@ -189,9 +195,7 @@ class _YButtonState extends State<YButton> with TickerProviderStateMixin {
               }
               return BorderSide(color: backgroundColor.withOpacity(opacity), width: YScale.s0p5);
             }),
-            shape: MaterialStateProperty.all(RoundedRectangleBorder(
-              borderRadius: YBorderRadius.lg,
-            )),
+            shape: shape,
             textStyle: MaterialStateProperty.all(TextStyle(
                 fontSize: fontSize,
                 fontWeight: FontWeight.w600,
@@ -218,9 +222,7 @@ class _YButtonState extends State<YButton> with TickerProviderStateMixin {
               return null;
             }),
             padding: MaterialStateProperty.all(padding),
-            shape: MaterialStateProperty.all(RoundedRectangleBorder(
-              borderRadius: YBorderRadius.lg,
-            )),
+            shape: shape,
             textStyle: MaterialStateProperty.all(TextStyle(
                 fontSize: fontSize,
                 fontWeight: FontWeight.w600,
@@ -231,8 +233,7 @@ class _YButtonState extends State<YButton> with TickerProviderStateMixin {
         child: buttonContent(context, backgroundColor),
       );
 
-  @override
-  Widget build(BuildContext context) {
+  Widget button(BuildContext context) {
     switch (widget.variant) {
       case YButtonVariant.contained:
         return containedButton(context);
@@ -241,5 +242,18 @@ class _YButtonState extends State<YButton> with TickerProviderStateMixin {
       case YButtonVariant.text:
         return textButton(context);
     }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return widget.block
+        ? Row(
+            children: [
+              Expanded(
+                child: button(context),
+              )
+            ],
+          )
+        : button(context);
   }
 }

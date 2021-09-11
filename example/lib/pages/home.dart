@@ -60,7 +60,18 @@ class _HomePageState extends State<HomePage> {
           YBottomNavigationElement(
             label: "Reçus",
             icon: Icons.mail_rounded,
-            widget: Center(child: Text("Reçus", style: TextStyle(color: theme.colors.foregroundColor))),
+            widget: Column(
+              children: [
+                Center(child: Text("Reçus", style: TextStyle(color: theme.colors.foregroundColor))),
+                YButton(
+                  text: "CLICK ME!",
+                  onPressed: () {},
+                  // block: true,
+                  size: YButtonSize.medium,
+                  rounded: true,
+                )
+              ],
+            ),
           ),
           YBottomNavigationElement(
             label: "Envoyés",

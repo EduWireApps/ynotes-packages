@@ -5,7 +5,7 @@ enum YFormFieldInputType { text, password, email, number, phone, url, datetetime
 class YFormField extends StatefulWidget {
   final TextInputType type;
   final String? defaultValue;
-  final ValueChanged<String> onChanged;
+  final ValueChanged<String>? onChanged;
   final bool autocorrect;
   final TextCapitalization textCapitalization;
   final int? maxLength;

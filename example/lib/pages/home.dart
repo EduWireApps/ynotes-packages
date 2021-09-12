@@ -16,6 +16,16 @@ class _HomePageState extends State<HomePage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool _formHasError = false;
   final GlobalKey<FormState> key = GlobalKey<FormState>();
+  Map<String, String> _formData = {};
+
+  void submit(bool b) {
+    print("form submitted");
+    print(b);
+    if (b) {
+      key.currentState!.save();
+      print(_formData);
+    }
+  }
 
   @override
   void initState() {
@@ -101,7 +111,7 @@ class _HomePageState extends State<HomePage> {
                             validator: (String? v) {
                               return _formHasError ? "Invalid" : null;
                             },
-                            onChanged: (String v) {
+                            onSaved: (String? v) {
                               print(v);
                             },
                             label: "First name",
@@ -143,42 +153,44 @@ class _HomePageState extends State<HomePage> {
                   width: 300,
                   child: Column(
                     children: [
-                      YForm(
-                          formKey: key,
-                          onSubmit: (bool v) {
-                            print(v);
+                      YForm(formKey: key, onSubmit: submit, fields: [
+                        YFormField(
+                          type: TextInputType.text,
+                          onChanged: (String value) {},
+                          label: "First name",
+                          properties: YFormFieldProperties(),
+                          validator: (String? v) {
+                            return v == null || v == "" ? "This field is required" : null;
                           },
-                          fields: [
-                            YFormField(
-                              type: TextInputType.text,
-                              onChanged: (String value) {},
-                              label: "First name",
-                              properties: YFormFieldProperties(),
-                              validator: (String? v) {
-                                return v == null || v == "" ? "This field is required" : null;
-                              },
-                            ),
-                            YFormField(
-                              type: TextInputType.text,
-                              onChanged: (String value) {},
-                              label: "Last name (optional)",
-                              properties: YFormFieldProperties(),
-                            ),
-                            YFormField(
-                              type: TextInputType.visiblePassword,
-                              onChanged: (String value) {},
-                              label: "Password",
-                              properties: YFormFieldProperties(),
-                              validator: (String? v) {
-                                return v == null || v.length < 8
-                                    ? "Your password is too short (8 characters min)"
-                                    : null;
-                              },
-                            ),
-                          ]),
+                          onSaved: (String? v) {
+                            _formData["firstName"] = v ?? "";
+                          },
+                        ),
+                        YFormField(
+                          type: TextInputType.text,
+                          onChanged: (String value) {},
+                          label: "Last name (optional)",
+                          properties: YFormFieldProperties(),
+                          onSaved: (String? v) {
+                            _formData["lastName"] = v ?? "";
+                          },
+                        ),
+                        YFormField(
+                          type: TextInputType.visiblePassword,
+                          onChanged: (String value) {},
+                          label: "Password",
+                          properties: YFormFieldProperties(),
+                          validator: (String? v) {
+                            return v == null || v.length < 8 ? "Your password is too short (8 characters min)" : null;
+                          },
+                          onSaved: (String? v) {
+                            _formData["password"] = v ?? "";
+                          },
+                        ),
+                      ]),
                       YButton(
                           onPressed: () {
-                            key.currentState!.validate();
+                            submit(key.currentState!.validate());
                           },
                           text: "Submit test")
                     ],

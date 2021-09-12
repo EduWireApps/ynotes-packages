@@ -337,7 +337,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                                                             validator: (String? v) {
                                                               return _formHasError ? "error" : null;
                                                             },
-                                                            onChanged: (String v) {
+                                                            onSaved: (String? v) {
                                                               print(v);
                                                             }),
                                                         YVerticalSpacer(10),

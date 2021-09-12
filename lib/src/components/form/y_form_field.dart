@@ -16,6 +16,7 @@ class YFormField extends StatefulWidget {
   final String? placeholder;
   final String? helper;
   final YFormFieldProperties properties;
+  final ValueChanged<String?> onSaved;
 
   const YFormField(
       {Key? key,
@@ -31,7 +32,8 @@ class YFormField extends StatefulWidget {
       required this.label,
       this.placeholder,
       this.helper,
-      required this.properties})
+      required this.properties,
+      required this.onSaved})
       : super(key: key);
 
   set focusNode(FocusNode? f) => focusNode = f;
@@ -84,8 +86,8 @@ class _YFormFieldState extends State<YFormField> {
         obscureText: this.isPassword ? this.obscured : false,
         style: theme.texts.body1.copyWith(color: theme.colors.foregroundColor, height: 1.5),
         validator: widget.validator != null ? this.validate : null,
-        // IS IT THE RIGHT EVENT ? or onFieldSubmitted ?
         onEditingComplete: widget.properties.onEditingComplete,
+        onSaved: widget.onSaved,
         decoration: InputDecoration(
             filled: true,
             fillColor: theme.colors.backgroundLightColor,

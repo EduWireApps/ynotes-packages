@@ -25,8 +25,8 @@ class YTheme {
       fontFamily: this.fonts.secondary,
       textSelectionTheme: TextSelectionThemeData(
         selectionColor: this.colors.primary.lightColor,
-        cursorColor: this.colors.primary.lightColor,
-        selectionHandleColor: this.colors.primary.lightColor,
+        cursorColor: this.colors.primary.backgroundColor,
+        selectionHandleColor: this.colors.primary.backgroundColor,
       ));
 }
 

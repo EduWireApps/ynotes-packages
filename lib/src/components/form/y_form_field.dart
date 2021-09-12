@@ -94,9 +94,9 @@ class _YFormFieldState extends State<YFormField> {
             labelText: widget.label,
             labelStyle: theme.texts.body1.copyWith(
                 color: this.error
-                    ? theme.colors.danger.lightColor
+                    ? theme.colors.danger.backgroundColor
                     : focusNode.hasFocus
-                        ? theme.colors.primary.lightColor
+                        ? theme.colors.primary.backgroundColor
                         : null),
             suffixIcon: this.isPassword
                 ? Padding(
@@ -118,7 +118,7 @@ class _YFormFieldState extends State<YFormField> {
             hintStyle: theme.texts.body1,
             helperStyle: theme.texts.body2,
             helperText: widget.helper,
-            errorStyle: theme.texts.body2.copyWith(color: theme.colors.danger.lightColor, fontSize: YFontSize.sm),
+            errorStyle: theme.texts.body2.copyWith(color: theme.colors.danger.backgroundColor, fontSize: YFontSize.sm),
             errorMaxLines: 3));
   }
 }

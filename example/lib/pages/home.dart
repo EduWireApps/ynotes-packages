@@ -60,7 +60,7 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
         floatingButtons: [
-          YFloatingButton(icon: Icons.photo_camera_rounded, onPressed: () {}, color: YColor.secondaryDark),
+          YFloatingButton(icon: Icons.photo_camera_rounded, onPressed: () {}, color: YColor.secondaryLight),
           YFloatingButton(icon: Icons.edit_rounded, onPressed: () {}),
         ],
         bottomNavigationElements: [
@@ -75,7 +75,7 @@ class _HomePageState extends State<HomePage> {
                   onPressed: () {},
                   // block: true,
                   variant: YButtonVariant.contained,
-                  color: YColor.warning,
+                  color: YColor.secondaryDark,
                   size: YButtonSize.medium,
                   rounded: true,
                 ),
@@ -86,7 +86,7 @@ class _HomePageState extends State<HomePage> {
                       child: Column(
                         children: [
                           YSwitchListTile(
-                              color: YColor.primary,
+                              color: YColor.success,
                               title: "Has error",
                               value: _formHasError,
                               onChanged: (bool v) {

@@ -4,15 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:ynotes_packages/theme.dart';
 
 final YTColor _primary = YTColor(
-  foregroundColor: Colors.indigo[50]!,
-  lightColor: Colors.indigo[200]!,
+  foregroundColor: Colors.white,
+  lightColor: Colors.indigo[700]!.withOpacity(.5),
   backgroundColor: Colors.indigo[500]!,
 );
 
 final YTColor _secondaryDark = YTColor(
-  foregroundColor: Colors.grey[300]!,
-  lightColor: Colors.grey[850]!.withOpacity(.2),
-  backgroundColor: Colors.grey[850]!,
+  foregroundColor: Colors.grey[200]!,
+  lightColor: Colors.grey[800]!.withOpacity(.5),
+  backgroundColor: Colors.grey[600]!,
 );
 
 final YTColor _secondaryLight = YTColor(
@@ -23,20 +23,20 @@ final YTColor _secondaryLight = YTColor(
 
 final YTColor _success = YTColor(
   foregroundColor: Colors.green[50]!,
-  lightColor: Colors.green[300]!,
-  backgroundColor: Colors.green[800]!,
+  lightColor: Colors.green[700]!.withOpacity(.5),
+  backgroundColor: Colors.green[500]!,
 );
 
 final YTColor _warning = YTColor(
-  foregroundColor: Colors.amber[50]!,
-  lightColor: Colors.amber[300]!,
-  backgroundColor: Colors.amber[900]!,
+  foregroundColor: Colors.white,
+  lightColor: Colors.amber[800]!.withOpacity(.5),
+  backgroundColor: Colors.amber[600]!,
 );
 
 final YTColor _danger = YTColor(
   foregroundColor: Colors.red[50]!,
-  lightColor: Colors.red[200]!,
-  backgroundColor: Colors.red[800]!,
+  lightColor: Colors.red[700]!.withOpacity(.5),
+  backgroundColor: Colors.red[500]!,
 );
 
 final YTColors _colors = YTColors(

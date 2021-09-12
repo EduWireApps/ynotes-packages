@@ -21,7 +21,7 @@ class YFormField extends StatefulWidget {
       {Key? key,
       required this.type,
       this.defaultValue,
-      required this.onChanged,
+      this.onChanged,
       this.autocorrect = false,
       this.textCapitalization = TextCapitalization.sentences,
       this.maxLength,

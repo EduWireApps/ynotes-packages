@@ -1,4 +1,7 @@
-**OUTDATED**
+**This package is under heavy development. Its documentation might be irrelevant for the following**
+- Components
+- Config
+- Settings
 
 next:
 - input
@@ -17,7 +20,7 @@ This repo contains 1 package splitted in 4 libraries:
 
 ## Libraries
 
-### [Components](lib/src/components)
+### [Components](lib/src/components) `Oudated`
 
 Contains useful components such as `YButton`. It relies on [theme](#theme) and [utilities](#utilities) libraries. Check out the [README](lib/src/components/README.md).
 
@@ -39,7 +42,7 @@ Import it:
 import 'package:ynotes_packages/theme.dart';
 ```
 
-### [Utilities](lib/src/utilities)
+### [Utilities](lib/src/utilities) `Oudated`
 
 Contains utilities such as `YFontSize`, inspired by [Tailwind CSS](https://tailwindcss.com) approach. Check out the [README](lib/src/utilities/README.md)
 
@@ -63,4 +66,4 @@ Under the hood, this packages uses:
 
 ---
 
-Made by [Florian LEFEBVRE](https://github.com/florian-lefebvre).
+Maintained by [Florian LEFEBVRE](https://github.com/florian-lefebvre).

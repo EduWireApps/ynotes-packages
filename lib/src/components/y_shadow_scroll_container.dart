@@ -1,5 +1,6 @@
 part of components;
 
+@Deprecated('Just use a list instead')
 class YShadowScrollContainer extends StatefulWidget {
   final List<Widget> children;
   final Color color;
@@ -12,6 +13,7 @@ class YShadowScrollContainer extends StatefulWidget {
   _YShadowScrollContainerState createState() => _YShadowScrollContainerState();
 }
 
+// ignore: deprecated_member_use_from_same_package
 class _YShadowScrollContainerState extends State<YShadowScrollContainer> {
   final ScrollController _scrollController = ScrollController();
   late bool showTopGradient = false;

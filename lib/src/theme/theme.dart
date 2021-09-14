@@ -1,6 +1,6 @@
 part of theme;
 
-/// A theme that is used based no the user choice.
+/// A theme that is used based on the user choice.
 ///
 /// It doesn't have to be only _Light_, _Dark_ or _System_.
 /// It is intialized in the [YCurrentTheme] class.
@@ -26,7 +26,7 @@ class YTheme {
   /// By default, it is equal to [Colors.white12] when [isDark] is true and to [Colors.black12] when [isDark] is false.
   final Color? splashColor;
 
-  /// The texts styles availables for the theme. Doesn't follow the Material Design guidelines.
+  /// The texts styles available for the theme. Doesn't follow the Material Design guidelines.
   final YTTexts texts;
 
   /// A theme that is used based no the user choice.

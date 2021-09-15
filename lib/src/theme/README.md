@@ -163,8 +163,6 @@ final YTFonts themeFonts = YTFonts(primary: "Roboto", secondary: "Montserrat");
 
 It musts correspond to the fonts names in the `assets` section of your `pubspec.yaml` or to a Google Font family name.
 
-However we recommend using Google Fonts and this required additional configuration (it also impacts the `texts` variables that we will see later):
-
 ### Defining the `texts` variable
 
 This variable contains all the texts variables of your app. We think that it must be shared accross the themes so we usually put it in `themes/utils/texts.dart`.
@@ -221,7 +219,7 @@ And that's it!
 
 ### The system theme
 
-This theme is quite special because it needs  to know when the OS brightness updates, and it needs the light and dark theme.
+This theme is quite special because it needs to know when the OS brightness updates, and it needs the light and dark theme.
 
 Assuming we have the following files:
 
@@ -235,7 +233,7 @@ Assuming we have the following files:
 
 In `light.dart` we have a `lightTheme` and in `dark.dart` there is a `darkTheme.`
 
-So here is our systeme theme:
+So here is our system theme:
 
 ```dart
 import 'dark.dart';
@@ -244,7 +242,6 @@ import 'package:flutter/material.dart';
 import 'package:ynotes_packages/theme.dart';
 
 YTheme systemTheme(Brightness brightness) {
-    // The brightness will come from the context
     final bool darkModeOn = brightness == Brightness.dark;
     // Based on the brightness, we take the right theme
     final YTheme t = darkModeOn ? darkTheme : lightTheme;

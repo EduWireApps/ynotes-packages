@@ -219,7 +219,8 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                           ),
                         ),
                         appBar: AppBar(
-                          brightness: theme.isDark ? Brightness.dark : Brightness.light,
+                          systemOverlayStyle: SystemUiOverlayStyle(
+                              statusBarBrightness: theme.isDark ? Brightness.dark : Brightness.light),
                           iconTheme: IconThemeData(color: theme.colors.primary.backgroundColor),
                           centerTitle: false,
                           backgroundColor: _appBarColor,

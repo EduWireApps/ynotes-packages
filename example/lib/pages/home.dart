@@ -70,7 +70,7 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
         floatingButtons: [
-          YFloatingButton(icon: Icons.photo_camera_rounded, onPressed: () {}, color: YColor.secondaryLight),
+          YFloatingButton(icon: Icons.photo_camera_rounded, onPressed: () {}, color: YColor.secondary),
           YFloatingButton(icon: Icons.edit_rounded, onPressed: () {}),
         ],
         bottomNavigationElements: [
@@ -81,11 +81,25 @@ class _HomePageState extends State<HomePage> {
               children: [
                 Center(child: Text("Reçus", style: TextStyle(color: theme.colors.foregroundColor))),
                 YButton(
-                  text: "CLICK ME!",
-                  onPressed: () {},
+                  text: "flushbar",
+                  onPressed: () {
+                    // final YSnackBar snack = YSnackBar(context,
+                    //     title: "Cool !",
+                    //     message: "Ca marche bien...",
+                    //     color: YColor.success,
+                    //     icon: Icons.check_circle_rounded,
+                    //     action: YSnackbarAction(
+                    //         text: "Voir",
+                    //         onPressed: () {
+                    //           Navigator.pop(context);
+                    //         }));
+                    // snack.show();
+                    YSnackbars.error(context, title: "Success", message: "A success message");
+                  },
                   // block: true,
                   variant: YButtonVariant.contained,
-                  color: YColor.secondaryDark,
+                  invertColors: true,
+                  color: YColor.secondary,
                   size: YButtonSize.medium,
                   rounded: true,
                 ),

@@ -59,6 +59,9 @@ class YButton extends StatefulWidget {
   /// The condition to make the button rounded ([YBorderRadius.full]).
   final bool rounded;
 
+  /// Invert background and foreground colors.
+  final bool invertColors;
+
   /// A button component.
   const YButton(
       {Key? key,
@@ -75,7 +78,8 @@ class YButton extends StatefulWidget {
       this.isDisabled = false,
       this.isIconReversed = false,
       this.block = false,
-      this.rounded = false})
+      this.rounded = false,
+      this.invertColors = false})
       : super(key: key);
   @override
   _YButtonState createState() => _YButtonState();
@@ -158,8 +162,10 @@ class _YButtonState extends State<YButton> with TickerProviderStateMixin {
 
   bool get isDisabled => widget.isDisabled || widget.isLoading;
 
-  Color get foregroundColor => style.foregroundColor.withOpacity(isDisabled ? .75 : 1);
-  Color get backgroundColor => style.backgroundColor.withOpacity(isDisabled ? .5 : 1);
+  Color get foregroundColor =>
+      (widget.invertColors ? style.backgroundColor : style.foregroundColor).withOpacity(isDisabled ? .75 : 1);
+  Color get backgroundColor =>
+      (!widget.invertColors ? style.backgroundColor : style.foregroundColor).withOpacity(isDisabled ? .5 : 1);
 
   MaterialStateProperty<OutlinedBorder> get shape => MaterialStateProperty.all(RoundedRectangleBorder(
         borderRadius: widget.rounded ? YBorderRadius.full : YBorderRadius.lg,

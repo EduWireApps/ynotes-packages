@@ -9,13 +9,7 @@ final YTColor _primary = YTColor(
   backgroundColor: Colors.indigo[600]!,
 );
 
-final YTColor _secondaryDark = YTColor(
-  foregroundColor: Colors.grey[50]!,
-  lightColor: Colors.grey[300]!.withOpacity(.2),
-  backgroundColor: Colors.grey[600]!,
-);
-
-final YTColor _secondaryLight = YTColor(
+final YTColor _secondary = YTColor(
   foregroundColor: Colors.grey[700]!,
   lightColor: Colors.grey[300]!.withOpacity(.2),
   backgroundColor: Colors.grey[300]!,
@@ -45,8 +39,7 @@ final YTColors _colors = YTColors(
     foregroundColor: Colors.grey[850]!,
     foregroundLightColor: Colors.grey[700]!,
     primary: _primary,
-    secondaryDark: _secondaryDark,
-    secondaryLight: _secondaryLight,
+    secondary: _secondary,
     success: _success,
     warning: _warning,
     danger: _danger);

@@ -1,7 +1,7 @@
 part of theme;
 
 /// The main colors of the app.
-enum YColor { primary, secondaryDark, secondaryLight, success, warning, danger }
+enum YColor { primary, secondary, success, warning, danger }
 
 /// A class that manages variations of a color to ensure great contrast and lisibility.
 class YTColor {
@@ -49,13 +49,8 @@ class YTColors {
   /// The theme primary color that corresponds to [YColor.primary]. Can be anything.
   final YTColor primary;
 
-  /// The theme secondary color that corresponds to [YColor.secondaryDark]. Dark means
-  /// that it's closer to the background color. Usually gray.
-  final YTColor secondaryDark;
-
-  /// The theme secondary color that corresponds to [YColor.secondaryLight]. Light means
-  /// that it's lighter than the background color. Usually gray.
-  final YTColor secondaryLight;
+  /// The theme secondary color that corresponds to [YColor.secondaryDark].
+  final YTColor secondary;
 
   /// The theme success color that corresponds to [YColor.success]. Usually green.
   final YTColor success;
@@ -73,8 +68,7 @@ class YTColors {
     required this.foregroundColor,
     required this.foregroundLightColor,
     required this.primary,
-    required this.secondaryDark,
-    required this.secondaryLight,
+    required this.secondary,
     required this.success,
     required this.warning,
     required this.danger,
@@ -86,10 +80,8 @@ class YTColors {
     switch (color) {
       case YColor.primary:
         return this.primary;
-      case YColor.secondaryDark:
-        return this.secondaryDark;
-      case YColor.secondaryLight:
-        return this.secondaryLight;
+      case YColor.secondary:
+        return this.secondary;
       case YColor.success:
         return this.success;
       case YColor.warning:

@@ -134,8 +134,7 @@ final YTColors _colors = YTColors(
     foregroundColor: Colors.grey[850]!,
     foregroundLightColor: Colors.grey[700]!,
     primary: _primary,
-    secondaryDark: _secondaryDark,
-    secondaryLight: _secondaryLight,
+    secondary: _secondary,
     success: _success,
     warning: _warning,
     danger: _danger);

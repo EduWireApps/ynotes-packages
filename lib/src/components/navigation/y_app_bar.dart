@@ -25,7 +25,9 @@ class _YAppBarState extends State<YAppBar> {
     return AppBar(
         automaticallyImplyLeading: false,
         backgroundColor: theme.colors.backgroundColor,
-        brightness: theme.isDark ? Brightness.dark : Brightness.light,
+        systemOverlayStyle: SystemUiOverlayStyle(
+          statusBarBrightness: theme.isDark ? Brightness.dark : Brightness.light,
+        ),
         centerTitle: false,
         iconTheme: IconThemeData(color: theme.colors.foregroundColor),
         leading: IconButton(

@@ -43,7 +43,21 @@ class YTheme {
 
   /// The [ThemeData] generated from the theme. It must be used in [MaterialApp] and can be combined.
   ThemeData get themeData => ThemeData(
-      accentColor: this.colors.primary.backgroundColor,
+      colorScheme: ColorScheme(
+        primary: this.colors.backgroundLightColor,
+        primaryVariant: this.colors.backgroundColor,
+        onPrimary: this.colors.foregroundColor,
+        secondary: this.colors.primary.backgroundColor,
+        secondaryVariant: this.colors.primary.lightColor,
+        onSecondary: this.colors.primary.foregroundColor,
+        error: this.colors.danger.backgroundColor,
+        onError: this.colors.danger.foregroundColor,
+        background: this.colors.backgroundColor,
+        onBackground: this.colors.foregroundColor,
+        surface: this.colors.backgroundLightColor,
+        onSurface: this.colors.foregroundLightColor,
+        brightness: theme.isDark ? Brightness.dark : Brightness.light,
+      ),
       splashColor: this.splashColor ?? (this.isDark ? Colors.white12 : Colors.black12),
       highlightColor: Colors.transparent,
       splashFactory: InkRipple.splashFactory,

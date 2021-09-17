@@ -23,4 +23,9 @@ class YSnackbars {
       YSnackBar(context,
               title: title, message: message, icon: Icons.error_rounded, color: YColor.danger, action: action)
           .show();
+
+  /// Show an info snackbar.
+  static void info(BuildContext context, {required String title, required String message, YSnackbarAction? action}) =>
+      YSnackBar(context, title: title, message: message, icon: Icons.info_rounded, color: YColor.info, action: action)
+          .show();
 }

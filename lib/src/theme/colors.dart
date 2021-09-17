@@ -1,7 +1,7 @@
 part of theme;
 
 /// The main colors of the app.
-enum YColor { primary, secondary, success, warning, danger }
+enum YColor { primary, secondary, success, warning, danger, info }
 
 /// A class that manages variations of a color to ensure great contrast and lisibility.
 class YTColor {
@@ -61,18 +61,21 @@ class YTColors {
   /// The theme danger color that corresponds to [YColor.danger]. Usually red.
   final YTColor danger;
 
+  /// The theme info color that corresponds to [YColor.info]. Usually blue.
+  final YTColor info;
+
   /// A class that manages colors for a theme.
-  YTColors({
-    required this.backgroundColor,
-    required this.backgroundLightColor,
-    required this.foregroundColor,
-    required this.foregroundLightColor,
-    required this.primary,
-    required this.secondary,
-    required this.success,
-    required this.warning,
-    required this.danger,
-  });
+  YTColors(
+      {required this.backgroundColor,
+      required this.backgroundLightColor,
+      required this.foregroundColor,
+      required this.foregroundLightColor,
+      required this.primary,
+      required this.secondary,
+      required this.success,
+      required this.warning,
+      required this.danger,
+      required this.info});
 
   /// Returns a color based on [YColor] (enum). Useful for dynamic colors
   /// such as in components.
@@ -88,6 +91,8 @@ class YTColors {
         return this.warning;
       case YColor.danger:
         return this.danger;
+      case YColor.info:
+        return this.info;
     }
   }
 }

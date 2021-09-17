@@ -33,6 +33,12 @@ final YTColor _danger = YTColor(
   backgroundColor: Colors.red[600]!,
 );
 
+final YTColor _info = YTColor(
+  foregroundColor: Colors.white,
+  lightColor: Colors.blue[300]!.withOpacity(.5),
+  backgroundColor: Colors.blue[600]!,
+);
+
 final YTColors _colors = YTColors(
     backgroundColor: Colors.white,
     backgroundLightColor: Colors.grey[200]!,
@@ -42,7 +48,8 @@ final YTColors _colors = YTColors(
     secondary: _secondary,
     success: _success,
     warning: _warning,
-    danger: _danger);
+    danger: _danger,
+    info: _info);
 
 final YTheme lightTheme =
     YTheme("Clair", id: 1, isDark: false, colors: _colors, fonts: themeFonts, texts: texts(_colors, themeFonts));

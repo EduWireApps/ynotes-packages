@@ -94,7 +94,7 @@ class _HomePageState extends State<HomePage> {
                     //           Navigator.pop(context);
                     //         }));
                     // snack.show();
-                    YSnackbars.error(context, title: "Success", message: "A success message");
+                    YSnackbars.info(context, title: "Success", message: "A success message");
                   },
                   // block: true,
                   variant: YButtonVariant.contained,

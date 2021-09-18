@@ -8,12 +8,6 @@ import 'package:flutter_switch/flutter_switch.dart';
 import 'theme.dart';
 import 'utilities.dart';
 
-// Cards
-part 'src/components/cards/y_card_header.dart';
-part 'src/components/cards/y_card_link.dart';
-part 'src/components/cards/y_card.dart';
-part 'src/components/cards/y_links_card.dart';
-
 // Dialogs
 part 'src/components/dialogs/dialogs.dart';
 part 'src/components/dialogs/y_choice_dialog.dart';

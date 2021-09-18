@@ -46,7 +46,14 @@ class _YAppBarState extends State<YAppBar> {
         elevation: 0,
         actions: widget.actions,
         bottom: PreferredSize(
-            child: Container(height: borderHeight, color: theme.colors.backgroundLightColor),
-            preferredSize: Size.fromHeight(borderHeight)));
+            child: Column(
+              children: [
+                Container(height: borderHeight, color: theme.colors.backgroundLightColor),
+                YLinearProgressBar(
+                    // value: 10,
+                    )
+              ],
+            ),
+            preferredSize: Size.fromHeight(borderHeight + 5)));
   }
 }

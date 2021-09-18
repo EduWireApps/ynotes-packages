@@ -51,8 +51,8 @@ class _HomePageState extends State<HomePage> {
                       context,
                       YConfirmationDialog(
                           title: "Choisis un thème",
-                          mustConfirm: false,
-                          items: theme.themes.map((e) => YConfirmationDialogItem(value: e.id, label: e.name)).toList(),
+                          options:
+                              theme.themes.map((e) => YConfirmationDialogOption(value: e.id, label: e.name)).toList(),
                           initialValue: theme.currentTheme));
                   if (res != null) {
                     updateCurrentTheme(res);
@@ -81,20 +81,20 @@ class _HomePageState extends State<HomePage> {
               children: [
                 Center(child: Text("Reçus", style: TextStyle(color: theme.colors.foregroundColor))),
                 YButton(
-                  text: "flushbar",
-                  onPressed: () {
-                    // final YSnackBar snack = YSnackBar(context,
-                    //     title: "Cool !",
-                    //     message: "Ca marche bien...",
-                    //     color: YColor.success,
-                    //     icon: Icons.check_circle_rounded,
-                    //     action: YSnackbarAction(
-                    //         text: "Voir",
-                    //         onPressed: () {
-                    //           Navigator.pop(context);
-                    //         }));
-                    // snack.show();
-                    YSnackbars.info(context, title: "Success", message: "A success message");
+                  text: "dialog",
+                  onPressed: () async {
+                    final List<YListDialogOption> _options = [0, 1, 2, 3, 4, 5]
+                        .map((e) => YListDialogOption(value: e % 2 == 0, label: "Option $e"))
+                        .toList();
+                    final List<YListDialogOption>? res = await YDialogs.getList(
+                        context,
+                        YListDialog(
+                          title: "Select options",
+                          options: _options,
+                          minItemsAmount: 1,
+                          maxItemsAmount: 5,
+                        ));
+                    print(res?.map((e) => e.value).toList());
                   },
                   // block: true,
                   variant: YButtonVariant.contained,

@@ -277,8 +277,8 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                                       YConfirmationDialog(
                                           title: "Choisis un thème",
                                           mustConfirm: false,
-                                          items: theme.themes
-                                              .map((e) => YConfirmationDialogItem(value: e.id, label: e.name))
+                                          options: theme.themes
+                                              .map((e) => YConfirmationDialogOption(value: e.id, label: e.name))
                                               .toList(),
                                           initialValue: theme.currentTheme));
                                   if (res != null) {
@@ -314,68 +314,67 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                                         Row(
                                           children: [
                                             Expanded(
-                                              child: YCard(
-                                                  margin: YPadding.px(YScale.s4),
-                                                  body: Form(
-                                                    key: _formKey,
-                                                    child: Column(
+                                              child: Container(
+                                                  child: Form(
+                                                key: _formKey,
+                                                child: Column(
+                                                  children: [
+                                                    YSwitchListTile(
+                                                        title: "Has error",
+                                                        value: _formHasError,
+                                                        onChanged: (bool v) {
+                                                          setState(() {
+                                                            _formHasError = v;
+                                                          });
+                                                        }),
+                                                    YVerticalSpacer(10),
+                                                    YFormField(
+                                                        properties: YFormFieldProperties(),
+                                                        type: TextInputType.visiblePassword,
+                                                        defaultValue: "TEST",
+                                                        label: "First name",
+                                                        expandable: true,
+                                                        validator: (String? v) {
+                                                          return _formHasError ? "error" : null;
+                                                        },
+                                                        onSaved: (String? v) {
+                                                          print(v);
+                                                        }),
+                                                    YVerticalSpacer(10),
+                                                    Row(
                                                       children: [
-                                                        YSwitchListTile(
-                                                            title: "Has error",
-                                                            value: _formHasError,
-                                                            onChanged: (bool v) {
-                                                              setState(() {
-                                                                _formHasError = v;
-                                                              });
-                                                            }),
-                                                        YVerticalSpacer(10),
-                                                        YFormField(
-                                                            properties: YFormFieldProperties(),
-                                                            type: TextInputType.visiblePassword,
-                                                            defaultValue: "TEST",
-                                                            label: "First name",
-                                                            expandable: true,
-                                                            validator: (String? v) {
-                                                              return _formHasError ? "error" : null;
-                                                            },
-                                                            onSaved: (String? v) {
-                                                              print(v);
-                                                            }),
-                                                        YVerticalSpacer(10),
-                                                        Row(
-                                                          children: [
-                                                            Expanded(
-                                                              child: YButton(
-                                                                  onPressed: () {
-                                                                    final bool validated =
-                                                                        _formKey.currentState!.validate();
-                                                                    if (validated)
-                                                                      ScaffoldMessenger.of(context).showSnackBar(
-                                                                        SnackBar(
-                                                                          behavior: SnackBarBehavior.floating,
-                                                                          shape: RoundedRectangleBorder(
-                                                                              borderRadius: YBorderRadius.lg),
-                                                                          content: Text("Validated!",
-                                                                              style: theme.texts.body1.copyWith(
-                                                                                  color: theme
-                                                                                      .colors.success.foregroundColor)),
-                                                                          backgroundColor:
-                                                                              theme.colors.success.backgroundColor,
-                                                                          action: SnackBarAction(
-                                                                              textColor:
-                                                                                  theme.colors.success.foregroundColor,
-                                                                              label: "Hide",
-                                                                              onPressed: () {}),
-                                                                        ),
-                                                                      );
-                                                                  },
-                                                                  text: "SUBMIT"),
-                                                            )
-                                                          ],
+                                                        Expanded(
+                                                          child: YButton(
+                                                              onPressed: () {
+                                                                final bool validated =
+                                                                    _formKey.currentState!.validate();
+                                                                if (validated)
+                                                                  ScaffoldMessenger.of(context).showSnackBar(
+                                                                    SnackBar(
+                                                                      behavior: SnackBarBehavior.floating,
+                                                                      shape: RoundedRectangleBorder(
+                                                                          borderRadius: YBorderRadius.lg),
+                                                                      content: Text("Validated!",
+                                                                          style: theme.texts.body1.copyWith(
+                                                                              color: theme
+                                                                                  .colors.success.foregroundColor)),
+                                                                      backgroundColor:
+                                                                          theme.colors.success.backgroundColor,
+                                                                      action: SnackBarAction(
+                                                                          textColor:
+                                                                              theme.colors.success.foregroundColor,
+                                                                          label: "Hide",
+                                                                          onPressed: () {}),
+                                                                    ),
+                                                                  );
+                                                              },
+                                                              text: "SUBMIT"),
                                                         )
                                                       ],
-                                                    ),
-                                                  )),
+                                                    )
+                                                  ],
+                                                ),
+                                              )),
                                             ),
                                             Expanded(
                                               flex: r<int>(def: 0, md: 1, lg: 2),
@@ -384,70 +383,9 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                                           ],
                                         ),
                                         YVerticalSpacer(30),
-                                        YCard(
-                                          margin: YPadding.p(YScale.s4),
-                                          header: YCardHeader(title: Text("Vaccinations", style: theme.texts.title)),
-                                          body: Text(
-                                              "Lorem ipsum dolor sit amet, consect. In ut sem magna. Donec eget justo felis. Aliquam in ullamcorper libero. ",
-                                              style: theme.texts.body1,
-                                              textAlign: TextAlign.left),
-                                          onTap: () {},
-                                          bottomLinks: [
-                                            YCardLink(
-                                              onTap: () {},
-                                            ),
-                                            YCardLink(onTap: () {}, icon: Icons.settings),
-                                          ],
-                                        ),
-                                        YVerticalSpacer(30),
-                                        YLinksCard(margin: YPadding.p(YScale.s4), links: [
-                                          YCardLink(
-                                            onTap: () {},
-                                          ),
-                                          // YCardLink(onTap: () {}, icon: Icons.settings),
-                                          YCardLink(onTap: () {}, icon: Icons.settings),
-                                        ]),
-                                        YVerticalSpacer(30),
-                                        YCard(
-                                          margin: YPadding.p(YScale.s4),
-                                          bottomCta: "Display full screen",
-                                          header: YCardHeader(
-                                              title: Text("Vaccinations",
-                                                  style: theme.texts.title.copyWith(color: Colors.green[400])),
-                                              icon: Icons.map,
-                                              color: Colors.green[400],
-                                              actions: [
-                                                IconButton(
-                                                    iconSize: theme.texts.title.fontSize!,
-                                                    splashRadius: 20,
-                                                    padding: EdgeInsets.zero,
-                                                    onPressed: () {},
-                                                    icon: Icon(Icons.add,
-                                                        color: Colors.green[400], size: theme.texts.title.fontSize!)),
-                                                IconButton(
-                                                    iconSize: theme.texts.title.fontSize!,
-                                                    splashRadius: 20,
-                                                    padding: EdgeInsets.zero,
-                                                    onPressed: () {},
-                                                    icon: Icon(Icons.remove,
-                                                        color: Colors.green[400], size: theme.texts.title.fontSize!)),
-                                                IconButton(
-                                                    iconSize: theme.texts.title.fontSize!,
-                                                    splashRadius: 20,
-                                                    padding: EdgeInsets.zero,
-                                                    onPressed: () {},
-                                                    icon: Icon(Icons.multiple_stop,
-                                                        color: Colors.green[400], size: theme.texts.title.fontSize!)),
-                                              ]),
-                                          body: Text(
-                                              "Lorem ipsum dolor sit amet, consect. In ut sem magna. Donec eget justo felis. Aliquam in ullamcorper libero. ",
-                                              style: theme.texts.body1,
-                                              textAlign: TextAlign.left),
-                                          onTap: () {},
-                                        ),
-                                        YCard(
+                                        Container(
                                             margin: YPadding.p(YScale.s4),
-                                            body: YSlider(
+                                            child: YSlider(
                                               value: _sliderValue,
                                               max: 100,
                                               min: 0,
@@ -495,31 +433,38 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                                               ),
                                               YButton(
                                                   onPressed: () async {
-                                                    final List<YConfirmationDialogItem<int>> items = [0, 1, 2, 3, 4, 5]
-                                                        .map((e) =>
-                                                            YConfirmationDialogItem<int>(value: e, label: "Option $e"))
+                                                    final List<YConfirmationDialogOption<int>> _options = [
+                                                      0,
+                                                      1,
+                                                      2,
+                                                      3,
+                                                      4,
+                                                      5
+                                                    ]
+                                                        .map((e) => YConfirmationDialogOption<int>(
+                                                            value: e, label: "Option $e"))
                                                         .toList();
 
                                                     final int? res = await YDialogs.getConfirmation(
                                                         context,
                                                         YConfirmationDialog(
                                                           title: "Select an option",
-                                                          items: items,
+                                                          options: _options,
                                                         ));
                                                     print(res);
                                                   },
                                                   text: "CONFIRMATION"),
                                               YButton(
                                                   onPressed: () async {
-                                                    final List<YListDialogItem> items = [0, 1, 2, 3, 4, 5]
+                                                    final List<YListDialogOption> _options = [0, 1, 2, 3, 4, 5]
                                                         .map((e) =>
-                                                            YListDialogItem(value: e % 2 == 0, label: "Option $e"))
+                                                            YListDialogOption(value: e % 2 == 0, label: "Option $e"))
                                                         .toList();
-                                                    final List<YListDialogItem>? res = await YDialogs.getList(
+                                                    final List<YListDialogOption>? res = await YDialogs.getList(
                                                         context,
                                                         YListDialog(
                                                           title: "Select options",
-                                                          items: items,
+                                                          options: _options,
                                                           minItemsAmount: 1,
                                                           maxItemsAmount: 5,
                                                         ));
@@ -552,10 +497,10 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                                             ],
                                           ),
                                         ),
-                                        YCard(
+                                        Container(
                                             margin: YPadding.p(YScale.s4),
                                             padding: YPadding.py(YScale.s2),
-                                            body: Column(
+                                            child: Column(
                                               children: [0, 1, 2, 3, 4, 5]
                                                   .map((e) => Column(children: [
                                                         if (e != 0) YDivider(),
@@ -574,10 +519,10 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                                                       ]))
                                                   .toList(),
                                             )),
-                                        YCard(
+                                        Container(
                                             margin: YPadding.p(YScale.s4),
                                             padding: YPadding.py(YScale.s2),
-                                            body: Column(children: [
+                                            child: Column(children: [
                                               YCheckboxListTile(
                                                   title: "Option 1",
                                                   value: _status,
@@ -601,10 +546,10 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                                                   color: YColor.warning,
                                                   onChanged: (bool v) {}),
                                             ])),
-                                        YCard(
+                                        Container(
                                             margin: YPadding.p(YScale.s4),
                                             padding: YPadding.py(YScale.s2),
-                                            body: Column(children: [
+                                            child: Column(children: [
                                               YSwitchListTile(
                                                   title: "Option 1",
                                                   value: _status,

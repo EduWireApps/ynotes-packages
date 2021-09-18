@@ -3,7 +3,6 @@ part of components;
 class YOptionTile extends StatelessWidget {
   final String title;
   final YColor color;
-  final Color? titleColor;
   final bool end;
   final Widget widget;
   final bool selected;
@@ -13,7 +12,6 @@ class YOptionTile extends StatelessWidget {
       {Key? key,
       required this.title,
       this.color = YColor.primary,
-      this.titleColor,
       this.end = false,
       required this.widget,
       required this.selected,
@@ -25,11 +23,11 @@ class YOptionTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      tileColor: this.selected ? style.lightColor : null,
       onTap: this.onTap,
       title: Text(
         this.title,
-        style: theme.texts.body1.copyWith(color: this.selected ? style.backgroundColor : this.titleColor),
+        style: theme.texts.body1
+            .copyWith(color: this.selected ? theme.colors.foregroundColor : theme.colors.foregroundLightColor),
       ),
       leading: this.end ? null : this.widget,
       trailing: this.end ? this.widget : null,

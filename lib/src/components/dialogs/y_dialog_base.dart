@@ -1,11 +1,22 @@
 part of components;
 
+/// A component to be used as a base for dialogs.
 class YDialogBase extends StatelessWidget {
+  /// The title of the dialog.
   final String title;
+
+  /// The body of the dialog.
   final Widget body;
+
+  /// The actions to be displayed at the bottom of the dialog.
+  ///
+  /// The right one is usually of type [YButtonVariant.contained] and the others [YButtonVariant.text].
   final List<YButton>? actions;
+
+  /// The horizontal padding of the content of the dialog.
   final bool horizontalPadding;
 
+  /// A component to be used as a base for dialogs.
   const YDialogBase({Key? key, required this.title, required this.body, this.actions, this.horizontalPadding = true})
       : super(key: key);
 

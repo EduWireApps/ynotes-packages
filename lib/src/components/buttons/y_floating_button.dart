@@ -1,5 +1,6 @@
 part of components;
 
+// TODO: documentation
 class YFloatingButton extends StatelessWidget {
   final IconData icon;
   final VoidCallback onPressed;

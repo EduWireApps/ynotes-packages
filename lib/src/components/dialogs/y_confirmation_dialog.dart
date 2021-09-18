@@ -1,22 +1,37 @@
 part of components;
 
+// A dialog to make the user choose one option from a list of options.
 class YConfirmationDialog<T> extends StatefulWidget {
+  /// The title of the dialog.
   final String title;
-  final List<YConfirmationDialogItem<T>> items;
+
+  /// The options of the dialog.
+  final List<YConfirmationDialogOption<T>> options;
+
+  /// The selected option.
   final T? initialValue;
+
+  /// The text to display for the cancel button. Defaults to _ANNULER_.
   final String cancelLabel;
+
+  /// The text to display for the confirm button. Defaults to _CONFIRMER_.
   final String confirmLabel;
+
+  /// The condition to requires the user to confirm. Defaults to `false`.
   final bool mustConfirm;
+
+  /// The color of the elements of the dialog. Defaults to [YColor.primary].
   final YColor color;
 
+  // A dialog to make the user choose one option from a list of options.
   const YConfirmationDialog(
       {Key? key,
       required this.title,
-      required this.items,
+      required this.options,
       this.initialValue,
       this.cancelLabel = "ANNULER",
       this.confirmLabel = "CONFIRMER",
-      this.mustConfirm = true,
+      this.mustConfirm = false,
       this.color = YColor.primary})
       : super(key: key);
 
@@ -26,59 +41,39 @@ class YConfirmationDialog<T> extends StatefulWidget {
 
 class _YConfirmationDialogState<T> extends State<YConfirmationDialog> {
   late T? groupValue = widget.initialValue;
-  late int length = widget.items.length;
-
-  Widget mustConfirmBody(BuildContext context) => Column(
-        children: List.generate(length, (index) {
-          final YConfirmationDialogItem<T> item = widget.items[index] as YConfirmationDialogItem<T>;
-          return Column(children: [
-            if (index != 0) YDivider(),
-            YRadioListTile(
-                title: item.label,
-                value: item.value,
-                groupValue: groupValue,
-                color: widget.color,
-                onChanged: (dynamic v) {
-                  final T value = v;
-                  setState(() {
-                    groupValue = value;
-                  });
-                })
-          ]);
-        }),
-      );
-
-  Widget mustntConfirmBody(BuildContext context) => Column(
-        children: List.generate(length, (index) {
-          final YConfirmationDialogItem<T> item = widget.items[index] as YConfirmationDialogItem<T>;
-          final bool selected = widget.initialValue == null ? false : widget.initialValue == item.value;
-          final YTColor style = theme.colors.get(widget.color);
-          return Column(children: [
-            if (index != 0) YDivider(),
-            ListTile(
-              tileColor: selected ? style.lightColor : null,
-              onTap: () => Navigator.of(context).pop(item.value),
-              title: Text(
-                item.label,
-                style: theme.texts.body1.copyWith(color: selected ? style.backgroundColor : null),
-              ),
-            ),
-          ]);
-        }),
-      );
+  late int length = widget.options.length;
 
   @override
   Widget build(BuildContext context) {
     return YDialogBase(
         title: widget.title,
         horizontalPadding: false,
-        body: widget.mustConfirm ? mustConfirmBody(context) : mustntConfirmBody(context),
+        body: Column(
+          children: List.generate(length, (index) {
+            final YConfirmationDialogOption<T> item = widget.options[index] as YConfirmationDialogOption<T>;
+            return Column(children: [
+              if (index != 0) YDivider(),
+              YRadioListTile<T?>(
+                  title: item.label,
+                  value: item.value,
+                  groupValue: groupValue,
+                  color: widget.color,
+                  onChanged: (T? v) {
+                    if (!widget.mustConfirm) Navigator.of(context).pop(item.value);
+                    setState(() {
+                      groupValue = v;
+                    });
+                  })
+            ]);
+          }),
+        ),
         actions: widget.mustConfirm
             ? [
                 YButton(
                     onPressed: () => Navigator.of(context).pop(),
                     text: widget.cancelLabel,
                     variant: YButtonVariant.text,
+                    invertColors: true,
                     color: widget.color),
                 YButton(
                     onPressed: () => Navigator.of(context).pop(groupValue),
@@ -91,9 +86,14 @@ class _YConfirmationDialogState<T> extends State<YConfirmationDialog> {
   }
 }
 
-class YConfirmationDialogItem<T> {
+/// An option for the [YConfirmationDialog].
+class YConfirmationDialogOption<T> {
+  /// The value of the option.
   final T value;
+
+  /// The label of the option.
   final String label;
 
-  const YConfirmationDialogItem({required this.value, required this.label});
+  /// An option for the [YConfirmationDialog].
+  const YConfirmationDialogOption({required this.value, required this.label});
 }

@@ -15,7 +15,7 @@ class YCheckboxListTile extends StatelessWidget {
   /// The color of the checkbox. Defaults to [YColor.primary].
   final YColor color;
 
-  /// The condition to display the checkbox at the end of the list instead.
+  /// The condition to display the checkbox at the end of the tile instead.
   final bool end;
 
   /// A list tile that uses [YCheckbox].

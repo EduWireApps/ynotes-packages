@@ -9,7 +9,7 @@ class YSwitch extends StatelessWidget {
   /// must be used to update the state of the switch.
   final ValueChanged<bool> onChanged;
 
-  /// The color of the checkbox. Defaults to [YColor.primary].
+  /// The color of the switch. Defaults to [YColor.primary].
   final YColor color;
 
   /// A switch to toggle.

@@ -41,7 +41,7 @@ part 'src/components/navigation/y_page.dart';
 // Buttons
 part 'src/components/buttons/y_button.dart';
 part 'src/components/buttons/y_floating_button.dart';
-// TODO: IconButton
+part 'src/components/buttons/y_icon_button.dart';
 // TODO: DropdownButton
 
 // TODO: Bottom sheets

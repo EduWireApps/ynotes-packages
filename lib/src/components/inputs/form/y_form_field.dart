@@ -1,6 +1,6 @@
 part of components;
 
-enum YFormFieldInputType { text, password, email, number, phone, url, datetetime }
+enum YFormFieldInputType { text, password, email, number, phone, url, datetime }
 
 class YFormField extends StatefulWidget {
   final TextInputType type;
@@ -103,18 +103,13 @@ class _YFormFieldState extends State<YFormField> {
             suffixIcon: this.isPassword
                 ? Padding(
                     padding: YPadding.pr(YScale.s3),
-                    child: IconButton(
-                      onPressed: () {
-                        setState(() {
-                          this.obscured = !this.obscured;
-                        });
-                      },
-                      icon: Icon(
-                        this.obscured ? Icons.visibility : Icons.visibility_off,
-                        color: theme.colors.foregroundLightColor,
-                      ),
-                    ),
-                  )
+                    child: YIconButton(
+                        icon: this.obscured ? Icons.visibility : Icons.visibility_off,
+                        onPressed: () {
+                          setState(() {
+                            this.obscured = !this.obscured;
+                          });
+                        }))
                 : null,
             hintText: widget.placeholder,
             hintStyle: theme.texts.body1,

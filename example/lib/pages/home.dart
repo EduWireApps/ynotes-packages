@@ -77,142 +77,140 @@ class _HomePageState extends State<HomePage> {
           YBottomNavigationElement(
             label: "Reçus",
             icon: Icons.mail_rounded,
-            widget: Column(
-              children: [
-                Center(child: Text("Reçus", style: TextStyle(color: theme.colors.foregroundColor))),
-                YButton(
-                  text: "dialog",
-                  onPressed: () {
-                    ScaffoldMessenger.of(context).showMaterialBanner(
-                      MaterialBanner(
-                        content: const Text('Hello, I am a Material Banner'),
-                        leading: const Icon(Icons.info),
-                        backgroundColor: theme.colors.primary.backgroundColor,
-                        actions: [
-                          YButton(
-                              onPressed: () => ScaffoldMessenger.of(context).hideCurrentMaterialBanner(),
-                              text: "Hide",
-                              invertColors: true,
-                              variant: YButtonVariant.text)
-                        ],
-                      ),
-                    );
-                  },
-                  // block: true,
-                  variant: YButtonVariant.contained,
-                  invertColors: true,
-                  color: YColor.secondary,
-                  size: YButtonSize.medium,
-                  rounded: true,
-                ),
-                Container(
-                    width: 250,
-                    child: Form(
-                      key: _formKey,
-                      child: Column(
-                        children: [
-                          YSwitchListTile(
-                              color: YColor.success,
-                              title: "Has error",
-                              value: _formHasError,
-                              onChanged: (bool v) {
-                                setState(() {
-                                  _formHasError = v;
-                                });
-                              }),
-                          YVerticalSpacer(10),
-                          YFormField(
-                            type: TextInputType.text,
-                            expandable: true,
-                            validator: (String? v) {
-                              return _formHasError ? "Invalid" : null;
-                            },
-                            onSaved: (String? v) {
-                              print(v);
-                            },
-                            label: "First name",
-                            placeholder: "John",
-                            properties: YFormFieldProperties(),
-                          ),
-                          YVerticalSpacer(10),
-                          Row(
-                            children: [
-                              Expanded(
-                                child: YButton(
-                                    onPressed: () {
-                                      final bool validated = _formKey.currentState!.validate();
-                                      if (validated)
-                                        ScaffoldMessenger.of(context).showSnackBar(
-                                          SnackBar(
-                                            behavior: SnackBarBehavior.floating,
-                                            shape: RoundedRectangleBorder(borderRadius: YBorderRadius.lg),
-                                            content: Text("Validated!",
-                                                style: theme.texts.body1
-                                                    .copyWith(color: theme.colors.success.foregroundColor)),
-                                            backgroundColor: theme.colors.success.backgroundColor,
-                                            action: SnackBarAction(
-                                                textColor: theme.colors.success.foregroundColor,
-                                                label: "Hide",
-                                                onPressed: () {}),
-                                          ),
-                                        );
-                                    },
-                                    text: "SE CONNECTER"),
-                              )
-                            ],
-                          )
-                        ],
-                      ),
-                    )),
-                YVerticalSpacer(30),
-                Container(
-                  width: 300,
-                  child: Column(
+            widget: Padding(
+              padding: YPadding.p(YScale.s4),
+              child: Column(
+                children: [
+                  Center(child: Text("Reçus", style: TextStyle(color: theme.colors.foregroundColor))),
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
                     children: [
-                      YForm(formKey: key, onSubmit: submit, fields: [
-                        YFormField(
-                          type: TextInputType.text,
-                          onChanged: (String value) {},
-                          label: "First name",
-                          properties: YFormFieldProperties(),
-                          validator: (String? v) {
-                            return v == null || v == "" ? "This field is required" : null;
-                          },
-                          onSaved: (String? v) {
-                            _formData["firstName"] = v ?? "";
-                          },
-                        ),
-                        YFormField(
-                          type: TextInputType.text,
-                          onChanged: (String value) {},
-                          label: "Last name (optional)",
-                          properties: YFormFieldProperties(),
-                          onSaved: (String? v) {
-                            _formData["lastName"] = v ?? "";
-                          },
-                        ),
-                        YFormField(
-                          type: TextInputType.visiblePassword,
-                          onChanged: (String value) {},
-                          label: "Password",
-                          properties: YFormFieldProperties(),
-                          validator: (String? v) {
-                            return v == null || v.length < 8 ? "Your password is too short (8 characters min)" : null;
-                          },
-                          onSaved: (String? v) {
-                            _formData["password"] = v ?? "";
-                          },
-                        ),
-                      ]),
                       YButton(
-                          onPressed: () {
-                            submit(key.currentState!.validate());
-                          },
-                          text: "Submit test")
+                        text: "SHOW BANNER",
+                        onPressed: () {
+                          ScaffoldMessenger.of(context).showMaterialBanner(
+                            MaterialBanner(
+                              content: const Text('Hello, I am a Material Banner'),
+                              leading: const Icon(Icons.info),
+                              backgroundColor: theme.colors.primary.backgroundColor,
+                              actions: [
+                                YButton(
+                                    onPressed: () => ScaffoldMessenger.of(context).hideCurrentMaterialBanner(),
+                                    text: "Hide",
+                                    invertColors: true,
+                                    variant: YButtonVariant.text)
+                              ],
+                            ),
+                          );
+                        },
+                        // block: true,
+                        variant: YButtonVariant.contained,
+                        invertColors: true,
+                        color: YColor.secondary,
+                        size: YButtonSize.medium,
+                        rounded: true,
+                      ),
+                      YHorizontalSpacer(20),
+                      YIconButton(icon: Icons.edit, onPressed: () {}, tooltip: "Edit")
                     ],
                   ),
-                )
-              ],
+                  Container(
+                      width: 250,
+                      child: Form(
+                        key: _formKey,
+                        child: Column(
+                          children: [
+                            YSwitchListTile(
+                                color: YColor.success,
+                                title: "Has error",
+                                value: _formHasError,
+                                onChanged: (bool v) {
+                                  setState(() {
+                                    _formHasError = v;
+                                  });
+                                }),
+                            YVerticalSpacer(10),
+                            YFormField(
+                              type: TextInputType.text,
+                              expandable: true,
+                              validator: (String? v) {
+                                return _formHasError ? "Invalid" : null;
+                              },
+                              onSaved: (String? v) {
+                                print(v);
+                              },
+                              label: "First name",
+                              placeholder: "John",
+                              properties: YFormFieldProperties(),
+                            ),
+                            YVerticalSpacer(10),
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: YButton(
+                                      onPressed: () {
+                                        final bool validated = _formKey.currentState!.validate();
+                                        if (validated)
+                                          YSnackbars.success(context,
+                                              title: "Validated", message: "You can now connect");
+                                      },
+                                      text: "SE CONNECTER"),
+                                )
+                              ],
+                            )
+                          ],
+                        ),
+                      )),
+                  YVerticalSpacer(30),
+                  Container(
+                    width: 300,
+                    child: Column(
+                      children: [
+                        YForm(formKey: key, onSubmit: submit, fields: [
+                          YFormField(
+                            type: TextInputType.text,
+                            onChanged: (String value) {},
+                            label: "First name",
+                            properties: YFormFieldProperties(),
+                            validator: (String? v) {
+                              return v == null || v == "" ? "This field is required" : null;
+                            },
+                            onSaved: (String? v) {
+                              _formData["firstName"] = v ?? "";
+                            },
+                          ),
+                          YFormField(
+                            type: TextInputType.text,
+                            onChanged: (String value) {},
+                            label: "Last name (optional)",
+                            properties: YFormFieldProperties(),
+                            onSaved: (String? v) {
+                              _formData["lastName"] = v ?? "";
+                            },
+                          ),
+                          YFormField(
+                            type: TextInputType.visiblePassword,
+                            onChanged: (String value) {},
+                            label: "Password",
+                            properties: YFormFieldProperties(),
+                            validator: (String? v) {
+                              return v == null || v.length < 8 ? "Your password is too short (8 characters min)" : null;
+                            },
+                            onSaved: (String? v) {
+                              _formData["password"] = v ?? "";
+                            },
+                          ),
+                        ]),
+                        YButton(
+                            onPressed: () {
+                              submit(key.currentState!.validate());
+                            },
+                            text: "Submit test")
+                      ],
+                    ),
+                  )
+                ],
+              ),
             ),
           ),
           YBottomNavigationElement(

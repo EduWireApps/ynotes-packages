@@ -30,13 +30,13 @@ class _YAppBarState extends State<YAppBar> {
         ),
         centerTitle: false,
         iconTheme: IconThemeData(color: theme.colors.foregroundColor),
-        leading: IconButton(
+        leading: YIconButton(
             onPressed: widget.leading.openDrawer
                 ? () {
                     Scaffold.of(context).openDrawer();
                   }
                 : widget.leading.onPressed ?? () {},
-            icon: Icon(widget.leading.icon)),
+            icon: widget.leading.icon),
         title: Text('Accueil',
             style: TextStyle(
                 color: theme.colors.foregroundColor,

@@ -82,19 +82,21 @@ class _HomePageState extends State<HomePage> {
                 Center(child: Text("Reçus", style: TextStyle(color: theme.colors.foregroundColor))),
                 YButton(
                   text: "dialog",
-                  onPressed: () async {
-                    final List<YListDialogOption> _options = [0, 1, 2, 3, 4, 5]
-                        .map((e) => YListDialogOption(value: e % 2 == 0, label: "Option $e"))
-                        .toList();
-                    final List<YListDialogOption>? res = await YDialogs.getList(
-                        context,
-                        YListDialog(
-                          title: "Select options",
-                          options: _options,
-                          minItemsAmount: 1,
-                          maxItemsAmount: 5,
-                        ));
-                    print(res?.map((e) => e.value).toList());
+                  onPressed: () {
+                    ScaffoldMessenger.of(context).showMaterialBanner(
+                      MaterialBanner(
+                        content: const Text('Hello, I am a Material Banner'),
+                        leading: const Icon(Icons.info),
+                        backgroundColor: theme.colors.primary.backgroundColor,
+                        actions: [
+                          YButton(
+                              onPressed: () => ScaffoldMessenger.of(context).hideCurrentMaterialBanner(),
+                              text: "Hide",
+                              invertColors: true,
+                              variant: YButtonVariant.text)
+                        ],
+                      ),
+                    );
                   },
                   // block: true,
                   variant: YButtonVariant.contained,

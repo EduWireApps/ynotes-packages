@@ -53,6 +53,24 @@ part 'src/components/snackbar/snackbars.dart';
 part 'src/components/progress_bars/y_linear_progress_bar.dart'; // TODO: adapt to be usable at the bottom of the app bar
 // TODO: CircularProgressBar
 
+// TODO: Material Banner
+/*
+ScaffoldMessenger.of(context).showMaterialBanner(
+                      MaterialBanner(
+                        content: const Text('Hello, I am a Material Banner'),
+                        leading: const Icon(Icons.info),
+                        backgroundColor: theme.colors.primary.backgroundColor,
+                        actions: [
+                          YButton(
+                              onPressed: () => ScaffoldMessenger.of(context).hideCurrentMaterialBanner(),
+                              text: "Hide",
+                              invertColors: true,
+                              variant: YButtonVariant.text)
+                        ],
+                      ),
+                    );
+*/
+
 part 'src/components/spacers.dart';
 part 'src/components/y_badge.dart';
 part 'src/components/y_divider.dart';

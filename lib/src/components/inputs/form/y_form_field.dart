@@ -1,16 +1,16 @@
 part of components;
 
-// TODO: implement behavior depending on [YFormFieldInputType]
+// TODO: implement time
+// TODO: implement dateRange
+// TODO: implement options
 
-// The different types of input fields
-enum YFormFieldInputType { text, password, email, number, phone, url, datetime, options }
+/// The different types of input fields
+enum YFormFieldInputType { text, password, email, number, phone, url, date, time, dateRange, options }
 
 /// An input field that can be used in a [YForm].
 class YFormField extends StatefulWidget {
   /// The type of the input field.
-  ///
-  /// **WARNING:** It's type will change for [YFormFieldInputType] in the future.
-  final TextInputType type;
+  final YFormFieldInputType type;
 
   /// The default of value of the input.
   final String? defaultValue;
@@ -89,22 +89,79 @@ class YFormField extends StatefulWidget {
 }
 
 class _YFormFieldState extends State<YFormField> {
+  final TextEditingController controller = TextEditingController();
   late FocusNode focusNode = widget.properties.focusNode ?? FocusNode();
   bool obscured = true;
   bool error = false;
 
   TextInputType get type {
-    return widget.type;
+    switch (widget.type) {
+      case YFormFieldInputType.text:
+        return TextInputType.text;
+      case YFormFieldInputType.password:
+        return TextInputType.visiblePassword;
+      case YFormFieldInputType.email:
+        return TextInputType.emailAddress;
+      case YFormFieldInputType.number:
+        return TextInputType.number;
+      case YFormFieldInputType.phone:
+        return TextInputType.phone;
+      case YFormFieldInputType.url:
+        return TextInputType.url;
+      default:
+        return TextInputType.none;
+    }
   }
 
+  bool isExecutingCustomAction = false;
+
   bool get isPassword => this.type == TextInputType.visiblePassword;
+
+  void _customAction() async {
+    if (focusNode.hasFocus && isExecutingCustomAction) {
+      setState(() {
+        isExecutingCustomAction = false;
+      });
+      focusNode.unfocus();
+      return;
+    }
+    setState(() {
+      isExecutingCustomAction = true;
+    });
+    switch (widget.type) {
+      case YFormFieldInputType.date:
+        final DateTime now = DateTime.now();
+        final String? res = await _CustomActions.pickDate(context,
+            initialDate: now, firstDate: DateTime(now.year - 5), lastDate: DateTime(now.year + 5));
+        if (res != null) {
+          setState(() {
+            controller.value = TextEditingValue(text: res);
+          });
+        }
+        break;
+      default:
+        setState(() {
+          isExecutingCustomAction = false;
+        });
+        break;
+    }
+  }
 
   @override
   void initState() {
     super.initState();
     focusNode.addListener(() {
       setState(() {});
+      if (type == TextInputType.none) {
+        _customAction();
+      }
     });
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
   }
 
   String? validate(String? value) {
@@ -115,9 +172,32 @@ class _YFormFieldState extends State<YFormField> {
     return val;
   }
 
+  Widget? get suffixIcon {
+    Widget _wrapper(YIconButton child) => Padding(padding: YPadding.pr(YScale.s3), child: child);
+    if (this.isPassword) {
+      return _wrapper(YIconButton(
+          icon: this.obscured ? Icons.visibility : Icons.visibility_off,
+          onPressed: () {
+            setState(() {
+              this.obscured = !this.obscured;
+            });
+          }));
+    } else if (type == TextInputType.none && controller.value.text != "") {
+      return _wrapper(YIconButton(
+          icon: Icons.clear_rounded,
+          onPressed: () {
+            setState(() {
+              controller.clear();
+            });
+          }));
+    }
+    return null;
+  }
+
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+        controller: controller,
         initialValue: widget.defaultValue,
         autocorrect: widget.autocorrect,
         onChanged: widget.onChanged,
@@ -146,17 +226,7 @@ class _YFormFieldState extends State<YFormField> {
                     : focusNode.hasFocus
                         ? theme.colors.primary.backgroundColor
                         : null),
-            suffixIcon: this.isPassword
-                ? Padding(
-                    padding: YPadding.pr(YScale.s3),
-                    child: YIconButton(
-                        icon: this.obscured ? Icons.visibility : Icons.visibility_off,
-                        onPressed: () {
-                          setState(() {
-                            this.obscured = !this.obscured;
-                          });
-                        }))
-                : null,
+            suffixIcon: suffixIcon,
             hintText: widget.placeholder,
             hintStyle: theme.texts.body1,
             helperStyle: theme.texts.body2,
@@ -172,4 +242,50 @@ class YFormFieldProperties {
   VoidCallback? onEditingComplete;
 
   YFormFieldProperties({this.focusNode, this.textInputAction, this.onEditingComplete});
+}
+
+class _CustomActions {
+  _CustomActions._();
+
+  static ThemeData get _themeData => ThemeData(
+        colorScheme: ColorScheme(
+            background: theme.colors.backgroundLightColor, // Useless
+            onBackground: theme.colors.foregroundColor, // Useless
+            primary: theme.colors.primary.backgroundColor,
+            primaryVariant: theme.colors.primary.lightColor,
+            onPrimary: theme.colors.primary.foregroundColor,
+            secondary: theme.colors.backgroundLightColor, // Useless
+            secondaryVariant: theme.colors.backgroundColor, // Useless
+            onSecondary: theme.colors.foregroundColor, // Useless
+            surface: theme.colors.primary.backgroundColor,
+            onSurface: theme.colors.foregroundColor,
+            error: theme.colors.danger.backgroundColor, // Useless
+            onError: theme.colors.danger.foregroundColor, // Useless
+            brightness: Brightness.light),
+        dialogBackgroundColor: theme.colors.backgroundLightColor,
+        buttonTheme: ButtonThemeData(textTheme: ButtonTextTheme.primary),
+      );
+
+  static Future<String?> pickDate(
+    BuildContext context, {
+    required DateTime initialDate,
+    required DateTime firstDate,
+    required DateTime lastDate,
+  }) async {
+    final DateTime? date = await showDatePicker(
+        context: context,
+        initialDate: initialDate,
+        firstDate: firstDate,
+        lastDate: lastDate,
+        builder: (BuildContext context, Widget? child) => Theme(data: _themeData, child: child!));
+    if (date != null) return DateFormat("dd/MM/yyyy").format(date);
+  }
+
+  static Future<String?> pickTime(BuildContext context, {required TimeOfDay initialTime}) async {
+    final TimeOfDay? time = await showTimePicker(
+        context: context,
+        initialTime: initialTime,
+        builder: (BuildContext context, Widget? child) => Theme(data: _themeData, child: child!));
+    if (time != null) return "${time.hour.toString().padLeft(2, '0')}:${time.minute.toString().padLeft(2, '0')}";
+  }
 }

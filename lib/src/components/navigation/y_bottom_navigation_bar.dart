@@ -1,5 +1,7 @@
 part of components;
 
+// TODO: document
+
 class YBottomNavigationBar extends StatelessWidget {
   final int currentIndex;
   final List<BottomNavigationBarItem> items;

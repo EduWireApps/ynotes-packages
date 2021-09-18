@@ -1,5 +1,7 @@
 part of components;
 
+// TODO: document
+
 class YBottomNavigationElement {
   final String label;
   final IconData icon;

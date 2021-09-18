@@ -1,5 +1,6 @@
 part of components;
 
+// TODO: document
 class YAppBarLeading {
   final IconData icon;
   final VoidCallback? onPressed;

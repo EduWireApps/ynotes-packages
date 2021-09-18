@@ -330,7 +330,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                                                     YVerticalSpacer(10),
                                                     YFormField(
                                                         properties: YFormFieldProperties(),
-                                                        type: TextInputType.visiblePassword,
+                                                        type: YFormFieldInputType.password,
                                                         defaultValue: "TEST",
                                                         label: "First name",
                                                         expandable: true,

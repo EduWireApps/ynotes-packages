@@ -1,5 +1,6 @@
 part of components;
 
+// TODO: document
 class YLinearProgressBar extends StatelessWidget {
   final double? value;
 

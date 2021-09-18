@@ -131,7 +131,7 @@ class _HomePageState extends State<HomePage> {
                                 }),
                             YVerticalSpacer(10),
                             YFormField(
-                              type: TextInputType.text,
+                              type: YFormFieldInputType.date,
                               expandable: true,
                               validator: (String? v) {
                                 return _formHasError ? "Invalid" : null;
@@ -168,7 +168,7 @@ class _HomePageState extends State<HomePage> {
                       children: [
                         YForm(formKey: key, onSubmit: submit, fields: [
                           YFormField(
-                            type: TextInputType.text,
+                            type: YFormFieldInputType.text,
                             onChanged: (String value) {},
                             label: "First name",
                             properties: YFormFieldProperties(),
@@ -180,7 +180,7 @@ class _HomePageState extends State<HomePage> {
                             },
                           ),
                           YFormField(
-                            type: TextInputType.text,
+                            type: YFormFieldInputType.text,
                             onChanged: (String value) {},
                             label: "Last name (optional)",
                             properties: YFormFieldProperties(),
@@ -189,7 +189,7 @@ class _HomePageState extends State<HomePage> {
                             },
                           ),
                           YFormField(
-                            type: TextInputType.visiblePassword,
+                            type: YFormFieldInputType.password,
                             onChanged: (String value) {},
                             label: "Password",
                             properties: YFormFieldProperties(),

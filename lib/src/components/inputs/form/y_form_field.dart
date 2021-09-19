@@ -132,7 +132,10 @@ class _YFormFieldState extends State<YFormField> {
       case YFormFieldInputType.date:
         final DateTime now = DateTime.now();
         final String? res = await _CustomActions.pickDate(context,
-            initialDate: now, firstDate: DateTime(now.year - 5), lastDate: DateTime(now.year + 5));
+            initialDate:
+                controller.value.text != "" ? DateTime.parse(controller.value.text.split("/").reversed.join("-")) : now,
+            firstDate: DateTime(now.year - 5),
+            lastDate: DateTime(now.year + 5));
         if (res != null) {
           setState(() {
             controller.value = TextEditingValue(text: res);
@@ -248,23 +251,30 @@ class _CustomActions {
   _CustomActions._();
 
   static ThemeData get _themeData => ThemeData(
-        colorScheme: ColorScheme(
-            background: theme.colors.backgroundLightColor, // Useless
-            onBackground: theme.colors.foregroundColor, // Useless
-            primary: theme.colors.primary.backgroundColor,
-            primaryVariant: theme.colors.primary.lightColor,
-            onPrimary: theme.colors.primary.foregroundColor,
-            secondary: theme.colors.backgroundLightColor, // Useless
-            secondaryVariant: theme.colors.backgroundColor, // Useless
-            onSecondary: theme.colors.foregroundColor, // Useless
-            surface: theme.colors.primary.backgroundColor,
-            onSurface: theme.colors.foregroundColor,
-            error: theme.colors.danger.backgroundColor, // Useless
-            onError: theme.colors.danger.foregroundColor, // Useless
-            brightness: Brightness.light),
-        dialogBackgroundColor: theme.colors.backgroundLightColor,
-        buttonTheme: ButtonThemeData(textTheme: ButtonTextTheme.primary),
-      );
+      colorScheme: ColorScheme(
+          background: theme.colors.backgroundLightColor, // Useless
+          onBackground: theme.colors.foregroundColor, // Useless
+          primary: theme.colors.primary.backgroundColor,
+          primaryVariant: theme.colors.primary.lightColor,
+          onPrimary: theme.colors.primary.foregroundColor,
+          secondary: theme.colors.backgroundLightColor, // Useless
+          secondaryVariant: theme.colors.backgroundColor, // Useless
+          onSecondary: theme.colors.foregroundColor, // Useless
+          surface: theme.colors.primary.backgroundColor,
+          onSurface: theme.colors.foregroundColor,
+          error: theme.colors.danger.backgroundColor, // Useless
+          onError: theme.colors.danger.foregroundColor, // Useless
+          brightness: Brightness.light),
+      dialogBackgroundColor: theme.colors.backgroundLightColor,
+      buttonTheme: ButtonThemeData(textTheme: ButtonTextTheme.primary),
+      textTheme: TextTheme(subtitle1: theme.texts.body1.copyWith(color: theme.colors.foregroundColor, height: 1.5)),
+      inputDecorationTheme: InputDecorationTheme(
+        filled: true,
+        fillColor: theme.colors.backgroundColor,
+        contentPadding: YPadding.p(YScale.s3),
+        border: UnderlineInputBorder(borderSide: BorderSide.none, borderRadius: YBorderRadius.lg),
+        labelStyle: theme.texts.body1,
+      ));
 
   static Future<String?> pickDate(
     BuildContext context, {

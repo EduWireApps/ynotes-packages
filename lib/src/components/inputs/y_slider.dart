@@ -43,7 +43,7 @@ class YSlider extends StatelessWidget {
       this.color = YColor.primary})
       : super(key: key);
 
-  YTColor get _style => theme.colors.get(this.color);
+  YTColor get _style => theme.colors.get(color);
 
   @override
   Widget build(BuildContext context) {
@@ -52,12 +52,12 @@ class YSlider extends StatelessWidget {
           valueIndicatorColor: _style.backgroundColor,
           valueIndicatorTextStyle: theme.texts.body1.copyWith(color: _style.foregroundColor)),
       child: Slider(
-          value: this.value,
-          onChanged: this.onChanged,
-          min: this.min,
-          max: this.max,
-          label: this.label ?? this.value.round().toString(),
-          divisions: this.divisions,
+          value: value,
+          onChanged: onChanged,
+          min: min,
+          max: max,
+          label: label ?? value.round().toString(),
+          divisions: divisions,
           inactiveColor: _style.lightColor,
           activeColor: _style.backgroundColor),
     );

@@ -20,16 +20,16 @@ class YRadio<T> extends StatelessWidget {
       {Key? key, required this.value, required this.groupValue, required this.onChanged, this.color = YColor.primary})
       : super(key: key);
 
-  YTColor get _style => theme.colors.get(this.color);
+  YTColor get _style => theme.colors.get(color);
 
   @override
   Widget build(BuildContext context) {
     return Theme(
       data: ThemeData(unselectedWidgetColor: theme.colors.foregroundLightColor),
       child: Radio<T>(
-        value: this.value,
-        groupValue: this.groupValue,
-        onChanged: this.onChanged,
+        value: value,
+        groupValue: groupValue,
+        onChanged: onChanged,
         activeColor: _style.backgroundColor,
         // onChanged: _onChanged,
       ),

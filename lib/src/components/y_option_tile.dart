@@ -18,19 +18,19 @@ class YOptionTile extends StatelessWidget {
       required this.onTap})
       : super(key: key);
 
-  YTColor get style => theme.colors.get(this.color);
+  YTColor get style => theme.colors.get(color);
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      onTap: this.onTap,
+      onTap: onTap,
       title: Text(
-        this.title,
+        title,
         style: theme.texts.body1
-            .copyWith(color: this.selected ? theme.colors.foregroundColor : theme.colors.foregroundLightColor),
+            .copyWith(color: selected ? theme.colors.foregroundColor : theme.colors.foregroundLightColor),
       ),
-      leading: this.end ? null : this.widget,
-      trailing: this.end ? this.widget : null,
+      leading: end ? null : widget,
+      trailing: end ? widget : null,
     );
   }
 }

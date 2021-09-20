@@ -56,7 +56,7 @@ class _YPageState extends State<YPage> with SingleTickerProviderStateMixin {
     final int _length = widget.floatingButtons!.length;
 
     for (var i = 0; i < _length + _length - 1; i++) {
-      _els.add(i % 2 == 0 ? widget.floatingButtons![i ~/ 2] : YVerticalSpacer(15));
+      _els.add(i % 2 == 0 ? widget.floatingButtons![i ~/ 2] : YVerticalSpacer(YScale.s4));
     }
 
     return _els;
@@ -70,7 +70,7 @@ class _YPageState extends State<YPage> with SingleTickerProviderStateMixin {
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: Scaffold(
         backgroundColor: theme.colors.backgroundColor,
-        appBar: PreferredSize(preferredSize: Size.fromHeight(kToolbarHeight), child: widget.appBar),
+        appBar: PreferredSize(preferredSize: const Size.fromHeight(kToolbarHeight), child: widget.appBar),
         drawer: widget.drawer,
         body: widget.bottomNavigationElements != null
             ? TabBarView(

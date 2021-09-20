@@ -22,7 +22,7 @@ class YAppBar extends StatefulWidget {
 class _YAppBarState extends State<YAppBar> {
   @override
   Widget build(BuildContext context) {
-    final double borderHeight = 1.5;
+    const double borderHeight = 1.5;
     return AppBar(
         automaticallyImplyLeading: false,
         backgroundColor: theme.colors.backgroundColor,
@@ -50,11 +50,11 @@ class _YAppBarState extends State<YAppBar> {
             child: Column(
               children: [
                 Container(height: borderHeight, color: theme.colors.backgroundLightColor),
-                YLinearProgressBar(
+                const YLinearProgressBar(
                     // value: 10,
                     )
               ],
             ),
-            preferredSize: Size.fromHeight(borderHeight + 5)));
+            preferredSize: const Size.fromHeight(borderHeight + 5)));
   }
 }

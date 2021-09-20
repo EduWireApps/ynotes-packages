@@ -82,17 +82,17 @@ class YTColors {
   YTColor get(YColor color) {
     switch (color) {
       case YColor.primary:
-        return this.primary;
+        return primary;
       case YColor.secondary:
-        return this.secondary;
+        return secondary;
       case YColor.success:
-        return this.success;
+        return success;
       case YColor.warning:
-        return this.warning;
+        return warning;
       case YColor.danger:
-        return this.danger;
+        return danger;
       case YColor.info:
-        return this.info;
+        return info;
     }
   }
 }

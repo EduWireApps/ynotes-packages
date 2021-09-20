@@ -4,10 +4,10 @@ class YScale {
   YScale._();
 
   /// 0
-  static final double s0 = 0;
+  static const double s0 = 0;
 
   /// 1px
-  static final double spx = 1;
+  static const double spx = 1;
 
   /// 0.125rem	2px
   static final double s0p5 = 0.125.rem;

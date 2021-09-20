@@ -13,7 +13,7 @@ class YApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    theme = YCurrentTheme(currentTheme: this.initialTheme, themes: this.themes);
+    theme = YCurrentTheme(currentTheme: initialTheme, themes: themes);
     return Responsive(
       builder: (context) => builder(context),
     );

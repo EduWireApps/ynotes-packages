@@ -47,16 +47,16 @@ class YListDialog extends StatefulWidget {
 
 class _YListDialogState extends State<YListDialog> {
   late List<YListDialogOption> options = widget.options;
-  late int length = this.options.length;
-  late int maxItemsAmount = widget.maxItemsAmount ?? this.options.length;
+  late int length = options.length;
+  late int maxItemsAmount = widget.maxItemsAmount ?? options.length;
 
-  int get selectedItemsLength => this.options.where((e) => e.value == true).length;
+  int get selectedItemsLength => options.where((e) => e.value == true).length;
 
   String? get hint {
     String _elements(int i) => "élément${i == 1 ? '' : 's'}";
     final int min = widget.minItemsAmount;
-    final int max = this.maxItemsAmount;
-    final String _beginning = "Tu dois sélectionner";
+    final int max = maxItemsAmount;
+    const String _beginning = "Tu dois sélectionner";
 
     if (min == max) {
       return "$_beginning $min ${_elements(min)}";
@@ -64,7 +64,7 @@ class _YListDialogState extends State<YListDialog> {
       return "$_beginning au minimum $min ${_elements(min)}";
     } else if (min == 0 && widget.maxItemsAmount != null) {
       return "$_beginning au maximum $max ${_elements(max)}";
-    } else if (min == 0 && maxItemsAmount == this.options.length) {
+    } else if (min == 0 && maxItemsAmount == options.length) {
       return null;
     } else {
       return "$_beginning entre $min et $max ${_elements(max)}";
@@ -86,9 +86,9 @@ class _YListDialogState extends State<YListDialog> {
         children: [
           Column(
             children: List.generate(length, (index) {
-              final YListDialogOption item = this.options[index];
+              final YListDialogOption item = options[index];
               return Column(children: [
-                if (index != 0) YDivider(),
+                if (index != 0) const YDivider(),
                 tile(context, item: item, onChanged: (bool v) {
                   setState(() {
                     item.value = v;
@@ -112,10 +112,10 @@ class _YListDialogState extends State<YListDialog> {
             variant: YButtonVariant.text,
             color: widget.color),
         YButton(
-            onPressed: () => Navigator.of(context).pop(this.options),
+            onPressed: () => Navigator.of(context).pop(options),
             text: widget.confirmLabel,
             variant: YButtonVariant.contained,
-            isDisabled: selectedItemsLength < widget.minItemsAmount || selectedItemsLength > this.maxItemsAmount,
+            isDisabled: selectedItemsLength < widget.minItemsAmount || selectedItemsLength > maxItemsAmount,
             color: widget.color),
       ],
     );

@@ -44,28 +44,28 @@ class YTheme {
   /// The [ThemeData] generated from the theme. It must be used in [MaterialApp] and can be combined.
   ThemeData get themeData => ThemeData(
       colorScheme: ColorScheme(
-        primary: this.colors.backgroundLightColor,
-        primaryVariant: this.colors.backgroundColor,
-        onPrimary: this.colors.foregroundColor,
-        secondary: this.colors.primary.backgroundColor,
-        secondaryVariant: this.colors.primary.lightColor,
-        onSecondary: this.colors.primary.foregroundColor,
-        error: this.colors.danger.backgroundColor,
-        onError: this.colors.danger.foregroundColor,
-        background: this.colors.backgroundColor,
-        onBackground: this.colors.foregroundColor,
-        surface: this.colors.backgroundLightColor,
-        onSurface: this.colors.foregroundLightColor,
+        primary: colors.backgroundLightColor,
+        primaryVariant: colors.backgroundColor,
+        onPrimary: colors.foregroundColor,
+        secondary: colors.primary.backgroundColor,
+        secondaryVariant: colors.primary.lightColor,
+        onSecondary: colors.primary.foregroundColor,
+        error: colors.danger.backgroundColor,
+        onError: colors.danger.foregroundColor,
+        background: colors.backgroundColor,
+        onBackground: colors.foregroundColor,
+        surface: colors.backgroundLightColor,
+        onSurface: colors.foregroundLightColor,
         brightness: theme.isDark ? Brightness.dark : Brightness.light,
       ),
-      splashColor: this.splashColor ?? (this.isDark ? Colors.white12 : Colors.black12),
+      splashColor: splashColor ?? (isDark ? Colors.white12 : Colors.black12),
       highlightColor: Colors.transparent,
       splashFactory: InkRipple.splashFactory,
-      fontFamily: this.fonts.secondary,
+      fontFamily: fonts.secondary,
       textSelectionTheme: TextSelectionThemeData(
-        selectionColor: this.colors.primary.lightColor,
-        cursorColor: this.colors.primary.backgroundColor,
-        selectionHandleColor: this.colors.primary.backgroundColor,
+        selectionColor: colors.primary.lightColor,
+        cursorColor: colors.primary.backgroundColor,
+        selectionHandleColor: colors.primary.backgroundColor,
       ));
 }
 
@@ -87,25 +87,25 @@ class YCurrentTheme {
   YCurrentTheme({required this.currentTheme, required this.themes});
 
   /// The current theme to use internally.
-  YTheme get _ct => this.themes.firstWhere((t) => t.id == this.currentTheme);
+  YTheme get _ct => themes.firstWhere((t) => t.id == currentTheme);
 
   /// The current theme name, to display in the user interface.
-  String get name => this._ct.name;
+  String get name => _ct.name;
 
   /// The global feeling of the current theme. Used for values like [Brightness].
-  bool get isDark => this._ct.isDark;
+  bool get isDark => _ct.isDark;
 
   /// The colors availables for the current theme.
-  YTColors get colors => this._ct.colors;
+  YTColors get colors => _ct.colors;
 
   /// The [ThemeData] generated from the current theme. It must be used in [MaterialApp] and can be combined.
-  ThemeData get themeData => this._ct.themeData;
+  ThemeData get themeData => _ct.themeData;
 
   /// The fonts availables for the current theme.
-  YTFonts get fonts => this._ct.fonts;
+  YTFonts get fonts => _ct.fonts;
 
   /// The texts styles availables for the current theme. Doesn't follow the Material Design guidelines.
-  YTTexts get texts => this._ct.texts;
+  YTTexts get texts => _ct.texts;
 }
 
 /// A variable that manage the theme for the whole app.

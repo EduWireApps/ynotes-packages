@@ -20,7 +20,7 @@ class _YShadowScrollContainerState extends State<YShadowScrollContainer> {
   late bool showBottomGradient = false;
   final double distance = 5;
   final double gradientHeight = YScale.s8;
-  final Duration duration = Duration(milliseconds: 250);
+  final Duration duration = const Duration(milliseconds: 250);
   final Curve curve = Curves.easeInOut;
 
   void setGradientsVisibility() {
@@ -62,7 +62,7 @@ class _YShadowScrollContainerState extends State<YShadowScrollContainer> {
         controller: _scrollController,
         children: widget.children,
         shrinkWrap: widget.shrinkWrap,
-        physics: widget.shrinkWrap ? ClampingScrollPhysics() : null,
+        physics: widget.shrinkWrap ? const ClampingScrollPhysics() : null,
       ),
       Positioned(
           top: -1,

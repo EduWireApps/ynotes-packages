@@ -31,11 +31,11 @@ class YCheckboxListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return YOptionTile(
-        title: this.title,
-        widget: YCheckbox(value: this.value, onChanged: this.onChanged, color: this.color),
-        selected: this.value,
-        onTap: () => this.onChanged(!this.value),
-        color: this.color,
-        end: this.end);
+        title: title,
+        widget: YCheckbox(value: value, onChanged: onChanged, color: color),
+        selected: value,
+        onTap: () => onChanged(!value),
+        color: color,
+        end: end);
   }
 }

@@ -35,19 +35,16 @@ class YRadioListTile<T> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return YOptionTile(
-        title: this.title,
-        widget: YRadio<T>(
-            value: this.value,
-            groupValue: this.groupValue,
-            onChanged: this.onChanged as Function(dynamic),
-            color: this.color),
-        selected: this.value == this.groupValue,
+        title: title,
+        widget:
+            YRadio<T>(value: value, groupValue: groupValue, onChanged: onChanged as Function(dynamic), color: color),
+        selected: value == groupValue,
         onTap: () {
-          if (this.value != this.groupValue) {
-            this.onChanged(this.value);
+          if (value != groupValue) {
+            onChanged(value);
           }
         },
-        color: this.color,
-        end: this.end);
+        color: color,
+        end: end);
   }
 }

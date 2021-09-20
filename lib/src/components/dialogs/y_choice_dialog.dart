@@ -29,17 +29,17 @@ class YChoiceDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return YDialogBase(title: this.title, body: this.body, actions: [
+    return YDialogBase(title: title, body: body, actions: [
       YButton(
           onPressed: () => Navigator.of(context).pop(false),
-          text: this.cancelLabel,
+          text: cancelLabel,
           variant: YButtonVariant.text,
-          color: this.color),
+          color: color),
       YButton(
           onPressed: () => Navigator.of(context).pop(true),
-          text: this.confirmLabel,
+          text: confirmLabel,
           variant: YButtonVariant.contained,
-          color: this.color),
+          color: color),
     ]);
   }
 }

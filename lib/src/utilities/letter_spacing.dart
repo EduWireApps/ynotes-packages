@@ -5,7 +5,7 @@ class YLetterSpacing {
 
   static final double tighter = -0.05.rem;
   static final double tight = -0.025.rem;
-  static final double normal = 0;
+  static const double normal = 0;
   static final double wide = 0.025.rem;
   static final double wider = 0.05.rem;
   static final double widest = 0.1.rem;

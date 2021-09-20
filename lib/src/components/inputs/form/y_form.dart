@@ -27,7 +27,7 @@ class YForm extends StatefulWidget {
 }
 
 class _YFormState extends State<YForm> {
-  late GlobalKey<FormState> _formKey = widget.formKey;
+  GlobalKey<FormState> get _formKey => widget.formKey;
   late List<FocusNode> _focusNodes;
 
   List<Widget> get _children {
@@ -64,7 +64,9 @@ class _YFormState extends State<YForm> {
 
   @override
   void dispose() {
-    _focusNodes.forEach((node) => node.dispose());
+    for (var node in _focusNodes) {
+      node.dispose();
+    }
     super.dispose();
   }
 

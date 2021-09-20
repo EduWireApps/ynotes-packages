@@ -16,19 +16,19 @@ class YSwitch extends StatelessWidget {
   const YSwitch({Key? key, required this.value, required this.onChanged, this.color = YColor.primary})
       : super(key: key);
 
-  YTColor get _style => theme.colors.get(this.color);
+  YTColor get _style => theme.colors.get(color);
 
   @override
   Widget build(BuildContext context) {
     final double width = YScale.s12;
     final double height = YScale.s6;
 
-    return Container(
+    return SizedBox(
       width: width,
       height: height,
       child: FlutterSwitch(
-        value: this.value,
-        onToggle: this.onChanged,
+        value: value,
+        onToggle: onChanged,
         width: width,
         height: height,
         padding: YScale.s0p5,
@@ -37,7 +37,7 @@ class YSwitch extends StatelessWidget {
         activeToggleColor: _style.foregroundColor,
         activeColor: _style.backgroundColor,
         inactiveColor: theme.colors.backgroundLightColor,
-        duration: Duration(milliseconds: 100),
+        duration: const Duration(milliseconds: 100),
       ),
     );
   }

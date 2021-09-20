@@ -52,7 +52,7 @@ class _YConfirmationDialogState<T> extends State<YConfirmationDialog> {
           children: List.generate(length, (index) {
             final YConfirmationDialogOption<T> item = widget.options[index] as YConfirmationDialogOption<T>;
             return Column(children: [
-              if (index != 0) YDivider(),
+              if (index != 0) const YDivider(),
               YRadioListTile<T?>(
                   title: item.label,
                   value: item.value,

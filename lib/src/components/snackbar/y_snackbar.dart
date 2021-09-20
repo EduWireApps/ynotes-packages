@@ -39,7 +39,7 @@ class YSnackBar {
               color: Colors.black.withOpacity(.06)),
         ],
         isDismissible: isDismissible,
-        duration: Duration(seconds: 3),
+        duration: const Duration(seconds: 3),
         shouldIconPulse: false,
         icon: icon != null
             ? Icon(

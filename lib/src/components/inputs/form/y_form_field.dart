@@ -115,9 +115,11 @@ class _YFormFieldState extends State<YFormField> {
 
   bool isExecutingCustomAction = false;
 
-  bool get isPassword => this.type == TextInputType.visiblePassword;
+  bool get isPassword => type == TextInputType.visiblePassword;
 
   void _customAction() async {
+    // TODO: debug weird beahvior there
+    print("customAction");
     if (focusNode.hasFocus && isExecutingCustomAction) {
       setState(() {
         isExecutingCustomAction = false;
@@ -170,19 +172,19 @@ class _YFormFieldState extends State<YFormField> {
   String? validate(String? value) {
     final String? val = widget.validator!(value);
     setState(() {
-      this.error = val != null;
+      error = val != null;
     });
     return val;
   }
 
   Widget? get suffixIcon {
     Widget _wrapper(YIconButton child) => Padding(padding: YPadding.pr(YScale.s3), child: child);
-    if (this.isPassword) {
+    if (isPassword) {
       return _wrapper(YIconButton(
-          icon: this.obscured ? Icons.visibility : Icons.visibility_off,
+          icon: obscured ? Icons.visibility : Icons.visibility_off,
           onPressed: () {
             setState(() {
-              this.obscured = !this.obscured;
+              obscured = !obscured;
             });
           }));
     } else if (type == TextInputType.none && controller.value.text != "") {
@@ -204,16 +206,16 @@ class _YFormFieldState extends State<YFormField> {
         initialValue: widget.defaultValue,
         autocorrect: widget.autocorrect,
         onChanged: widget.onChanged,
-        keyboardType: this.type,
+        keyboardType: type,
         textCapitalization: widget.textCapitalization,
         textInputAction: widget.properties.textInputAction,
         focusNode: focusNode,
         maxLength: widget.maxLength,
-        maxLines: widget.expandable && !this.isPassword ? null : 1,
+        maxLines: widget.expandable && !isPassword ? null : 1,
         cursorColor: theme.colors.primary.lightColor,
-        obscureText: this.isPassword ? this.obscured : false,
+        obscureText: isPassword ? obscured : false,
         style: theme.texts.body1.copyWith(color: theme.colors.foregroundColor, height: 1.5),
-        validator: widget.validator != null ? this.validate : null,
+        validator: widget.validator != null ? validate : null,
         onEditingComplete: widget.properties.onEditingComplete,
         onSaved: widget.onSaved,
         readOnly: widget.disabled,
@@ -224,7 +226,7 @@ class _YFormFieldState extends State<YFormField> {
             border: UnderlineInputBorder(borderSide: BorderSide.none, borderRadius: YBorderRadius.lg),
             labelText: widget.label,
             labelStyle: theme.texts.body1.copyWith(
-                color: this.error
+                color: error
                     ? theme.colors.danger.backgroundColor
                     : focusNode.hasFocus
                         ? theme.colors.primary.backgroundColor
@@ -266,7 +268,7 @@ class _CustomActions {
           onError: theme.colors.danger.foregroundColor, // Useless
           brightness: Brightness.light),
       dialogBackgroundColor: theme.colors.backgroundLightColor,
-      buttonTheme: ButtonThemeData(textTheme: ButtonTextTheme.primary),
+      buttonTheme: const ButtonThemeData(textTheme: ButtonTextTheme.primary),
       textTheme: TextTheme(subtitle1: theme.texts.body1.copyWith(color: theme.colors.foregroundColor, height: 1.5)),
       inputDecorationTheme: InputDecorationTheme(
         filled: true,

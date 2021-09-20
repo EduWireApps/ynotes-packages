@@ -28,12 +28,12 @@ class YDialogBase extends StatelessWidget {
           borderRadius: YBorderRadius.lg,
         ),
         backgroundColor: theme.colors.backgroundLightColor,
-        title: Text(this.title, style: theme.texts.title),
+        title: Text(title, style: theme.texts.title),
         contentPadding: EdgeInsets.fromLTRB(padding, YScale.s5, padding, YScale.s6),
         content: Container(
-          constraints: BoxConstraints(maxWidth: 600),
-          child: SingleChildScrollView(child: this.body),
+          constraints: const BoxConstraints(maxWidth: 600),
+          child: SingleChildScrollView(child: body),
         ),
-        actions: this.actions);
+        actions: actions);
   }
 }

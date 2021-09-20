@@ -16,9 +16,9 @@ class YCheckbox extends StatelessWidget {
   const YCheckbox({Key? key, required this.value, required this.onChanged, this.color = YColor.primary})
       : super(key: key);
 
-  YTColor get _style => theme.colors.get(this.color);
+  YTColor get _style => theme.colors.get(color);
 
-  void _onChanged(bool? value) => this.onChanged(value!);
+  void _onChanged(bool? value) => onChanged(value!);
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +27,7 @@ class YCheckbox extends StatelessWidget {
       child: Checkbox(
         activeColor: _style.backgroundColor,
         checkColor: _style.foregroundColor,
-        value: this.value,
+        value: value,
         onChanged: _onChanged,
         shape: RoundedRectangleBorder(borderRadius: YBorderRadius.normal),
       ),

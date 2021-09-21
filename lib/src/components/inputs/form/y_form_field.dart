@@ -1,7 +1,7 @@
 part of components;
 
-// TODO: implement time
-// TODO: implement dateRange
+// TODO: add parameters for custom actions
+
 // TODO: implement options
 
 /// The different types of input fields
@@ -62,6 +62,29 @@ class YFormField extends StatefulWidget {
   /// the values of the inputs of a form.
   final ValueChanged<String?> onSaved;
 
+  /// When using [YFormFieldInputType.date] or [YFormFieldInputType.dateRange],
+  /// this is the initial date set when the modal shows up. Defaults to `DateTime.now()`.
+  final DateTime? initialDate;
+
+  /// When using [YFormFieldInputType.date] or [YFormFieldInputType.dateRange],
+  /// this is the first date (that mins the minimum date) set when the modal shows up.
+  /// Defaults to `DateTime(initialDate.year - 5)`
+  final DateTime? firstDate;
+
+  /// When using [YFormFieldInputType.date] or [YFormFieldInputType.dateRange],
+  /// this is the first date (that mins the maximum date) set when the modal shows up.
+  /// Defaults to `DateTime(initialDate.year + 5)`
+  final DateTime? lastDate;
+
+  /// When using [YFormFieldInputType.time], this is the initial time set when the modal shows up.
+  /// Defaults to `TimeOfDay.now()`
+  final TimeOfDay? initialTime;
+
+  /// When using [YFormFieldInputType.dateRange], this is the initial range
+  /// (in fact [initialDate] + [initialDateRangeDuration]) set when the modal shows up.
+  /// Defaults to `const Duration(hours: 24 * 3)`
+  final Duration? initialDateRangeDuration;
+
   /// An input field that can be used in a [YForm].
   const YFormField(
       {Key? key,
@@ -78,7 +101,12 @@ class YFormField extends StatefulWidget {
       this.placeholder,
       this.helper,
       required this.properties,
-      required this.onSaved})
+      required this.onSaved,
+      this.initialDate,
+      this.firstDate,
+      this.lastDate,
+      this.initialTime,
+      this.initialDateRangeDuration})
       : super(key: key);
 
   set focusNode(FocusNode? f) => focusNode = f;
@@ -113,41 +141,85 @@ class _YFormFieldState extends State<YFormField> {
     }
   }
 
-  bool isExecutingCustomAction = false;
+  bool modalOpened = false;
+  bool blockActionExecution = false;
 
   bool get isPassword => type == TextInputType.visiblePassword;
 
   void _customAction() async {
-    // TODO: debug weird beahvior there
-    print("customAction");
-    if (focusNode.hasFocus && isExecutingCustomAction) {
+    // Because we unfocus the input, it triggers this function. Using this, we block its execution
+    // to avoid infinite modal showing.
+    if (blockActionExecution) {
+      if (focusNode.hasFocus) {
+        focusNode.unfocus();
+        return;
+      }
       setState(() {
-        isExecutingCustomAction = false;
+        blockActionExecution = false;
       });
-      focusNode.unfocus();
       return;
     }
-    setState(() {
-      isExecutingCustomAction = true;
-    });
+    // The previous time, the modal was shown to the user so we stop there and block the execution
+    // of the action until the input is disabled using the code above.
+    if (modalOpened) {
+      setState(() {
+        modalOpened = false;
+        blockActionExecution = true;
+      });
+      return;
+    }
+    // Based on the type of the input, a specific modal is shown.
+
+    Future<void> executeAction(Future<String?> callback) async {
+      // We show the modal.
+      setState(() {
+        modalOpened = true;
+      });
+      final String? res = await callback;
+      if (res != null) {
+        setState(() {
+          controller.value = TextEditingValue(text: res);
+        });
+      }
+    }
+
     switch (widget.type) {
       case YFormFieldInputType.date:
-        final DateTime now = DateTime.now();
-        final String? res = await _CustomActions.pickDate(context,
-            initialDate:
-                controller.value.text != "" ? DateTime.parse(controller.value.text.split("/").reversed.join("-")) : now,
-            firstDate: DateTime(now.year - 5),
-            lastDate: DateTime(now.year + 5));
-        if (res != null) {
-          setState(() {
-            controller.value = TextEditingValue(text: res);
-          });
-        }
+        final DateTime initialDate = widget.initialDate ?? DateTime.now();
+        final Future<String?> callback = _CustomActions.pickDate(context,
+            initialDate: controller.value.text != ""
+                ? DateTime.parse(controller.value.text.split("/").reversed.join("-"))
+                : initialDate,
+            firstDate: widget.firstDate ?? DateTime(initialDate.year - 5),
+            lastDate: widget.lastDate ?? DateTime(initialDate.year + 5));
+        await executeAction(callback);
+        break;
+      case YFormFieldInputType.time:
+        final TimeOfDay initialTime = widget.initialTime ?? TimeOfDay.now();
+        final Future<String?> callback = _CustomActions.pickTime(context,
+            initialTime: controller.value.text != ""
+                ? TimeOfDay(
+                    hour: int.parse(controller.value.text.split(":")[0]),
+                    minute: int.parse(controller.value.text.split(":")[1].split(" ")[0]))
+                : initialTime);
+        await executeAction(callback);
+        break;
+      case YFormFieldInputType.dateRange:
+        final DateTime initialDate = widget.initialDate ?? DateTime.now();
+        final DateTimeRange initialDateRange = DateTimeRange(
+            start: controller.value.text != ""
+                ? DateTime.parse(controller.value.text.split(" - ")[0].split("/").reversed.join("-"))
+                : initialDate,
+            end: controller.value.text != ""
+                ? DateTime.parse(controller.value.text.split(" - ")[1].split("/").reversed.join("-"))
+                : initialDate.add(widget.initialDateRangeDuration ?? const Duration(hours: 24 * 3)));
+        final Future<String?> callback = _CustomActions.pickDateRange(context,
+            initialDateRange: initialDateRange,
+            firstDate: DateTime(initialDate.year - 5),
+            lastDate: DateTime(initialDate.year + 5));
+        await executeAction(callback);
         break;
       default:
-        setState(() {
-          isExecutingCustomAction = false;
-        });
         break;
     }
   }
@@ -241,6 +313,7 @@ class _YFormFieldState extends State<YFormField> {
   }
 }
 
+/// A mutable class with properties used by [YForm].
 class YFormFieldProperties {
   FocusNode? focusNode;
   TextInputAction? textInputAction;
@@ -249,34 +322,24 @@ class YFormFieldProperties {
   YFormFieldProperties({this.focusNode, this.textInputAction, this.onEditingComplete});
 }
 
+/// Class that manages the modals to show when the user clicks on the input for some [YFormFieldInputType].
 class _CustomActions {
   _CustomActions._();
 
-  static ThemeData get _themeData => ThemeData(
-      colorScheme: ColorScheme(
-          background: theme.colors.backgroundLightColor, // Useless
-          onBackground: theme.colors.foregroundColor, // Useless
-          primary: theme.colors.primary.backgroundColor,
-          primaryVariant: theme.colors.primary.lightColor,
-          onPrimary: theme.colors.primary.foregroundColor,
-          secondary: theme.colors.backgroundLightColor, // Useless
-          secondaryVariant: theme.colors.backgroundColor, // Useless
-          onSecondary: theme.colors.foregroundColor, // Useless
-          surface: theme.colors.primary.backgroundColor,
-          onSurface: theme.colors.foregroundColor,
-          error: theme.colors.danger.backgroundColor, // Useless
-          onError: theme.colors.danger.foregroundColor, // Useless
-          brightness: Brightness.light),
-      dialogBackgroundColor: theme.colors.backgroundLightColor,
-      buttonTheme: const ButtonThemeData(textTheme: ButtonTextTheme.primary),
-      textTheme: TextTheme(subtitle1: theme.texts.body1.copyWith(color: theme.colors.foregroundColor, height: 1.5)),
-      inputDecorationTheme: InputDecorationTheme(
-        filled: true,
-        fillColor: theme.colors.backgroundColor,
-        contentPadding: YPadding.p(YScale.s3),
-        border: UnderlineInputBorder(borderSide: BorderSide.none, borderRadius: YBorderRadius.lg),
-        labelStyle: theme.texts.body1,
-      ));
+  static ColorScheme _colorScheme(Brightness brightness) => ColorScheme(
+      background: theme.colors.backgroundLightColor, // Useless
+      onBackground: theme.colors.foregroundColor, // Useless
+      primary: theme.colors.primary.backgroundColor,
+      primaryVariant: theme.colors.primary.lightColor,
+      onPrimary: theme.colors.primary.foregroundColor,
+      secondary: theme.colors.backgroundLightColor, // Useless
+      secondaryVariant: theme.colors.backgroundColor, // Useless
+      onSecondary: theme.colors.foregroundColor, // Useless
+      surface: theme.colors.backgroundLightColor,
+      onSurface: theme.colors.foregroundColor,
+      error: theme.colors.danger.backgroundColor, // Useless
+      onError: theme.colors.danger.foregroundColor, // Useless
+      brightness: brightness);
 
   static Future<String?> pickDate(
     BuildContext context, {
@@ -289,7 +352,21 @@ class _CustomActions {
         initialDate: initialDate,
         firstDate: firstDate,
         lastDate: lastDate,
-        builder: (BuildContext context, Widget? child) => Theme(data: _themeData, child: child!));
+        builder: (BuildContext context, Widget? child) => Theme(
+            data: ThemeData(
+                colorScheme: _colorScheme(Brightness.light),
+                dialogBackgroundColor: theme.colors.backgroundLightColor,
+                buttonTheme: const ButtonThemeData(textTheme: ButtonTextTheme.primary),
+                textTheme:
+                    TextTheme(subtitle1: theme.texts.body1.copyWith(color: theme.colors.foregroundColor, height: 1.5)),
+                inputDecorationTheme: InputDecorationTheme(
+                  filled: true,
+                  fillColor: theme.colors.backgroundColor,
+                  contentPadding: YPadding.p(YScale.s3),
+                  border: UnderlineInputBorder(borderSide: BorderSide.none, borderRadius: YBorderRadius.lg),
+                  labelStyle: theme.texts.body1,
+                )),
+            child: child!));
     if (date != null) return DateFormat("dd/MM/yyyy").format(date);
   }
 
@@ -297,7 +374,37 @@ class _CustomActions {
     final TimeOfDay? time = await showTimePicker(
         context: context,
         initialTime: initialTime,
-        builder: (BuildContext context, Widget? child) => Theme(data: _themeData, child: child!));
+        builder: (BuildContext context, Widget? child) => Theme(
+            data: ThemeData(
+              colorScheme: _colorScheme(theme.isDark ? Brightness.dark : Brightness.light),
+              buttonTheme: const ButtonThemeData(textTheme: ButtonTextTheme.primary),
+            ),
+            child: child!));
     if (time != null) return "${time.hour.toString().padLeft(2, '0')}:${time.minute.toString().padLeft(2, '0')}";
+  }
+
+  static Future<String?> pickDateRange(
+    BuildContext context, {
+    required DateTimeRange initialDateRange,
+    required DateTime firstDate,
+    required DateTime lastDate,
+  }) async {
+    final DateTimeRange? date = await showDateRangePicker(
+        context: context,
+        initialDateRange: initialDateRange,
+        firstDate: firstDate,
+        lastDate: lastDate,
+        builder: (BuildContext context, Widget? child) => Theme(
+            data: ThemeData(
+              colorScheme: _colorScheme(theme.isDark ? Brightness.dark : Brightness.light),
+              dialogBackgroundColor: theme.colors.backgroundLightColor,
+              buttonTheme: const ButtonThemeData(textTheme: ButtonTextTheme.primary),
+              textTheme:
+                  TextTheme(subtitle1: theme.texts.body1.copyWith(color: theme.colors.foregroundColor, height: 1.5)),
+            ),
+            child: child!));
+    if (date != null) {
+      return DateFormat("dd/MM/yyyy").format(date.start) + " - " + DateFormat("dd/MM/yyyy").format(date.end);
+    }
   }
 }

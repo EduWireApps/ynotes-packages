@@ -131,17 +131,18 @@ class _HomePageState extends State<HomePage> {
                                 }),
                             YVerticalSpacer(10),
                             YFormField(
-                              type: YFormFieldInputType.date,
-                              expandable: true,
+                              type: YFormFieldInputType.dateRange,
+                              expandable: false,
                               validator: (String? v) {
                                 return _formHasError ? "Invalid" : null;
                               },
                               onSaved: (String? v) {
                                 print(v);
                               },
-                              label: "First name",
+                              label: "Test input",
                               placeholder: "John",
                               properties: YFormFieldProperties(),
+                              initialDate: DateTime(2020, 12, 05),
                             ),
                             YVerticalSpacer(10),
                             Row(

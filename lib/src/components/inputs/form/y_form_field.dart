@@ -1,13 +1,10 @@
 part of components;
 
-// TODO: add parameters for custom actions
-
-// TODO: implement options
-
 /// The different types of input fields
 enum YFormFieldInputType { text, password, email, number, phone, url, date, time, dateRange, options }
 
-/// An input field that can be used in a [YForm].
+/// An input field that can be used in a [YForm]. When retrieving the value of the field,
+/// the value is returned as a string and must be parsed to the correct type.
 class YFormField extends StatefulWidget {
   /// The type of the input field.
   final YFormFieldInputType type;
@@ -85,7 +82,15 @@ class YFormField extends StatefulWidget {
   /// Defaults to `const Duration(hours: 24 * 3)`
   final Duration? initialDateRangeDuration;
 
-  /// An input field that can be used in a [YForm].
+  /// When using [YFormFieldInputType.options], those are the options of the input. In that case,
+  /// it musn't be null nor empty.
+  final List<YConfirmationDialogOption<int>>? options;
+
+  /// The index of the initial option of the input.
+  final int? optionsInitialValue;
+
+  /// An input field that can be used in a [YForm]. When retrieving the value of the field,
+  /// the value is returned as a string and must be parsed to the correct type.
   const YFormField(
       {Key? key,
       required this.type,
@@ -106,8 +111,12 @@ class YFormField extends StatefulWidget {
       this.firstDate,
       this.lastDate,
       this.initialTime,
-      this.initialDateRangeDuration})
-      : super(key: key);
+      this.initialDateRangeDuration,
+      this.options,
+      this.optionsInitialValue})
+      : assert(type == YFormFieldInputType.options ? (options ?? const []).length != 0 : true,
+            "When using the options type, you must provide at least 1 option"),
+        super(key: key);
 
   set focusNode(FocusNode? f) => focusNode = f;
   set textInputAction(TextInputAction? t) => textInputAction = t;
@@ -117,10 +126,13 @@ class YFormField extends StatefulWidget {
 }
 
 class _YFormFieldState extends State<YFormField> {
-  final TextEditingController controller = TextEditingController();
   late FocusNode focusNode = widget.properties.focusNode ?? FocusNode();
   bool obscured = true;
   bool error = false;
+  String? get defaultValue => widget.optionsInitialValue == null && widget.type != YFormFieldInputType.options
+      ? widget.defaultValue
+      : "${widget.optionsInitialValue}. ${widget.options!.where((option) => option.value == widget.optionsInitialValue).first.label}";
+  late TextEditingController controller = TextEditingController(text: defaultValue);
 
   TextInputType get type {
     switch (widget.type) {
@@ -219,6 +231,12 @@ class _YFormFieldState extends State<YFormField> {
             lastDate: DateTime(initialDate.year + 5));
         await executeAction(callback);
         break;
+      case YFormFieldInputType.options:
+        final int? initialValue = controller.value.text != "" ? int.parse(controller.value.text.split(".")[0]) : null;
+        final Future<String?> callback =
+            _CustomActions.pickOption(context, options: widget.options!, initialValue: initialValue);
+        await executeAction(callback);
+        break;
       default:
         break;
     }
@@ -275,7 +293,6 @@ class _YFormFieldState extends State<YFormField> {
   Widget build(BuildContext context) {
     return TextFormField(
         controller: controller,
-        initialValue: widget.defaultValue,
         autocorrect: widget.autocorrect,
         onChanged: widget.onChanged,
         keyboardType: type,
@@ -406,5 +423,18 @@ class _CustomActions {
     if (date != null) {
       return DateFormat("dd/MM/yyyy").format(date.start) + " - " + DateFormat("dd/MM/yyyy").format(date.end);
     }
+  }
+
+  static Future<String?> pickOption(BuildContext context,
+      {required List<YConfirmationDialogOption<int>> options, int? initialValue}) async {
+    final int? res = await YDialogs.getConfirmation<int>(
+      context,
+      YConfirmationDialog(
+        title: "Choisis une option",
+        options: options,
+        initialValue: initialValue,
+      ),
+    );
+    if (res != null) return "$res. ${options[res].label}";
   }
 }

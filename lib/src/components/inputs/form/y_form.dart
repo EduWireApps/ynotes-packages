@@ -19,8 +19,13 @@ class YForm extends StatefulWidget {
   /// Under the hood, it uses `_formKey.currentState!.validate()`.
   final ValueChanged<bool> onSubmit;
 
+  /// The condition to automatically submit the form when pressing the _Done_ button on the keyboard
+  /// of the last input. If set to `false`, the [onSubmit] callback won't be called.
+  final bool autoSubmit;
+
   /// A form to use with [YFormField]s.
-  const YForm({Key? key, required this.formKey, required this.fields, required this.onSubmit}) : super(key: key);
+  const YForm({Key? key, required this.formKey, required this.fields, required this.onSubmit, this.autoSubmit = true})
+      : super(key: key);
 
   @override
   _YFormState createState() => _YFormState();
@@ -41,8 +46,10 @@ class _YFormState extends State<YForm> {
       field.properties.onEditingComplete = () {
         if (i == _length - 1) {
           field.properties.focusNode!.unfocus();
-          final bool _valid = _formKey.currentState!.validate();
-          widget.onSubmit(_valid);
+          if (widget.autoSubmit) {
+            final bool _valid = _formKey.currentState!.validate();
+            widget.onSubmit(_valid);
+          }
         } else {
           widget.fields[i + 1].properties.focusNode!.requestFocus();
         }

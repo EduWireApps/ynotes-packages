@@ -1,4 +1,5 @@
 import 'package:example/main.dart';
+import 'package:example/pages/test.dart';
 import 'package:flutter/material.dart';
 import 'package:ynotes_packages/components.dart';
 import 'package:ynotes_packages/config.dart';
@@ -16,7 +17,7 @@ class _HomePageState extends State<HomePage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool _formHasError = false;
   final GlobalKey<FormState> key = GlobalKey<FormState>();
-  Map<String, String> _formData = {};
+  final Map<String, String> _formData = {};
 
   void submit(bool b) {
     print("form submitted");
@@ -40,12 +41,12 @@ class _HomePageState extends State<HomePage> {
     return YPage(
         // body: Center(child: Text('Home', style: TextStyle(color: theme.colors.foregroundColor))),
         appBar: YAppBar(
-          leading: YAppBarLeading(icon: Icons.menu_rounded),
+          title: "Accueil",
           actions: [
             IconButton(
                 splashRadius: 20,
                 splashColor: theme.colors.primary.lightColor,
-                icon: Icon(Icons.palette),
+                icon: const Icon(Icons.palette),
                 onPressed: () async {
                   final int? res = await YDialogs.getConfirmation<int>(
                       context,
@@ -65,8 +66,8 @@ class _HomePageState extends State<HomePage> {
                 onPressed: () {
                   setSystemUIOverlayStyle();
                 },
-                icon: Icon(Icons.search_rounded)),
-            IconButton(onPressed: () {}, icon: Icon(Icons.more_vert_sharp)),
+                icon: const Icon(Icons.search_rounded)),
+            IconButton(onPressed: () {}, icon: const Icon(Icons.more_vert_sharp)),
           ],
         ),
         floatingButtons: [
@@ -110,11 +111,11 @@ class _HomePageState extends State<HomePage> {
                         size: YButtonSize.medium,
                         rounded: true,
                       ),
-                      YHorizontalSpacer(20),
+                      const YHorizontalSpacer(20),
                       YIconButton(icon: Icons.edit, onPressed: () {}, tooltip: "Edit")
                     ],
                   ),
-                  Container(
+                  SizedBox(
                       width: 250,
                       child: Form(
                         key: _formKey,
@@ -129,7 +130,7 @@ class _HomePageState extends State<HomePage> {
                                     _formHasError = v;
                                   });
                                 }),
-                            YVerticalSpacer(10),
+                            const YVerticalSpacer(10),
                             YFormField(
                               type: YFormFieldInputType.options,
                               expandable: false,
@@ -144,21 +145,22 @@ class _HomePageState extends State<HomePage> {
                               properties: YFormFieldProperties(),
                               initialDate: DateTime(2020, 12, 05),
                               optionsInitialValue: 1,
-                              options: [
+                              options: const [
                                 YConfirmationDialogOption<int>(value: 0, label: "First element"),
                                 YConfirmationDialogOption<int>(value: 1, label: "Second element")
                               ],
                             ),
-                            YVerticalSpacer(10),
+                            const YVerticalSpacer(10),
                             Row(
                               children: [
                                 Expanded(
                                   child: YButton(
                                       onPressed: () {
                                         final bool validated = _formKey.currentState!.validate();
-                                        if (validated)
+                                        if (validated) {
                                           YSnackbars.success(context,
                                               title: "Validated", message: "You can now connect");
+                                        }
                                       },
                                       text: "SE CONNECTER"),
                                 )
@@ -167,8 +169,8 @@ class _HomePageState extends State<HomePage> {
                           ],
                         ),
                       )),
-                  YVerticalSpacer(30),
-                  Container(
+                  const YVerticalSpacer(30),
+                  SizedBox(
                     width: 300,
                     child: Column(
                       children: [
@@ -214,7 +216,14 @@ class _HomePageState extends State<HomePage> {
                             text: "Submit test")
                       ],
                     ),
-                  )
+                  ),
+                  const YVerticalSpacer(30),
+                  YButton(
+                      onPressed: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => const TestPage()));
+                      },
+                      text: "Open new page",
+                      color: YColor.danger)
                 ],
               ),
             ),
@@ -236,7 +245,7 @@ class _HomePageState extends State<HomePage> {
                 color: theme.colors.backgroundColor,
                 child: ListTileTheme(
                   textColor: theme.colors.foregroundLightColor,
-                  child: Column(children: [
+                  child: Column(children: const [
                     ListTile(
                       title: Text("Test"),
                     ),

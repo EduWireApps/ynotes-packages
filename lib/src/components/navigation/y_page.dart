@@ -12,7 +12,7 @@ class YBottomNavigationElement {
 
 class YPage extends StatefulWidget {
   final Widget? body;
-  final Widget appBar;
+  final YAppBar appBar;
   final List<YFloatingButton>? floatingButtons;
   final List<YBottomNavigationElement>? bottomNavigationElements;
   final int bottomNavigationInitialIndex;

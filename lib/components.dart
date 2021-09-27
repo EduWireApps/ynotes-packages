@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:intl/intl.dart' hide TextDirection;
+import 'package:uuid/uuid.dart';
 import 'theme.dart';
 import 'utilities.dart';
 
@@ -51,7 +52,7 @@ part 'src/components/snackbar/y_snackbar.dart';
 part 'src/components/snackbar/snackbars.dart';
 
 // Progress bars
-part 'src/components/progress_bars/y_linear_progress_bar.dart'; // TODO: adapt to be usable at the bottom of the app bar
+part 'src/components/progress_bars/y_linear_progress_bar.dart';
 // TODO: CircularProgressBar
 
 // TODO: Material Banner

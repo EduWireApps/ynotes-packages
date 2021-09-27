@@ -24,6 +24,7 @@ class YFloatingButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton(
+      heroTag: const Uuid().v4(), // DO NOT REMOVE. Fixes an issue with the hero animation.
       elevation: 1,
       child: Icon(icon, color: invertColors ? _style.backgroundColor : _style.foregroundColor),
       isExtended: false,

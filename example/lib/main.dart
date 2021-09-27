@@ -22,7 +22,7 @@ void main() async {
     prefs.setInt("themeId", 0);
     initialThemeId = 0;
   }
-  runApp(Phoenix(child: MyApp()));
+  runApp(Phoenix(child: const MyApp()));
 }
 
 void setSystemUIOverlayStyle() {
@@ -68,7 +68,7 @@ class _MyAppState extends State<MyApp> {
             title: 'Flutter Demo',
             theme: theme.themeData,
             // home: MySplashScreen(),
-            home: HomePage());
+            home: const HomePage());
       });
 }
 
@@ -77,8 +77,8 @@ class MySplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Timer(Duration(seconds: 2), () {
-      Navigator.of(context).push(MaterialPageRoute(builder: (context) => MyHomePage(title: "Paramètres")));
+    Timer(const Duration(seconds: 2), () {
+      Navigator.of(context).push(MaterialPageRoute(builder: (context) => const MyHomePage(title: "Paramètres")));
     });
 
     return Scaffold(
@@ -96,9 +96,9 @@ class MySplashScreen extends StatelessWidget {
                   height: 150,
                   decoration:
                       BoxDecoration(color: theme.colors.primary.backgroundColor, borderRadius: YBorderRadius.full)),
-              YVerticalSpacer(20),
+              const YVerticalSpacer(20),
               Text("yNotes", style: theme.texts.headline),
-              YVerticalSpacer(60),
+              const YVerticalSpacer(60),
               SizedBox(
                 width: 250,
                 child: LinearProgressIndicator(
@@ -118,7 +118,7 @@ class MySplashScreen extends StatelessWidget {
 class MyHomePage extends StatefulWidget {
   final String title;
 
-  MyHomePage({Key? key, required this.title}) : super(key: key);
+  const MyHomePage({Key? key, required this.title}) : super(key: key);
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -126,7 +126,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   bool _status = false;
-  List<Widget> _tabs = [
+  static const List<Widget> _tabs = [
     Tab(
       child: Text("COMPTE"),
     ),
@@ -146,9 +146,9 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   final ScrollController _scrollController = ScrollController();
   late Color _appBarColor = theme.colors.backgroundLightColor;
   late double? _appBarElevation = 0;
-  double _drawerWidth = 300;
+  final double _drawerWidth = 300;
   late final AnimationController _animationController =
-      AnimationController(duration: Duration(milliseconds: 150), vsync: this);
+      AnimationController(duration: const Duration(milliseconds: 150), vsync: this);
   int _radioListValue = 0;
   double _sliderValue = 20;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -184,7 +184,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
         child: GestureDetector(
           onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
           child: Scaffold(
-            body: Container(
+            body: SizedBox(
               width: 100.vw,
               height: 100.vh,
               child: Stack(
@@ -199,7 +199,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                               right: BorderSide(color: theme.colors.foregroundLightColor.withOpacity(.5), width: .5))),
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
-                        children: [],
+                        children: const [],
                       ),
                     ),
                   ),
@@ -225,9 +225,9 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                           centerTitle: false,
                           backgroundColor: _appBarColor,
                           elevation: _appBarElevation,
-                          bottom: _tabs.length > 0
+                          bottom: _tabs.isNotEmpty
                               ? PreferredSize(
-                                  preferredSize: Size.fromHeight(kToolbarHeight),
+                                  preferredSize: const Size.fromHeight(kToolbarHeight),
                                   child: Align(
                                     alignment: Alignment.centerLeft,
                                     child: TabBar(
@@ -246,7 +246,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                               builder: (context) => IconButton(
                                   splashRadius: 20,
                                   splashColor: theme.colors.primary.lightColor,
-                                  icon: Icon(Icons.menu),
+                                  icon: const Icon(Icons.menu),
                                   onPressed: r<void Function()>(
                                       def: () => Scaffold.of(context).openDrawer(),
                                       lg: () {
@@ -270,7 +270,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                             IconButton(
                                 splashRadius: 20,
                                 splashColor: theme.colors.primary.lightColor,
-                                icon: Icon(Icons.palette),
+                                icon: const Icon(Icons.palette),
                                 onPressed: () async {
                                   final int? res = await YDialogs.getConfirmation<int>(
                                       context,
@@ -295,8 +295,8 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                                   debugPrint("Restart app");
                                   Phoenix.rebirth(context);
                                 },
-                                icon: Icon(Icons.refresh)),
-                            YHorizontalSpacer(7.5)
+                                icon: const Icon(Icons.refresh)),
+                            const YHorizontalSpacer(7.5)
                           ],
                         ),
                         body: SafeArea(
@@ -305,17 +305,16 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                               Expanded(
                                 child: SingleChildScrollView(
                                   controller: _scrollController,
-                                  child: Container(
+                                  child: SizedBox(
                                     width: double.infinity,
                                     child: Column(
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
-                                        YVerticalSpacer(30),
+                                        const YVerticalSpacer(30),
                                         Row(
                                           children: [
                                             Expanded(
-                                              child: Container(
-                                                  child: Form(
+                                              child: Form(
                                                 key: _formKey,
                                                 child: Column(
                                                   children: [
@@ -327,7 +326,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                                                             _formHasError = v;
                                                           });
                                                         }),
-                                                    YVerticalSpacer(10),
+                                                    const YVerticalSpacer(10),
                                                     YFormField(
                                                         properties: YFormFieldProperties(),
                                                         type: YFormFieldInputType.password,
@@ -340,7 +339,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                                                         onSaved: (String? v) {
                                                           print(v);
                                                         }),
-                                                    YVerticalSpacer(10),
+                                                    const YVerticalSpacer(10),
                                                     Row(
                                                       children: [
                                                         Expanded(
@@ -348,7 +347,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                                                               onPressed: () {
                                                                 final bool validated =
                                                                     _formKey.currentState!.validate();
-                                                                if (validated)
+                                                                if (validated) {
                                                                   ScaffoldMessenger.of(context).showSnackBar(
                                                                     SnackBar(
                                                                       behavior: SnackBarBehavior.floating,
@@ -367,6 +366,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                                                                           onPressed: () {}),
                                                                     ),
                                                                   );
+                                                                }
                                                               },
                                                               text: "SUBMIT"),
                                                         )
@@ -374,7 +374,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                                                     )
                                                   ],
                                                 ),
-                                              )),
+                                              ),
                                             ),
                                             Expanded(
                                               flex: r<int>(def: 0, md: 1, lg: 2),
@@ -382,7 +382,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                                             )
                                           ],
                                         ),
-                                        YVerticalSpacer(30),
+                                        const YVerticalSpacer(30),
                                         Container(
                                             margin: YPadding.p(YScale.s4),
                                             child: YSlider(
@@ -503,7 +503,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                                             child: Column(
                                               children: [0, 1, 2, 3, 4, 5]
                                                   .map((e) => Column(children: [
-                                                        if (e != 0) YDivider(),
+                                                        if (e != 0) const YDivider(),
                                                         YRadioListTile(
                                                             color: YColor.success,
                                                             title: e.toString(),
@@ -533,13 +533,13 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                                                       _status = v;
                                                     });
                                                   }),
-                                              YDivider(),
+                                              const YDivider(),
                                               YCheckboxListTile(
                                                   title: "Option 2",
                                                   value: false,
                                                   color: YColor.warning,
                                                   onChanged: (bool v) {}),
-                                              YDivider(),
+                                              const YDivider(),
                                               YCheckboxListTile(
                                                   title: "Option 3",
                                                   value: false,
@@ -560,13 +560,13 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                                                       _status = v;
                                                     });
                                                   }),
-                                              YDivider(),
+                                              const YDivider(),
                                               YSwitchListTile(
                                                   title: "Option 2",
                                                   value: false,
                                                   color: YColor.danger,
                                                   onChanged: (bool v) {}),
-                                              YDivider(),
+                                              const YDivider(),
                                               YSwitchListTile(
                                                   title: "Option 3",
                                                   value: false,
@@ -583,7 +583,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                                 height: 50,
                                 decoration: BoxDecoration(color: theme.colors.backgroundLightColor, boxShadow: [
                                   BoxShadow(
-                                      offset: Offset(0, -2),
+                                      offset: const Offset(0, -2),
                                       blurRadius: 6,
                                       spreadRadius: 0,
                                       color: Colors.black.withOpacity(.2))

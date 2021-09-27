@@ -1,7 +1,5 @@
 part of components;
 
-// TODO: create component and document it
-
 /// A button that only contains an icon.
 class YIconButton extends StatelessWidget {
   /// The icon to display.

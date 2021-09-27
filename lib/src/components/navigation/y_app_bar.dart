@@ -2,19 +2,14 @@ part of components;
 
 // TODO: document
 // TODO: use refresh indicator
-class YAppBarLeading {
-  final IconData icon;
-  final VoidCallback? onPressed;
-  final bool openDrawer;
-
-  YAppBarLeading({required this.icon, this.onPressed, this.openDrawer = true});
-}
 
 class YAppBar extends StatefulWidget {
   final List<Widget>? actions;
-  final YAppBarLeading leading;
+  final YIconButton? leading;
+  final String title;
+  final Widget? bottom;
 
-  const YAppBar({Key? key, this.actions, required this.leading}) : super(key: key);
+  const YAppBar({Key? key, this.actions, this.leading, required this.title, this.bottom}) : super(key: key);
 
   @override
   _YAppBarState createState() => _YAppBarState();
@@ -23,6 +18,21 @@ class YAppBar extends StatefulWidget {
 class _YAppBarState extends State<YAppBar> {
   @override
   Widget build(BuildContext context) {
+    final ScaffoldState? scaffold = Scaffold.maybeOf(context);
+    final bool hasDrawer = scaffold?.hasDrawer ?? false;
+
+    Widget? leading() {
+      if (widget.leading == null) {
+        if (hasDrawer) {
+          return YIconButton(icon: Icons.menu_rounded, onPressed: () => Scaffold.of(context).openDrawer());
+        } else {
+          return YIconButton(icon: Icons.west_rounded, onPressed: () => Navigator.maybePop(context));
+        }
+      } else {
+        return widget.leading;
+      }
+    }
+
     const double borderHeight = 1.5;
     return AppBar(
         automaticallyImplyLeading: false,
@@ -32,14 +42,8 @@ class _YAppBarState extends State<YAppBar> {
         ),
         centerTitle: false,
         iconTheme: IconThemeData(color: theme.colors.foregroundColor),
-        leading: YIconButton(
-            onPressed: widget.leading.openDrawer
-                ? () {
-                    Scaffold.of(context).openDrawer();
-                  }
-                : widget.leading.onPressed ?? () {},
-            icon: widget.leading.icon),
-        title: Text('Accueil',
+        leading: leading(),
+        title: Text(widget.title,
             style: TextStyle(
                 color: theme.colors.foregroundColor,
                 fontWeight: YFontWeight.semibold,
@@ -51,11 +55,9 @@ class _YAppBarState extends State<YAppBar> {
             child: Column(
               children: [
                 Container(height: borderHeight, color: theme.colors.backgroundLightColor),
-                const YLinearProgressBar(
-                    // value: 10,
-                    )
+                if (widget.bottom != null) widget.bottom!
               ],
             ),
-            preferredSize: const Size.fromHeight(borderHeight + 5)));
+            preferredSize: const Size.fromHeight(borderHeight)));
   }
 }

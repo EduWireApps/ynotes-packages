@@ -2,6 +2,7 @@ part of components;
 
 // TODO: document
 
+/// WIP
 class YBottomNavigationElement {
   final String label;
   final IconData icon;
@@ -10,6 +11,7 @@ class YBottomNavigationElement {
   YBottomNavigationElement({required this.label, required this.icon, required this.widget});
 }
 
+/// WIP
 class YPage extends StatefulWidget {
   final Widget? body;
   final YAppBar appBar;

@@ -19,6 +19,7 @@ class YPage extends StatefulWidget {
   final List<YBottomNavigationElement>? bottomNavigationElements;
   final int bottomNavigationInitialIndex;
   final Drawer? drawer;
+  final bool scrollable;
 
   const YPage(
       {Key? key,
@@ -27,7 +28,8 @@ class YPage extends StatefulWidget {
       this.floatingButtons,
       this.bottomNavigationElements,
       this.bottomNavigationInitialIndex = 0,
-      this.drawer})
+      this.drawer,
+      this.scrollable = true})
       : assert(floatingButtons == null || floatingButtons.length <= 2, "Can't use more than 2 floating buttons"),
         assert(body == null || bottomNavigationElements == null, "Can't use body and tab views"),
         super(key: key);
@@ -64,7 +66,8 @@ class _YPageState extends State<YPage> with SingleTickerProviderStateMixin {
     return _els;
   }
 
-  Widget pageContainer(Widget child) => SafeArea(child: SingleChildScrollView(child: child));
+  Widget pageContainer(Widget child) =>
+      SafeArea(child: widget.scrollable ? SingleChildScrollView(child: child) : child);
 
   @override
   Widget build(BuildContext context) {

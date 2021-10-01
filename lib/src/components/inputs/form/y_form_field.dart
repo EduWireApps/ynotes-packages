@@ -57,7 +57,7 @@ class YFormField extends StatefulWidget {
 
   /// The function that will be called when the form is saved. Useful to save all
   /// the values of the inputs of a form.
-  final ValueChanged<String?> onSaved;
+  final ValueChanged<String?>? onSaved;
 
   /// When using [YFormFieldInputType.date] or [YFormFieldInputType.dateRange],
   /// this is the initial date set when the modal shows up. Defaults to `DateTime.now()`.

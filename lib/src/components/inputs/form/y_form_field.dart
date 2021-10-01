@@ -106,7 +106,7 @@ class YFormField extends StatefulWidget {
       this.placeholder,
       this.helper,
       required this.properties,
-      required this.onSaved,
+      this.onSaved,
       this.initialDate,
       this.firstDate,
       this.lastDate,

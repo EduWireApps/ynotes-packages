@@ -3,6 +3,9 @@ part of components;
 /// The different types of input fields
 enum YFormFieldInputType { text, password, email, number, phone, url, date, time, dateRange, options }
 
+/// The variants of the [YFormField]
+enum YFormFieldVariant { contained, underline }
+
 /// An input field that can be used in a [YForm]. When retrieving the value of the field,
 /// the value is returned as a string and must be parsed to the correct type.
 class YFormField extends StatefulWidget {
@@ -89,6 +92,9 @@ class YFormField extends StatefulWidget {
   /// The index of the initial option of the input.
   final int? optionsInitialValue;
 
+  /// The variant of the input. Defaults to [YFormFieldVariant.contained]
+  final YFormFieldVariant variant;
+
   /// An input field that can be used in a [YForm]. When retrieving the value of the field,
   /// the value is returned as a string and must be parsed to the correct type.
   const YFormField(
@@ -113,7 +119,8 @@ class YFormField extends StatefulWidget {
       this.initialTime,
       this.initialDateRangeDuration,
       this.options,
-      this.optionsInitialValue})
+      this.optionsInitialValue,
+      this.variant = YFormFieldVariant.contained})
       : assert(type == YFormFieldInputType.options ? (options ?? const []).length != 0 : true,
             "When using the options type, you must provide at least 1 option"),
         super(key: key);
@@ -268,7 +275,15 @@ class _YFormFieldState extends State<YFormField> {
   }
 
   Widget? get suffixIcon {
-    Widget _wrapper(YIconButton child) => Padding(padding: YPadding.pr(YScale.s3), child: child);
+    Widget _wrapper(YIconButton child) {
+      switch (widget.variant) {
+        case YFormFieldVariant.contained:
+          return Padding(padding: YPadding.pr(YScale.s3), child: child);
+        case YFormFieldVariant.underline:
+          return child;
+      }
+    }
+
     if (isPassword) {
       return _wrapper(YIconButton(
           icon: obscured ? Icons.visibility : Icons.visibility_off,
@@ -287,6 +302,46 @@ class _YFormFieldState extends State<YFormField> {
           }));
     }
     return null;
+  }
+
+  InputDecoration get _decoration {
+    final InputDecoration _baseInputDecoration = InputDecoration(
+        labelText: widget.label,
+        labelStyle: theme.texts.body1.copyWith(
+            color: error
+                ? theme.colors.danger.backgroundColor
+                : focusNode.hasFocus
+                    ? theme.colors.primary.backgroundColor
+                    : null),
+        suffixIcon: suffixIcon,
+        hintText: widget.placeholder,
+        hintStyle: theme.texts.body1,
+        helperStyle: theme.texts.body2,
+        helperText: widget.helper,
+        errorStyle: theme.texts.body2.copyWith(color: theme.colors.danger.backgroundColor, fontSize: YFontSize.sm),
+        errorMaxLines: 3);
+
+    switch (widget.variant) {
+      case YFormFieldVariant.contained:
+        return _baseInputDecoration.copyWith(
+          filled: true,
+          fillColor: theme.colors.backgroundLightColor,
+          contentPadding: YPadding.p(YScale.s3),
+          border: UnderlineInputBorder(borderSide: BorderSide.none, borderRadius: YBorderRadius.lg),
+        );
+      case YFormFieldVariant.underline:
+        return _baseInputDecoration.copyWith(
+          border: UnderlineInputBorder(borderSide: BorderSide(color: theme.colors.foregroundColor, width: YScale.spx)),
+          enabledBorder:
+              UnderlineInputBorder(borderSide: BorderSide(color: theme.colors.foregroundColor, width: YScale.spx)),
+          focusedBorder: UnderlineInputBorder(
+              borderSide: BorderSide(color: theme.colors.primary.backgroundColor, width: YScale.s0p5)),
+          errorBorder: UnderlineInputBorder(
+              borderSide: BorderSide(color: theme.colors.danger.backgroundColor, width: YScale.spx)),
+          focusedErrorBorder: UnderlineInputBorder(
+              borderSide: BorderSide(color: theme.colors.danger.backgroundColor, width: YScale.s0p5)),
+        );
+    }
   }
 
   @override
@@ -308,25 +363,7 @@ class _YFormFieldState extends State<YFormField> {
         onEditingComplete: widget.properties.onEditingComplete,
         onSaved: widget.onSaved,
         readOnly: widget.disabled,
-        decoration: InputDecoration(
-            filled: true,
-            fillColor: theme.colors.backgroundLightColor,
-            contentPadding: YPadding.p(YScale.s3),
-            border: UnderlineInputBorder(borderSide: BorderSide.none, borderRadius: YBorderRadius.lg),
-            labelText: widget.label,
-            labelStyle: theme.texts.body1.copyWith(
-                color: error
-                    ? theme.colors.danger.backgroundColor
-                    : focusNode.hasFocus
-                        ? theme.colors.primary.backgroundColor
-                        : null),
-            suffixIcon: suffixIcon,
-            hintText: widget.placeholder,
-            hintStyle: theme.texts.body1,
-            helperStyle: theme.texts.body2,
-            helperText: widget.helper,
-            errorStyle: theme.texts.body2.copyWith(color: theme.colors.danger.backgroundColor, fontSize: YFontSize.sm),
-            errorMaxLines: 3));
+        decoration: _decoration);
   }
 }
 

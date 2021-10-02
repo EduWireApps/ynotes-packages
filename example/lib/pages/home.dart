@@ -200,6 +200,7 @@ class _HomePageState extends State<HomePage> {
                             type: YFormFieldInputType.password,
                             onChanged: (String value) {},
                             label: "Password",
+                            maxLength: 16,
                             properties: YFormFieldProperties(),
                             validator: (String? v) {
                               return v == null || v.length < 8 ? "Your password is too short (8 characters min)" : null;

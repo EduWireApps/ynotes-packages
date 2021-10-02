@@ -19,6 +19,25 @@ class _TestPageState extends State<TestPage> {
               // value: 10,
               ),
         ),
-        body: const Text("TEST"));
+        body: Column(
+          children: [
+            const Text("TEST"),
+            YButton(
+                onPressed: () async {
+                  final res = await YDialogs.getInput(
+                      context,
+                      YInputDialog(
+                          title: "Code",
+                          input: YFormField(
+                            type: YFormFieldInputType.number,
+                            label: "Code",
+                            properties: YFormFieldProperties(),
+                            maxLength: 4,
+                          )));
+                  print(res);
+                },
+                text: "open input dialog")
+          ],
+        ));
   }
 }

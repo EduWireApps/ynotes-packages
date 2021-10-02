@@ -32,39 +32,52 @@ class YInputDialog extends StatefulWidget {
 }
 
 class _YInputDialogState extends State<YInputDialog> {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   String _value = "";
+
+  void submit(bool b) {
+    if (b) {
+      Navigator.of(context).pop(_value);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return YDialogBase(
         title: widget.title,
-        body: YFormField(
-            type: widget.input.type,
-            defaultValue: widget.input.defaultValue,
-            onChanged: (value) {
-              setState(() {
-                _value = value;
-              });
-            },
-            autocorrect: widget.input.autocorrect,
-            textCapitalization: widget.input.textCapitalization,
-            maxLength: widget.input.maxLength,
-            expandable: widget.input.expandable,
-            validator: widget.input.validator,
-            disabled: widget.input.disabled,
-            label: widget.input.label,
-            placeholder: widget.input.placeholder,
-            helper: widget.input.helper,
-            properties: widget.input.properties,
-            onSaved: widget.input.onSaved,
-            initialDate: widget.input.initialDate,
-            firstDate: widget.input.firstDate,
-            lastDate: widget.input.lastDate,
-            initialTime: widget.input.initialTime,
-            initialDateRangeDuration: widget.input.initialDateRangeDuration,
-            options: widget.input.options,
-            optionsInitialValue: widget.input.optionsInitialValue,
-            variant: YFormFieldVariant.underline),
+        body: YForm(
+          formKey: _formKey,
+          onSubmit: submit,
+          fields: [
+            YFormField(
+                type: widget.input.type,
+                defaultValue: widget.input.defaultValue,
+                onChanged: (value) {
+                  setState(() {
+                    _value = value;
+                  });
+                },
+                autocorrect: widget.input.autocorrect,
+                textCapitalization: widget.input.textCapitalization,
+                maxLength: widget.input.maxLength,
+                expandable: widget.input.expandable,
+                validator: widget.input.validator,
+                disabled: widget.input.disabled,
+                label: widget.input.label,
+                placeholder: widget.input.placeholder,
+                helper: widget.input.helper,
+                properties: widget.input.properties,
+                onSaved: widget.input.onSaved,
+                initialDate: widget.input.initialDate,
+                firstDate: widget.input.firstDate,
+                lastDate: widget.input.lastDate,
+                initialTime: widget.input.initialTime,
+                initialDateRangeDuration: widget.input.initialDateRangeDuration,
+                options: widget.input.options,
+                optionsInitialValue: widget.input.optionsInitialValue,
+                variant: YFormFieldVariant.underline)
+          ],
+        ),
         actions: [
           YButton(
               onPressed: () => Navigator.of(context).pop(),
@@ -72,7 +85,9 @@ class _YInputDialogState extends State<YInputDialog> {
               variant: YButtonVariant.text,
               color: widget.color),
           YButton(
-              onPressed: () => Navigator.of(context).pop(_value),
+              onPressed: () {
+                submit(_formKey.currentState!.validate());
+              },
               text: widget.confirmLabel,
               variant: YButtonVariant.contained,
               color: widget.color),

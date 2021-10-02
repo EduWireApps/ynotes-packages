@@ -33,6 +33,12 @@ class _TestPageState extends State<TestPage> {
                             label: "Code",
                             properties: YFormFieldProperties(),
                             maxLength: 4,
+                            validator: (String? value) {
+                              if (value == null || value.isEmpty || value.length != 4) {
+                                return "Veuillez entrer un code";
+                              }
+                              return null;
+                            },
                           )));
                   print(res);
                 },

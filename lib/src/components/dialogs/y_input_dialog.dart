@@ -35,7 +35,7 @@ class _YInputDialogState extends State<YInputDialog> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   String _value = "";
 
-  void submit(bool b, {required BuildContext context}) {
+  void submit(bool b) {
     if (b) {
       Navigator.of(context).pop(_value);
     }
@@ -47,7 +47,7 @@ class _YInputDialogState extends State<YInputDialog> {
         title: widget.title,
         body: YForm(
           formKey: _formKey,
-          onSubmit: (b) => submit(b, context: context),
+          onSubmit: submit,
           fields: [
             YFormField(
                 type: widget.input.type,
@@ -86,7 +86,7 @@ class _YInputDialogState extends State<YInputDialog> {
               color: widget.color),
           YButton(
               onPressed: () {
-                submit(_formKey.currentState!.validate(), context: context);
+                submit(_formKey.currentState!.validate());
               },
               text: widget.confirmLabel,
               variant: YButtonVariant.contained,

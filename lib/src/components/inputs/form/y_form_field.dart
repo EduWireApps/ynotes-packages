@@ -103,7 +103,7 @@ class YFormField extends StatefulWidget {
       this.defaultValue,
       this.onChanged,
       this.autocorrect = false,
-      this.textCapitalization = TextCapitalization.sentences,
+      this.textCapitalization = TextCapitalization.none,
       this.maxLength,
       this.expandable = false,
       this.validator,

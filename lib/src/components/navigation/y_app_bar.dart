@@ -7,10 +7,12 @@ part of components;
 class YAppBar extends StatefulWidget {
   final List<Widget>? actions;
   final YIconButton? leading;
+  final bool removeLeading;
   final String title;
   final Widget? bottom;
 
-  const YAppBar({Key? key, this.actions, this.leading, required this.title, this.bottom}) : super(key: key);
+  const YAppBar({Key? key, this.actions, this.leading, required this.title, this.bottom, this.removeLeading = false})
+      : super(key: key);
 
   @override
   _YAppBarState createState() => _YAppBarState();
@@ -23,6 +25,9 @@ class _YAppBarState extends State<YAppBar> {
     final bool hasDrawer = scaffold?.hasDrawer ?? false;
 
     Widget? leading() {
+      if (widget.removeLeading) {
+        return null;
+      }
       if (widget.leading == null) {
         if (hasDrawer) {
           return YIconButton(icon: Icons.menu_rounded, onPressed: () => Scaffold.of(context).openDrawer());

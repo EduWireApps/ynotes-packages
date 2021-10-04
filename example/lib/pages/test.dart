@@ -12,6 +12,7 @@ class _TestPageState extends State<TestPage> {
   @override
   Widget build(BuildContext context) {
     return YPage(
+        showScrollbar: true,
         appBar: YAppBar(
           title: "test page",
           actions: [YButton(onPressed: () {}, text: "ENVOYER", variant: YButtonVariant.text)],

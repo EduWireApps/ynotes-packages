@@ -78,6 +78,7 @@ part 'src/components/spacers.dart';
 part 'src/components/y_badge.dart';
 part 'src/components/y_divider.dart';
 part 'src/components/y_option_tile.dart';
+part 'src/components/y_scrollbar.dart';
 
 // Chip ? for sorting ?
 

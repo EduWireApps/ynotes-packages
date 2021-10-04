@@ -71,7 +71,7 @@ class _YPageState extends State<YPage> with SingleTickerProviderStateMixin {
   Widget pageContainer(Widget child) => SafeArea(
       child: widget.scrollable
           ? widget.showScrollbar
-              ? Scrollbar(
+              ? YScrollbar(
                   isAlwaysShown: true,
                   child: SizedBox(width: double.infinity, child: SingleChildScrollView(child: child)))
               : SizedBox(width: double.infinity, child: SingleChildScrollView(child: child))

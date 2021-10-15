@@ -282,7 +282,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                                               .toList(),
                                           initialValue: theme.currentTheme));
                                   if (res != null) {
-                                    updateCurrentTheme(res);
+                                    theme.updateCurrentTheme(res);
                                     prefs.setInt("themeId", res);
                                   }
                                   updateAppBar();

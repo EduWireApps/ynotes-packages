@@ -56,7 +56,7 @@ class _HomePageState extends State<HomePage> {
                               theme.themes.map((e) => YConfirmationDialogOption(value: e.id, label: e.name)).toList(),
                           initialValue: theme.currentTheme));
                   if (res != null) {
-                    updateCurrentTheme(res);
+                    theme.updateCurrentTheme(res);
                     prefs.setInt("themeId", res);
                   }
                   setSystemUIOverlayStyle();

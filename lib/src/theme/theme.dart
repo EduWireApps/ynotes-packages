@@ -70,7 +70,7 @@ class YTheme {
 }
 
 /// A class that manages the themes for the whole app.
-class YCurrentTheme {
+class YCurrentTheme extends ChangeNotifier {
   /// The current theme identifier.
   ///
   /// To update the [currentTheme], do:
@@ -78,13 +78,20 @@ class YCurrentTheme {
   /// final YCurrentTheme theme = YCurrentTheme(0, [...]);
   /// theme.currentTheme = 1;
   /// ```
-  int currentTheme;
+
+  int get currentTheme => _currentTheme;
+  int _currentTheme;
+
+  void updateCurrentTheme(int i) {
+    _currentTheme = i;
+    notifyListeners();
+  }
 
   /// The list of all the themes availables.
   final List<YTheme> themes;
 
   /// A class that manages the themes for the whole app.
-  YCurrentTheme({required this.currentTheme, required this.themes});
+  YCurrentTheme({required int currentTheme, required this.themes}) : _currentTheme = currentTheme;
 
   /// The current theme to use internally.
   YTheme get _ct => themes.firstWhere((t) => t.id == currentTheme);

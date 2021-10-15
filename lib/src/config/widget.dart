@@ -22,7 +22,9 @@ class _YAppState extends State<YApp> {
     return ChangeNotifierProvider.value(
       value: theme,
       child: Consumer<YCurrentTheme>(builder: (context, _, __) {
+        final Key key = UniqueKey();
         return Responsive(
+          key: key,
           builder: (context) => widget.builder(context),
         );
       }),

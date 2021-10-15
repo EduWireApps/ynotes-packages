@@ -60,7 +60,7 @@ class _HomePageState extends State<HomePage> {
                     prefs.setInt("themeId", res);
                   }
                   setSystemUIOverlayStyle();
-                  setState(() {});
+                  // setState(() {});
                 }),
             IconButton(
                 onPressed: () {

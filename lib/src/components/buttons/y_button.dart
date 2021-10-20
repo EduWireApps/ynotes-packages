@@ -62,6 +62,9 @@ class YButton extends StatefulWidget {
   /// Invert background and foreground colors.
   final bool invertColors;
 
+  /// A custom [YTColor] that overrides [color].
+  final YTColor? customColor;
+
   /// A button component.
   const YButton(
       {Key? key,
@@ -79,14 +82,15 @@ class YButton extends StatefulWidget {
       this.isIconReversed = false,
       this.block = false,
       this.rounded = false,
-      this.invertColors = false})
+      this.invertColors = false,
+      this.customColor})
       : super(key: key);
   @override
   _YButtonState createState() => _YButtonState();
 }
 
 class _YButtonState extends State<YButton> with TickerProviderStateMixin {
-  YTColor get style => theme.colors.get(widget.color);
+  YTColor get style => widget.customColor ?? theme.colors.get(widget.color);
 
   EdgeInsets get padding {
     late double h;

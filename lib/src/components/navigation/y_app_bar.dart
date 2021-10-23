@@ -49,12 +49,7 @@ class _YAppBarState extends State<YAppBar> {
         centerTitle: false,
         iconTheme: IconThemeData(color: theme.colors.foregroundColor),
         leading: leading(),
-        title: Text(widget.title,
-            style: TextStyle(
-                color: theme.colors.foregroundColor,
-                fontWeight: YFontWeight.semibold,
-                fontSize: YFontSize.xl,
-                fontFamily: theme.fonts.primary)),
+        title: Text(widget.title, style: theme.texts.title),
         elevation: 0,
         actions: widget.actions,
         bottom: PreferredSize(

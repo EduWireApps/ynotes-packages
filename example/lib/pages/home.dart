@@ -3,6 +3,7 @@ import 'package:example/pages/test.dart';
 import 'package:flutter/material.dart';
 import 'package:ynotes_packages/components.dart';
 import 'package:ynotes_packages/config.dart';
+import 'package:ynotes_packages/settings.dart';
 import 'package:ynotes_packages/theme.dart';
 import 'package:ynotes_packages/utilities.dart';
 
@@ -78,12 +79,81 @@ class _HomePageState extends State<HomePage> {
           YBottomNavigationElement(
             label: "Reçus",
             icon: Icons.mail_rounded,
-            widget: Padding(
-              padding: YPadding.p(YScale.s4),
-              child: Column(
-                children: [
-                  Center(child: Text("Reçus", style: TextStyle(color: theme.colors.foregroundColor))),
-                  Row(
+            widget: Column(
+              children: [
+                YSettingsSections(sections: [
+                  YSettingsSection(
+                    tiles: [
+                      YSettingsTile(
+                        title: "Appearance",
+                        leading: Icons.color_lens,
+                        onTap: () {
+                          print("tapped");
+                        },
+                      ),
+                      YSettingsTile(
+                        title: "Location",
+                        leading: Icons.place,
+                        onTap: () {
+                          print("tapped");
+                        },
+                      ),
+                      YSettingsTile(
+                        title: "Notifications",
+                        leading: Icons.notifications_rounded,
+                        onTap: () {
+                          print("tapped");
+                        },
+                      ),
+                      YSettingsTile(
+                        title: "Privacy",
+                        leading: Icons.lock_rounded,
+                        onTap: () {
+                          print("tapped");
+                        },
+                      ),
+                    ],
+                  ),
+                  YSettingsSection(title: "Backups", tiles: [
+                    YSettingsTile(
+                        title: "Thème",
+                        subtitle: theme.name,
+                        onTap: () async {
+                          final int? res = await YDialogs.getConfirmation<int>(
+                              context,
+                              YConfirmationDialog(
+                                  title: "Choisis un thème",
+                                  options: theme.themes
+                                      .map((e) => YConfirmationDialogOption(value: e.id, label: e.name))
+                                      .toList(),
+                                  initialValue: theme.currentTheme));
+                          if (res != null) {
+                            theme.updateCurrentTheme(res);
+                            prefs.setInt("themeId", res);
+                          }
+                          setSystemUIOverlayStyle();
+                        }),
+                    YSettingsTile(
+                      title: "Chat backups",
+                      subtitle: "If read receipts are disabled, you won't be able to see read recipients from others.",
+                      trailing: YSwitch(
+                        value: false,
+                        onChanged: (bool b) {},
+                      ),
+                      onTap: () {
+                        print("tapped");
+                      },
+                    ),
+                    const YSettingsTile.switchTile(
+                      title: "Switch tile test",
+                      subtitle: "this is a test.",
+                    ),
+                  ])
+                ]),
+                YVerticalSpacer(YScale.s12),
+                Padding(
+                  padding: YPadding.p(YScale.s4),
+                  child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       YButton(
@@ -115,118 +185,117 @@ class _HomePageState extends State<HomePage> {
                       YIconButton(icon: Icons.edit, onPressed: () {}, tooltip: "Edit")
                     ],
                   ),
-                  SizedBox(
-                      width: 250,
-                      child: Form(
-                        key: _formKey,
-                        child: Column(
-                          children: [
-                            YSwitchListTile(
-                                color: YColor.success,
-                                title: "Has error",
-                                value: _formHasError,
-                                onChanged: (bool v) {
-                                  setState(() {
-                                    _formHasError = v;
-                                  });
-                                }),
-                            const YVerticalSpacer(10),
-                            YFormField(
-                              type: YFormFieldInputType.options,
-                              expandable: false,
-                              validator: (String? v) {
-                                return _formHasError ? "Invalid" : null;
-                              },
-                              onSaved: (String? v) {
-                                print(v);
-                              },
-                              label: "Test input",
-                              placeholder: "John",
-                              properties: YFormFieldProperties(),
-                              initialDate: DateTime(2020, 12, 05),
-                              optionsInitialValue: 1,
-                              options: const [
-                                YConfirmationDialogOption<int>(value: 0, label: "First element"),
-                                YConfirmationDialogOption<int>(value: 1, label: "Second element")
-                              ],
-                            ),
-                            const YVerticalSpacer(10),
-                            Row(
-                              children: [
-                                Expanded(
-                                  child: YButton(
-                                      onPressed: () {
-                                        final bool validated = _formKey.currentState!.validate();
-                                        if (validated) {
-                                          YSnackbars.success(context,
-                                              title: "Validated", message: "You can now connect");
-                                        }
-                                      },
-                                      text: "SE CONNECTER"),
-                                )
-                              ],
-                            )
-                          ],
+                ),
+                SizedBox(
+                    width: 250,
+                    child: Form(
+                      key: _formKey,
+                      child: Column(
+                        children: [
+                          YSwitchListTile(
+                              color: YColor.success,
+                              title: "Has error",
+                              value: _formHasError,
+                              onChanged: (bool v) {
+                                setState(() {
+                                  _formHasError = v;
+                                });
+                              }),
+                          const YVerticalSpacer(10),
+                          YFormField(
+                            type: YFormFieldInputType.options,
+                            expandable: false,
+                            validator: (String? v) {
+                              return _formHasError ? "Invalid" : null;
+                            },
+                            onSaved: (String? v) {
+                              print(v);
+                            },
+                            label: "Test input",
+                            placeholder: "John",
+                            properties: YFormFieldProperties(),
+                            initialDate: DateTime(2020, 12, 05),
+                            optionsInitialValue: 1,
+                            options: const [
+                              YConfirmationDialogOption<int>(value: 0, label: "First element"),
+                              YConfirmationDialogOption<int>(value: 1, label: "Second element")
+                            ],
+                          ),
+                          const YVerticalSpacer(10),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: YButton(
+                                    onPressed: () {
+                                      final bool validated = _formKey.currentState!.validate();
+                                      if (validated) {
+                                        YSnackbars.success(context, title: "Validated", message: "You can now connect");
+                                      }
+                                    },
+                                    text: "SE CONNECTER"),
+                              )
+                            ],
+                          )
+                        ],
+                      ),
+                    )),
+                const YVerticalSpacer(30),
+                SizedBox(
+                  width: 300,
+                  child: Column(
+                    children: [
+                      YForm(formKey: key, onSubmit: submit, fields: [
+                        YFormField(
+                          type: YFormFieldInputType.text,
+                          onChanged: (String value) {},
+                          label: "First name",
+                          properties: YFormFieldProperties(),
+                          validator: (String? v) {
+                            return v == null || v == "" ? "This field is required" : null;
+                          },
+                          onSaved: (String? v) {
+                            _formData["firstName"] = v ?? "";
+                          },
                         ),
-                      )),
-                  const YVerticalSpacer(30),
-                  SizedBox(
-                    width: 300,
-                    child: Column(
-                      children: [
-                        YForm(formKey: key, onSubmit: submit, fields: [
-                          YFormField(
-                            type: YFormFieldInputType.text,
-                            onChanged: (String value) {},
-                            label: "First name",
-                            properties: YFormFieldProperties(),
-                            validator: (String? v) {
-                              return v == null || v == "" ? "This field is required" : null;
-                            },
-                            onSaved: (String? v) {
-                              _formData["firstName"] = v ?? "";
-                            },
-                          ),
-                          YFormField(
-                            type: YFormFieldInputType.text,
-                            onChanged: (String value) {},
-                            label: "Last name (optional)",
-                            properties: YFormFieldProperties(),
-                            onSaved: (String? v) {
-                              _formData["lastName"] = v ?? "";
-                            },
-                          ),
-                          YFormField(
-                            type: YFormFieldInputType.password,
-                            onChanged: (String value) {},
-                            label: "Password",
-                            maxLength: 16,
-                            properties: YFormFieldProperties(),
-                            validator: (String? v) {
-                              return v == null || v.length < 8 ? "Your password is too short (8 characters min)" : null;
-                            },
-                            onSaved: (String? v) {
-                              _formData["password"] = v ?? "";
-                            },
-                          ),
-                        ]),
-                        YButton(
-                            onPressed: () {
-                              submit(key.currentState!.validate());
-                            },
-                            text: "Submit test")
-                      ],
-                    ),
+                        YFormField(
+                          type: YFormFieldInputType.text,
+                          onChanged: (String value) {},
+                          label: "Last name (optional)",
+                          properties: YFormFieldProperties(),
+                          onSaved: (String? v) {
+                            _formData["lastName"] = v ?? "";
+                          },
+                        ),
+                        YFormField(
+                          type: YFormFieldInputType.password,
+                          onChanged: (String value) {},
+                          label: "Password",
+                          maxLength: 16,
+                          properties: YFormFieldProperties(),
+                          validator: (String? v) {
+                            return v == null || v.length < 8 ? "Your password is too short (8 characters min)" : null;
+                          },
+                          onSaved: (String? v) {
+                            _formData["password"] = v ?? "";
+                          },
+                        ),
+                      ]),
+                      YButton(
+                          onPressed: () {
+                            submit(key.currentState!.validate());
+                          },
+                          text: "Submit test")
+                    ],
                   ),
-                  const YVerticalSpacer(30),
-                  YButton(
-                      onPressed: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => const TestPage()));
-                      },
-                      text: "Open new page",
-                      color: YColor.danger)
-                ],
-              ),
+                ),
+                const YVerticalSpacer(30),
+                YButton(
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => const TestPage()));
+                    },
+                    text: "Open new page",
+                    color: YColor.danger)
+              ],
             ),
           ),
           YBottomNavigationElement(

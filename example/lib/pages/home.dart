@@ -19,6 +19,7 @@ class _HomePageState extends State<HomePage> {
   bool _formHasError = false;
   final GlobalKey<FormState> key = GlobalKey<FormState>();
   final Map<String, String> _formData = {};
+  bool _switchTileValue = true;
 
   void submit(bool b) {
     print("form submitted");
@@ -134,19 +135,21 @@ class _HomePageState extends State<HomePage> {
                           setSystemUIOverlayStyle();
                         }),
                     YSettingsTile(
-                      title: "Chat backups",
-                      subtitle: "If read receipts are disabled, you won't be able to see read recipients from others.",
-                      trailing: YSwitch(
-                        value: false,
-                        onChanged: (bool b) {},
-                      ),
+                      title: "Delete account",
+                      color: YColor.danger,
                       onTap: () {
                         print("tapped");
                       },
                     ),
-                    const YSettingsTile.switchTile(
-                      title: "Switch tile test",
-                      subtitle: "this is a test.",
+                    YSettingsTile.switchTile(
+                      title: "Chat backups",
+                      subtitle: "If read receipts are disabled, you won't be able to see read recipients from others.",
+                      switchValue: _switchTileValue,
+                      onSwitchValueChanged: (bool b) {
+                        setState(() {
+                          _switchTileValue = b;
+                        });
+                      },
                     ),
                   ])
                 ]),

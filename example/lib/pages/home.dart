@@ -2,7 +2,6 @@ import 'package:example/main.dart';
 import 'package:example/pages/test.dart';
 import 'package:flutter/material.dart';
 import 'package:ynotes_packages/components.dart';
-import 'package:ynotes_packages/config.dart';
 import 'package:ynotes_packages/settings.dart';
 import 'package:ynotes_packages/theme.dart';
 import 'package:ynotes_packages/utilities.dart';

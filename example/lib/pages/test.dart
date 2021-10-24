@@ -39,7 +39,7 @@ class _TestPageState extends State<TestPage> {
                 print("tapped");
               },
             ),
-            YDivider(),
+            const YDivider(),
             YSettingsTile(
               title: "Appearance",
               subtitle: "Light theme",

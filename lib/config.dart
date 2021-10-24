@@ -1,6 +1,5 @@
 library config;
 
-import 'package:flutter/scheduler.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:ynotes_packages/theme.dart';

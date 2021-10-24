@@ -1,6 +1,15 @@
+## 0.5.0 (24/10/2021)
+
+**Breaking changes!**
+
+- All the components have been reworked
+- `YShadowScrollContainer` is deprecated and will be removed in an upcoming version
+- Documentation has been added and improved
+
 ## 0.4.3 (29/07/2021)
 
 - Fix wrong variable name in `YCurrentTheme`: `buttonStyles` to `variableStyles`
+
 ## 0.4.2 (29/07/2021)
 
 - Theme now generates a themeData that can be provided to `MaterialApp` for example

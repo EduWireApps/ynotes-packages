@@ -1,3 +1,7 @@
+# 0.5.1 (24/10/2021)
+
+- Fix documentation
+
 ## 0.5.0 (24/10/2021)
 
 **Breaking changes!**

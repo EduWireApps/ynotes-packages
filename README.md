@@ -1,9 +1,3 @@
-**This package is under heavy development. Its documentation might be irrelevant for the following**
-
-- Components
-- Config
-- Settings
-
 # ynotes-packages
 
 > Sorry French users, this repo is only in english.
@@ -12,7 +6,7 @@ This repo contains 1 package splitted in 5 libraries:
 
 ## Libraries
 
-### [Components](lib/src/components) `Oudated`
+### [Components](lib/src/components)
 
 Contains useful components such as `YButton`. It relies on [theme](#theme) and [utilities](#utilities) libraries. Check out the [README](lib/src/components/README.md).
 
@@ -44,7 +38,7 @@ Import it:
 import 'package:ynotes_packages/theme.dart';
 ```
 
-### [Utilities](lib/src/utilities) `Oudated`
+### [Utilities](lib/src/utilities)
 
 Contains utilities such as `YFontSize`, inspired by [Tailwind CSS](https://tailwindcss.com) approach. Check out the [README](lib/src/utilities/README.md)
 
@@ -54,7 +48,7 @@ Import it:
 import 'package:ynotes_packages/utilities.dart';
 ```
 
-### Settings
+### [Settings](lib/src/settings)
 
 Contains useful components for settings such as `YSettingTile`. It relies on [theme](#theme), [components](#components) and [utilities](#utilities) libraries. Check out the [README](lib/src/settings/README.md).
 
@@ -70,13 +64,13 @@ import 'package:ynotes_packages/settings.dart';
 
 Under the hood, this packages uses:
 
-- another_flushbar
+- [another_flushbar](https://pub.dev/packages/another_flushbar)
 - [flutter](https://flutter.dev)
 - [flutter_switch](https://pub.dev/packages/flutter_switch)
 - [flutter_responsive_breakpoints](https://pub.dev/packages/flutter_responsive_breakpoints)
-- intl
-- uuid
-- provider
+- [intl](https://pub.dev/packages/intl)
+- [uuid](https://pub.dev/packages/uuid)
+- [provider](https://pub.dev/packages/provider)
 
 ---
 

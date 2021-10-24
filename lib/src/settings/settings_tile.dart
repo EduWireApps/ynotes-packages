@@ -1,18 +1,45 @@
 part of settings;
 
+/// The settings tile type.
 enum _SettingsTileType { simple, switchTile }
 
+/// The tile that is used to handle a setting or to redirect to another settings page.
 class YSettingsTile extends StatelessWidget {
+  /// The title of the tile.
   final String title;
+
+  /// The subtitle of the tile. Usually used to display the setting value
+  /// or a description.
+  ///
+  /// Can't be used with a [leading].
   final String? subtitle;
+
+  /// The icon of the tile. Should only be used for tile used to redirect
+  /// to another setting page.
+  ///
+  /// Can't be used with a [subtitle].
   final IconData? leading;
+
+  /// The action to perform when the tile is tapped.
   final VoidCallback? onTap;
+
+  /// The trailing widget of the tile.
   final Widget? trailing;
+
+  /// The type of the tile. Used only internally.
   final _SettingsTileType _tileType;
+
+  /// The value of the switch tile.
   final bool? switchValue;
+
+  /// The callback to call when the switch value changes.
   final ValueChanged<bool>? onSwitchValueChanged;
+
+  /// The color of the [title]. It should only be used when there is only
+  /// a [title].
   final YColor? color;
 
+  /// The tile that is used to handle a setting or to redirect to another settings page.
   const YSettingsTile(
       {Key? key, required this.title, this.subtitle, this.leading, this.onTap, this.trailing, this.color})
       : assert(subtitle == null && leading == null ? true : (subtitle == null || leading == null),
@@ -24,6 +51,7 @@ class YSettingsTile extends StatelessWidget {
         onSwitchValueChanged = null,
         super(key: key);
 
+  /// The tile that is used to handle a bool setting.
   const YSettingsTile.switchTile(
       {Key? key, required this.title, this.subtitle, required this.switchValue, required this.onSwitchValueChanged})
       : leading = null,

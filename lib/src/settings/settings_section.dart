@@ -1,8 +1,14 @@
 part of settings;
 
+/// The section that contains the settings.
 class YSettingsSection extends StatelessWidget {
+  /// The tiles of the section.
   final List<YSettingsTile> tiles;
+
+  /// The title of the section. Optionnal.
   final String? title;
+
+  /// The section that contains the settings.
   const YSettingsSection({Key? key, required this.tiles, this.title}) : super(key: key);
 
   @override

@@ -1,4 +1,5 @@
 **This package is under heavy development. Its documentation might be irrelevant for the following**
+
 - Components
 - Config
 - Settings
@@ -53,17 +54,29 @@ Import it:
 import 'package:ynotes_packages/utilities.dart';
 ```
 
-### Settings `Soon`
+### Settings
 
-TBD
+Contains useful components for settings such as `YSettingTile`. It relies on [theme](#theme), [components](#components) and [utilities](#utilities) libraries. Check out the [README](lib/src/settings/README.md).
+
+Inspired by [flutter-settings-ui](https://github.com/yako-dev/flutter-settings-ui) and [Signal](https://signal.org) interfaces.
+
+Import it:
+
+```dart
+import 'package:ynotes_packages/settings.dart';
+```
 
 ## Packages used
 
 Under the hood, this packages uses:
 
+- another_flushbar
 - [flutter](https://flutter.dev)
 - [flutter_switch](https://pub.dev/packages/flutter_switch)
 - [flutter_responsive_breakpoints](https://pub.dev/packages/flutter_responsive_breakpoints)
+- intl
+- uuid
+- provider
 
 ---
 

@@ -1,7 +1,11 @@
 part of settings;
 
+/// The component that handles multiple [YSettingsSection]s.
 class YSettingsSections extends StatelessWidget {
+  /// The sections to display.
   final List<YSettingsSection> sections;
+
+  /// The component that handles multiple [YSettingsSection]s.
   const YSettingsSections({Key? key, required this.sections}) : super(key: key);
 
   List<Widget> get _sections {

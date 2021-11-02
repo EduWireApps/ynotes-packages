@@ -134,6 +134,10 @@ class _HomePageState extends State<HomePage> {
                           setSystemUIOverlayStyle();
                         }),
                     YSettingsTile(
+                      enabled: false,
+                      disabledOnTap: () {
+                        YSnackbars.info(context, title: "ok", message: "message");
+                      },
                       title: "Delete account",
                       color: YColor.danger,
                       onTap: () {

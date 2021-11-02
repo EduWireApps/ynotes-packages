@@ -1,3 +1,6 @@
+# 0.5.2 (02/11/2021)
+
+- Settings: add `enabled` and `disabledOnTap` properties to `YSettingsTile`
 # 0.5.1 (24/10/2021)
 
 - Fix documentation

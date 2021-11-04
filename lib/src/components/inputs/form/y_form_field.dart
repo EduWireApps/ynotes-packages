@@ -210,6 +210,9 @@ class _YFormFieldState extends State<YFormField> {
       if (res != null) {
         setState(() {
           controller.value = TextEditingValue(text: res);
+          if (widget.onChanged != null) {
+            widget.onChanged!(res);
+          }
         });
       }
     }

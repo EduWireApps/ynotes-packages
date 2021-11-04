@@ -217,6 +217,10 @@ class _HomePageState extends State<HomePage> {
                             onSaved: (String? v) {
                               print(v);
                             },
+                            onChanged: (String? v) {
+                              print("changed");
+                              print(v);
+                            },
                             label: "Test input",
                             placeholder: "John",
                             properties: YFormFieldProperties(),

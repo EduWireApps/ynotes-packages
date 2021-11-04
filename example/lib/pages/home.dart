@@ -221,7 +221,7 @@ class _HomePageState extends State<HomePage> {
                             placeholder: "John",
                             properties: YFormFieldProperties(),
                             initialDate: DateTime(2020, 12, 05),
-                            optionsInitialValue: 1,
+                            // optionsInitialValue: 1,
                             options: const [
                               YConfirmationDialogOption<int>(value: 0, label: "First element"),
                               YConfirmationDialogOption<int>(value: 1, label: "Second element")

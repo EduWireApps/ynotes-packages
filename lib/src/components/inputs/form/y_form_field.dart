@@ -136,9 +136,21 @@ class _YFormFieldState extends State<YFormField> {
   late FocusNode focusNode = widget.properties.focusNode ?? FocusNode();
   bool obscured = true;
   bool error = false;
-  String? get defaultValue => widget.optionsInitialValue == null && widget.type != YFormFieldInputType.options
-      ? widget.defaultValue
-      : "${widget.optionsInitialValue}. ${widget.options!.where((option) => option.value == widget.optionsInitialValue).first.label}";
+  // String? get defaultValue => widget.optionsInitialValue == null && widget.type != YFormFieldInputType.options
+  //     ? widget.defaultValue
+  //     : "${widget.optionsInitialValue}. ${widget.options!.where((option) => option.value == widget.optionsInitialValue).first.label}";
+  String? get defaultValue {
+    if (widget.type != YFormFieldInputType.options) {
+      return widget.defaultValue;
+    } else {
+      if (widget.optionsInitialValue == null) {
+        return null;
+      } else {
+        return "${widget.optionsInitialValue}. ${widget.options!.where((option) => option.value == widget.optionsInitialValue).first.label}";
+      }
+    }
+  }
+
   late TextEditingController controller = TextEditingController(text: defaultValue);
 
   TextInputType get type {

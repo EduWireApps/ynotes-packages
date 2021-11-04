@@ -1,3 +1,9 @@
+# 0.5.3 (01/11/2021)
+
+- A new component has been released: `YRefreshIndicator`
+- `YPage` now accepts an `onRefresh` argument, that adds a `YRefreshIndicator` to the page if not null
+- Several bugs have been fixed for `YFormField`
+
 # 0.5.2 (02/11/2021)
 
 - Settings: add `enabled` and `disabledOnTap` properties to `YSettingsTile`

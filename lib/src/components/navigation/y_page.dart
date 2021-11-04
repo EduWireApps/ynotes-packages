@@ -21,6 +21,7 @@ class YPage extends StatefulWidget {
   final Drawer? drawer;
   final bool scrollable;
   final bool showScrollbar;
+  final Future<void> Function()? onRefresh;
 
   const YPage(
       {Key? key,
@@ -31,7 +32,8 @@ class YPage extends StatefulWidget {
       this.bottomNavigationInitialIndex = 0,
       this.drawer,
       this.scrollable = true,
-      this.showScrollbar = false})
+      this.showScrollbar = false,
+      this.onRefresh})
       : assert(floatingButtons == null || floatingButtons.length <= 2, "Can't use more than 2 floating buttons"),
         assert(body == null || bottomNavigationElements == null, "Can't use body and tab views"),
         super(key: key);
@@ -68,14 +70,20 @@ class _YPageState extends State<YPage> with SingleTickerProviderStateMixin {
     return _els;
   }
 
-  Widget pageContainer(Widget child) => SafeArea(
-      child: widget.scrollable
-          ? widget.showScrollbar
-              ? YScrollbar(
-                  isAlwaysShown: true,
-                  child: SizedBox(width: double.infinity, child: SingleChildScrollView(child: child)))
-              : SizedBox(width: double.infinity, child: SingleChildScrollView(child: child))
-          : child);
+  Widget pageContainer(Widget child) {
+    final Widget content = widget.scrollable
+        ? widget.showScrollbar
+            ? YScrollbar(
+                isAlwaysShown: true,
+                child: SizedBox(
+                    width: double.infinity,
+                    height: double.infinity,
+                    child: SingleChildScrollView(physics: const AlwaysScrollableScrollPhysics(), child: child)))
+            : SizedBox(width: double.infinity, child: SingleChildScrollView(child: child))
+        : child;
+    return SafeArea(
+        child: widget.onRefresh != null ? YRefreshIndicator(child: content, onRefresh: widget.onRefresh!) : content);
+  }
 
   @override
   Widget build(BuildContext context) {

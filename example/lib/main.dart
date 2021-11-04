@@ -25,9 +25,13 @@ void main() async {
   runApp(Phoenix(child: const MyApp()));
 }
 
-void setSystemUIOverlayStyle() {
-  SystemChrome.setSystemUIOverlayStyle(
-      SystemUiOverlayStyle(statusBarColor: Colors.transparent, systemNavigationBarColor: theme.colors.backgroundColor));
+void setSystemUIOverlayStyle({Color? systemNavigationBarColor, bool? isDark}) {
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      systemNavigationBarColor: systemNavigationBarColor ?? theme.colors.backgroundColor,
+      statusBarBrightness: (isDark ?? theme.isDark) ? Brightness.light : Brightness.dark,
+      statusBarIconBrightness: (isDark ?? theme.isDark) ? Brightness.light : Brightness.dark,
+      systemNavigationBarIconBrightness: (isDark ?? theme.isDark) ? Brightness.light : Brightness.dark));
 }
 
 class MyApp extends StatefulWidget {

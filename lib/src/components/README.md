@@ -47,6 +47,7 @@ For detailed documentation, see in-editor documentation or check out the source 
 - `YBadge`
 - `YDivider`
 - `YOptionTile`
+- `YRefreshIndicator`
 - `YScrollbar`
 - `YShadowScrollContainer` (**Deprecated**, will be removed in an upcoming version)
 - Bottom sheets (**Planned**)

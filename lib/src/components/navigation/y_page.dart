@@ -71,18 +71,22 @@ class _YPageState extends State<YPage> with SingleTickerProviderStateMixin {
   }
 
   Widget pageContainer(Widget child) {
-    final Widget content = widget.scrollable
+    final Widget content = SizedBox(
+        width: double.infinity,
+        height: double.infinity,
+        child: SingleChildScrollView(physics: const AlwaysScrollableScrollPhysics(), child: child));
+    final Widget scrollbarContent = widget.scrollable
         ? widget.showScrollbar
             ? YScrollbar(
                 isAlwaysShown: true,
-                child: SizedBox(
-                    width: double.infinity,
-                    height: double.infinity,
-                    child: SingleChildScrollView(physics: const AlwaysScrollableScrollPhysics(), child: child)))
-            : SizedBox(width: double.infinity, child: SingleChildScrollView(child: child))
+                child: content,
+              )
+            : content
         : child;
     return SafeArea(
-        child: widget.onRefresh != null ? YRefreshIndicator(child: content, onRefresh: widget.onRefresh!) : content);
+        child: widget.onRefresh != null
+            ? YRefreshIndicator(child: scrollbarContent, onRefresh: widget.onRefresh!)
+            : scrollbarContent);
   }
 
   @override

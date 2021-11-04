@@ -313,6 +313,9 @@ class _YFormFieldState extends State<YFormField> {
           onPressed: () {
             setState(() {
               controller.clear();
+              if (widget.onChanged != null) {
+                widget.onChanged!("");
+              }
             });
           }));
     }

@@ -6,7 +6,7 @@ For detailed documentation, see in-editor documentation or check out the source 
   - `YButton`
   - `YFloatingButton`
   - `YIconButton`
-  - `YDropdownButton` (**Planned**)
+  - `YDropdownButton` that requires `YDropdownButtonItem`s
 - Dialogs
   - `YDialogBase`
   - `YDialogs` class to use the following components

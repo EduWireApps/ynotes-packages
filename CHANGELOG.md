@@ -1,6 +1,7 @@
 # 0.5.4 (05/11/2021)
 
 - The `YSnackbars` has been updated. `message` is now the only required parameter and a `hasIcon` parameter has been added
+- New component: `YDropdownButton`
 
 # 0.5.3 (04/11/2021)
 

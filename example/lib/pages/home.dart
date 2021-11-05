@@ -19,6 +19,7 @@ class _HomePageState extends State<HomePage> {
   final GlobalKey<FormState> key = GlobalKey<FormState>();
   final Map<String, String> _formData = {};
   bool _switchTileValue = true;
+  int? dropDownValue;
 
   void submit(bool b) {
     print("form submitted");
@@ -80,6 +81,32 @@ class _HomePageState extends State<HomePage> {
             icon: Icons.mail_rounded,
             widget: Column(
               children: [
+                YVerticalSpacer(YScale.s4),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    YDropdownButton<int?>(
+                        items: const [
+                          YDropdownButtonItem(value: null, display: "Choose"),
+                          YDropdownButtonItem(value: 0, display: "1st element"),
+                          YDropdownButtonItem(value: 1, display: "2nd element"),
+                          YDropdownButtonItem(value: 2, display: "3rd element"),
+                          YDropdownButtonItem(value: 3, display: "4th element"),
+                          YDropdownButtonItem(value: 4, display: "5th element"),
+                          YDropdownButtonItem(value: 5, display: "aa"),
+                        ],
+                        value: dropDownValue,
+                        onChanged: (int? i) {
+                          setState(() {
+                            dropDownValue = i;
+                          });
+                        }),
+                    YHorizontalSpacer(YScale.s2),
+                    YButton(onPressed: () {}, text: "Sentence", color: YColor.secondary)
+                  ],
+                ),
+                YVerticalSpacer(YScale.s10),
                 YSettingsSections(sections: [
                   YSettingsSection(
                     tiles: [

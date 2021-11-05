@@ -25,11 +25,11 @@ class MyApp extends StatelessWidget {
     @override
     Widget build(BuildContext context) {
         // The widget
-        return YApp(
+        return Responsive(builder: (context) => YApp(
             initialTheme: 0,
             themes: themes // See the theme documentation to know more
             builder: (context) => MaterialApp(...);
-        );
+        ));
     }
 }
 ```

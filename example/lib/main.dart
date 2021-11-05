@@ -62,17 +62,19 @@ class _MyAppState extends State<MyApp> {
   }
 
   @override
-  Widget build(BuildContext context) => YApp(
-      initialTheme: initialThemeId!,
-      themes: themes(_brightness),
-      builder: (context) {
-        setSystemUIOverlayStyle();
-        return MaterialApp(
-            debugShowCheckedModeBanner: false,
-            title: 'Flutter Demo',
-            theme: theme.themeData,
-            // home: MySplashScreen(),
-            home: const HomePage());
+  Widget build(BuildContext context) => Responsive(builder: (context) {
+        return YApp(
+            initialTheme: initialThemeId!,
+            themes: themes(_brightness),
+            builder: (context) {
+              setSystemUIOverlayStyle();
+              return MaterialApp(
+                  debugShowCheckedModeBanner: false,
+                  title: 'Flutter Demo',
+                  theme: theme.themeData,
+                  // home: MySplashScreen(),
+                  home: const HomePage());
+            });
       });
 }
 

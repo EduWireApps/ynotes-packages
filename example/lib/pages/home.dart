@@ -81,6 +81,12 @@ class _HomePageState extends State<HomePage> {
             icon: Icons.mail_rounded,
             widget: Column(
               children: [
+                YButton(
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => const TestPage()));
+                    },
+                    text: "Open new page",
+                    color: YColor.danger),
                 YVerticalSpacer(YScale.s4),
                 Container(
                     width: 50,
@@ -351,13 +357,6 @@ class _HomePageState extends State<HomePage> {
                     ],
                   ),
                 ),
-                const YVerticalSpacer(30),
-                YButton(
-                    onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => const TestPage()));
-                    },
-                    text: "Open new page",
-                    color: YColor.danger)
               ],
             ),
           ),

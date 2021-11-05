@@ -13,7 +13,6 @@ dependencies:
   ynotes_packages:
     path: ../
   flutter_phoenix: ^1.0.0
-  flutter_responsive_breakpoints: ^0.0.3
   shared_preferences: ^2.0.6
   google_fonts: ^2.1.0
 

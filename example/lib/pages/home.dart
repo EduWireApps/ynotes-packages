@@ -82,6 +82,17 @@ class _HomePageState extends State<HomePage> {
             widget: Column(
               children: [
                 YVerticalSpacer(YScale.s4),
+                Container(
+                    width: 50,
+                    height: 50,
+                    color: responsive<Color>(
+                        def: Colors.red,
+                        sm: Colors.orange,
+                        md: Colors.yellow,
+                        lg: Colors.green,
+                        xl: Colors.blue,
+                        xxl: Colors.indigo)),
+                YVerticalSpacer(YScale.s4),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,

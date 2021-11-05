@@ -10,6 +10,8 @@ import 'package:uuid/uuid.dart';
 import 'theme.dart';
 import 'utilities.dart';
 
+part 'src/components/internal.dart';
+
 // Dialogs
 part 'src/components/dialogs/dialogs.dart';
 part 'src/components/dialogs/y_choice_dialog.dart';

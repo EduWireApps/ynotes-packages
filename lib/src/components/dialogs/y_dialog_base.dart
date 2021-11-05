@@ -27,7 +27,7 @@ class YDialogBase extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: YBorderRadius.lg,
         ),
-        backgroundColor: theme.colors.backgroundLightColor,
+        backgroundColor: theme.colors.backgroundColor,
         title: Text(title, style: theme.texts.title),
         contentPadding: EdgeInsets.fromLTRB(padding, YScale.s5, padding, YScale.s6),
         content: Container(

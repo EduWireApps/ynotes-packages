@@ -34,7 +34,7 @@ class YModalBottomSheets {
           Flexible(child: SingleChildScrollView(child: child))
         ],
       ),
-      barrierColor: Colors.black.withOpacity(.7),
+      barrierColor: _barrierColor,
       backgroundColor: theme.colors.backgroundColor,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(YScale.s4)),

@@ -1,4 +1,8 @@
-# 0.5.3 (01/11/2021)
+# 0.5.4 (05/11/2021)
+
+- The `YSnackbars` has been updated. `message` is now the only required parameter and a `hasIcon` parameter has been added
+
+# 0.5.3 (04/11/2021)
 
 - A new component has been released: `YRefreshIndicator`
 - `YPage` now accepts an `onRefresh` argument, that adds a `YRefreshIndicator` to the page if not null
@@ -7,6 +11,7 @@
 # 0.5.2 (02/11/2021)
 
 - Settings: add `enabled` and `disabledOnTap` properties to `YSettingsTile`
+
 # 0.5.1 (24/10/2021)
 
 - Fix documentation

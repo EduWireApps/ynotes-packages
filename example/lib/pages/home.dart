@@ -238,7 +238,7 @@ class _HomePageState extends State<HomePage> {
                                     onPressed: () {
                                       final bool validated = _formKey.currentState!.validate();
                                       if (validated) {
-                                        YSnackbars.success(context, title: "Validated", message: "You can now connect");
+                                        YSnackbars.success(context, message: "Validated", hasIcon: false);
                                       }
                                     },
                                     text: "SE CONNECTER"),

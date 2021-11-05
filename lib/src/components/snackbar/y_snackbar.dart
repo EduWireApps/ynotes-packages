@@ -2,7 +2,7 @@ part of components;
 
 class YSnackBar {
   final BuildContext context;
-  final String title;
+  final String? title;
   final String message;
   final YColor color;
   final bool isDismissible;
@@ -10,7 +10,7 @@ class YSnackBar {
   final YSnackbarAction? action;
 
   const YSnackBar(this.context,
-      {required this.title,
+      {this.title,
       required this.message,
       this.color = YColor.primary,
       this.isDismissible = false,
@@ -56,10 +56,12 @@ class YSnackBar {
                 color: color,
                 invertColors: true)
             : null,
-        titleText: Text(
-          title,
-          style: theme.texts.title.copyWith(color: _style.foregroundColor),
-        ),
+        titleText: title != null
+            ? Text(
+                title!,
+                style: theme.texts.title.copyWith(color: _style.foregroundColor),
+              )
+            : null,
         messageText: Text(
           message,
           style: theme.texts.body1.copyWith(color: _style.foregroundColor),

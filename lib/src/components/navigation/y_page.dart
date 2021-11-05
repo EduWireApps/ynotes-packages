@@ -18,7 +18,7 @@ class YPage extends StatefulWidget {
   final List<YFloatingButton>? floatingButtons;
   final List<YBottomNavigationElement>? bottomNavigationElements;
   final int bottomNavigationInitialIndex;
-  final Drawer? drawer;
+  final Widget? drawer;
   final bool scrollable;
   final bool showScrollbar;
   final Future<void> Function()? onRefresh;

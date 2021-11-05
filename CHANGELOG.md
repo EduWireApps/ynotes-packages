@@ -1,3 +1,8 @@
+# 0.5.5 (05/11/2021)
+
+- Bug fixes
+- New: modal bottom sheets! use `YModalBottomSheets.show(...)`
+
 # 0.5.4 (05/11/2021)
 
 - The `YSnackbars` has been updated. `message` is now the only required parameter and a `hasIcon` parameter has been added

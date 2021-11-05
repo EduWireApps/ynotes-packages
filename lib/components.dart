@@ -48,6 +48,9 @@ part 'src/components/buttons/y_floating_button.dart';
 part 'src/components/buttons/y_icon_button.dart';
 
 // TODO: Bottom sheets
+part 'src/components/modal_bottom_sheets/modal_bottom_sheets.dart';
+part 'src/components/modal_bottom_sheets/y_modal_bottom_sheet.dart';
+
 // Snackbar
 part 'src/components/snackbar/y_snackbar.dart';
 part 'src/components/snackbar/snackbars.dart';

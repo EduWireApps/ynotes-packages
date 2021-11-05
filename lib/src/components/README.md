@@ -50,5 +50,6 @@ For detailed documentation, see in-editor documentation or check out the source 
 - `YRefreshIndicator`
 - `YScrollbar`
 - `YShadowScrollContainer` (**Deprecated**, will be removed in an upcoming version)
-- Bottom sheets (**Planned**)
+- Bottom sheets
+  - `YModalBottomSheets` (**Work in progress**)
 - Banners (**Planned**)

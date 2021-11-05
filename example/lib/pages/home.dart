@@ -103,7 +103,23 @@ class _HomePageState extends State<HomePage> {
                           });
                         }),
                     YHorizontalSpacer(YScale.s2),
-                    YButton(onPressed: () {}, text: "Sentence", color: YColor.secondary)
+                    YButton(
+                        onPressed: () async {
+                          final Widget content = Column(
+                            children: [
+                              ...List.generate(10, (i) => i).map((e) => ListTile(
+                                  title: Text("$e", style: theme.texts.body1),
+                                  onTap: () {
+                                    Navigator.pop(context, e);
+                                  })),
+                            ],
+                          );
+                          // final String? res = await YModalBottomSheets.show<String>(context: context, child: content);
+                          final int? res = await YModalBottomSheets.show<int>(context: context, child: content);
+                          print(res);
+                        },
+                        text: "Bottom sheet",
+                        color: YColor.secondary)
                   ],
                 ),
                 YVerticalSpacer(YScale.s10),

@@ -40,7 +40,7 @@ class YDropdownButton<T> extends StatelessWidget {
                 return items.map<Widget>((item) {
                   final Widget text = Text(
                     item.display,
-                    style: theme.texts.button.copyWith(color: theme.colors.primary.foregroundColor),
+                    style: theme.texts.button.copyWith(color: theme.colors.secondary.foregroundColor),
                   );
                   return block
                       ? text

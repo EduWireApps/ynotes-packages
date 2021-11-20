@@ -21,21 +21,6 @@ class _HomePageState extends State<HomePage> {
   bool _switchTileValue = true;
   int? dropDownValue;
 
-  void submit(bool b) {
-    print("form submitted");
-    print(b);
-    if (b) {
-      key.currentState!.save();
-      print(_formData);
-    }
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    setSystemUIOverlayStyle();
-  }
-
   @override
   Widget build(BuildContext context) {
     setSystemUIOverlayStyle();
@@ -316,6 +301,7 @@ class _HomePageState extends State<HomePage> {
                       YForm(formKey: key, onSubmit: submit, fields: [
                         YFormField(
                           type: YFormFieldInputType.text,
+                          autofillHints: const [AutofillHints.username],
                           onChanged: (String value) {},
                           label: "First name",
                           properties: YFormFieldProperties(),
@@ -340,6 +326,7 @@ class _HomePageState extends State<HomePage> {
                           onChanged: (String value) {},
                           label: "Password",
                           maxLength: 16,
+                          autofillHints: const [AutofillHints.password],
                           properties: YFormFieldProperties(),
                           validator: (String? v) {
                             return v == null || v.length < 8 ? "Your password is too short (8 characters min)" : null;
@@ -393,5 +380,20 @@ class _HomePageState extends State<HomePage> {
                     ListTile(title: Text("Test")),
                   ]),
                 ))));
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    setSystemUIOverlayStyle();
+  }
+
+  void submit(bool b) {
+    print("form submitted");
+    print(b);
+    if (b) {
+      key.currentState!.save();
+      print(_formData);
+    }
   }
 }

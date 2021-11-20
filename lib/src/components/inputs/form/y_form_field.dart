@@ -1,11 +1,5 @@
 part of components;
 
-/// The different types of input fields
-enum YFormFieldInputType { text, password, email, number, phone, url, date, time, dateRange, options }
-
-/// The variants of the [YFormField]
-enum YFormFieldVariant { contained, underline }
-
 /// An input field that can be used in a [YForm]. When retrieving the value of the field,
 /// the value is returned as a string and must be parsed to the correct type.
 class YFormField extends StatefulWidget {
@@ -17,6 +11,9 @@ class YFormField extends StatefulWidget {
 
   /// The function that will be called when the value of the input changes.
   final ValueChanged<String>? onChanged;
+
+  /// Hints for autocompleters
+  final List<String>? autofillHints;
 
   /// The condition to allow autocorrect.
   final bool autocorrect;
@@ -103,6 +100,7 @@ class YFormField extends StatefulWidget {
       this.defaultValue,
       this.onChanged,
       this.autocorrect = false,
+      this.autofillHints,
       this.textCapitalization = TextCapitalization.none,
       this.maxLength,
       this.expandable = false,
@@ -132,10 +130,131 @@ class YFormField extends StatefulWidget {
   _YFormFieldState createState() => _YFormFieldState();
 }
 
+/// The different types of input fields
+enum YFormFieldInputType { text, password, email, number, phone, url, date, time, dateRange, options }
+
+/// A mutable class with properties used by [YForm].
+class YFormFieldProperties {
+  FocusNode? focusNode;
+  TextInputAction? textInputAction;
+  VoidCallback? onEditingComplete;
+
+  YFormFieldProperties({this.focusNode, this.textInputAction, this.onEditingComplete});
+}
+
+/// The variants of the [YFormField]
+enum YFormFieldVariant { contained, underline }
+
+/// Class that manages the modals to show when the user clicks on the input for some [YFormFieldInputType].
+class _CustomActions {
+  _CustomActions._();
+
+  static Future<String?> pickDate(
+    BuildContext context, {
+    required DateTime initialDate,
+    required DateTime firstDate,
+    required DateTime lastDate,
+  }) async {
+    final DateTime? date = await showDatePicker(
+        context: context,
+        initialDate: initialDate,
+        firstDate: firstDate,
+        lastDate: lastDate,
+        builder: (BuildContext context, Widget? child) => Theme(
+            data: ThemeData(
+                colorScheme: _colorScheme(Brightness.light),
+                dialogBackgroundColor: theme.colors.backgroundLightColor,
+                buttonTheme: const ButtonThemeData(textTheme: ButtonTextTheme.primary),
+                textTheme:
+                    TextTheme(subtitle1: theme.texts.body1.copyWith(color: theme.colors.foregroundColor, height: 1.5)),
+                inputDecorationTheme: InputDecorationTheme(
+                  filled: true,
+                  fillColor: theme.colors.backgroundColor,
+                  contentPadding: YPadding.p(YScale.s3),
+                  border: UnderlineInputBorder(borderSide: BorderSide.none, borderRadius: YBorderRadius.lg),
+                  labelStyle: theme.texts.body1,
+                )),
+            child: child!));
+    if (date != null) return DateFormat("dd/MM/yyyy").format(date);
+  }
+
+  static Future<String?> pickDateRange(
+    BuildContext context, {
+    required DateTimeRange initialDateRange,
+    required DateTime firstDate,
+    required DateTime lastDate,
+  }) async {
+    final DateTimeRange? date = await showDateRangePicker(
+        context: context,
+        initialDateRange: initialDateRange,
+        firstDate: firstDate,
+        lastDate: lastDate,
+        builder: (BuildContext context, Widget? child) => Theme(
+            data: ThemeData(
+              colorScheme: _colorScheme(theme.isDark ? Brightness.dark : Brightness.light),
+              dialogBackgroundColor: theme.colors.backgroundLightColor,
+              buttonTheme: const ButtonThemeData(textTheme: ButtonTextTheme.primary),
+              textTheme:
+                  TextTheme(subtitle1: theme.texts.body1.copyWith(color: theme.colors.foregroundColor, height: 1.5)),
+            ),
+            child: child!));
+    if (date != null) {
+      return DateFormat("dd/MM/yyyy").format(date.start) + " - " + DateFormat("dd/MM/yyyy").format(date.end);
+    }
+  }
+
+  static Future<String?> pickOption(BuildContext context,
+      {required List<YConfirmationDialogOption<int>> options, int? initialValue}) async {
+    final int? res = await YDialogs.getConfirmation<int>(
+      context,
+      YConfirmationDialog(
+        title: "Choisis une option",
+        options: options,
+        initialValue: initialValue,
+      ),
+    );
+    if (res != null) return "$res. ${options[res].label}";
+  }
+
+  static Future<String?> pickTime(BuildContext context, {required TimeOfDay initialTime}) async {
+    final TimeOfDay? time = await showTimePicker(
+        context: context,
+        initialTime: initialTime,
+        builder: (BuildContext context, Widget? child) => Theme(
+            data: ThemeData(
+              colorScheme: _colorScheme(theme.isDark ? Brightness.dark : Brightness.light),
+              buttonTheme: const ButtonThemeData(textTheme: ButtonTextTheme.primary),
+            ),
+            child: child!));
+    if (time != null) return "${time.hour.toString().padLeft(2, '0')}:${time.minute.toString().padLeft(2, '0')}";
+  }
+
+  static ColorScheme _colorScheme(Brightness brightness) => ColorScheme(
+      background: theme.colors.backgroundLightColor, // Useless
+      onBackground: theme.colors.foregroundColor, // Useless
+      primary: theme.colors.primary.backgroundColor,
+      primaryVariant: theme.colors.primary.lightColor,
+      onPrimary: theme.colors.primary.foregroundColor,
+      secondary: theme.colors.backgroundLightColor, // Useless
+      secondaryVariant: theme.colors.backgroundColor, // Useless
+      onSecondary: theme.colors.foregroundColor, // Useless
+      surface: theme.colors.backgroundLightColor,
+      onSurface: theme.colors.foregroundColor,
+      error: theme.colors.danger.backgroundColor, // Useless
+      onError: theme.colors.danger.foregroundColor, // Useless
+      brightness: brightness);
+}
+
 class _YFormFieldState extends State<YFormField> {
   late FocusNode focusNode = widget.properties.focusNode ?? FocusNode();
   bool obscured = true;
   bool error = false;
+  late TextEditingController controller = TextEditingController(text: defaultValue);
+
+  bool modalOpened = false;
+
+  bool blockActionExecution = false;
+
   String? get defaultValue {
     if (widget.type != YFormFieldInputType.options) {
       return widget.defaultValue;
@@ -148,7 +267,40 @@ class _YFormFieldState extends State<YFormField> {
     }
   }
 
-  late TextEditingController controller = TextEditingController(text: defaultValue);
+  bool get isPassword => type == TextInputType.visiblePassword;
+
+  Widget? get suffixIcon {
+    Widget _wrapper(YIconButton child) {
+      switch (widget.variant) {
+        case YFormFieldVariant.contained:
+          return Padding(padding: YPadding.pr(YScale.s3), child: child);
+        case YFormFieldVariant.underline:
+          return child;
+      }
+    }
+
+    if (isPassword) {
+      return _wrapper(YIconButton(
+          icon: obscured ? Icons.visibility : Icons.visibility_off,
+          onPressed: () {
+            setState(() {
+              obscured = !obscured;
+            });
+          }));
+    } else if (type == TextInputType.none && controller.value.text != "") {
+      return _wrapper(YIconButton(
+          icon: Icons.clear_rounded,
+          onPressed: () {
+            setState(() {
+              controller.clear();
+              if (widget.onChanged != null) {
+                widget.onChanged!("");
+              }
+            });
+          }));
+    }
+    return null;
+  }
 
   TextInputType get type {
     switch (widget.type) {
@@ -169,10 +321,102 @@ class _YFormFieldState extends State<YFormField> {
     }
   }
 
-  bool modalOpened = false;
-  bool blockActionExecution = false;
+  InputDecoration get _decoration {
+    final InputDecoration _baseInputDecoration = InputDecoration(
+        labelText: widget.label,
+        labelStyle: theme.texts.body1.copyWith(
+            color: error
+                ? theme.colors.danger.backgroundColor
+                : focusNode.hasFocus
+                    ? theme.colors.primary.backgroundColor
+                    : null),
+        suffixIcon: suffixIcon,
+        hintText: widget.placeholder,
+        hintStyle: theme.texts.body1,
+        helperStyle: theme.texts.body2,
+        helperText: widget.helper,
+        errorStyle: theme.texts.body2.copyWith(color: theme.colors.danger.backgroundColor, fontSize: YFontSize.sm),
+        errorMaxLines: 3);
 
-  bool get isPassword => type == TextInputType.visiblePassword;
+    switch (widget.variant) {
+      case YFormFieldVariant.contained:
+        return _baseInputDecoration.copyWith(
+          filled: true,
+          fillColor: theme.colors.backgroundLightColor,
+          contentPadding: YPadding.p(YScale.s3),
+          border: UnderlineInputBorder(borderSide: BorderSide.none, borderRadius: YBorderRadius.lg),
+        );
+      case YFormFieldVariant.underline:
+        return _baseInputDecoration.copyWith(
+          border: UnderlineInputBorder(borderSide: BorderSide(color: theme.colors.foregroundColor, width: YScale.spx)),
+          enabledBorder:
+              UnderlineInputBorder(borderSide: BorderSide(color: theme.colors.foregroundColor, width: YScale.spx)),
+          focusedBorder: UnderlineInputBorder(
+              borderSide: BorderSide(color: theme.colors.primary.backgroundColor, width: YScale.s0p5)),
+          errorBorder: UnderlineInputBorder(
+              borderSide: BorderSide(color: theme.colors.danger.backgroundColor, width: YScale.spx)),
+          focusedErrorBorder: UnderlineInputBorder(
+              borderSide: BorderSide(color: theme.colors.danger.backgroundColor, width: YScale.s0p5)),
+        );
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (widget.autofillHints != null) {
+      return defaultTextFormFieldWrapper();
+    } else {
+      //preserve memory by invoking AutofillGroup only when needed
+      return AutofillGroup(child: defaultTextFormFieldWrapper());
+    }
+  }
+
+  TextFormField defaultTextFormFieldWrapper() {
+    return TextFormField(
+        controller: controller,
+        autocorrect: widget.autocorrect,
+        autofillHints: widget.autofillHints ?? [],
+        onChanged: widget.onChanged,
+        keyboardType: type,
+        textCapitalization: widget.textCapitalization,
+        textInputAction: widget.properties.textInputAction,
+        focusNode: focusNode,
+        maxLength: widget.maxLength,
+        maxLines: widget.expandable && !isPassword ? null : 1,
+        cursorColor: theme.colors.primary.lightColor,
+        obscureText: isPassword ? obscured : false,
+        style: theme.texts.body1.copyWith(color: theme.colors.foregroundColor, height: 1.5),
+        validator: widget.validator != null ? validate : null,
+        onEditingComplete: widget.properties.onEditingComplete,
+        onSaved: widget.onSaved,
+        readOnly: widget.disabled,
+        decoration: _decoration);
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    focusNode.addListener(() {
+      setState(() {});
+      if (type == TextInputType.none) {
+        _customAction();
+      }
+    });
+  }
+
+  String? validate(String? value) {
+    final String? val = widget.validator!(value);
+    setState(() {
+      error = val != null;
+    });
+    return val;
+  }
 
   void _customAction() async {
     // Because we unfocus the input, it triggers this function. Using this, we block its execution
@@ -259,234 +503,5 @@ class _YFormFieldState extends State<YFormField> {
       default:
         break;
     }
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    focusNode.addListener(() {
-      setState(() {});
-      if (type == TextInputType.none) {
-        _customAction();
-      }
-    });
-  }
-
-  @override
-  void dispose() {
-    controller.dispose();
-    super.dispose();
-  }
-
-  String? validate(String? value) {
-    final String? val = widget.validator!(value);
-    setState(() {
-      error = val != null;
-    });
-    return val;
-  }
-
-  Widget? get suffixIcon {
-    Widget _wrapper(YIconButton child) {
-      switch (widget.variant) {
-        case YFormFieldVariant.contained:
-          return Padding(padding: YPadding.pr(YScale.s3), child: child);
-        case YFormFieldVariant.underline:
-          return child;
-      }
-    }
-
-    if (isPassword) {
-      return _wrapper(YIconButton(
-          icon: obscured ? Icons.visibility : Icons.visibility_off,
-          onPressed: () {
-            setState(() {
-              obscured = !obscured;
-            });
-          }));
-    } else if (type == TextInputType.none && controller.value.text != "") {
-      return _wrapper(YIconButton(
-          icon: Icons.clear_rounded,
-          onPressed: () {
-            setState(() {
-              controller.clear();
-              if (widget.onChanged != null) {
-                widget.onChanged!("");
-              }
-            });
-          }));
-    }
-    return null;
-  }
-
-  InputDecoration get _decoration {
-    final InputDecoration _baseInputDecoration = InputDecoration(
-        labelText: widget.label,
-        labelStyle: theme.texts.body1.copyWith(
-            color: error
-                ? theme.colors.danger.backgroundColor
-                : focusNode.hasFocus
-                    ? theme.colors.primary.backgroundColor
-                    : null),
-        suffixIcon: suffixIcon,
-        hintText: widget.placeholder,
-        hintStyle: theme.texts.body1,
-        helperStyle: theme.texts.body2,
-        helperText: widget.helper,
-        errorStyle: theme.texts.body2.copyWith(color: theme.colors.danger.backgroundColor, fontSize: YFontSize.sm),
-        errorMaxLines: 3);
-
-    switch (widget.variant) {
-      case YFormFieldVariant.contained:
-        return _baseInputDecoration.copyWith(
-          filled: true,
-          fillColor: theme.colors.backgroundLightColor,
-          contentPadding: YPadding.p(YScale.s3),
-          border: UnderlineInputBorder(borderSide: BorderSide.none, borderRadius: YBorderRadius.lg),
-        );
-      case YFormFieldVariant.underline:
-        return _baseInputDecoration.copyWith(
-          border: UnderlineInputBorder(borderSide: BorderSide(color: theme.colors.foregroundColor, width: YScale.spx)),
-          enabledBorder:
-              UnderlineInputBorder(borderSide: BorderSide(color: theme.colors.foregroundColor, width: YScale.spx)),
-          focusedBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: theme.colors.primary.backgroundColor, width: YScale.s0p5)),
-          errorBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: theme.colors.danger.backgroundColor, width: YScale.spx)),
-          focusedErrorBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: theme.colors.danger.backgroundColor, width: YScale.s0p5)),
-        );
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return TextFormField(
-        controller: controller,
-        autocorrect: widget.autocorrect,
-        onChanged: widget.onChanged,
-        keyboardType: type,
-        textCapitalization: widget.textCapitalization,
-        textInputAction: widget.properties.textInputAction,
-        focusNode: focusNode,
-        maxLength: widget.maxLength,
-        maxLines: widget.expandable && !isPassword ? null : 1,
-        cursorColor: theme.colors.primary.lightColor,
-        obscureText: isPassword ? obscured : false,
-        style: theme.texts.body1.copyWith(color: theme.colors.foregroundColor, height: 1.5),
-        validator: widget.validator != null ? validate : null,
-        onEditingComplete: widget.properties.onEditingComplete,
-        onSaved: widget.onSaved,
-        readOnly: widget.disabled,
-        decoration: _decoration);
-  }
-}
-
-/// A mutable class with properties used by [YForm].
-class YFormFieldProperties {
-  FocusNode? focusNode;
-  TextInputAction? textInputAction;
-  VoidCallback? onEditingComplete;
-
-  YFormFieldProperties({this.focusNode, this.textInputAction, this.onEditingComplete});
-}
-
-/// Class that manages the modals to show when the user clicks on the input for some [YFormFieldInputType].
-class _CustomActions {
-  _CustomActions._();
-
-  static ColorScheme _colorScheme(Brightness brightness) => ColorScheme(
-      background: theme.colors.backgroundLightColor, // Useless
-      onBackground: theme.colors.foregroundColor, // Useless
-      primary: theme.colors.primary.backgroundColor,
-      primaryVariant: theme.colors.primary.lightColor,
-      onPrimary: theme.colors.primary.foregroundColor,
-      secondary: theme.colors.backgroundLightColor, // Useless
-      secondaryVariant: theme.colors.backgroundColor, // Useless
-      onSecondary: theme.colors.foregroundColor, // Useless
-      surface: theme.colors.backgroundLightColor,
-      onSurface: theme.colors.foregroundColor,
-      error: theme.colors.danger.backgroundColor, // Useless
-      onError: theme.colors.danger.foregroundColor, // Useless
-      brightness: brightness);
-
-  static Future<String?> pickDate(
-    BuildContext context, {
-    required DateTime initialDate,
-    required DateTime firstDate,
-    required DateTime lastDate,
-  }) async {
-    final DateTime? date = await showDatePicker(
-        context: context,
-        initialDate: initialDate,
-        firstDate: firstDate,
-        lastDate: lastDate,
-        builder: (BuildContext context, Widget? child) => Theme(
-            data: ThemeData(
-                colorScheme: _colorScheme(Brightness.light),
-                dialogBackgroundColor: theme.colors.backgroundLightColor,
-                buttonTheme: const ButtonThemeData(textTheme: ButtonTextTheme.primary),
-                textTheme:
-                    TextTheme(subtitle1: theme.texts.body1.copyWith(color: theme.colors.foregroundColor, height: 1.5)),
-                inputDecorationTheme: InputDecorationTheme(
-                  filled: true,
-                  fillColor: theme.colors.backgroundColor,
-                  contentPadding: YPadding.p(YScale.s3),
-                  border: UnderlineInputBorder(borderSide: BorderSide.none, borderRadius: YBorderRadius.lg),
-                  labelStyle: theme.texts.body1,
-                )),
-            child: child!));
-    if (date != null) return DateFormat("dd/MM/yyyy").format(date);
-  }
-
-  static Future<String?> pickTime(BuildContext context, {required TimeOfDay initialTime}) async {
-    final TimeOfDay? time = await showTimePicker(
-        context: context,
-        initialTime: initialTime,
-        builder: (BuildContext context, Widget? child) => Theme(
-            data: ThemeData(
-              colorScheme: _colorScheme(theme.isDark ? Brightness.dark : Brightness.light),
-              buttonTheme: const ButtonThemeData(textTheme: ButtonTextTheme.primary),
-            ),
-            child: child!));
-    if (time != null) return "${time.hour.toString().padLeft(2, '0')}:${time.minute.toString().padLeft(2, '0')}";
-  }
-
-  static Future<String?> pickDateRange(
-    BuildContext context, {
-    required DateTimeRange initialDateRange,
-    required DateTime firstDate,
-    required DateTime lastDate,
-  }) async {
-    final DateTimeRange? date = await showDateRangePicker(
-        context: context,
-        initialDateRange: initialDateRange,
-        firstDate: firstDate,
-        lastDate: lastDate,
-        builder: (BuildContext context, Widget? child) => Theme(
-            data: ThemeData(
-              colorScheme: _colorScheme(theme.isDark ? Brightness.dark : Brightness.light),
-              dialogBackgroundColor: theme.colors.backgroundLightColor,
-              buttonTheme: const ButtonThemeData(textTheme: ButtonTextTheme.primary),
-              textTheme:
-                  TextTheme(subtitle1: theme.texts.body1.copyWith(color: theme.colors.foregroundColor, height: 1.5)),
-            ),
-            child: child!));
-    if (date != null) {
-      return DateFormat("dd/MM/yyyy").format(date.start) + " - " + DateFormat("dd/MM/yyyy").format(date.end);
-    }
-  }
-
-  static Future<String?> pickOption(BuildContext context,
-      {required List<YConfirmationDialogOption<int>> options, int? initialValue}) async {
-    final int? res = await YDialogs.getConfirmation<int>(
-      context,
-      YConfirmationDialog(
-        title: "Choisis une option",
-        options: options,
-        initialValue: initialValue,
-      ),
-    );
-    if (res != null) return "$res. ${options[res].label}";
   }
 }

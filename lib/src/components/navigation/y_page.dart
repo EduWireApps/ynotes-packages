@@ -74,7 +74,8 @@ class _YPageState extends State<YPage> with SingleTickerProviderStateMixin {
     final Widget content = SizedBox(
         width: double.infinity,
         height: double.infinity,
-        child: SingleChildScrollView(physics: const AlwaysScrollableScrollPhysics(), child: child));
+        child: SingleChildScrollView(
+            controller: ScrollController(), physics: const AlwaysScrollableScrollPhysics(), child: child));
     final Widget scrollbarContent = widget.scrollable
         ? widget.showScrollbar
             ? YScrollbar(

@@ -125,6 +125,16 @@ class _HomePageState extends State<HomePage> {
                   ],
                 ),
                 YVerticalSpacer(YScale.s10),
+                SingleChildScrollView(
+                    child: Row(
+                  children: [
+                    ...List.generate(
+                        10,
+                        (index) => Row(
+                            children: [Container(color: Colors.red, width: 200, height: 50), YHorizontalSpacer(30)]))
+                  ],
+                )),
+                YVerticalSpacer(YScale.s10),
                 YSettingsSections(sections: [
                   YSettingsSection(
                     tiles: [

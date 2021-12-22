@@ -3,7 +3,7 @@ part of settings;
 /// The section that contains the settings.
 class YSettingsSection extends StatelessWidget {
   /// The tiles of the section.
-  final List<YSettingsTile> tiles;
+  final List<Widget> tiles;
 
   /// The title of the section. Optionnal.
   final String? title;

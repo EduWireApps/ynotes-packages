@@ -1,3 +1,9 @@
+# 0.5.6 (27/12/2021)
+
+- Bug fixes
+- `YPage` api has been updated
+- New: `YTabBar`, internally used in `YPage`
+
 # 0.5.5 (05/11/2021)
 
 - Bug fixes

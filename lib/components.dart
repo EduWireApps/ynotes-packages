@@ -40,8 +40,7 @@ part 'src/components/inputs/y_slider.dart';
 part 'src/components/navigation/y_app_bar.dart';
 part 'src/components/navigation/y_bottom_navigation_bar.dart';
 part 'src/components/navigation/y_page.dart';
-// TODO: drawer
-// TODO: TabBar
+part 'src/components/navigation/y_tab_bar.dart';
 
 // Buttons
 part 'src/components/buttons/y_button.dart';

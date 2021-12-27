@@ -55,13 +55,15 @@ class _HomePageState extends State<HomePage> {
                 icon: const Icon(Icons.search_rounded)),
             IconButton(onPressed: () {}, icon: const Icon(Icons.more_vert_sharp)),
           ],
+          bottomHeight: kToolbarHeight,
         ),
         floatingButtons: [
           YFloatingButton(icon: Icons.photo_camera_rounded, onPressed: () {}, color: YColor.secondary),
           YFloatingButton(icon: Icons.edit_rounded, onPressed: () {}),
         ],
-        bottomNavigationElements: [
-          YBottomNavigationElement(
+        useBottomNavigation: false,
+        navigationElements: [
+          YNavigationElement(
             label: "Reçus",
             icon: Icons.mail_rounded,
             widget: Column(
@@ -124,16 +126,6 @@ class _HomePageState extends State<HomePage> {
                         color: YColor.secondary)
                   ],
                 ),
-                YVerticalSpacer(YScale.s10),
-                SingleChildScrollView(
-                    child: Row(
-                  children: [
-                    ...List.generate(
-                        10,
-                        (index) => Row(
-                            children: [Container(color: Colors.red, width: 200, height: 50), YHorizontalSpacer(30)]))
-                  ],
-                )),
                 YVerticalSpacer(YScale.s10),
                 YSettingsSections(sections: [
                   YSettingsSection(
@@ -357,12 +349,12 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
           ),
-          YBottomNavigationElement(
+          YNavigationElement(
             label: "Envoyés",
             icon: Icons.outbox_rounded,
             widget: Center(child: Text("Envoyés", style: TextStyle(color: theme.colors.foregroundColor))),
           ),
-          YBottomNavigationElement(
+          YNavigationElement(
             label: "Favoris",
             icon: Icons.star_rounded,
             widget: Center(child: Text("Favoris", style: TextStyle(color: theme.colors.foregroundColor))),

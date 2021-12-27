@@ -33,8 +33,7 @@ For detailed documentation, see in-editor documentation or check out the source 
   - `YAppBar` (**Work in progress**)
   - `YPage` (**Work in progress**)
   - `YBottomNavigationBar` (**Work in progress**)
-  - `YDrawer` (**Planned**)
-  - `YTabBar` (**Planned**)
+  - `YTabBar` (**Work in progress**)
 - Progress bars
   - `YLinearProgressBar` (**Work in progress**)
   - `YCircularProgressBar` (**Planned**)

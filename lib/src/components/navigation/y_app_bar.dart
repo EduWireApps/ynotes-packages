@@ -9,9 +9,19 @@ class YAppBar extends StatefulWidget {
   final bool removeLeading;
   final String title;
   final Widget? bottom;
+  final double bottomHeight;
 
-  const YAppBar({Key? key, this.actions, this.leading, required this.title, this.bottom, this.removeLeading = false})
+  const YAppBar(
+      {Key? key,
+      this.actions,
+      this.leading,
+      required this.title,
+      this.bottom,
+      this.removeLeading = false,
+      this.bottomHeight = 0.0})
       : super(key: key);
+
+  double get height => 1 + bottomHeight;
 
   @override
   _YAppBarState createState() => _YAppBarState();
@@ -38,7 +48,7 @@ class _YAppBarState extends State<YAppBar> {
       }
     }
 
-    const double borderHeight = 1.5;
+    const double borderHeight = 1;
     return AppBar(
         automaticallyImplyLeading: false,
         backgroundColor: theme.colors.backgroundColor,
@@ -53,11 +63,8 @@ class _YAppBarState extends State<YAppBar> {
         actions: widget.actions,
         bottom: PreferredSize(
             child: Column(
-              children: [
-                Container(height: borderHeight, color: theme.colors.backgroundLightColor),
-                if (widget.bottom != null) widget.bottom!
-              ],
+              children: [if (widget.bottom != null) widget.bottom!, const YDivider()],
             ),
-            preferredSize: const Size.fromHeight(borderHeight)));
+            preferredSize: Size.fromHeight(borderHeight + widget.bottomHeight)));
   }
 }

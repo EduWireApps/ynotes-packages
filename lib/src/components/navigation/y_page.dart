@@ -93,7 +93,12 @@ class _YPageState extends State<YPage> with SingleTickerProviderStateMixin {
   }
 
   YAppBar get appBar {
-    final YAppBar bar = widget.appBar as YAppBar;
+    late final YAppBar bar;
+    if (widget.appBar is Builder) {
+      bar = (widget.appBar as Builder).builder(context) as YAppBar;
+    } else {
+      bar = widget.appBar as YAppBar;
+    }
     return YAppBar(
       title: bar.title,
       actions: bar.actions,

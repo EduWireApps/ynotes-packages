@@ -5,10 +5,10 @@ part of components;
 /// WIP
 class YNavigationElement {
   final String label;
-  final IconData icon;
+  final IconData? icon;
   final Widget widget;
 
-  YNavigationElement({required this.label, required this.icon, required this.widget});
+  YNavigationElement({required this.label, this.icon, required this.widget});
 }
 
 /// WIP

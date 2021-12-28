@@ -92,7 +92,7 @@ class _YPageState extends State<YPage> with SingleTickerProviderStateMixin {
             : scrollbarContent);
   }
 
-  YAppBar get appBar {
+  YAppBar appBar(BuildContext context) {
     late final YAppBar bar;
     if (widget.appBar is Builder) {
       bar = (widget.appBar as Builder).builder(context) as YAppBar;
@@ -117,7 +117,8 @@ class _YPageState extends State<YPage> with SingleTickerProviderStateMixin {
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: Scaffold(
         backgroundColor: theme.colors.backgroundColor,
-        appBar: PreferredSize(preferredSize: Size.fromHeight(kToolbarHeight + appBar.height), child: appBar),
+        appBar: PreferredSize(
+            preferredSize: Size.fromHeight(kToolbarHeight + appBar(context).height), child: appBar(context)),
         drawer: widget.drawer,
         body: widget.navigationElements != null
             ? TabBarView(

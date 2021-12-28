@@ -118,7 +118,10 @@ class _YPageState extends State<YPage> with SingleTickerProviderStateMixin {
       child: Scaffold(
         backgroundColor: theme.colors.backgroundColor,
         appBar: PreferredSize(
-            preferredSize: Size.fromHeight(kToolbarHeight + appBar(context).height), child: appBar(context)),
+            preferredSize: Size.fromHeight(kToolbarHeight + appBar(context).height),
+            child: Builder(builder: (context) {
+              return appBar(context);
+            })),
         drawer: widget.drawer,
         body: widget.navigationElements != null
             ? TabBarView(

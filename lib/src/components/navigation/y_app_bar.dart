@@ -59,8 +59,9 @@ class _YAppBarState extends State<YAppBar> {
       child: IconTheme(
         data: IconThemeData(color: theme.colors.foregroundColor),
         child: Column(children: [
-          Padding(
+          Container(
             padding: YPadding.p(YScale.s2),
+            height: kToolbarHeight,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

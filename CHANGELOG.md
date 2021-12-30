@@ -1,3 +1,7 @@
+# 0.6.0 (30/12/2021)
+
+- Navigation components stable and documented. Check out the README to see available components and corresponding files for detailed documentation.
+
 # 0.5.6 (27/12/2021)
 
 - Bug fixes

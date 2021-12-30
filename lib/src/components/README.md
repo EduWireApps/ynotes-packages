@@ -30,10 +30,11 @@ For detailed documentation, see in-editor documentation or check out the source 
     - `YForm`
     - `YFormField`
 - Navigation
-  - `YAppBar` (**Work in progress**)
-  - `YPage` (**Work in progress**)
-  - `YBottomNavigationBar` (**Work in progress**)
-  - `YTabBar` (**Work in progress**)
+  - `YAppBar`
+  - `YPage`
+  - `YBottomNavigationBar`
+  - `YTabBar`
+  - `YNavigationElement`
 - Progress bars
   - `YLinearProgressBar` (**Work in progress**)
   - `YCircularProgressBar` (**Planned**)

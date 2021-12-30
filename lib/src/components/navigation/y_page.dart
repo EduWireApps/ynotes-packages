@@ -88,7 +88,7 @@ class _YPageState extends State<YPage> with SingleTickerProviderStateMixin {
     return _els;
   }
 
-  Widget pageContainer(Widget child) {
+  Widget pageContainer(BuildContext context, Widget child) {
     final Widget content = SizedBox(
         width: double.infinity,
         height: double.infinity,
@@ -138,26 +138,27 @@ class _YPageState extends State<YPage> with SingleTickerProviderStateMixin {
       child: Scaffold(
         backgroundColor: theme.colors.backgroundColor,
         drawer: widget.drawer,
-        body: widget.navigationElements != null
-            ? Column(
-                children: [
-                  appBar(context),
-                  Expanded(
-                    child: TabBarView(
-                        controller: _controller,
-                        children: widget.navigationElements!
-                            .map((e) => ListView(
-                                  physics: const ClampingScrollPhysics(),
-                                  shrinkWrap: true,
-                                  children: [
-                                    e.widget,
-                                  ],
-                                ))
-                            .toList()),
-                  ),
-                ],
-              )
-            : pageContainer(widget.body!),
+        body: Builder(
+            builder: (context) => widget.navigationElements != null
+                ? Column(
+                    children: [
+                      appBar(context),
+                      Expanded(
+                        child: TabBarView(
+                            controller: _controller,
+                            children: widget.navigationElements!
+                                .map((e) => ListView(
+                                      physics: const ClampingScrollPhysics(),
+                                      shrinkWrap: true,
+                                      children: [
+                                        e.widget,
+                                      ],
+                                    ))
+                                .toList()),
+                      ),
+                    ],
+                  )
+                : pageContainer(context, widget.body!)),
         bottomNavigationBar: widget.navigationElements != null && widget.useBottomNavigation
             ? YBottomNavigationBar(
                 currentIndex: _index,

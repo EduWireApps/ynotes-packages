@@ -39,6 +39,7 @@ part 'src/components/inputs/y_slider.dart';
 // Navigation
 part 'src/components/navigation/y_app_bar.dart';
 part 'src/components/navigation/y_bottom_navigation_bar.dart';
+part 'src/components/navigation/y_navigation_element.dart';
 part 'src/components/navigation/y_page.dart';
 part 'src/components/navigation/y_tab_bar.dart';
 

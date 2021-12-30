@@ -1,13 +1,22 @@
 part of components;
 
-// TODO: document
-
-/// WIP
+/// The [YPage]'s appbar.
 class YAppBar extends StatefulWidget {
+  /// The appbar's actions.
   final List<Widget>? actions;
+
+  /// The appbar's leading widget. If null, a default button
+  /// will be shown.
   final YIconButton? leading;
+
+  /// Setting [leading] to `null` will disable the default leading button.
+  /// To override that behavior and hide the leading button, set [removeLeading] to `true`.
   final bool removeLeading;
+
+  /// The appbar's title.
   final String title;
+
+  /// The appbar's bottom widget. Will be shown above the bottom border.
   final Widget? bottom;
 
   const YAppBar({

@@ -62,7 +62,7 @@ class _HomePageState extends State<HomePage> {
           YFloatingButton(icon: Icons.photo_camera_rounded, onPressed: () {}, color: YColor.secondary),
           YFloatingButton(icon: Icons.edit_rounded, onPressed: () {}),
         ],
-        useBottomNavigation: false,
+        useBottomNavigation: true,
         navigationElements: [
           YNavigationElement(
             label: "Reçus",

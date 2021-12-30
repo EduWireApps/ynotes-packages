@@ -1,7 +1,11 @@
 part of components;
 
+/// A tab bar component.
 class YTabBar extends StatelessWidget {
+  /// The tab controller.
   final TabController controller;
+
+  /// The tabs.
   final List<YNavigationElement> elements;
   const YTabBar({Key? key, required this.controller, required this.elements}) : super(key: key);
 

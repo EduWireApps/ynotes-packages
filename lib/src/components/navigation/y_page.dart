@@ -1,27 +1,43 @@
 part of components;
 
-// TODO: document
-
-/// WIP
-class YNavigationElement {
-  final String label;
-  final IconData? icon;
-  final Widget widget;
-
-  YNavigationElement({required this.label, this.icon, required this.widget});
-}
-
-/// WIP
+/// The page component.
 class YPage extends StatefulWidget {
+  /// The body of the page. If you want to use with [YNavigationElement]s (horizontal slide),
+  /// consider using [navigationElements].
+  ///
+  /// Both [body] and [navigationElements] can't be used nor be null at the same time.
   final Widget? body;
+
+  /// The appBar of the page. Prefer using [YAppBar] (can be in a [Builder] to get the right context)
+  /// for [Scaffold].
   final Widget appBar;
+
+  /// The floating buttons of the page. You can't use more than 2. The list can't be empty.
   final List<YFloatingButton>? floatingButtons;
+
+  /// The body of the page for [YNavigationElement]s (horizontal slide). If you want a simple page,
+  /// consider using [body].
+  ///
+  /// Both [body] and [navigationElements] can't be used nor be null at the same time.
   final List<YNavigationElement>? navigationElements;
+
+  /// When using [navigationElements], this is the index of the element that will be shown first.
   final int navigationInitialIndex;
+
+  /// The drawer of the page. It's recommended to use a [Drawer].
   final Widget? drawer;
+
+  /// Is the page scrollable.
   final bool scrollable;
+
+  /// Show a scrolbar. Will be always shown on desktop.
   final bool showScrollbar;
+
+  /// When pulling down, this function will be called.
   final Future<void> Function()? onRefresh;
+
+  /// When using [navigationElements], tabs in the appBar will be shown by default. You can decide to
+  /// use a bottom navigation bar instead.
   final bool useBottomNavigation;
 
   const YPage(
@@ -145,12 +161,7 @@ class _YPageState extends State<YPage> with SingleTickerProviderStateMixin {
         bottomNavigationBar: widget.navigationElements != null && widget.useBottomNavigation
             ? YBottomNavigationBar(
                 currentIndex: _index,
-                items: widget.navigationElements!
-                    .map((e) => BottomNavigationBarItem(
-                          icon: Icon(e.icon),
-                          label: e.label,
-                        ))
-                    .toList(),
+                items: widget.navigationElements!,
                 onTap: (int i) {
                   setState(() {
                     _controller.index = i;

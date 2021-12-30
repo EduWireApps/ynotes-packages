@@ -66,7 +66,7 @@ class _YAppBarState extends State<YAppBar> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 if (_leading != null) _leading,
-                if (_leading != null) YHorizontalSpacer(YScale.s6),
+                YHorizontalSpacer(_leading == null ? YScale.s2 : YScale.s6),
                 Expanded(
                     child: Text(
                   widget.title,

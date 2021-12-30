@@ -29,34 +29,34 @@ class _HomePageState extends State<HomePage> {
         appBar: Builder(
             builder: (context) => YAppBar(
                   title: "Accueil",
-                  // actions: [
-                  //   IconButton(
-                  //       splashRadius: 20,
-                  //       splashColor: theme.colors.primary.lightColor,
-                  //       icon: const Icon(Icons.palette),
-                  //       onPressed: () async {
-                  //         final int? res = await YDialogs.getConfirmation<int>(
-                  //             context,
-                  //             YConfirmationDialog(
-                  //                 title: "Choisis un thème",
-                  //                 options: theme.themes
-                  //                     .map((e) => YConfirmationDialogOption(value: e.id, label: e.name))
-                  //                     .toList(),
-                  //                 initialValue: theme.currentTheme));
-                  //         if (res != null) {
-                  //           theme.updateCurrentTheme(res);
-                  //           prefs.setInt("themeId", res);
-                  //         }
-                  //         setSystemUIOverlayStyle();
-                  //         // setState(() {});
-                  //       }),
-                  //   IconButton(
-                  //       onPressed: () {
-                  //         setSystemUIOverlayStyle();
-                  //       },
-                  //       icon: const Icon(Icons.search_rounded)),
-                  //   IconButton(onPressed: () {}, icon: const Icon(Icons.more_vert_sharp)),
-                  // ],
+                  actions: [
+                    IconButton(
+                        splashRadius: 20,
+                        splashColor: theme.colors.primary.lightColor,
+                        icon: const Icon(Icons.palette),
+                        onPressed: () async {
+                          final int? res = await YDialogs.getConfirmation<int>(
+                              context,
+                              YConfirmationDialog(
+                                  title: "Choisis un thème",
+                                  options: theme.themes
+                                      .map((e) => YConfirmationDialogOption(value: e.id, label: e.name))
+                                      .toList(),
+                                  initialValue: theme.currentTheme));
+                          if (res != null) {
+                            theme.updateCurrentTheme(res);
+                            prefs.setInt("themeId", res);
+                          }
+                          setSystemUIOverlayStyle();
+                          // setState(() {});
+                        }),
+                    IconButton(
+                        onPressed: () {
+                          setSystemUIOverlayStyle();
+                        },
+                        icon: const Icon(Icons.search_rounded)),
+                    IconButton(onPressed: () {}, icon: const Icon(Icons.more_vert_sharp)),
+                  ],
                 )),
         floatingButtons: [
           YFloatingButton(icon: Icons.photo_camera_rounded, onPressed: () {}, color: YColor.secondary),

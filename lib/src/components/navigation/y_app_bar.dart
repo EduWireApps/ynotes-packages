@@ -9,19 +9,15 @@ class YAppBar extends StatefulWidget {
   final bool removeLeading;
   final String title;
   final Widget? bottom;
-  final double bottomHeight;
 
-  const YAppBar(
-      {Key? key,
-      this.actions,
-      this.leading,
-      required this.title,
-      this.bottom,
-      this.removeLeading = false,
-      this.bottomHeight = 0.0})
-      : super(key: key);
-
-  double get height => 1 + bottomHeight;
+  const YAppBar({
+    Key? key,
+    this.actions,
+    this.leading,
+    required this.title,
+    this.bottom,
+    this.removeLeading = false,
+  }) : super(key: key);
 
   @override
   _YAppBarState createState() => _YAppBarState();
@@ -48,23 +44,34 @@ class _YAppBarState extends State<YAppBar> {
       }
     }
 
-    const double borderHeight = 1;
-    return AppBar(
-        automaticallyImplyLeading: false,
-        backgroundColor: theme.colors.backgroundColor,
-        systemOverlayStyle: SystemUiOverlayStyle(
-          statusBarBrightness: theme.isDark ? Brightness.dark : Brightness.light,
-        ),
-        centerTitle: false,
-        iconTheme: IconThemeData(color: theme.colors.foregroundColor),
-        leading: leading(),
-        title: Text(widget.title, style: theme.texts.title),
-        elevation: 0,
-        actions: widget.actions,
-        bottom: PreferredSize(
-            child: Column(
-              children: [if (widget.bottom != null) widget.bottom!, const YDivider()],
+    final Widget? _leading = leading();
+    return Material(
+      color: theme.colors.backgroundColor,
+      child: IconTheme(
+        data: IconThemeData(color: theme.colors.foregroundColor),
+        child: Column(children: [
+          Padding(
+            padding: YPadding.p(YScale.s2),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                if (_leading != null) _leading,
+                if (_leading != null) YHorizontalSpacer(YScale.s6),
+                Expanded(
+                    child: Text(
+                  widget.title,
+                  style: theme.texts.title,
+                  overflow: TextOverflow.ellipsis,
+                )),
+                YHorizontalSpacer(YScale.s2),
+                if (widget.actions != null) Row(children: widget.actions!)
+              ],
             ),
-            preferredSize: Size.fromHeight(borderHeight + widget.bottomHeight)));
+          ),
+          if (widget.bottom != null) widget.bottom!,
+          const YDivider()
+        ]),
+      ),
+    );
   }
 }

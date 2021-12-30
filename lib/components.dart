@@ -3,10 +3,10 @@ library components;
 // Imports
 import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:intl/intl.dart' hide TextDirection;
 import 'package:uuid/uuid.dart';
+import 'package:flutter_sticky_header/flutter_sticky_header.dart';
 import 'theme.dart';
 import 'utilities.dart';
 

@@ -76,8 +76,13 @@ class _YPageState extends State<YPage> with SingleTickerProviderStateMixin {
     final Widget content = SizedBox(
         width: double.infinity,
         height: double.infinity,
-        child: SingleChildScrollView(
-            controller: ScrollController(), physics: const AlwaysScrollableScrollPhysics(), child: child));
+        child:
+            CustomScrollView(controller: ScrollController(), physics: const AlwaysScrollableScrollPhysics(), slivers: [
+          SliverStickyHeader(
+              // header: widget.appBar,
+              header: appBar(context),
+              sliver: SliverToBoxAdapter(child: child)),
+        ]));
     final Widget scrollbarContent = widget.scrollable
         ? widget.showScrollbar
             ? YScrollbar(
@@ -107,7 +112,6 @@ class _YPageState extends State<YPage> with SingleTickerProviderStateMixin {
           ? YTabBar(controller: _controller, elements: widget.navigationElements!)
           : bar.bottom,
       removeLeading: bar.removeLeading,
-      bottomHeight: bar.bottomHeight,
     );
   }
 
@@ -117,16 +121,26 @@ class _YPageState extends State<YPage> with SingleTickerProviderStateMixin {
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: Scaffold(
         backgroundColor: theme.colors.backgroundColor,
-        appBar: PreferredSize(
-            preferredSize: Size.fromHeight(kToolbarHeight + appBar(context).height),
-            child: Builder(builder: (context) {
-              return appBar(context);
-            })),
         drawer: widget.drawer,
         body: widget.navigationElements != null
-            ? TabBarView(
-                controller: _controller,
-                children: widget.navigationElements!.map((e) => pageContainer(e.widget)).toList())
+            ? Column(
+                children: [
+                  appBar(context),
+                  Expanded(
+                    child: TabBarView(
+                        controller: _controller,
+                        children: widget.navigationElements!
+                            .map((e) => ListView(
+                                  physics: const ClampingScrollPhysics(),
+                                  shrinkWrap: true,
+                                  children: [
+                                    e.widget,
+                                  ],
+                                ))
+                            .toList()),
+                  ),
+                ],
+              )
             : pageContainer(widget.body!),
         bottomNavigationBar: widget.navigationElements != null && widget.useBottomNavigation
             ? YBottomNavigationBar(

@@ -27,8 +27,8 @@ class YTabBar extends StatelessWidget {
         child: Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Icon(element.icon, color: color),
-        YHorizontalSpacer(YScale.s3),
+        if (element.icon != null) Icon(element.icon, color: color),
+        if (element.icon != null) YHorizontalSpacer(YScale.s3),
         Text(element.label.toUpperCase(), style: theme.texts.button.copyWith(color: color)),
       ],
     ));

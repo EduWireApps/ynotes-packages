@@ -1,7 +1,5 @@
-import 'package:example/main.dart';
 import 'package:flutter/material.dart';
 import 'package:ynotes_packages/components.dart';
-import 'package:ynotes_packages/settings.dart';
 import 'package:ynotes_packages/theme.dart';
 
 class TestPage extends StatefulWidget {

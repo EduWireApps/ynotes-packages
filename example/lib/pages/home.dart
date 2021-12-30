@@ -57,7 +57,6 @@ class _HomePageState extends State<HomePage> {
                         icon: const Icon(Icons.search_rounded)),
                     IconButton(onPressed: () {}, icon: const Icon(Icons.more_vert_sharp)),
                   ],
-                  bottomHeight: kToolbarHeight,
                 )),
         floatingButtons: [
           YFloatingButton(icon: Icons.photo_camera_rounded, onPressed: () {}, color: YColor.secondary),

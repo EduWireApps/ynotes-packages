@@ -1,3 +1,10 @@
+# 0.6.1 (30/12/2021)
+
+Bug fixes:
+
+- Incorrect context in `YPage`
+- Incorrect `YAppBar` height without actions
+
 # 0.6.0 (30/12/2021)
 
 - Navigation components stable and documented. Check out the README to see available components and corresponding files for detailed documentation.

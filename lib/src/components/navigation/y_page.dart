@@ -40,6 +40,9 @@ class YPage extends StatefulWidget {
   /// use a bottom navigation bar instead.
   final bool useBottomNavigation;
 
+  /// When using [navigationElements], this function is called on page change.
+  final ValueChanged<int>? onPageChanged;
+
   const YPage(
       {Key? key,
       this.body,
@@ -51,7 +54,8 @@ class YPage extends StatefulWidget {
       this.scrollable = true,
       this.showScrollbar = false,
       this.onRefresh,
-      this.useBottomNavigation = true})
+      this.useBottomNavigation = true,
+      this.onPageChanged})
       : assert(floatingButtons == null || floatingButtons.length <= 2, "Can't use more than 2 floating buttons"),
         assert(body == null || navigationElements == null, "Can't use body and tab views"),
         super(key: key);
@@ -71,7 +75,12 @@ class _YPageState extends State<YPage> with SingleTickerProviderStateMixin {
       _controller = TabController(initialIndex: _index, length: widget.navigationElements!.length, vsync: this);
       _controller.addListener(() {
         setState(() {
-          _index = _controller.index;
+          if (_controller.index != _index) {
+            _index = _controller.index;
+            if (widget.onPageChanged != null) {
+              widget.onPageChanged!(_index);
+            }
+          }
         });
       });
     }

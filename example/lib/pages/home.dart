@@ -26,6 +26,9 @@ class _HomePageState extends State<HomePage> {
     setSystemUIOverlayStyle();
     return YPage(
         // body: Center(child: Text('Home', style: TextStyle(color: theme.colors.foregroundColor))),
+        onPageChanged: (value) {
+          print("new page index: $value");
+        },
         appBar: Builder(
             builder: (context) => YAppBar(
                   title: "Accueil",

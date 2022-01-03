@@ -1,3 +1,7 @@
+# 0.6.2 (03/01/2022)
+
+- Add `onPageChanged` property to `YPage`
+
 # 0.6.1 (30/12/2021)
 
 Bug fixes:

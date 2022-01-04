@@ -155,15 +155,18 @@ class _YPageState extends State<YPage> with SingleTickerProviderStateMixin {
                       Expanded(
                         child: TabBarView(
                             controller: _controller,
-                            children: widget.navigationElements!
-                                .map((e) => ListView(
-                                      physics: const ClampingScrollPhysics(),
-                                      shrinkWrap: true,
-                                      children: [
-                                        e.widget,
-                                      ],
-                                    ))
-                                .toList()),
+                            children: widget.navigationElements!.asMap().entries.map((entry) {
+                              final YNavigationElement e = entry.value;
+                              final int index = entry.key;
+                              return ListView(
+                                primary: _controller.index == index,
+                                physics: const ClampingScrollPhysics(),
+                                shrinkWrap: true,
+                                children: [
+                                  e.widget,
+                                ],
+                              );
+                            }).toList()),
                       ),
                     ],
                   )

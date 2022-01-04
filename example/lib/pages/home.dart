@@ -356,7 +356,141 @@ class _HomePageState extends State<HomePage> {
           YNavigationElement(
             label: "Envoyés",
             icon: Icons.outbox_rounded,
-            widget: Center(child: Text("Envoyés", style: TextStyle(color: theme.colors.foregroundColor))),
+            widget: Column(
+              children: [
+                Center(child: Text("Envoyés", style: TextStyle(color: theme.colors.foregroundColor))),
+                YSettingsSections(sections: [
+                  YSettingsSection(
+                    tiles: [
+                      YSettingsTile(
+                        title: "Appearance",
+                        leading: Icons.color_lens,
+                        onTap: () {
+                          print("tapped");
+                        },
+                      ),
+                      YSettingsTile(
+                        title: "Location",
+                        leading: Icons.place,
+                        onTap: () {
+                          print("tapped");
+                        },
+                      ),
+                      YSettingsTile(
+                        title: "Notifications",
+                        leading: Icons.notifications_rounded,
+                        onTap: () {
+                          print("tapped");
+                        },
+                      ),
+                      YSettingsTile(
+                        title: "Privacy",
+                        leading: Icons.lock_rounded,
+                        onTap: () {
+                          print("tapped");
+                        },
+                      ),
+                    ],
+                  ),
+                  YSettingsSection(
+                    tiles: [
+                      YSettingsTile(
+                        title: "Appearance",
+                        leading: Icons.color_lens,
+                        onTap: () {
+                          print("tapped");
+                        },
+                      ),
+                      YSettingsTile(
+                        title: "Location",
+                        leading: Icons.place,
+                        onTap: () {
+                          print("tapped");
+                        },
+                      ),
+                      YSettingsTile(
+                        title: "Notifications",
+                        leading: Icons.notifications_rounded,
+                        onTap: () {
+                          print("tapped");
+                        },
+                      ),
+                      YSettingsTile(
+                        title: "Privacy",
+                        leading: Icons.lock_rounded,
+                        onTap: () {
+                          print("tapped");
+                        },
+                      ),
+                    ],
+                  ),
+                  YSettingsSection(
+                    tiles: [
+                      YSettingsTile(
+                        title: "Appearance",
+                        leading: Icons.color_lens,
+                        onTap: () {
+                          print("tapped");
+                        },
+                      ),
+                      YSettingsTile(
+                        title: "Location",
+                        leading: Icons.place,
+                        onTap: () {
+                          print("tapped");
+                        },
+                      ),
+                      YSettingsTile(
+                        title: "Notifications",
+                        leading: Icons.notifications_rounded,
+                        onTap: () {
+                          print("tapped");
+                        },
+                      ),
+                      YSettingsTile(
+                        title: "Privacy",
+                        leading: Icons.lock_rounded,
+                        onTap: () {
+                          print("tapped");
+                        },
+                      ),
+                    ],
+                  ),
+                  YSettingsSection(
+                    tiles: [
+                      YSettingsTile(
+                        title: "Appearance",
+                        leading: Icons.color_lens,
+                        onTap: () {
+                          print("tapped");
+                        },
+                      ),
+                      YSettingsTile(
+                        title: "Location",
+                        leading: Icons.place,
+                        onTap: () {
+                          print("tapped");
+                        },
+                      ),
+                      YSettingsTile(
+                        title: "Notifications",
+                        leading: Icons.notifications_rounded,
+                        onTap: () {
+                          print("tapped");
+                        },
+                      ),
+                      YSettingsTile(
+                        title: "Privacy",
+                        leading: Icons.lock_rounded,
+                        onTap: () {
+                          print("tapped");
+                        },
+                      ),
+                    ],
+                  ),
+                ])
+              ],
+            ),
           ),
           YNavigationElement(
             label: "Favoris",

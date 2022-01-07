@@ -123,8 +123,10 @@ class _HomePageState extends State<HomePage> {
                               ...List.generate(10, (i) => i).map((e) => ListTile(
                                   title: Text("$e", style: theme.texts.body1),
                                   onTap: () {
-                                    Navigator.pop(context, e);
+                                    // Navigator.pop(context, e);
                                   })),
+                              YFormField(
+                                  type: YFormFieldInputType.number, label: "Number", properties: YFormFieldProperties())
                             ],
                           );
                           // final String? res = await YModalBottomSheets.show<String>(context: context, child: content);

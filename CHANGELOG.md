@@ -1,3 +1,11 @@
+# 0.6.3 (07/01/2022)
+
+- `YPage` body has been reworked: it now works perfectly with `body` and `navigationElements`.
+- The `YPage` `onPageChanged` callback now triggers at the right moment. 
+
+**Breaking changes!**
+
+- `YPage` has no `showScrollbar` attribute anymore
 # 0.6.2 (03/01/2022)
 
 - Add `onPageChanged` property to `YPage`

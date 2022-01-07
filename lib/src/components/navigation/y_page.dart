@@ -30,9 +30,6 @@ class YPage extends StatefulWidget {
   /// Is the page scrollable.
   final bool scrollable;
 
-  /// Show a scrolbar. Will be always shown on desktop.
-  final bool showScrollbar;
-
   /// When pulling down, this function will be called.
   final Future<void> Function()? onRefresh;
 
@@ -52,7 +49,6 @@ class YPage extends StatefulWidget {
       this.navigationInitialIndex = 0,
       this.drawer,
       this.scrollable = true,
-      this.showScrollbar = false,
       this.onRefresh,
       this.useBottomNavigation = true,
       this.onPageChanged})
@@ -73,15 +69,16 @@ class _YPageState extends State<YPage> with SingleTickerProviderStateMixin {
     super.initState();
     if (widget.navigationElements != null) {
       _controller = TabController(initialIndex: _index, length: widget.navigationElements!.length, vsync: this);
-      _controller.addListener(() {
-        setState(() {
-          if (_controller.index != _index) {
-            _index = _controller.index;
+      _controller.animation!.addListener(() {
+        final int index = _controller.animation!.value.round();
+        if (index != _index) {
+          setState(() {
+            _index = index;
             if (widget.onPageChanged != null) {
               widget.onPageChanged!(_index);
             }
-          }
-        });
+          });
+        }
       });
     }
   }
@@ -95,31 +92,6 @@ class _YPageState extends State<YPage> with SingleTickerProviderStateMixin {
     }
 
     return _els;
-  }
-
-  Widget pageContainer(BuildContext context, Widget child) {
-    final Widget content = SizedBox(
-        width: double.infinity,
-        height: double.infinity,
-        child:
-            CustomScrollView(controller: ScrollController(), physics: const AlwaysScrollableScrollPhysics(), slivers: [
-          SliverStickyHeader(
-              // header: widget.appBar,
-              header: appBar(context),
-              sliver: SliverToBoxAdapter(child: child)),
-        ]));
-    final Widget scrollbarContent = widget.scrollable
-        ? widget.showScrollbar
-            ? YScrollbar(
-                isAlwaysShown: true,
-                child: content,
-              )
-            : content
-        : child;
-    return SafeArea(
-        child: widget.onRefresh != null
-            ? YRefreshIndicator(child: scrollbarContent, onRefresh: widget.onRefresh!)
-            : scrollbarContent);
   }
 
   YAppBar appBar(BuildContext context) {
@@ -140,6 +112,23 @@ class _YPageState extends State<YPage> with SingleTickerProviderStateMixin {
     );
   }
 
+  Widget body() {
+    Widget scrollView(Widget child) => SizedBox(
+          height: double.infinity,
+          child: SingleChildScrollView(
+              controller: ScrollController(), physics: const AlwaysScrollableScrollPhysics(), child: child),
+        );
+    Widget refreshIndicator(Widget child) => widget.onRefresh != null
+        ? YRefreshIndicator(child: scrollView(child), onRefresh: widget.onRefresh!)
+        : scrollView(child);
+    return Expanded(
+        child: widget.body != null
+            ? refreshIndicator(widget.body!)
+            : TabBarView(
+                controller: _controller,
+                children: widget.navigationElements!.map((e) => refreshIndicator(e.widget)).toList()));
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -147,28 +136,14 @@ class _YPageState extends State<YPage> with SingleTickerProviderStateMixin {
       child: Scaffold(
         backgroundColor: theme.colors.backgroundColor,
         drawer: widget.drawer,
-        body: Builder(
-            builder: (context) => widget.navigationElements != null
-                ? Column(
-                    children: [
-                      appBar(context),
-                      Expanded(
-                        child: TabBarView(
-                            controller: _controller,
-                            children: widget.navigationElements!
-                                .map((e) => ListView(
-                                      controller: ScrollController(),
-                                      physics: const ClampingScrollPhysics(),
-                                      shrinkWrap: true,
-                                      children: [
-                                        e.widget,
-                                      ],
-                                    ))
-                                .toList()),
-                      ),
-                    ],
-                  )
-                : pageContainer(context, widget.body!)),
+        body: SafeArea(
+            child: Builder(
+                builder: (context) => SizedBox(
+                    width: double.infinity,
+                    height: double.infinity,
+                    child: Column(
+                      children: [appBar(context), body()],
+                    )))),
         bottomNavigationBar: widget.navigationElements != null && widget.useBottomNavigation
             ? YBottomNavigationBar(
                 currentIndex: _index,

@@ -29,6 +29,7 @@ class _HomePageState extends State<HomePage> {
         onPageChanged: (value) {
           print("new page index: $value");
         },
+        onRefresh: () async => await Future.delayed(const Duration(seconds: 2)),
         appBar: Builder(
             builder: (context) => YAppBar(
                   title: "Accueil",
@@ -58,7 +59,11 @@ class _HomePageState extends State<HomePage> {
                           setSystemUIOverlayStyle();
                         },
                         icon: const Icon(Icons.search_rounded)),
-                    IconButton(onPressed: () {}, icon: const Icon(Icons.more_vert_sharp)),
+                    IconButton(
+                        onPressed: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => const TestPage()));
+                        },
+                        icon: const Icon(Icons.arrow_forward_rounded)),
                   ],
                 )),
         floatingButtons: [

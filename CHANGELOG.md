@@ -1,7 +1,12 @@
+# 0.6.4 (07/01/2022)
+
+- Fix `YModalBottomSheets.show` to resize the bottom sheet when keyboard is open
+- Pressing anywhere on bottom sheet unfocuses currently focused input
+
 # 0.6.3 (07/01/2022)
 
-- `YPage` body has been reworked: it now works perfectly with `body` and `navigationElements`.
-- The `YPage` `onPageChanged` callback now triggers at the right moment. 
+- `YPage` body has been reworked: it now works perfectly with `body` and `navigationElements`
+- The `YPage` `onPageChanged` callback now triggers at the right moment.
 
 **Breaking changes!**
 

@@ -1,3 +1,7 @@
+# 0.6.5 (31/01/2022)
+
+- Fix `YPage` tab controller that caused `late initialization` error
+
 # 0.6.4 (07/01/2022)
 
 - Fix `YModalBottomSheets.show` to resize the bottom sheet when keyboard is open

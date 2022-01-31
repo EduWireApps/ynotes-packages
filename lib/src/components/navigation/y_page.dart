@@ -60,27 +60,54 @@ class YPage extends StatefulWidget {
   _YPageState createState() => _YPageState();
 }
 
-class _YPageState extends State<YPage> with SingleTickerProviderStateMixin {
+class _YPageState extends State<YPage> with TickerProviderStateMixin {
   late TabController _controller;
   late int _index = widget.navigationInitialIndex;
+  bool controllerInitialized = false;
+  late int oldLength = widget.navigationElements?.length ?? 0;
 
   @override
   void initState() {
     super.initState();
-    if (widget.navigationElements != null) {
-      _controller = TabController(initialIndex: _index, length: widget.navigationElements!.length, vsync: this);
-      _controller.animation!.addListener(() {
-        final int index = _controller.animation!.value.round();
-        if (index != _index) {
-          setState(() {
-            _index = index;
-            if (widget.onPageChanged != null) {
-              widget.onPageChanged!(_index);
-            }
-          });
-        }
-      });
+    setController();
+  }
+
+  @override
+  void dispose() {
+    if (controllerInitialized) {
+      _controller.dispose();
     }
+    super.dispose();
+  }
+
+  void setController() {
+    if (controllerInitialized && oldLength == widget.navigationElements?.length) {
+      return;
+    }
+    final int length = widget.navigationElements?.length ?? 0;
+    oldLength = length;
+    int initialIndex = _index;
+    if (controllerInitialized && _controller.index > length) {
+      initialIndex = 0;
+    }
+    if (!controllerInitialized) {
+      setState(() {
+        controllerInitialized = true;
+      });
+      // _controller.dispose();
+    }
+    _controller = TabController(initialIndex: initialIndex, length: length, vsync: this);
+    _controller.animation!.addListener(() {
+      final int index = _controller.animation!.value.round();
+      if (index != _index) {
+        setState(() {
+          _index = index;
+          if (widget.onPageChanged != null) {
+            widget.onPageChanged!(_index);
+          }
+        });
+      }
+    });
   }
 
   List<Widget> get floatingButtons {
@@ -131,6 +158,7 @@ class _YPageState extends State<YPage> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    setController();
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: Scaffold(

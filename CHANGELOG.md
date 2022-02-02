@@ -1,3 +1,7 @@
+# 0.6.6 (02/02/2022)
+
+- Use the `equatable` package for `YTColor`
+
 # 0.6.5 (31/01/2022)
 
 - Fix `YPage` tab controller that caused `late initialization` error

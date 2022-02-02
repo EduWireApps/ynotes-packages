@@ -4,7 +4,7 @@ part of theme;
 enum YColor { primary, secondary, success, warning, danger, info }
 
 /// A class that manages variations of a color to ensure great contrast and lisibility.
-class YTColor {
+class YTColor extends Equatable {
   /// The main color. It can also be used as a text color if contrast is great enough.
   final Color backgroundColor;
 
@@ -26,6 +26,9 @@ class YTColor {
     required this.foregroundColor,
     required this.lightColor,
   });
+
+  @override
+  List<Object> get props => [backgroundColor, foregroundColor, lightColor];
 }
 
 /// A class that manages colors for a theme.
@@ -49,7 +52,7 @@ class YTColors {
   /// The theme primary color that corresponds to [YColor.primary]. Can be anything.
   final YTColor primary;
 
-  /// The theme secondary color that corresponds to [YColor.secondaryDark].
+  /// The theme secondary color that corresponds to [YColor.secondary].
   final YTColor secondary;
 
   /// The theme success color that corresponds to [YColor.success]. Usually green.

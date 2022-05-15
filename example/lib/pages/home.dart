@@ -17,22 +17,30 @@ class _HomePageState extends State<HomePage> {
     YNavigationElement(
       label: "Add",
       icon: Icons.add,
-      widget: Center(child: Text("Add", style: TextStyle(color: theme.colors.foregroundColor))),
+      widget: Center(
+          child: Text("Add",
+              style: TextStyle(color: theme.colors.foregroundColor))),
     ),
     YNavigationElement(
       label: "Minus",
       icon: Icons.minimize,
-      widget: Center(child: Text("Minus", style: TextStyle(color: theme.colors.foregroundColor))),
+      widget: Center(
+          child: Text("Minus",
+              style: TextStyle(color: theme.colors.foregroundColor))),
     ),
     YNavigationElement(
       label: "Email",
       icon: Icons.email,
-      widget: Center(child: Text("Email", style: TextStyle(color: theme.colors.foregroundColor))),
+      widget: Center(
+          child: Text("Email",
+              style: TextStyle(color: theme.colors.foregroundColor))),
     ),
     YNavigationElement(
       label: "Favoris",
       icon: Icons.star_rounded,
-      widget: Center(child: Text("Favoris", style: TextStyle(color: theme.colors.foregroundColor))),
+      widget: Center(
+          child: Text("Favoris",
+              style: TextStyle(color: theme.colors.foregroundColor))),
     ),
   ];
 
@@ -45,7 +53,18 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return YPage(
-        body: toggle ? null : Center(child: Text('Home', style: TextStyle(color: theme.colors.foregroundColor))),
+        scrollable: false,
+        body: toggle
+            ? null
+            : Column(
+                children: [
+                  Expanded(
+                      child: Container(
+                    color: Colors.red,
+                    child: Center(child: Text("Test")),
+                  )),
+                ],
+              ),
         onPageChanged: (value) {
           print("new page index: $value");
         },
@@ -64,7 +83,8 @@ class _HomePageState extends State<HomePage> {
                               YConfirmationDialog(
                                   title: "Choisis un thème",
                                   options: theme.themes
-                                      .map((e) => YConfirmationDialogOption(value: e.id, label: e.name))
+                                      .map((e) => YConfirmationDialogOption(
+                                          value: e.id, label: e.name))
                                       .toList(),
                                   initialValue: theme.currentTheme));
                           if (res != null) {
@@ -81,7 +101,10 @@ class _HomePageState extends State<HomePage> {
                         icon: const Icon(Icons.search_rounded)),
                     IconButton(
                         onPressed: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => const TestPage()));
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const TestPage()));
                         },
                         icon: const Icon(Icons.arrow_forward_rounded)),
                     IconButton(
@@ -102,7 +125,10 @@ class _HomePageState extends State<HomePage> {
                   navEls.add(YNavigationElement(
                     label: "New",
                     icon: Icons.star_rounded,
-                    widget: Center(child: Text("New", style: TextStyle(color: theme.colors.foregroundColor))),
+                    widget: Center(
+                        child: Text("New",
+                            style: TextStyle(
+                                color: theme.colors.foregroundColor))),
                   ));
                 });
               }),
@@ -117,7 +143,8 @@ class _HomePageState extends State<HomePage> {
         navigationElements: toggle ? navEls : null,
         drawer: Drawer(
             child: Container(
-                padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
+                padding:
+                    EdgeInsets.only(top: MediaQuery.of(context).padding.top),
                 color: theme.colors.backgroundColor,
                 child: ListTileTheme(
                   textColor: theme.colors.foregroundLightColor,

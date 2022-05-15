@@ -48,12 +48,14 @@ class YPage extends StatefulWidget {
       this.navigationElements,
       this.navigationInitialIndex = 0,
       this.drawer,
-      this.scrollable = true,
+      this.scrollable = false,
       this.onRefresh,
       this.useBottomNavigation = true,
       this.onPageChanged})
-      : assert(floatingButtons == null || floatingButtons.length <= 2, "Can't use more than 2 floating buttons"),
-        assert(body == null || navigationElements == null, "Can't use body and tab views"),
+      : assert(floatingButtons == null || floatingButtons.length <= 2,
+            "Can't use more than 2 floating buttons"),
+        assert(body == null || navigationElements == null,
+            "Can't use body and tab views"),
         super(key: key);
 
   @override
@@ -81,7 +83,8 @@ class _YPageState extends State<YPage> with TickerProviderStateMixin {
   }
 
   void setController() {
-    if (controllerInitialized && oldLength == widget.navigationElements?.length) {
+    if (controllerInitialized &&
+        oldLength == widget.navigationElements?.length) {
       return;
     }
     final int length = widget.navigationElements?.length ?? 0;
@@ -96,7 +99,8 @@ class _YPageState extends State<YPage> with TickerProviderStateMixin {
       });
       // _controller.dispose();
     }
-    _controller = TabController(initialIndex: initialIndex, length: length, vsync: this);
+    _controller =
+        TabController(initialIndex: initialIndex, length: length, vsync: this);
     _controller.animation!.addListener(() {
       final int index = _controller.animation!.value.round();
       if (index != _index) {
@@ -115,7 +119,9 @@ class _YPageState extends State<YPage> with TickerProviderStateMixin {
     final int _length = widget.floatingButtons!.length;
 
     for (var i = 0; i < _length + _length - 1; i++) {
-      _els.add(i % 2 == 0 ? widget.floatingButtons![i ~/ 2] : YVerticalSpacer(YScale.s4));
+      _els.add(i % 2 == 0
+          ? widget.floatingButtons![i ~/ 2]
+          : YVerticalSpacer(YScale.s4));
     }
 
     return _els;
@@ -133,7 +139,8 @@ class _YPageState extends State<YPage> with TickerProviderStateMixin {
       actions: bar.actions,
       leading: bar.leading,
       bottom: !widget.useBottomNavigation && widget.navigationElements != null
-          ? YTabBar(controller: _controller, elements: widget.navigationElements!)
+          ? YTabBar(
+              controller: _controller, elements: widget.navigationElements!)
           : bar.bottom,
       removeLeading: bar.removeLeading,
     );
@@ -142,18 +149,26 @@ class _YPageState extends State<YPage> with TickerProviderStateMixin {
   Widget body() {
     Widget scrollView(Widget child) => SizedBox(
           height: double.infinity,
-          child: SingleChildScrollView(
-              controller: ScrollController(), physics: const AlwaysScrollableScrollPhysics(), child: child),
+          width: double.infinity,
+          child: widget.scrollable
+              ? SingleChildScrollView(
+                  controller: ScrollController(),
+                  physics: const AlwaysScrollableScrollPhysics(),
+                  child: child)
+              : child,
         );
     Widget refreshIndicator(Widget child) => widget.onRefresh != null
-        ? YRefreshIndicator(child: scrollView(child), onRefresh: widget.onRefresh!)
+        ? YRefreshIndicator(
+            child: scrollView(child), onRefresh: widget.onRefresh!)
         : scrollView(child);
     return Expanded(
         child: widget.body != null
             ? refreshIndicator(widget.body!)
             : TabBarView(
                 controller: _controller,
-                children: widget.navigationElements!.map((e) => refreshIndicator(e.widget)).toList()));
+                children: widget.navigationElements!
+                    .map((e) => refreshIndicator(e.widget))
+                    .toList()));
   }
 
   @override
@@ -172,19 +187,21 @@ class _YPageState extends State<YPage> with TickerProviderStateMixin {
                     child: Column(
                       children: [appBar(context), body()],
                     )))),
-        bottomNavigationBar: widget.navigationElements != null && widget.useBottomNavigation
-            ? YBottomNavigationBar(
-                currentIndex: _index,
-                items: widget.navigationElements!,
-                onTap: (int i) {
-                  setState(() {
-                    _controller.index = i;
-                  });
-                },
-              )
+        bottomNavigationBar:
+            widget.navigationElements != null && widget.useBottomNavigation
+                ? YBottomNavigationBar(
+                    currentIndex: _index,
+                    items: widget.navigationElements!,
+                    onTap: (int i) {
+                      setState(() {
+                        _controller.index = i;
+                      });
+                    },
+                  )
+                : null,
+        floatingActionButton: widget.floatingButtons != null
+            ? Column(mainAxisSize: MainAxisSize.min, children: floatingButtons)
             : null,
-        floatingActionButton:
-            widget.floatingButtons != null ? Column(mainAxisSize: MainAxisSize.min, children: floatingButtons) : null,
         floatingActionButtonLocation: FloatingActionButtonLocation.miniEndFloat,
       ),
     );

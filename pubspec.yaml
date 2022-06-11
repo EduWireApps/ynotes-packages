@@ -1,14 +1,14 @@
 name: ynotes_packages
 description: yNotes' components library.
-publish_to: 'none'
+publish_to: "none"
 version: 0.6.6
 homepage: https://github.com/EduWireApps/ynotes-packages
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
+  sdk: ">=2.17.0-0 <3.0.0"
 
 dependencies:
-  another_flushbar: ^1.10.28
+  another_flushbar: ^1.10.29
   flutter:
     sdk: flutter
   flutter_switch: ^0.3.2
@@ -18,7 +18,7 @@ dependencies:
   provider: ^6.0.2
   equatable: ^2.0.3
 dev_dependencies:
-  flutter_lints: ^1.0.4
+  flutter_lints: ^2.0.1
   flutter_test:
     sdk: flutter
 
